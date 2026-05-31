@@ -194,7 +194,7 @@ def simulate_margin(
     draw_monthly_retirement: float = 0.0,
     retirement_date=None,
     dca_series: pd.Series | None = None,
-    fund_dca_margin: bool = True,
+    fund_dca_margin: bool = False,
 ) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series, pd.Series]:
     """
     Simulates margin loan and calculates equity/usage metrics.

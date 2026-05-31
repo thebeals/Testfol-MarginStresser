@@ -265,7 +265,7 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
     cashflow = _gcf.get('amount', config.get('cashflow', 0.0))
     cashfreq = _gcf.get('freq', config.get('cashfreq', "Monthly"))
     pay_down_margin = _gcf.get('pay_down_margin', config.get('pay_down_margin', False))
-    fund_dca_margin = _gcf.get('fund_dca_margin', True)
+    fund_dca_margin = _gcf.get('fund_dca_margin', False)
     dca_in_retirement = config.get('dca_in_retirement', True)
 
     chart_style = config.get('chart_style', "Classic (Combined)")

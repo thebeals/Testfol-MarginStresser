@@ -113,7 +113,7 @@ def render_chart_tab(
                 _render_cash_statistics(final_adj_series, final_tax_series, draw_monthly, equity_series, draw_start_date=draw_start_date)
             else:
                 _gcf = config.get('global_cashflow', {})
-                _fund_dca = _gcf.get('fund_dca_margin', True)
+                _fund_dca = _gcf.get('fund_dca_margin', False)
                 _pay_down = _gcf.get('pay_down_margin', False)
                 _dca_total = 0.0
                 if _fund_dca and not _pay_down:

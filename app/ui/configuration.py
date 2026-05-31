@@ -9,6 +9,16 @@ from . import asset_explorer
 from . import ndx_scanner
 
 
+DEFAULT_GLOBAL_CASHFLOW = {
+    "start_val": 10000.0,
+    "amount": 0.0,
+    "freq": "Monthly",
+    "invest_div": True,
+    "pay_down_margin": False,
+    "fund_dca_margin": False,
+}
+
+
 def clear_runtime_caches(session_state=None) -> dict[str, int]:
     """Clear Streamlit/in-memory caches without deleting anything under data/."""
     state = session_state if session_state is not None else st.session_state
@@ -51,6 +61,22 @@ def _presets_path() -> str:
     return os.path.join(base_dir, "../../data/presets.json")
 
 
+def _sort_preset_names(presets: list[dict]) -> list[str]:
+    """Sort regular presets first, with research variants grouped last."""
+    names = [p["name"] for p in presets]
+
+    def is_ndx(name: str) -> bool:
+        return name.upper().startswith("NDX")
+
+    def is_research(name: str) -> bool:
+        return "RESEARCH" in name.upper()
+
+    regular_ndx = sorted(name for name in names if is_ndx(name) and not is_research(name))
+    regular_other = sorted(name for name in names if not is_ndx(name) and not is_research(name))
+    research = sorted(name for name in names if is_research(name))
+    return regular_ndx + regular_other + research
+
+
 @st.cache_data(show_spinner=False)
 def _load_presets(preset_mtime: float | None = None):
     """Load and sort preset names from disk (cached)."""
@@ -60,9 +86,7 @@ def _load_presets(preset_mtime: float | None = None):
         return [], []
     with open(preset_path, "r") as f:
         presets = json.load(f)
-    ndx = sorted([p["name"] for p in presets if p["name"].upper().startswith("NDX")])
-    other = sorted([p["name"] for p in presets if not p["name"].upper().startswith("NDX")])
-    return ndx + other, presets
+    return _sort_preset_names(presets), presets
 
 def render():
     """Renders the configuration tabs and returns a config dictionary."""
@@ -127,10 +151,9 @@ def render():
             _portfolio.setdefault("dca", {"mode": "Proportional", "target_ticker": ""})
 
         if "global_cashflow" not in st.session_state:
-            st.session_state.global_cashflow = {
-                "start_val": 10000.0, "amount": 0.0,
-                "freq": "Monthly", "invest_div": True, "pay_down_margin": False
-            }
+            st.session_state.global_cashflow = DEFAULT_GLOBAL_CASHFLOW.copy()
+        else:
+            st.session_state.global_cashflow.setdefault("fund_dca_margin", False)
 
         if "active_tab_idx" not in st.session_state:
             st.session_state.active_tab_idx = 0
@@ -191,7 +214,7 @@ def render():
              st.session_state.global_cashflow["pay_down_margin"] = st.checkbox("Pay Down Margin", st.session_state.global_cashflow["pay_down_margin"], key="g_paydown")
         with gc6:
              st.markdown("<br>", unsafe_allow_html=True)
-             st.session_state.global_cashflow["fund_dca_margin"] = st.checkbox("Fund DCA w/ Margin", st.session_state.global_cashflow.get("fund_dca_margin", True), key="g_fund_margin")
+             st.session_state.global_cashflow["fund_dca_margin"] = st.checkbox("Fund DCA w/ Margin", st.session_state.global_cashflow.get("fund_dca_margin", False), key="g_fund_margin")
 
         st.divider()
 
@@ -508,9 +531,7 @@ def render():
     with tab_port:
         _portfolio_fragment()
         config['portfolios'] = st.session_state.portfolios
-        config['global_cashflow'] = st.session_state.get('global_cashflow', {
-            "start_val": 10000.0, "amount": 0.0, "freq": "Monthly", "invest_div": True, "pay_down_margin": False
-        })
+        config['global_cashflow'] = st.session_state.get('global_cashflow', DEFAULT_GLOBAL_CASHFLOW.copy())
 
     # Margin widget keys to persist across portfolio switches
     _MARGIN_WIDGET_KEYS = [

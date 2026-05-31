@@ -182,7 +182,7 @@ def _build_payload(config, start_date, end_date, bearer_token):
         "margin_rate_annual": _approx_rate,
         "cashflow_for_loan": gcf.get("amount", 0.0),
         "cashflow_freq": gcf.get("freq", "Monthly"),
-        "fund_dca_margin": gcf.get("fund_dca_margin", True),
+        "fund_dca_margin": gcf.get("fund_dca_margin", False),
         "retirement_income": config.get("retirement_income", None),
     }
 
@@ -229,6 +229,7 @@ def _get_portfolios_cfg(config):
                 "freq": config.get("cashfreq", "Monthly"),
                 "invest_div": config.get("invest_div", True),
                 "pay_down_margin": config.get("pay_down_margin", False),
+                "fund_dca_margin": config.get("fund_dca_margin", False),
             },
             "dca": {
                 "mode": "Proportional",
@@ -330,7 +331,7 @@ def _run_inprocess(config, start_date, end_date, bearer_token):
         "margin_rate_annual": _approx_rate,
         "cashflow_for_loan": gcf.get("amount", 0.0),
         "cashflow_freq": gcf.get("freq", "Monthly"),
-        "fund_dca_margin": gcf.get("fund_dca_margin", True),
+        "fund_dca_margin": gcf.get("fund_dca_margin", False),
         "retirement_income": config.get("retirement_income", None),
     }
 

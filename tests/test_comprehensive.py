@@ -980,6 +980,17 @@ class TestSimulateMarginDCA:
         )
         assert loan.iloc[-1] == pytest.approx(50_000, abs=100)
 
+    def test_fund_dca_margin_default_is_false(self):
+        from app.services.testfol_api import simulate_margin
+        port = _flat_port("2023-01-02", "2023-12-29", 200_000)
+        dca = pd.Series(0.0, index=port.index)
+        dca.iloc[::21] = 1_000
+        loan, *_ = simulate_margin(
+            port, 50_000, 0.0, 0, 0.25,
+            dca_series=dca,
+        )
+        assert loan.iloc[-1] == pytest.approx(50_000, abs=100)
+
 
 class TestSimulateMarginStartingCash:
     """Starting with negative loan (cash)."""
