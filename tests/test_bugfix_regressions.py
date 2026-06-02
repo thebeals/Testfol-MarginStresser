@@ -462,3 +462,27 @@ class TestChartNoCache:
         from app.ui.charts.portfolio import render_dashboard_view
         assert not hasattr(render_dashboard_view, '__wrapped__'), \
             "render_dashboard_view should not be cached"
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 18. Multi-portfolio caption includes active cashflows
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestMultiPortfolioCashflowCaption:
+    def test_no_caption_fragment_without_dca(self):
+        from app.ui.charts.portfolio import _format_cashflow_caption
+        assert _format_cashflow_caption({"amount": 0, "freq": "Monthly"}) == ""
+
+    def test_formats_dca_amount_and_frequency(self):
+        from app.ui.charts.portfolio import _format_cashflow_caption
+        caption = _format_cashflow_caption({"amount": 1500, "freq": "Monthly"})
+        assert caption == r"DCA: \$1,500 Monthly."
+
+    def test_formats_margin_repayment_cashflow(self):
+        from app.ui.charts.portfolio import _format_cashflow_caption
+        caption = _format_cashflow_caption({
+            "amount": 250,
+            "freq": "Quarterly",
+            "pay_down_margin": True,
+        })
+        assert caption == r"Margin repayment: \$250 Quarterly."

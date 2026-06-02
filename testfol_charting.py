@@ -490,7 +490,8 @@ if "results_list" in st.session_state and st.session_state.results_list:
     charts.render_multi_portfolio_chart(
         results_list,
         benchmarks=bench_series_list,
-        log_scale=config.get('log_scale', True)
+        log_scale=config.get('log_scale', True),
+        cashflow_config=config.get("global_cashflow", {}),
     )
 
     st.divider()

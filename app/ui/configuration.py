@@ -93,7 +93,13 @@ def render():
     
     st.subheader("Strategy Configuration")
     
-    tab_port, tab_margin, tab_asset, tab_ndx, tab_settings = st.tabs(["💼 Portfolio", "🏦 Margin & Financing", "🧩 Asset Explorer", "📊 NDX Scanner", "⚙️ Settings"])
+    tab_port, tab_margin, tab_asset, tab_ndx, tab_settings = st.tabs([
+        "💼 Portfolio",
+        "🏦 Margin & Financing",
+        "🧩 Asset Explorer",
+        "📊 NDX Scanner",
+        "⚙️ Settings",
+    ])
 
     config = {}
 

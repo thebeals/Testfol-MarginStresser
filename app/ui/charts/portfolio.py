@@ -6,7 +6,29 @@ from plotly.subplots import make_subplots
 from app.core import calculations
 
 # --- Multi-Portfolio Chart ---
-def render_multi_portfolio_chart(results_list, benchmarks=[], log_scale=True):
+def _format_markdown_currency(value):
+    """Format currency for Streamlit Markdown without triggering math rendering."""
+    return f"\\${value:,.0f}"
+
+
+def _format_cashflow_caption(cashflow_config):
+    """Return a short chart caption fragment for active DCA cashflows."""
+    cfg = cashflow_config or {}
+    try:
+        amount = float(cfg.get("amount", cfg.get("cashflow", 0.0)) or 0.0)
+    except (TypeError, ValueError):
+        amount = 0.0
+
+    if amount <= 0:
+        return ""
+
+    freq = str(cfg.get("freq", cfg.get("cashflow_freq", cfg.get("cashfreq", "Monthly"))) or "Monthly")
+    label = "Margin repayment" if cfg.get("pay_down_margin", False) else "DCA"
+    suffix = " (margin-funded)" if label == "DCA" and cfg.get("fund_dca_margin", False) else ""
+    return f"{label}: {_format_markdown_currency(amount)} {freq}{suffix}."
+
+
+def render_multi_portfolio_chart(results_list, benchmarks=[], log_scale=True, cashflow_config=None):
     """
     Renders a performance chart for multiple portfolios.
     Clips all series to common start date and rebases to $10k for fair comparison.
@@ -37,7 +59,14 @@ def render_multi_portfolio_chart(results_list, benchmarks=[], log_scale=True):
         rebase_target = results_list[0].get('start_val', 10000.0)
     
     if common_start:
-        st.caption(f"ℹ️ Chart aligned to common start date: **{common_start.date()}**. All values rebased to ${rebase_target:,.0f}.")
+        caption_parts = [
+            f"Chart aligned to common start date: **{common_start.date()}**.",
+            f"All values rebased to {_format_markdown_currency(rebase_target)}.",
+        ]
+        cashflow_caption = _format_cashflow_caption(cashflow_config)
+        if cashflow_caption:
+            caption_parts.append(cashflow_caption)
+        st.caption("ℹ️ " + " ".join(caption_parts))
 
     # Sort by total return (highest first) for legend/tooltip ordering
     def _total_return(idx):
@@ -807,4 +836,3 @@ def render_dashboard_view(port, equity, loan, equity_pct, usage_pct, maint_pct, 
             """,
             unsafe_allow_html=True
         )
-
