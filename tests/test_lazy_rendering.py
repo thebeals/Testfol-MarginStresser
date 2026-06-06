@@ -5,6 +5,7 @@ from __future__ import annotations
 from contextlib import nullcontext
 
 import pandas as pd
+import pytest
 
 import app.services.data_service as data_service
 import app.ui.charts.metrics as metrics_chart
@@ -32,6 +33,48 @@ def _unexpected(name: str):
 def _sample_series() -> pd.Series:
     dates = pd.bdate_range("2023-01-02", periods=6)
     return pd.Series([100.0, 101.0, 103.0, 102.0, 104.0, 105.0], index=dates)
+
+
+def test_monthly_timeline_state_clips_to_selected_month():
+    dates = pd.to_datetime(["2023-01-03", "2023-01-31", "2023-02-28", "2023-03-31"])
+    series = pd.Series([100.0, 110.0, 121.0, 133.1], index=dates)
+
+    visible_series, monthly_ret, options, selected_end = returns_chart._monthly_timeline_state(
+        series,
+        pd.Timestamp("2023-02-28"),
+    )
+
+    assert selected_end == pd.Timestamp("2023-02-28")
+    assert options == [
+        pd.Timestamp("2023-01-31"),
+        pd.Timestamp("2023-02-28"),
+        pd.Timestamp("2023-03-31"),
+    ]
+    assert visible_series.index.max() == pd.Timestamp("2023-02-28")
+    assert list(monthly_ret.index) == [pd.Timestamp("2023-01-31"), pd.Timestamp("2023-02-28")]
+    assert monthly_ret.iloc[0] == pytest.approx(0.10)
+    assert monthly_ret.iloc[1] == pytest.approx(0.10)
+
+
+def test_quarterly_timeline_state_clips_to_selected_quarter():
+    dates = pd.to_datetime(["2023-01-03", "2023-03-31", "2023-06-30", "2023-09-29"])
+    series = pd.Series([100.0, 110.0, 121.0, 133.1], index=dates)
+
+    visible_series, quarterly_ret, options, selected_end = returns_chart._quarterly_timeline_state(
+        series,
+        pd.Timestamp("2023-06-30"),
+    )
+
+    assert selected_end == pd.Timestamp("2023-06-30")
+    assert options == [
+        pd.Timestamp("2023-03-31"),
+        pd.Timestamp("2023-06-30"),
+        pd.Timestamp("2023-09-30"),
+    ]
+    assert visible_series.index.max() == pd.Timestamp("2023-06-30")
+    assert list(quarterly_ret.index) == [pd.Timestamp("2023-03-31"), pd.Timestamp("2023-06-30")]
+    assert quarterly_ret.iloc[0] == pytest.approx(0.10)
+    assert quarterly_ret.iloc[1] == pytest.approx(0.10)
 
 
 def test_chart_tab_only_renders_selected_panel(monkeypatch):
@@ -122,3 +165,85 @@ def test_returns_analysis_only_renders_selected_section(monkeypatch):
         stats={},
         raw_response={},
     )
+
+
+def test_monthly_returns_view_timeline_slider_limits_visible_period(monkeypatch):
+    dates = pd.to_datetime(["2023-01-03", "2023-01-31", "2023-02-28", "2023-03-31"])
+    series = pd.Series([100.0, 110.0, 121.0, 133.1], index=dates)
+    captured_slider = {}
+    captured_frames = []
+
+    def select_first_month(label, options, value, **kwargs):
+        captured_slider["label"] = label
+        captured_slider["options"] = options
+        captured_slider["default"] = value
+        return options[0]
+
+    def capture_dataframe(obj, **kwargs):
+        captured_frames.append(getattr(obj, "data", obj).copy())
+
+    monkeypatch.setattr(returns_chart.st, "segmented_control", lambda *args, **kwargs: "🗓️ Monthly")
+    monkeypatch.setattr(returns_chart.st, "select_slider", select_first_month)
+    monkeypatch.setattr(returns_chart.st, "subheader", _noop)
+    monkeypatch.setattr(returns_chart.st, "caption", _noop)
+    monkeypatch.setattr(returns_chart.st, "dataframe", capture_dataframe)
+    monkeypatch.setattr(returns_chart.st, "plotly_chart", _noop)
+    monkeypatch.setattr(returns_chart.st, "toggle", lambda *args, **kwargs: False)
+
+    returns_chart.render_returns_analysis(
+        series,
+        unique_id="monthly-timeline",
+        portfolio_name="Monthly Timeline",
+        stats={},
+        raw_response={},
+    )
+
+    assert captured_slider["label"] == "Timeline"
+    assert captured_slider["default"] == pd.Timestamp("2023-03-31")
+    assert captured_slider["options"] == [
+        pd.Timestamp("2023-01-31"),
+        pd.Timestamp("2023-02-28"),
+        pd.Timestamp("2023-03-31"),
+    ]
+    assert captured_frames[0]["Date"].tolist() == ["2023-01"]
+
+
+def test_quarterly_returns_view_timeline_slider_limits_visible_period(monkeypatch):
+    dates = pd.to_datetime(["2023-01-03", "2023-03-31", "2023-06-30", "2023-09-29"])
+    series = pd.Series([100.0, 110.0, 121.0, 133.1], index=dates)
+    captured_slider = {}
+    captured_frames = []
+
+    def select_first_quarter(label, options, value, **kwargs):
+        captured_slider["label"] = label
+        captured_slider["options"] = options
+        captured_slider["default"] = value
+        return options[0]
+
+    def capture_dataframe(obj, **kwargs):
+        captured_frames.append(getattr(obj, "data", obj).copy())
+
+    monkeypatch.setattr(returns_chart.st, "segmented_control", lambda *args, **kwargs: "📆 Quarterly")
+    monkeypatch.setattr(returns_chart.st, "select_slider", select_first_quarter)
+    monkeypatch.setattr(returns_chart.st, "subheader", _noop)
+    monkeypatch.setattr(returns_chart.st, "caption", _noop)
+    monkeypatch.setattr(returns_chart.st, "dataframe", capture_dataframe)
+    monkeypatch.setattr(returns_chart.st, "plotly_chart", _noop)
+    monkeypatch.setattr(returns_chart.st, "toggle", lambda *args, **kwargs: False)
+
+    returns_chart.render_returns_analysis(
+        series,
+        unique_id="quarterly-timeline",
+        portfolio_name="Quarterly Timeline",
+        stats={},
+        raw_response={},
+    )
+
+    assert captured_slider["label"] == "Timeline"
+    assert captured_slider["default"] == pd.Timestamp("2023-09-30")
+    assert captured_slider["options"] == [
+        pd.Timestamp("2023-03-31"),
+        pd.Timestamp("2023-06-30"),
+        pd.Timestamp("2023-09-30"),
+    ]
+    assert captured_frames[0]["Period"].tolist() == ["2023Q1"]

@@ -21,6 +21,47 @@ def _resample_returns(series, rule):
     return ret.dropna()
 
 
+def _period_timeline_state(series, rule, selected_period_end=None):
+    """Return a series/return slice through the selected timeline point."""
+    working_series = pd.Series(series).dropna()
+    if working_series.empty:
+        return working_series, pd.Series(dtype=float), [], None
+
+    if not isinstance(working_series.index, pd.DatetimeIndex):
+        working_series.index = pd.to_datetime(working_series.index)
+    working_series = working_series.sort_index()
+
+    full_period_ret = _resample_returns(working_series, rule)
+    timeline_options = list(full_period_ret.index)
+    if not timeline_options:
+        return working_series.iloc[0:0], full_period_ret, [], None
+
+    selected_end = pd.Timestamp(selected_period_end) if selected_period_end is not None else timeline_options[-1]
+    visible_options = [option for option in timeline_options if option <= selected_end]
+    selected_end = visible_options[-1] if visible_options else timeline_options[0]
+
+    visible_series = working_series.loc[:selected_end]
+    visible_period_ret = _resample_returns(visible_series, rule)
+    return visible_series, visible_period_ret, timeline_options, selected_end
+
+
+def _monthly_timeline_state(series, selected_month_end=None):
+    return _period_timeline_state(series, "ME", selected_month_end)
+
+
+def _quarterly_timeline_state(series, selected_quarter_end=None):
+    return _period_timeline_state(series, "QE", selected_quarter_end)
+
+
+def _format_month_timeline_label(month_end):
+    return pd.Timestamp(month_end).strftime("%b %Y")
+
+
+def _format_quarter_timeline_label(quarter_end):
+    quarter_end = pd.Timestamp(quarter_end)
+    return f"Q{quarter_end.quarter} {quarter_end.year}"
+
+
 @st.cache_data(ttl=45, show_spinner=False)
 def _cached_fetch_live_price_series(symbols: tuple[str, ...], reference_date: str):
     return fetch_yahoo_live_price_series(symbols, pd.Timestamp(reference_date))
@@ -226,7 +267,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
     has_fresh_data = fresh_yearly and len(fresh_yearly) > 0 and fresh_series is not None
     use_fresh = False
     if has_fresh_data:
-        use_fresh = st.toggle("Use Fresh Start returns for period breakdowns", value=False, key=f"fresh_toggle_{unique_id}")
+        use_fresh = st.toggle("Use Fresh Start returns for period breakdowns", value=True, key=f"fresh_toggle_{unique_id}")
 
     active_series = fresh_series if use_fresh else port_series
 
@@ -383,8 +424,32 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
     def render_quarterly_returns_view(series, suffix=""):
         # Combine unique_id with suffix for truly unique keys
         full_suffix = f"{unique_id}_{suffix}" if unique_id else suffix
-        if series.empty: return
-        quarterly_ret = _resample_returns(series, "QE")
+        if series.empty:
+            return None
+
+        visible_series, quarterly_ret, timeline_options, selected_timeline_end = _quarterly_timeline_state(series)
+        if quarterly_ret.empty:
+            st.info("Not enough quarterly data for the returns heatmap.")
+            return None
+
+        if len(timeline_options) > 1:
+            selected_timeline_end = st.select_slider(
+                "Timeline",
+                options=timeline_options,
+                value=selected_timeline_end,
+                format_func=_format_quarter_timeline_label,
+                key=f"quarterly_timeline_{full_suffix}",
+            )
+            visible_series, quarterly_ret, _, selected_timeline_end = _quarterly_timeline_state(
+                series,
+                selected_timeline_end,
+            )
+
+        if selected_timeline_end is not None:
+            st.caption(
+                f"Through {_format_quarter_timeline_label(selected_timeline_end)} | "
+                f"{len(quarterly_ret):,} quarter{'s' if len(quarterly_ret) != 1 else ''}"
+            )
 
         q_ret = quarterly_ret.to_frame(name="Return")
         q_ret["Year"] = q_ret.index.year
@@ -434,8 +499,8 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         # Hover Text
         date_map = {}
         try:
-            periods = series.index.to_period("Q")
-            for p, dates in series.index.groupby(periods).items():
+            periods = visible_series.index.to_period("Q")
+            for p, dates in visible_series.index.groupby(periods).items():
                 if not dates.empty:
                     date_map[(p.year, p.quarter)] = f"{dates.min().strftime('%b %d')} - {dates.max().strftime('%b %d')}"
         except (AttributeError, TypeError, ValueError):
@@ -497,7 +562,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         st.plotly_chart(fig, use_container_width=True, key=f"q_hm_{full_suffix}")
         
         st.subheader("Quarterly Returns List")
-        quarterly_bal = series.resample("QE").last()
+        quarterly_bal = visible_series.resample("QE").last()
         df_quarterly_list = q_ret.copy()
         df_quarterly_list["Period"] = df_quarterly_list.index.to_period("Q").astype(str)
         df_quarterly_list["Balance"] = quarterly_bal.reindex(df_quarterly_list.index).values
@@ -508,12 +573,37 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             use_container_width=True,
             hide_index=True
         )
+        return visible_series, quarterly_ret, selected_timeline_end
 
     def render_monthly_returns_view(series, suffix=""):
         # Combine unique_id with suffix for truly unique keys
         full_suffix = f"{unique_id}_{suffix}" if unique_id else suffix
-        if series.empty: return
-        m_ret = _resample_returns(series, "ME")
+        if series.empty:
+            return None
+
+        visible_series, m_ret, timeline_options, selected_timeline_end = _monthly_timeline_state(series)
+        if m_ret.empty:
+            st.info("Not enough monthly data for the returns heatmap.")
+            return None
+
+        if len(timeline_options) > 1:
+            selected_timeline_end = st.select_slider(
+                "Timeline",
+                options=timeline_options,
+                value=selected_timeline_end,
+                format_func=_format_month_timeline_label,
+                key=f"monthly_timeline_{full_suffix}",
+            )
+            visible_series, m_ret, _, selected_timeline_end = _monthly_timeline_state(
+                series,
+                selected_timeline_end,
+            )
+
+        if selected_timeline_end is not None:
+            st.caption(
+                f"Through {_format_month_timeline_label(selected_timeline_end)} | "
+                f"{len(m_ret):,} month{'s' if len(m_ret) != 1 else ''}"
+            )
 
         df_monthly = m_ret.to_frame(name="Return")
         df_monthly["Year"] = df_monthly.index.year
@@ -615,6 +705,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         if has_fresh:
             fig.update_yaxes(showticklabels=False, col=3)
         st.plotly_chart(fig, use_container_width=True, key=f"m_hm_{full_suffix}")
+        return visible_series, m_ret, selected_timeline_end
 
     def render_year_drilldown_view(series, suffix=""):
         full_suffix = f"{unique_id}_{suffix}" if unique_id else suffix
@@ -991,10 +1082,11 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             )
 
         if selected_quarterly_view == portfolio_name:
-            quarterly_ret = _resample_returns(active_series, "QE")
             st.subheader(f"{portfolio_name} Quarterly Returns")
-            render_quarterly_returns_view(active_series)
-            render_distribution(quarterly_ret, "Quarterly", "Quarters")
+            quarterly_state = render_quarterly_returns_view(active_series)
+            if quarterly_state is not None:
+                _, quarterly_ret, _ = quarterly_state
+                render_distribution(quarterly_ret, "Quarterly", "Quarters")
         elif selected_quarterly_view == "Benchmark (Comparison)":
             st.subheader("Standard Rebalance (Comparison) Quarterly Returns")
             render_quarterly_returns_view(comparison_series, suffix="_comp")
@@ -1020,23 +1112,25 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             )
 
         if selected_monthly_view == portfolio_name:
-            monthly_ret = _resample_returns(active_series, "ME")
             st.subheader(f"{portfolio_name} Monthly Returns")
-            render_monthly_returns_view(active_series)
+            monthly_state = render_monthly_returns_view(active_series)
 
-            st.subheader("Monthly Returns List")
-            monthly_bal = active_series.resample("ME").last()
-            df_monthly_list = monthly_ret.to_frame(name="Return")
-            df_monthly_list["Date"] = df_monthly_list.index.strftime("%Y-%m")
-            df_monthly_list["Balance"] = monthly_bal.reindex(df_monthly_list.index).values
-            df_monthly_list = df_monthly_list[["Date", "Return", "Balance"]].sort_index(ascending=False)
-            st.dataframe(
-                df_monthly_list.style.format({"Return": "{:+.1%}", "Balance": "${:,.2f}"}).map(color_return, subset=["Return"]),
-                use_container_width=True,
-                hide_index=True,
-            )
+            if monthly_state is not None:
+                visible_monthly_series, monthly_ret, _ = monthly_state
 
-            render_distribution(monthly_ret, "Monthly", "Months")
+                st.subheader("Monthly Returns List")
+                monthly_bal = visible_monthly_series.resample("ME").last()
+                df_monthly_list = monthly_ret.to_frame(name="Return")
+                df_monthly_list["Date"] = df_monthly_list.index.strftime("%Y-%m")
+                df_monthly_list["Balance"] = monthly_bal.reindex(df_monthly_list.index).values
+                df_monthly_list = df_monthly_list[["Date", "Return", "Balance"]].sort_index(ascending=False)
+                st.dataframe(
+                    df_monthly_list.style.format({"Return": "{:+.1%}", "Balance": "${:,.2f}"}).map(color_return, subset=["Return"]),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+                render_distribution(monthly_ret, "Monthly", "Months")
         elif selected_monthly_view == "Benchmark (Comparison)":
             st.subheader("Standard Rebalance (Comparison) Monthly Returns")
             render_monthly_returns_view(comparison_series, suffix="_comp")
