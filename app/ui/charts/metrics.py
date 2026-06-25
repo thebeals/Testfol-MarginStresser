@@ -4,7 +4,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import streamlit as st
-from scipy import stats as sp_stats
+
+from app.ui.charts.stats_helpers import excess_kurtosis, skewness
 
 
 # ---------------------------------------------------------------------------
@@ -351,7 +352,7 @@ def _build_metrics(port_series, stats, raw_response):
         if rs:
             add(f"Skewness of {tag} Returns", _fmt_num(rs.get("skewness")))
         elif len(vals) > 2:
-            add(f"Skewness of {tag} Returns", _fmt_num(float(sp_stats.skew(vals, nan_policy="omit"))))
+            add(f"Skewness of {tag} Returns", _fmt_num(skewness(vals)))
         else:
             add(f"Skewness of {tag} Returns", "")
 
@@ -359,7 +360,7 @@ def _build_metrics(port_series, stats, raw_response):
         if rs:
             add(f"Excess Kurtosis of {tag} Returns", _fmt_num(rs.get("kurtosis")))
         elif len(vals) > 2:
-            add(f"Excess Kurtosis of {tag} Returns", _fmt_num(float(sp_stats.kurtosis(vals, nan_policy="omit"))))
+            add(f"Excess Kurtosis of {tag} Returns", _fmt_num(excess_kurtosis(vals)))
         else:
             add(f"Excess Kurtosis of {tag} Returns", "")
 

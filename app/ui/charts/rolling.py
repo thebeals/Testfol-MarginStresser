@@ -8,6 +8,8 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+from app.ui.charts.stats_helpers import excess_kurtosis, skewness
+
 logger = logging.getLogger(__name__)
 
 
@@ -148,16 +150,11 @@ def _compute_rolling_local(
     results["max_dd"] = _rolling_max_dd(port_series, window_days)
 
     # Rolling Skewness
-    from scipy import stats as sp_stats
-    roll_skew = daily_rets.rolling(window_days).apply(
-        lambda x: sp_stats.skew(x, nan_policy="omit"), raw=True
-    )
+    roll_skew = daily_rets.rolling(window_days).apply(skewness, raw=True)
     results["skewness"] = roll_skew.dropna()
 
     # Rolling Excess Kurtosis
-    roll_kurt = daily_rets.rolling(window_days).apply(
-        lambda x: sp_stats.kurtosis(x, nan_policy="omit"), raw=True
-    )
+    roll_kurt = daily_rets.rolling(window_days).apply(excess_kurtosis, raw=True)
     results["kurtosis"] = roll_kurt.dropna()
 
     # Rolling Full Kelly: f* = mean / var (daily), then annualized leverage

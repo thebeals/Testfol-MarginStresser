@@ -7,6 +7,7 @@ from plotly.subplots import make_subplots
 from app.common.utils import color_return
 from app.core import calculations
 from app.services.live_prices import build_live_returns_snapshot, fetch_yahoo_live_price_series
+from app.ui.charts.stats_helpers import excess_kurtosis, skewness
 
 
 def _resample_returns(series, rule):
@@ -308,7 +309,6 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         st.plotly_chart(fig, use_container_width=True)
 
         st.subheader("Summary Statistics")
-        from scipy import stats as sp_stats
         pcts = [1, 5, 25, 50, 75, 95, 99]
         pct_vals = np.nanpercentile(vals, pcts)
         stat_rows = {
@@ -323,8 +323,8 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             "Maximum": f"{np.nanmax(vals)*100:.2f}%",
             "Mean": f"{np.nanmean(vals)*100:.2f}%",
             "Std Deviation": f"{np.nanstd(vals, ddof=1)*100:.2f}%",
-            "Skewness": f"{sp_stats.skew(vals, nan_policy='omit'):.3f}",
-            "Excess Kurtosis": f"{sp_stats.kurtosis(vals, nan_policy='omit'):.3f}",
+            "Skewness": f"{skewness(vals):.3f}",
+            "Excess Kurtosis": f"{excess_kurtosis(vals):.3f}",
         }
         col_name = f"{portfolio_name} {period_label} Returns"
         df_stats = pd.DataFrame(
