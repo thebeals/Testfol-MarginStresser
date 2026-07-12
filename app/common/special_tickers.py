@@ -141,6 +141,7 @@ LIVE_PRICE_PROVIDER_FALLBACKS: dict[str, str] = {
     # Local synthetic Nasdaq sleeves are spliced to live ETFs for current quotes.
     "NDXMEGASIM": "QBIG",
     "NDXMEGA2SIM": "QBIG",
+    "QQUPSIM": "QQUP",
     "NDX30SIM": "QTOP",
 }
 

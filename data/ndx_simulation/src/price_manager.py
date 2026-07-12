@@ -8,7 +8,14 @@ from datetime import datetime, timedelta
 DATA_SOURCE = os.environ.get('NDX_DATA_SOURCE', 'yfinance')
 POLYGON_API_KEY = os.environ.get('POLYGON_API_KEY', None)
 
-def get_price_data(tickers, start_date='2000-01-01', force_refresh=False, data_source=None, polygon_api_key=None):
+def get_price_data(
+    tickers,
+    start_date='2000-01-01',
+    force_refresh=False,
+    data_source=None,
+    polygon_api_key=None,
+    adjust_prices=True,
+):
     """
     Fetches price data for the specified tickers.
     Uses a local pickle cache to avoid redundant downloads.
@@ -19,18 +26,26 @@ def get_price_data(tickers, start_date='2000-01-01', force_refresh=False, data_s
         force_refresh: If True, bypass cache and download fresh
         data_source: 'yfinance' (default), 'polygon', or 'stooq'
         polygon_api_key: API key for Polygon.io (required if data_source='polygon')
+        adjust_prices: Use dividend-adjusted closes when True; raw closes when False
     """
     # Determine data source
     source = data_source or DATA_SOURCE
     api_key = polygon_api_key or POLYGON_API_KEY
+    if not adjust_prices and source != 'yfinance':
+        print("Price-return reconstruction requires raw Yahoo closes; using yfinance.")
+        source = 'yfinance'
     
-    # Use different cache files for different sources
+    # Use different cache files for different sources and return conventions.
+    # The ordinary simulations use dividend-adjusted prices (total return). The
+    # QQUP backfill needs raw closes because QQUP targets the price index.
     if source == 'polygon':
         cache_file = config.PRICE_CACHE_FILE.replace('.pkl', '_polygon.pkl')
     elif source == 'stooq':
         cache_file = config.PRICE_CACHE_FILE.replace('.pkl', '_stooq.pkl')
     else:
         cache_file = config.PRICE_CACHE_FILE
+    if not adjust_prices:
+        cache_file = cache_file.replace('.pkl', '_price_return.pkl')
     
     # 1. Try Loading Cache
     if not force_refresh and os.path.exists(cache_file):
@@ -47,7 +62,9 @@ def get_price_data(tickers, start_date='2000-01-01', force_refresh=False, data_s
             # instead of returning an unrelated cached universe.
             if missing and (len(tickers) <= 5 or not present):
                 print(f"Cache missing requested ticker(s): {', '.join(missing)}. Fetching and merging...")
-                return download_and_cache(missing, start_date, cache_file, source, api_key)
+                return download_and_cache(
+                    missing, start_date, cache_file, source, api_key, adjust_prices
+                )
             
             if pct_missing > 0.25:
                 print(f"Cache missing {len(missing)} tickers ({pct_missing:.1%}) — likely historical/delisted, using cache as-is.")
@@ -58,7 +75,9 @@ def get_price_data(tickers, start_date='2000-01-01', force_refresh=False, data_s
                 start_gap = df.index[0] - pd.to_datetime(start_date)
                 if start_gap > pd.Timedelta(days=7):
                     print(f"Cache starts {df.index[0].date()}, need {start_date}. Refreshing...")
-                    return download_and_cache(tickers, start_date, cache_file, source, api_key)
+                    return download_and_cache(
+                        tickers, start_date, cache_file, source, api_key, adjust_prices
+                    )
                 print(f"Cache starts {df.index[0].date()}, close enough to {start_date}. Using cache.")
                  
             return df
@@ -67,9 +86,16 @@ def get_price_data(tickers, start_date='2000-01-01', force_refresh=False, data_s
             print(f"Error loading cache: {e}. Downloading fresh...")
             
     # 2. Download Fresh
-    return download_and_cache(tickers, start_date, cache_file, source, api_key)
+    return download_and_cache(tickers, start_date, cache_file, source, api_key, adjust_prices)
 
-def download_and_cache(tickers, start_date, cache_file, data_source='yfinance', polygon_api_key=None):
+def download_and_cache(
+    tickers,
+    start_date,
+    cache_file,
+    data_source='yfinance',
+    polygon_api_key=None,
+    adjust_prices=True,
+):
     """Download price data from specified source and cache it."""
     unique_tickers = list(set(tickers))
     
@@ -81,7 +107,7 @@ def download_and_cache(tickers, start_date, cache_file, data_source='yfinance', 
         new_df = download_from_stooq(unique_tickers, start_date)
     else:
         # Default: Yahoo Finance with Fallback
-        new_df = download_from_yfinance(unique_tickers, start_date)
+        new_df = download_from_yfinance(unique_tickers, start_date, adjust_prices=adjust_prices)
         
         # --- Fallback Logic ---
         # Identify missing tickers (requested but not returned OR returned as all NaNs)
@@ -135,17 +161,17 @@ def download_and_cache(tickers, start_date, cache_file, data_source='yfinance', 
         df = new_df
         
     # Apply successor ticker fallback for acquired companies
-    df = apply_successor_fallback(df)
+    df = apply_successor_fallback(df, adjust_prices=adjust_prices)
 
     # Merge Wayback Machine recovered prices for delisted tickers
-    df = merge_wayback_prices(df)
+    df = merge_wayback_prices(df, adjust_prices=adjust_prices)
 
     df.to_pickle(cache_file)
     print(f"Saved {len(df.columns)} tickers to cache: {cache_file}")
     return df
 
 
-def merge_wayback_prices(df):
+def merge_wayback_prices(df, adjust_prices=True):
     """Merge Wayback Machine scraped prices for delisted tickers.
 
     Source: data/assets/wayback_prices/{TICKER}.csv
@@ -185,7 +211,10 @@ def merge_wayback_prices(df):
         except Exception:
             continue
 
-        col = "Adj Close" if "Adj Close" in wb.columns else "Close"
+        if adjust_prices and "Adj Close" in wb.columns:
+            col = "Adj Close"
+        else:
+            col = "Close"
         series = wb[col].dropna()
         if series.empty:
             continue
@@ -223,7 +252,7 @@ def merge_wayback_prices(df):
 
     return df
 
-def apply_successor_fallback(df):
+def apply_successor_fallback(df, adjust_prices=True):
     """For delisted tickers with no data, try to fill with successor ticker data.
     Downloads successor tickers that aren't already in the cache."""
     try:
@@ -267,7 +296,12 @@ def apply_successor_fallback(df):
         print(f"  Downloading {len(missing_succs)} successor tickers: {missing_succs}")
         for succ in missing_succs:
             try:
-                single = yf.download(succ, start='2000-01-01', auto_adjust=True, progress=False)
+                single = yf.download(
+                    succ,
+                    start='2000-01-01',
+                    auto_adjust=adjust_prices,
+                    progress=False,
+                )
                 if not single.empty:
                     close = single['Close'] if 'Close' in single.columns else single.iloc[:, 0]
                     if hasattr(close, 'columns'):
@@ -315,11 +349,16 @@ def apply_successor_fallback(df):
 
     return df
 
-def download_from_yfinance(tickers, start_date):
+def download_from_yfinance(tickers, start_date, adjust_prices=True):
     """Download price data from yfinance."""
     print(f"[yfinance] Downloading prices for {len(tickers)} tickers from {start_date}...")
     
-    data = yf.download(tickers, start=start_date, auto_adjust=True, progress=True)
+    data = yf.download(
+        tickers,
+        start=start_date,
+        auto_adjust=adjust_prices,
+        progress=True,
+    )
 
     if data.empty:
         return pd.DataFrame()

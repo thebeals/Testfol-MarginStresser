@@ -48,7 +48,7 @@ graph TD
         TESTFOL[testfol.io API]
         YF[yfinance]
         PG[Polygon.io]
-        MEGA[NDXMEGASIM/2SIM CSVs]
+        MEGA[NDXMEGASIM/2SIM and QQUPSIM CSVs]
     end
 
     MAIN --> SB
@@ -169,10 +169,11 @@ The app operates in three modes:
 1. **Standard Mode**: Testfol API for backtesting, provider chain for component prices
    - Best for standard tickers (SPY, QQQ, etc.)
 
-2. **Local Mode** (auto-enabled for NDXMEGASIM/threshold rebalancing): Shadow engine with provider chain for prices
+2. **Local Mode** (auto-enabled for NDXMEGASIM/QQUPSIM/threshold rebalancing): Shadow engine with provider chain for prices
    - Loads local CSV for simulated indices
    - Splices post-launch history to the official FRED Nasdaq total-return index
    - Uses QBIG/QQUP only as live quote fallbacks, never as historical index data
+   - `QQUPSIM` uses a reconstructed/official price-index 2x backfill and splices to actual adjusted QQUP history at inception
    - Uses local Shadow Engine for tax calculations
 
 3. **Failover Mode** (auto-enabled when Testfol is down): Same as Local Mode, triggered automatically with user notification

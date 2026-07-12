@@ -23,5 +23,6 @@ class DcaMode:
 class Tickers:
     NDXMEGASIM = "NDXMEGASIM"
     NDXMEGA2SIM = "NDXMEGA2SIM"
+    QQUPSIM = "QQUPSIM"
     NDX30SIM = "NDX30SIM"
     QBIG = "QBIG"

@@ -3,10 +3,15 @@ import streamlit as st
 import json
 import os
 
-APP_VERSION = "3.9.1"
+APP_VERSION = "3.9.2"
 
 CHANGELOG_MARKDOWN = """
 ## Changelog
+
+### v3.9.2 - QQUP Realized-Tracker Simulation
+- Added `QQUPSIM`: a pre-inception 2x backfill built from reconstructed NDXMEGA price returns, Testfol-compatible DFF financing, and one 0.95% expense deduction.
+- Spliced the backfill first to the official `NASDAQNDXMEGA` price index and then to actual adjusted QQUP returns, preserving every return across both boundaries.
+- Updated the ER-aware NDXMEGASPLIT and standalone QQUP proxy presets to use `QQUPSIM`; theoretical `NDXMEGASIM?L=2&E=0.95` remains available.
 
 ### v3.9.1 - NDX Mega & Financing Accuracy
 - Fixed the local shadow engine dropping the first investable return interval.

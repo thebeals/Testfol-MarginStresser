@@ -187,6 +187,34 @@ class TestRunSingleBacktest:
         assert result["is_local"]
         assert captured == {"dca_mode": "Single Asset", "dca_target_ticker": "SPY"}
 
+    def test_qqupsim_forces_local_engine(self, monkeypatch):
+        def _component_fetch(tickers, start_date, end_date, **kwargs):
+            return _mock_component_prices(tickers, start_date, end_date)
+
+        def _fetch_should_not_run(**kwargs):
+            raise AssertionError("QQUPSIM is a local realized-tracker simulation")
+
+        monkeypatch.setattr(orchestrator, "fetch_component_data", _component_fetch)
+        result = run_single_backtest(
+            allocation={"QQUPSIM": 100.0},
+            maint_pcts={"QQUPSIM": 50.0},
+            rebalance={"mode": "Standard", "freq": "Yearly"},
+            start_date="2020-01-02",
+            end_date="2020-01-10",
+            start_val=10000.0,
+            cashflow_amount=0.0,
+            cashflow_freq="Monthly",
+            invest_div=True,
+            pay_down_margin=False,
+            tax_config={},
+            bearer_token=None,
+            name="QQUPSIM",
+            fetch_backtest_fn=_fetch_should_not_run,
+            run_shadow_fn=_mock_shadow,
+        )
+
+        assert result["is_local"]
+
     def test_name_propagated(self):
         """Portfolio name is propagated to result."""
         result = run_single_backtest(

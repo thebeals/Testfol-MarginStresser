@@ -306,6 +306,108 @@ def test_ndxmega_official_series_mappings():
     }
 
 
+def test_qqupsim_formula_uses_price_returns_and_testfol_costs():
+    dates = pd.to_datetime(["2024-01-02", "2024-01-03", "2024-01-04"])
+    underlying = pd.Series([100.0, 110.0, 99.0], index=dates)
+    dff = pd.Series(5.33, index=dates)
+
+    result = data_service._build_testfol_leveraged_price_series(
+        underlying,
+        dff,
+        name="QQUPSIM",
+    )
+
+    daily_cost = 1.10 * ((5.33 / 100) / 252 + (0.40 / 100) / 252)
+    daily_cost += (0.95 / 100) / 252
+    expected_returns = [0.0, 2 * 0.10 - daily_cost, 2 * -0.10 - daily_cost]
+    assert result.iloc[0] == pytest.approx(100.0)
+    assert result.pct_change().fillna(0.0).to_list() == pytest.approx(expected_returns)
+
+
+def test_qqupsim_formula_does_not_multiply_weekend_cost():
+    dates = pd.to_datetime(["2024-01-05", "2024-01-08", "2024-01-09"])
+    underlying = pd.Series(100.0, index=dates)
+    dff = pd.Series(5.0, index=pd.date_range(dates[0], dates[-1], freq="D"))
+
+    result = data_service._build_testfol_leveraged_price_series(
+        underlying,
+        dff,
+        name="QQUPSIM",
+    )
+    expected_cost = 1.10 * ((5.0 / 100) / 252 + (0.40 / 100) / 252)
+    expected_cost += (0.95 / 100) / 252
+    assert result.pct_change().dropna().to_list() == pytest.approx(
+        [-expected_cost, -expected_cost]
+    )
+
+
+def test_qqupsim_splice_preserves_actual_returns_and_does_not_rededuct_expense(
+    monkeypatch,
+):
+    official_dates = pd.to_datetime(
+        ["2024-07-29", "2024-07-30", "2025-06-10", "2025-06-11", "2025-06-12"]
+    )
+    official = pd.Series([1000.0, 1010.0, 1200.0, 1210.0, 1220.0], index=official_dates)
+    actual_dates = pd.to_datetime(["2025-06-10", "2025-06-11", "2025-06-12"])
+    actual = pd.Series([100.0, 102.0, 99.0], index=actual_dates)
+
+    class RecordingProvider:
+        def __init__(self):
+            self.calls = []
+
+        def fetch_prices(self, tickers, start_date, end_date):
+            self.calls.append(tuple(tickers))
+            return pd.DataFrame({"QQUP": actual})
+
+    provider = RecordingProvider()
+    monkeypatch.setattr(data_service, "get_price_provider", lambda: provider)
+    monkeypatch.setattr(data_service, "cache_get", lambda *args, **kwargs: None)
+    monkeypatch.setattr(data_service, "cache_set", lambda *args, **kwargs: None)
+    monkeypatch.setattr(data_service, "_get_fred_series", lambda *args, **kwargs: official)
+    monkeypatch.setattr(
+        data_service,
+        "get_fed_funds_rate",
+        lambda: pd.Series(0.0, index=pd.date_range("2000-01-01", "2025-06-12")),
+    )
+
+    result = data_service.fetch_component_data(
+        [Tickers.QQUPSIM],
+        "2025-06-09",
+        "2025-06-12",
+        sync_end=False,
+    )[Tickers.QQUPSIM]
+
+    assert provider.calls == [("QQUP",)]
+    assert result.loc["2025-06-11"] / result.loc["2025-06-10"] - 1 == pytest.approx(0.02)
+    assert result.loc["2025-06-12"] / result.loc["2025-06-11"] - 1 == pytest.approx(
+        99 / 102 - 1
+    )
+
+
+def test_price_return_reconstruction_is_distinct_and_tracks_official_index():
+    price = pd.read_csv(
+        "data/NDXMEGAPRICESIM.csv", parse_dates=["Date"]
+    ).set_index("Date")["Close"].dropna()
+    total = pd.read_csv(
+        "data/NDXMEGASIM.csv", parse_dates=["Date"]
+    ).set_index("Date")["Close"].dropna()
+    official = pd.read_csv(
+        "data/NASDAQNDXMEGA.csv", parse_dates=["observation_date"]
+    ).set_index("observation_date")["NASDAQNDXMEGA"]
+    official = pd.to_numeric(official, errors="coerce").dropna()
+
+    common = price.index.intersection(total.index)
+    price_growth = price.loc[common].iloc[-1] / price.loc[common].iloc[0]
+    total_growth = total.loc[common].iloc[-1] / total.loc[common].iloc[0]
+    assert price.index[0] == pd.Timestamp("2000-06-30")
+    assert price_growth < total_growth
+
+    official_common = price.index.intersection(official.index)
+    price_returns = price.loc[official_common].pct_change().dropna()
+    official_returns = official.loc[official_common].pct_change().dropna()
+    assert price_returns.corr(official_returns) > 0.99
+
+
 def test_official_splice_keeps_anchor_and_first_official_return():
     local = pd.Series(
         [100.0, 102.0, 104.0, 106.0],

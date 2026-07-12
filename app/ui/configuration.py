@@ -119,7 +119,7 @@ def render():
         # --- initialize state ---
         if "portfolios" not in st.session_state:
             _default_alloc = pd.DataFrame([
-                {"Ticker": "NDXMEGASIM?L=2&E=0.95", "Weight %": 60.0, "Maint %": 50.0, "PM Maint %": 30.0},
+                {"Ticker": "QQUPSIM", "Weight %": 60.0, "Maint %": 50.0, "PM Maint %": 30.0},
                 {"Ticker": "GLDSIM?E=0.40", "Weight %": 20.0, "Maint %": 25.0, "PM Maint %": 15.0},
                 {"Ticker": "VXUSSIM?E=0.05", "Weight %": 15.0, "Maint %": 25.0, "PM Maint %": 9.0},
                 {"Ticker": "QQQSIM?L=3&E=0.82", "Weight %": 5.0, "Maint %": 75.0, "PM Maint %": 30.0}

@@ -65,9 +65,16 @@ You can use Testfol modifiers in the ticker symbol to simulate leverage or expen
 | `?CU=X&CL=Y` | **Daily caps**: Caps the underlying daily return at `X%` and `Y%` before leverage. | `SPY?CU=2&CL=-2` |
 | `?SW=X&SP=Y` | **Financing controls**: Overrides swap exposure and annual spread. | `SPY?L=2&SW=1&SP=0.5` |
 | `?FR=X` | **Funding reference**: Uses `EFFRX`, `CASHX`/`TBILL`, or a FRED `DGS*` yield series. | `SPY?L=2&FR=DGS3MO` |
-| `_SIM` | **Simulation**: Often used to extend history. | `UPRO_SIM` (Simulated 3x SPY) |
+| `_SIM` | **Simulation**: Often used to extend history. | `QQUPSIM` (QQUP-like 2x NDXMEGA history) |
 
 You can combine modifiers: `NDXMEGASIM?L=2&E=0.95` (2x leveraged with 0.95% expense ratio).
+
+Use `QQUPSIM` when the goal is to model the traded QQUP product before its
+inception. It already contains 2x daily leverage, DFF financing, the 0.40%
+spread, and the 0.95% expense ratio before inception, followed by actual QQUP
+adjusted returns. Do not add `?L=2&E=0.95` to `QQUPSIM` unless you intentionally
+want to lever the already-levered product again. Use
+`NDXMEGASIM?L=2&E=0.95` for a theoretical 2x total-return-index sleeve instead.
 
 For local-engine LETF simulations, `?L` is rate-sensitive. The simulator matches Testfol's trading-day convention: FRED's daily `DFF` rate, `SP`, and `E` are converted with simple `/252`; `SW` defaults to 1.10 and `SP` to `sign(L) × 0.40%`. Weekends and market holidays do not add observations. A flat 4% funding rate is used only when DFF cannot be loaded. Example: `QQQSIM?L=3&E=0.82` applies 3x daily QQQ exposure, subtracts financing on the extra exposure, then subtracts the explicit `0.82%` expense ratio once. Unsupported advanced Testfol modifiers are surfaced in the local-engine log rather than silently ignored.
 

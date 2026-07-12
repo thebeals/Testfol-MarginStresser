@@ -206,6 +206,7 @@ yarn-error.log*
 
 # Data Caches (Exclude from git)
 data/etf_xray/cache/etf_filings/
+data/ndx_simulation/data/cache/prices_cache_price_return.pkl
 .gemini/
 
 # User Data (Keep these tracked?)

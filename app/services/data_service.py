@@ -28,6 +28,11 @@ NDX_MEGA_FRED_SERIES = {
     Tickers.NDXMEGASIM: "NASDAQNDXMEGAT",
     Tickers.NDXMEGA2SIM: "NASDAQNDXMEGA2T",
 }
+QQUP_UNDERLYING_FRED_SERIES = "NASDAQNDXMEGA"
+QQUP_LEVERAGE = 2.0
+QQUP_SWAP_EXPOSURE = 1.10
+QQUP_SPREAD_PCT = 0.40
+QQUP_EXPENSE_PCT = 0.95
 
 
 def _splice_official_total_return(
@@ -36,7 +41,7 @@ def _splice_official_total_return(
     *,
     name: str,
 ) -> pd.Series:
-    """Keep local history through a common anchor, then preserve official returns."""
+    """Keep local history through a common anchor, then preserve replacement returns."""
     local = pd.Series(local_series, copy=True).dropna().sort_index()
     official = pd.Series(official_series, copy=True).dropna().sort_index()
     for series in (local, official):
@@ -69,6 +74,53 @@ def _splice_official_total_return(
     scaled_official = official * (float(local.loc[anchor]) / official_anchor)
     combined = pd.concat([local.loc[:anchor], scaled_official.loc[scaled_official.index > anchor]])
     return combined[~combined.index.duplicated(keep="last")].sort_index().rename(name)
+
+
+def _build_testfol_leveraged_price_series(
+    underlying_series: pd.Series,
+    annual_funding_pct: pd.Series | None,
+    *,
+    name: str,
+    leverage: float = QQUP_LEVERAGE,
+    swap_exposure: float = QQUP_SWAP_EXPOSURE,
+    spread_pct: float = QQUP_SPREAD_PCT,
+    expense_pct: float = QQUP_EXPENSE_PCT,
+) -> pd.Series:
+    """Build a Testfol-compatible synthetic LETF level from price-index returns."""
+    underlying = pd.to_numeric(pd.Series(underlying_series, copy=True), errors="coerce").dropna()
+    if underlying.empty:
+        return pd.Series(dtype=float, name=name)
+    if not isinstance(underlying.index, pd.DatetimeIndex):
+        underlying.index = pd.to_datetime(underlying.index)
+    if underlying.index.tz is not None:
+        underlying.index = underlying.index.tz_localize(None)
+    underlying = underlying[~underlying.index.duplicated(keep="last")].sort_index()
+
+    if annual_funding_pct is None or annual_funding_pct.empty:
+        funding_pct = pd.Series(4.0, index=underlying.index)
+    else:
+        funding_pct = pd.to_numeric(
+            pd.Series(annual_funding_pct, copy=True), errors="coerce"
+        ).dropna()
+        if not isinstance(funding_pct.index, pd.DatetimeIndex):
+            funding_pct.index = pd.to_datetime(funding_pct.index)
+        if funding_pct.index.tz is not None:
+            funding_pct.index = funding_pct.index.tz_localize(None)
+        funding_pct = funding_pct.sort_index().reindex(underlying.index, method="ffill").fillna(4.0)
+
+    underlying_returns = underlying.pct_change(fill_method=None)
+    funding_daily = (funding_pct / 100.0) / 252.0
+    spread_daily = (spread_pct / 100.0) / 252.0
+    expense_daily = (expense_pct / 100.0) / 252.0
+    leveraged_returns = (
+        leverage * underlying_returns
+        - swap_exposure * (leverage - 1.0) * (funding_daily + spread_daily)
+        - expense_daily
+    ).clip(lower=-1.0)
+
+    # The first row is a level anchor, not an investable return interval.
+    leveraged_returns.iloc[0] = 0.0
+    return (100.0 * (1.0 + leveraged_returns).cumprod()).rename(name)
 
 
 def _normalize_date_str(value) -> str:
@@ -310,7 +362,7 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
             "start_date": sd_str,
             "end_date": ed_str,
             "sync_end": sync_end,
-            "sync_policy": "requested-window-v6-testfol-sessions-modifiers",
+            "sync_policy": "requested-window-v7-qqupsim-price-index",
         },
         sort_keys=True,
     )
@@ -326,6 +378,8 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
     proxy_tickers: list[str] = []
     if Tickers.NDX30SIM in unique_bases:
         proxy_tickers.append("QTOP")
+    if Tickers.QQUPSIM in unique_bases:
+        proxy_tickers.append("QQUP")
     proxy_prices = pd.DataFrame()
     if proxy_tickers:
         try:
@@ -357,6 +411,51 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
 
     for base in unique_bases:
         try:
+            # SPECIAL: QQUPSIM — reconstructed price index -> official price
+            # index -> actual QQUP adjusted returns. The 0.95% fund expense is
+            # applied only to the synthetic pre-inception interval.
+            if base == Tickers.QQUPSIM:
+                try:
+                    csv_path = "data/NDXMEGAPRICESIM.csv"
+                    local_price_index = pd.Series(dtype=float)
+                    if os.path.exists(csv_path):
+                        local_df = pd.read_csv(csv_path)
+                        if "Date" in local_df.columns:
+                            local_df["Date"] = pd.to_datetime(local_df["Date"])
+                            local_df = local_df.set_index("Date")
+                        if "Close" in local_df.columns:
+                            local_price_index = local_df["Close"].dropna().sort_index()
+                    else:
+                        warnings.warn(f"{base} requested but {csv_path} not found.")
+
+                    official_price_index = _get_fred_series(
+                        QQUP_UNDERLYING_FRED_SERIES,
+                        f"{QQUP_UNDERLYING_FRED_SERIES}.csv",
+                        max_age_days=1,
+                    )
+                    price_index = _splice_official_total_return(
+                        local_price_index,
+                        official_price_index if official_price_index is not None else pd.Series(dtype=float),
+                        name=QQUP_UNDERLYING_FRED_SERIES,
+                    )
+                    synthetic_qqup = _build_testfol_leveraged_price_series(
+                        price_index,
+                        get_fed_funds_rate(),
+                        name=base,
+                    )
+
+                    actual_qqup = pd.Series(dtype=float)
+                    if not proxy_prices.empty and "QQUP" in proxy_prices.columns:
+                        actual_qqup = proxy_prices["QQUP"].dropna().sort_index()
+                    combined_prices[base] = _splice_official_total_return(
+                        synthetic_qqup,
+                        actual_qqup,
+                        name=base,
+                    )
+                    continue
+                except Exception as e:
+                    raise RuntimeError(f"Failed to build/splice QQUPSIM: {e}")
+
             # SPECIAL: NDX30SIM — load simulation CSV + splice with QTOP
             if base == Tickers.NDX30SIM:
                 try:

@@ -53,7 +53,7 @@ graph TB
 
     subgraph Data Sources
         TF[testfol.io API]
-        CSV[NDXMEGASIM.csv<br>NDXMEGA2SIM.csv]
+        CSV[NDXMEGASIM.csv<br>NDXMEGA2SIM.csv<br>NDXMEGAPRICESIM.csv]
     end
 
     subgraph Output
@@ -82,7 +82,7 @@ graph TB
 | **Orchestrator** | `app/core/backtest_orchestrator.py` | Routes backtests to API or local engine. Automatic failover if Testfol API is unavailable. |
 | **Macro Engine** | `app/services/testfol_api.py` | Fetches total return series from testfol.io. Acts as "Market Truth" source. |
 | **Price Providers** | `app/services/price_providers.py` | Unified price data abstraction. Chain: Polygon.io → yfinance with per-ticker fallback. |
-| **Data Service** | `app/services/data_service.py` | Handles complex data sourcing: `*SIM` tickers, `NDXMEGASIM` splicing (Local CSV + Live), standard tickers via provider chain. |
+| **Data Service** | `app/services/data_service.py` | Handles complex data sourcing: `*SIM` tickers, official index splicing, `QQUPSIM` realized-tracker history, and standard tickers via provider chain. |
 | **Shadow Engine** | `app/core/shadow_backtest.py` | Reconstructs portfolio trade-by-trade. Tracks every tax lot (date, cost basis, quantity). Calculates ST vs LT gains. |
 | **Margin Simulator** | `app/services/testfol_api.py` | Applies margin loan models (Fixed, Variable, Tiered). Calculates daily interest, equity %, and margin calls. |
 
@@ -223,6 +223,12 @@ python3 data/ndx_simulation/scripts/rebuild_all.py --skip-download
 
 # Refresh the archived official Nasdaq membership snapshots too
 python3 data/ndx_simulation/scripts/rebuild_all.py --refresh-official-membership
+```
+
+To regenerate the raw-close NDXMEGA price-return backfill used by `QQUPSIM`:
+
+```bash
+NDX_PRICE_RETURN=1 python data/ndx_simulation/scripts/backtest_ndx_mega.py
 ```
 By default, `rebuild_all.py` uses the archived official Nasdaq membership files already stored in `data/ndx_simulation/data/assets/official_membership`. The refresh step is optional because it is materially slower.
 

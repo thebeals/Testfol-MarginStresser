@@ -590,7 +590,12 @@ def run_single_backtest(
 
     # Determine engine
     has_ndxmega = dynamic_plan.has_dynamic or any(
-        (Tickers.NDXMEGASIM in t or Tickers.NDXMEGA2SIM in t or Tickers.NDX30SIM in t)
+        (
+            Tickers.NDXMEGASIM in t
+            or Tickers.NDXMEGA2SIM in t
+            or Tickers.QQUPSIM in t
+            or Tickers.NDX30SIM in t
+        )
         for t in alloc_map
     )
     uses_threshold = r_mode in (RebalMode.THRESHOLD, RebalMode.THRESHOLD_CALENDAR)

@@ -1,3 +1,5 @@
+import json
+
 from app.ui.configuration import DEFAULT_GLOBAL_CASHFLOW, _sort_preset_names
 
 
@@ -23,3 +25,17 @@ def test_sort_preset_names_keeps_research_presets_at_bottom():
         "NDX Top 2 Research - Safe",
         "Research - Risk Parity Split",
     ]
+
+
+def test_qqup_presets_use_realized_tracker_simulation():
+    with open("data/presets.json", encoding="utf-8") as handle:
+        presets = {preset["name"]: preset for preset in json.load(handle)}
+
+    standalone = presets["QQUP - 2x NDXMEGA Proxy (No Rebalance)"]
+    er_aware = presets["NDXMEGASPLIT (w/ ERs)"]
+    assert standalone["allocation"][0]["Ticker"] == "QQUPSIM"
+    assert er_aware["allocation"][0]["Ticker"] == "QQUPSIM"
+
+    # The no-expense/theoretical preset intentionally remains index based.
+    theoretical = presets["NDXMEGASPLIT"]
+    assert theoretical["allocation"][0]["Ticker"] == "NDXMEGASIM?L=2"

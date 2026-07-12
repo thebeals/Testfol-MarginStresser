@@ -302,7 +302,7 @@
         "name": "QQUP - 2x NDXMEGA Proxy (No Rebalance)",
         "allocation": [
             {
-                "Ticker": "NDXMEGASIM?L=2",
+                "Ticker": "QQUPSIM",
                 "Weight %": 100,
                 "Maint %": 50,
                 "PM Maint %": 30.0
@@ -406,7 +406,7 @@
         "name": "NDXMEGASPLIT (w/ ERs)",
         "allocation": [
             {
-                "Ticker": "NDXMEGASIM?L=2&E=0.95",
+                "Ticker": "QQUPSIM",
                 "Weight %": 60.0,
                 "Maint %": 50.0,
                 "PM Maint %": 30.0

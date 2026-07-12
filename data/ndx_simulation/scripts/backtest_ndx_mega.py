@@ -51,7 +51,7 @@ def apply_caps(w_series, cap):
          
     return w
 
-def backtest():
+def backtest(*, price_return=False):
     print("Loading data...")
     weights_df = pd.read_csv(config.WEIGHTS_FILE)
     weights_df['Date'] = pd.to_datetime(weights_df['Date'])
@@ -74,7 +74,11 @@ def backtest():
     start_date = weights_df['Date'].min().strftime('%Y-%m-%d')
     
     # price_manager reads NDX_DATA_SOURCE and POLYGON_API_KEY from environment
-    data = price_manager.get_price_data(tickers, start_date)
+    data = price_manager.get_price_data(
+        tickers,
+        start_date,
+        adjust_prices=not price_return,
+    )
     
     if data is None or data.empty:
         print("Data fetch failed.")
@@ -380,10 +384,11 @@ def backtest():
     # Save Daily Data for Testfol
     # Target: ../NDXMEGASIM.csv (Parent directory of BASE_DIR)
     
-    output_path = os.path.join(config.BASE_DIR, "..", "NDXMEGASIM.csv")
+    output_symbol = "NDXMEGAPRICESIM" if price_return else "NDXMEGASIM"
+    output_path = os.path.join(config.BASE_DIR, "..", f"{output_symbol}.csv")
     mega_values.name = "Close"
     mega_values.to_csv(output_path, header=True)
-    print(f"Saved NDXMEGASIM data to {output_path}")
+    print(f"Saved {output_symbol} data to {output_path}")
 
 if __name__ == "__main__":
-    backtest()
+    backtest(price_return=os.environ.get("NDX_PRICE_RETURN", "").lower() in ("1", "true", "yes"))

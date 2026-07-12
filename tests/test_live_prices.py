@@ -24,6 +24,7 @@ def test_live_price_fallback_ticker_maps_simulated_symbols():
     assert live_price_fallback_ticker("NDXMEGASIM") == "QBIG"
     assert live_price_fallback_ticker("NDXMEGASIM?L=2") == "QQUP"
     assert live_price_fallback_ticker("NDXMEGA2SIM") == "QBIG"
+    assert live_price_fallback_ticker("QQUPSIM") == "QQUP"
     assert live_price_fallback_ticker("NDX30SIM") == "QTOP"
 
 

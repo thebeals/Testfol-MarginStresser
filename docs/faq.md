@@ -52,8 +52,13 @@ local engine cannot reproduce are explicitly listed in its warning log.
 
 Real leveraged ETF tickers such as `TQQQ`, `QLD`, `SSO`, and `QQUP` use their actual price history, so those embedded financing/tracking costs are already reflected in the return series.
 
+`QQUPSIM` bridges the two conventions: it uses a price-index-based synthetic
+QQUP before inception and actual adjusted QQUP returns afterward. Its synthetic
+interval deducts the 0.95% expense once; its actual interval deducts nothing
+extra because the fund's published prices already contain its costs.
+
 ### Why can local results differ from Testfol API results?
-Some portfolios route through Testfol's API, while local-only tickers such as `NDXMEGASIM`, `NDX30SIM`, threshold rebalancing, no-rebalance mode, and dynamic Nasdaq rotation tickers route through the local Shadow Engine.
+Some portfolios route through Testfol's API, while local-only tickers such as `NDXMEGASIM`, `QQUPSIM`, `NDX30SIM`, threshold rebalancing, no-rebalance mode, and dynamic Nasdaq rotation tickers route through the local Shadow Engine.
 
 For standard API-supported expressions such as `QQQSIM?L=3`, the API may use its own leverage and financing assumptions. For local synthetic leverage, this app now uses historical Fed Funds plus the default implementation spread. When comparing local-only NDXMEGA strategies to API-supported TQQQ/GLD strategies, check whether the comparison is mixed-engine or forced-local.
 
