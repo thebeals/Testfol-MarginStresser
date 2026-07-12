@@ -37,7 +37,7 @@ def test_all_presets_are_categorized_and_sorted_by_category():
     with open("data/presets.json", encoding="utf-8") as handle:
         presets = json.load(handle)
 
-    assert len(presets) == 27
+    assert len(presets) == 28
     assert len({preset["name"] for preset in presets}) == len(presets)
     assert all(preset.get("category") in PRESET_CATEGORY_ORDER for preset in presets)
 
@@ -46,8 +46,9 @@ def test_all_presets_are_categorized_and_sorted_by_category():
     category_rank = {category: idx for idx, category in enumerate(PRESET_CATEGORY_ORDER)}
     ranks = [category_rank[_preset_category(by_name[name])] for name in sorted_names]
     assert ranks == sorted(ranks)
-    assert sorted_names[:4] == [
+    assert sorted_names[:5] == [
         "NDXMEGASPLIT (w/ ERs)",
+        "NDXMEGASPLIT (w/ ERs) - NDXMEGASIM 2x",
         "NDXMEGASPLIT",
         "QQUP - 2x NDXMEGA Proxy (No Rebalance)",
         "NDX Mega 1.0 (Sim)",
@@ -68,8 +69,14 @@ def test_qqup_presets_use_realized_tracker_simulation():
 
     standalone = presets["QQUP - 2x NDXMEGA Proxy (No Rebalance)"]
     er_aware = presets["NDXMEGASPLIT (w/ ERs)"]
+    total_return_er_aware = presets["NDXMEGASPLIT (w/ ERs) - NDXMEGASIM 2x"]
     assert standalone["allocation"][0]["Ticker"] == "QQUPSIM"
     assert er_aware["allocation"][0]["Ticker"] == "QQUPSIM"
+    assert total_return_er_aware["allocation"][0]["Ticker"] == (
+        "NDXMEGASIM?L=2&E=0.95"
+    )
+    assert total_return_er_aware["allocation"][1:] == er_aware["allocation"][1:]
+    assert total_return_er_aware["rebalance"] == er_aware["rebalance"]
 
     # The no-expense/theoretical preset intentionally remains index based.
     theoretical = presets["NDXMEGASPLIT"]

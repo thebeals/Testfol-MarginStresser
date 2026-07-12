@@ -3,10 +3,14 @@ import streamlit as st
 import json
 import os
 
-APP_VERSION = "3.9.3"
+APP_VERSION = "3.9.4"
 
 CHANGELOG_MARKDOWN = """
 ## Changelog
+
+### v3.9.4 - Restored Total-Return NDXMEGASPLIT
+- Restored the ER-aware NDXMEGASPLIT variant using `NDXMEGASIM?L=2&E=0.95` alongside the newer `QQUPSIM` version.
+- Kept identical hedge sleeves, maintenance requirements, and annual rebalance settings so the two return conventions can be compared directly.
 
 ### v3.9.3 - Organized Presets
 - Grouped all presets into Core NDXMEGA, Single Asset & Proxies, Classic & Diversified, Leveraged Strategies, and Research & Experimental.
