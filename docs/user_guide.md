@@ -58,14 +58,18 @@ You can use Testfol modifiers in the ticker symbol to simulate leverage or expen
 
 | Modifier | Description | Example |
 | :--- | :--- | :--- |
-| `?L=X` | **Leverage**: Multiplies daily returns by X and, in the local engine, subtracts historical Fed Funds financing cost plus a default 0.50% implementation spread for the extra exposure. | `SPY?L=2` (2x S&P 500) |
+| `?L=X` | **Leverage**: Multiplies daily returns by X and subtracts Testfol-compatible DFF financing plus the default 0.40% spread for synthetic exposure. | `SPY?L=2` (2x S&P 500) |
 | `?E=X` | **Expense Ratio**: Applies annual fund operating expense ratio (%). This is separate from leverage financing cost. | `QQQ?E=0.20` (0.20% annual fee) |
 | `?D=X` | **Drag**: Applies annual drag (legacy alias for expense ratio). | `SPY?D=0.50` (0.50% fee) |
+| `?UE=X` | **Underlying return adjustment**: Adds `X% / 252` before caps and leverage. | `SPY?UE=1` |
+| `?CU=X&CL=Y` | **Daily caps**: Caps the underlying daily return at `X%` and `Y%` before leverage. | `SPY?CU=2&CL=-2` |
+| `?SW=X&SP=Y` | **Financing controls**: Overrides swap exposure and annual spread. | `SPY?L=2&SW=1&SP=0.5` |
+| `?FR=X` | **Funding reference**: Uses `EFFRX`, `CASHX`/`TBILL`, or a FRED `DGS*` yield series. | `SPY?L=2&FR=DGS3MO` |
 | `_SIM` | **Simulation**: Often used to extend history. | `UPRO_SIM` (Simulated 3x SPY) |
 
 You can combine modifiers: `NDXMEGASIM?L=2&E=0.95` (2x leveraged with 0.95% expense ratio).
 
-For local-engine LETF simulations, `?L` is rate-sensitive. The simulator uses FRED `FEDFUNDS` plus a default `0.50%` implementation spread as the financing rate for the borrowed/synthetic exposure and falls back to 4% only if the Fed Funds file cannot be loaded. Example: `QQQSIM?L=3&E=0.82` applies 3x daily QQQ exposure, subtracts financing cost on the extra 2x exposure, then subtracts the explicit `0.82%` expense ratio. Use `SP=0` when you intentionally want no extra spread, or set a custom spread such as `SP=1.0`.
+For local-engine LETF simulations, `?L` is rate-sensitive. The simulator matches Testfol's trading-day convention: FRED's daily `DFF` rate, `SP`, and `E` are converted with simple `/252`; `SW` defaults to 1.10 and `SP` to `sign(L) × 0.40%`. Weekends and market holidays do not add observations. A flat 4% funding rate is used only when DFF cannot be loaded. Example: `QQQSIM?L=3&E=0.82` applies 3x daily QQQ exposure, subtracts financing on the extra exposure, then subtracts the explicit `0.82%` expense ratio once. Unsupported advanced Testfol modifiers are surfaced in the local-engine log rather than silently ignored.
 
 ---
 

@@ -60,8 +60,11 @@ def calculate_tax_adjusted_equity(
     # 1. Calculate Asset Returns
     asset_returns = port_series.pct_change().fillna(0)
 
-    # 2. Daily Interest Rate
-    daily_rate = (1 + rate_annual/100)**(1/252) - 1
+    # 2. USD margin interest uses simple Actual/360 over elapsed calendar days.
+    from app.core.margin_interest import usd_margin_period_rates
+
+    daily_rate = usd_margin_period_rates(base_equity_series.index, rate_annual)
+    daily_rate.index = base_equity_series.index
 
     # 3. Create "External Flow" Series (B_t)
     # B_t = Loan_{t-1} * (r_asset - r_loan) - Draws - Taxes

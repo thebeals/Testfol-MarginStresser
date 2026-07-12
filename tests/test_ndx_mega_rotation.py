@@ -214,7 +214,7 @@ def test_shadow_backtest_dynamic_schedule_ignores_inactive_missing_prices():
     )
 
     assert not port_series.empty, logs
-    assert port_series.index.min() == pd.Timestamp("2024-01-03")
+    assert port_series.index.min() == pd.Timestamp("2024-01-02")
     assert any("[DYNAMIC ALLOCATION]" in line for line in logs)
     assert "CCC" in set(composition_df["Ticker"])
     assert not trades_df.empty
@@ -245,5 +245,32 @@ def test_shadow_backtest_dynamic_schedule_does_not_backfill_first_future_basket(
     )
 
     assert not port_series.empty, logs
-    assert port_series.index.min() == pd.Timestamp("2024-01-02")
+    assert port_series.index.min() == pd.Timestamp("2024-01-01")
     assert any("First valid data found at: 2024-01-02" in line for line in logs)
+
+
+def test_dynamic_schedule_uses_requested_start_not_prior_price_anchor():
+    dates = pd.to_datetime(["2023-12-29", "2024-01-02", "2024-01-03", "2024-01-05"])
+    prices = pd.DataFrame(
+        {
+            "AAA": [100.0, 110.0, 110.0, 110.0],
+            "BBB": [100.0, 100.0, 100.0, 100.0],
+        },
+        index=dates,
+    )
+    schedule = {
+        pd.Timestamp("2024-01-01"): {"AAA": 100.0},
+        pd.Timestamp("2024-01-05"): {"BBB": 100.0},
+    }
+
+    *_, port_series, _, _ = run_shadow_backtest(
+        allocation={"AAA": 0.0, "BBB": 0.0},
+        start_val=10_000.0,
+        start_date="2024-01-01",
+        end_date="2024-01-05",
+        prices_df=prices,
+        rebalance_freq="None",
+        dynamic_allocation_schedule=schedule,
+    )
+
+    assert port_series.loc["2024-01-02"] == pytest.approx(11_000.0)

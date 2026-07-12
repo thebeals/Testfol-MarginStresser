@@ -31,6 +31,11 @@ logger = logging.getLogger(__name__)
 MAX_ORCHESTRATOR_WORKERS = 8
 
 
+def _return_anchor_start(start_date) -> str:
+    """Fetch enough lead-in data to retain one prior trading observation."""
+    return (pd.Timestamp(start_date) - pd.Timedelta(days=14)).strftime("%Y-%m-%d")
+
+
 def calc_rebal_offset(reb: dict, r_freq: str) -> int:
     """Calculate rebalance offset from custom rebalance config."""
     r_mode = reb.get("mode", RebalMode.STANDARD)
@@ -81,8 +86,9 @@ def _slice_prefetched_component_prices(
 
     start_ts = pd.Timestamp(start_date)
     end_ts = pd.Timestamp(end_date)
-    sliced = prefetched_component_prices.loc[:, expected_cols]
-    sliced = sliced.loc[start_ts:end_ts]
+    sliced = prefetched_component_prices.loc[:, expected_cols].sort_index()
+    prior = sliced.loc[sliced.index < start_ts].tail(1)
+    sliced = pd.concat([prior, sliced.loc[start_ts:end_ts]])
     return clip_component_data_to_synced_end(sliced, expected_cols)
 
 
@@ -101,11 +107,18 @@ def _prefetch_component_universe(
     try:
         expanded_tickers = expand_dynamic_ticker_universe(tickers, start_date, end_date)
         try:
-            return fetch_component_data(expanded_tickers, start_date, end_date, sync_end=False)
+            return fetch_component_data(
+                expanded_tickers,
+                _return_anchor_start(start_date),
+                end_date,
+                sync_end=False,
+            )
         except TypeError as exc:
             if "sync_end" not in str(exc):
                 raise
-            return fetch_component_data(expanded_tickers, start_date, end_date)
+            return fetch_component_data(
+                expanded_tickers, _return_anchor_start(start_date), end_date
+            )
     except Exception as exc:
         logger.warning("Failed shared component fetch for %s: %s", purpose, exc)
         return None
@@ -386,7 +399,7 @@ def _rerun_result_for_common_start(
                 if prices_df_new is None:
                     prices_df_new = fetch_component_data(
                         list(alloc_map.keys()),
-                        common_start.strftime("%Y-%m-%d"),
+                        _return_anchor_start(common_start),
                         end_date,
                     )
                 shadow_cf = 0.0 if pay_down_margin else cashflow_amount
@@ -698,7 +711,9 @@ def run_single_backtest(
         if shared_prices_df is not None:
             prices_df = shared_prices_df
         else:
-            prices_df = fetch_component_data(tickers, start_date, end_date)
+            prices_df = fetch_component_data(
+                tickers, _return_anchor_start(start_date), end_date
+            )
 
         _shadow_result = shadow_fn(
             allocation=alloc_map,
@@ -769,6 +784,7 @@ def run_single_backtest(
         "composition_df": composition_df,
         "raw_response": extra_data,
         "start_val": start_val,
+        "start_date": pd.Timestamp(start_date),
         "sim_range": f"{start_date} to {end_date}",
         "shadow_range": f"{start_date} to {end_date}",
         "wmaint": current_wmaint,

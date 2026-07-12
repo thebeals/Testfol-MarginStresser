@@ -3,10 +3,17 @@ import streamlit as st
 import json
 import os
 
-APP_VERSION = "3.9.0"
+APP_VERSION = "3.9.1"
 
 CHANGELOG_MARKDOWN = """
 ## Changelog
+
+### v3.9.1 - NDX Mega & Financing Accuracy
+- Fixed the local shadow engine dropping the first investable return interval.
+- Matched Testfol synthetic LETF financing with daily FRED `DFF`, simple `/252` costs, `SW=1.10`, signed `SP=sign(L)×0.40%`, and exact inverse-expense defaults.
+- Separated real USD margin debt into an Actual/360 calendar-day ledger with monthly interest posting.
+- Replaced historical QBIG splicing with official `NASDAQNDXMEGAT` and `NASDAQNDXMEGA2T` total-return series while retaining QBIG/QQUP for live quotes.
+- Added regression coverage against the prior engine, official FRED data, IBKR interest examples, and Testfol's live API.
 
 ### v3.9.0 - Dynamic Nasdaq LETFs & Rate-Aware Financing
 - Added dynamic Nasdaq rotation tickers such as `NDX_TOP8_ANN` and `NDXMEGA_TOP8_ANN`, with annual component schedules, company-level share-class collapsing, official NDX membership filtering, and `E=AUTO` individual LETF expense ratios.

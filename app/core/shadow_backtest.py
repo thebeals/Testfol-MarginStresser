@@ -18,7 +18,8 @@ from app.common.special_tickers import (
 log = logging.getLogger("shadow_backtest")
 
 DEFAULT_FFR_ANNUAL = 0.04  # 4% assumption if Fed Funds data is unavailable.
-DEFAULT_LEVERAGE_SPREAD_PCT = 0.50
+DEFAULT_LEVERAGE_SWAP_EXPOSURE = 1.10
+DEFAULT_LEVERAGE_SPREAD_PCT = 0.40
 
 @dataclass
 class TaxLot:
@@ -82,8 +83,8 @@ def parse_ticker(ticker):
 
 
 def _annual_rate_pct_to_daily(rate_pct: pd.Series | float) -> pd.Series | float:
-    """Convert annualized percentage rates to daily decimal financing rates."""
-    return (1 + (rate_pct / 100.0)) ** (1.0 / 252.0) - 1
+    """Convert annualized percentage rates using Testfol's simple /252 rule."""
+    return (rate_pct / 100.0) / 252.0
 
 
 def _resolve_leverage_funding_daily(index: pd.DatetimeIndex, returns_base: pd.DataFrame) -> tuple[pd.Series, str]:
@@ -104,9 +105,9 @@ def _resolve_leverage_funding_daily(index: pd.DatetimeIndex, returns_base: pd.Da
                 if missing.any():
                     annual_pct = annual_pct.fillna(DEFAULT_FFR_ANNUAL * 100.0)
                 daily = _annual_rate_pct_to_daily(annual_pct)
-                return daily.rename("FEDFUNDS funding"), "FEDFUNDS"
+                return daily.rename("DFF funding"), "DFF / 252"
     except Exception as e:
-        log.warning("Failed to load FEDFUNDS leverage funding data: %s", e)
+        log.warning("Failed to load DFF leverage funding data: %s", e)
 
     for col in ("EFFRX", "CASHX", "BIL", "SHV"):
         if col in returns_base.columns:
@@ -115,6 +116,52 @@ def _resolve_leverage_funding_daily(index: pd.DatetimeIndex, returns_base: pd.Da
 
     daily = pd.Series(DEFAULT_FFR_ANNUAL / 252.0, index=index, name="Default funding")
     return daily, "flat 4% fallback"
+
+
+def _resolve_funding_reference_daily(
+    reference: str,
+    index: pd.DatetimeIndex,
+    returns_base: pd.DataFrame,
+    default_daily: pd.Series,
+    default_source: str,
+) -> tuple[pd.Series, str]:
+    """Resolve Testfol ``FR`` references used by a synthetic LETF ticker."""
+    ref = str(reference or "EFFRX").strip().upper()
+    if ref == "EFFRX":
+        return default_daily.reindex(index).ffill(), default_source
+
+    if ref in returns_base.columns:
+        return (
+            returns_base[ref].reindex(index).ffill().fillna(default_daily.reindex(index)),
+            ref,
+        )
+
+    try:
+        from app.services import data_service
+
+        if ref in {"CASHX", "TBILL"}:
+            annual_pct = data_service.get_tbill_rate()
+            label = "CASHX/DTB3"
+        elif ref.startswith("DGS"):
+            annual_pct = data_service.get_fred_yield_rate(ref)
+            label = ref
+        else:
+            annual_pct = None
+            label = ref
+
+        if annual_pct is not None and not annual_pct.empty:
+            annual_pct = pd.to_numeric(annual_pct, errors="coerce").sort_index().dropna()
+            if annual_pct.index.tz is not None:
+                annual_pct.index = annual_pct.index.tz_localize(None)
+            aligned = annual_pct.reindex(index, method="ffill")
+            daily = _annual_rate_pct_to_daily(aligned)
+            daily = daily.fillna(default_daily.reindex(index))
+            return daily.rename(f"{label} funding"), label
+    except Exception as exc:
+        log.warning("Failed to resolve leverage financing reference %s: %s", ref, exc)
+
+    log.warning("Unsupported leverage financing reference %s; using %s", ref, default_source)
+    return default_daily.reindex(index).ffill(), f"{default_source} fallback for {ref}"
 
 
 
@@ -331,7 +378,6 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
     # PM Buy Block tracking
     pm_blocked_dates = []
     loan_balance = starting_loan
-    daily_rate = (1 + margin_rate_annual / 100.0) ** (1.0 / 252.0) - 1
     _prev_month = None  # for monthly draw detection (set after dates is established)
     if draw_monthly > 0 or draw_monthly_retirement > 0:
         _ds_label = str(draw_start_date) if draw_start_date is not None else "backtest start"
@@ -350,9 +396,12 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
         else:
             logs.append(f"DCA: ${cashflow:,.2f} {cashflow_freq} proportional")
     
+    requested_start_ts = pd.Timestamp(start_date)
+    requested_end_ts = pd.Timestamp(end_date)
+
     if prices_df is not None and not prices_df.empty:
         logs.append("Using pre-fetched price data (Hybrid Simulation).")
-        prices_base = prices_df
+        prices_base = prices_df.copy()
         # FORCE SLICE to respect start/end dates
         # Ensure index is datetime
         if not isinstance(prices_base.index, pd.DatetimeIndex):
@@ -362,12 +411,26 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
         if prices_base.index.tz is not None:
              prices_base.index = prices_base.index.tz_localize(None)
         
-        # Slicing
-        prices_base = prices_base.loc[start_date:end_date]
+        # Keep one price before the requested window. Testfol uses that prior
+        # session as the value anchor, allowing the first in-window return to
+        # be calculated and compounded.
+        prices_base = prices_base.sort_index()
+        prior_price = prices_base.loc[prices_base.index < requested_start_ts].tail(1)
+        prices_base = pd.concat(
+            [prior_price, prices_base.loc[requested_start_ts:requested_end_ts]]
+        )
         
         yf_output = None
     else:
-        prices_base, yf_output = fetch_prices(tickers, start_date, end_date, invest_dividends=invest_dividends)
+        anchor_start = (requested_start_ts - pd.Timedelta(days=14)).strftime("%Y-%m-%d")
+        prices_base, yf_output = fetch_prices(
+            tickers, anchor_start, end_date, invest_dividends=invest_dividends
+        )
+        prices_base = prices_base.sort_index()
+        prior_price = prices_base.loc[prices_base.index < requested_start_ts].tail(1)
+        prices_base = pd.concat(
+            [prior_price, prices_base.loc[requested_start_ts:requested_end_ts]]
+        )
     
     if yf_output:
         logs.append("\n--- yfinance Output & Payload ---")
@@ -394,6 +457,7 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
     missing_tickers = []
     
     funding_daily, funding_source = _resolve_leverage_funding_daily(returns_base.index, returns_base)
+    funding_reference_cache = {"EFFRX": (funding_daily, funding_source)}
     logs.append(
         f"Leverage Financing Source: {funding_source}; "
         f"Default SP: {DEFAULT_LEVERAGE_SPREAD_PCT:.2f}%"
@@ -428,43 +492,72 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
         
         # 3. Correlation (UC) - SKIP (Complex)
         
-        # 4. Leverage (L, SW, SP)
+        # Testfol order: caps are applied after return/vol/correlation/de-beta
+        # modifiers and before leverage and costs.
+        lower_cap = float(params['CL']) / 100.0 if 'CL' in params else None
+        upper_cap = float(params['CU']) / 100.0 if 'CU' in params else None
+        if lower_cap is not None and upper_cap is not None and lower_cap > upper_cap:
+            raise ValueError(f"CL ({lower_cap * 100:g}%) cannot exceed CU ({upper_cap * 100:g}%)")
+        if lower_cap is not None or upper_cap is not None:
+            r_s = r_s.clip(lower=lower_cap, upper=upper_cap)
+
+        # 4. Leverage (L, SW, SP, FR)
         L = float(params.get('L', 1.0))
-        SW = float(params.get('SW', 1.0))
-        SP = float(params.get('SP', DEFAULT_LEVERAGE_SPREAD_PCT))
+        SW = float(params.get('SW', DEFAULT_LEVERAGE_SWAP_EXPOSURE))
+        SP = float(params['SP']) if 'SP' in params else float(np.sign(L) * DEFAULT_LEVERAGE_SPREAD_PCT)
         
         if L != 1.0:
             # Leverage Formula: R_lev = L * R_u - Cost
             # Cost = SW * (L - 1) * (FFR + SP)
             sp_daily = (SP / 100.0) / 252.0
-            funding_for_ticker = funding_daily.reindex(r_s.index).ffill().fillna(
+            funding_reference = str(params.get('FR', 'EFFRX')).strip().upper()
+            if funding_reference not in funding_reference_cache:
+                funding_reference_cache[funding_reference] = _resolve_funding_reference_daily(
+                    funding_reference,
+                    returns_base.index,
+                    returns_base,
+                    funding_daily,
+                    funding_source,
+                )
+            funding_for_ticker, ticker_funding_source = funding_reference_cache[funding_reference]
+            funding_for_ticker = funding_for_ticker.reindex(r_s.index).ffill().fillna(
                 DEFAULT_FFR_ANNUAL / 252.0
             )
             cost_daily = SW * (L - 1) * (funding_for_ticker + sp_daily)
                  
             r_s = (r_s * L) - cost_daily
+            if funding_reference != "EFFRX":
+                logs.append(f"  {ticker}: FR={funding_reference} via {ticker_funding_source}")
             
         # 5. Expense Ratio (E)
         # Subtracts E% annually
-        # Default E logic: 0% nominal.
-        # "adds an extra 0.333% for every point of negative leverage... or 0.5% for >1"
-        # Since params.get('E') returns the explicit value if set, we use that.
-        # If user didn't set E, do we auto-calc? The user said "By default E is 0%, but..."
-        # Implies the tool *should* auto-calc if not specified? 
-        # "The default value for E assumes..." -> implies if E is omitted, we might want defaults.
-        # But let's stick to 0 unless specified for simplicity, or implement the rule?
-        # Let's implement the rule if E is missing.
-        
         if 'E' in params:
             e_val = float(params['E'])
+        elif 'D' in params:  # Project legacy alias; Testfol documents E.
+            e_val = float(params['D'])
+        elif L > 1.0:
+            e_val = 0.5 * (L - 1.0)
+        elif L < 0.0:
+            e_val = (1.0 / 3.0) * abs(L)
         else:
             e_val = 0.0
 
         if e_val != 0:
             r_s = r_s - (e_val / 100.0) / 252.0
+
+        # Testfol caps the maximum single-day loss at -100%.
+        r_s = r_s.clip(lower=-1.0)
             
         # Assign to portfolio
         returns_port[ticker] = r_s
+
+        supported_params = {'UE', 'CU', 'CL', 'L', 'SW', 'SP', 'FR', 'E', 'D', 'W'}
+        unsupported_params = sorted(set(params) - supported_params)
+        if unsupported_params:
+            logs.append(
+                f"WARNING: {ticker} local results ignore unsupported Testfol modifier(s): "
+                + ", ".join(unsupported_params)
+            )
             
     if missing_tickers:
         logs.append(f"CRITICAL ERROR: Missing price data for: {', '.join(missing_tickers)}")
@@ -510,24 +603,38 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
     sim_start_date = valid_returns.index[0]
     logs.append(f"First valid data found at: {sim_start_date.date()}")
 
+    # A return dated ``sim_start_date`` represents the interval from the prior
+    # price observation. Seed the portfolio on that prior date so the first
+    # investable return is compounded instead of silently discarded.
+    prior_price_dates = prices_base.index[prices_base.index < sim_start_date]
+    simulation_seed_date = (
+        pd.Timestamp(prior_price_dates[-1]) if len(prior_price_dates) else pd.Timestamp(sim_start_date)
+    )
+    logs.append(f"Portfolio seed date: {simulation_seed_date.date()}")
+
     # Initialize Portfolio
     if sim_start_date > pd.to_datetime(start_date) and api_port_series is not None:
         logs.append(f"Hybrid Mode Active: Real data starts late ({sim_start_date.date()}).")
         try:
-            current_val = api_port_series.asof(sim_start_date)
-            logs.append(f"Handover from API: Initializing portfolio at ${current_val:,.2f} on {sim_start_date.date()}")
+            current_val = api_port_series.asof(simulation_seed_date)
+            logs.append(f"Handover from API: Initializing portfolio at ${current_val:,.2f} on {simulation_seed_date.date()}")
         except (KeyError, IndexError, TypeError):
             current_val = start_val
             logs.append(f"Handover Failed: Defaulting to start_val ${start_val:,.2f}")
-        initial_lot_date = sim_start_date
+        initial_lot_date = simulation_seed_date
         logs.append("Initializing Positions (Hybrid):")
     else:
         logs.append(f"Standard Mode: Starting simulation from beginning ({start_date}).")
         current_val = start_val
-        initial_lot_date = pd.to_datetime(start_date)
+        initial_lot_date = simulation_seed_date
         logs.append("Initializing Positions (Standard):")
 
-    current_schedule_idx = _schedule_index_for_date(sim_start_date)
+    # A prior-session price anchor must not select a dynamic allocation that
+    # predates the requested strategy window.
+    schedule_seed_date = max(simulation_seed_date, requested_start_ts)
+    current_schedule_idx = _schedule_index_for_date(schedule_seed_date)
+    if dynamic_schedule_entries and current_schedule_idx < 0:
+        current_schedule_idx = 0
     if dynamic_schedule_entries:
         target_weight_fractions, target_weight_pcts = _target_arrays(
             dynamic_schedule_entries[current_schedule_idx][1]
@@ -582,12 +689,34 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
     month_end_or_last = month_change.copy()
     month_end_or_last[-1] = True
 
+    track_margin_loan = bool(
+        pm_buy_block
+        or starting_loan != 0
+        or draw_monthly > 0
+        or draw_monthly_retirement > 0
+        or loan_repayment > 0
+    )
+    margin_ledger = None
+    if track_margin_loan:
+        from app.core.margin_interest import UsdMarginInterestLedger
+
+        # The prior price observation is only a return anchor. Real margin debt
+        # begins accruing on the user-requested start date, never on that anchor.
+        margin_accrual_start = max(simulation_seed_date, requested_start_ts)
+        ledger_dates = pd.DatetimeIndex([margin_accrual_start]).append(dates)
+        margin_ledger = UsdMarginInterestLedger(
+            ledger_dates.unique().sort_values(),
+            starting_loan,
+            margin_rate_annual,
+        )
+        loan_balance = margin_ledger.advance(margin_accrual_start).total_liability
+
     # Initialize History with Start Date
-    portfolio_history_dates.append(dates[0])
+    portfolio_history_dates.append(simulation_seed_date)
     portfolio_history_vals.append(current_val)
 
     # Initialize TWR Tracking
-    twr_history_dates = [dates[0]]
+    twr_history_dates = [simulation_seed_date]
     twr_history_vals = [1.0] # Start at 1.0 (indexed to 100)
     curr_twr = 1.0
     prev_post_flow_val = current_val # Tracks value after flows, for next day's return calc
@@ -597,7 +726,7 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
     last_rebal_year = -1
     _prev_month = int(date_months[0])  # Initialize for monthly draw detection
 
-    for i in range(1, len(dates)):
+    for i in range(len(dates)):
         date = dates[i]
         is_last_trading_day = i == len(dates) - 1
         is_month_boundary = bool(month_change[i])
@@ -613,11 +742,11 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
         portfolio_history_dates.append(date)
         portfolio_history_vals.append(day_port_val)
 
-        # Loan balance tracking (interest, draws, repayments)
-        if pm_buy_block or draw_monthly > 0 or draw_monthly_retirement > 0 or loan_repayment > 0:
-            if loan_balance > 0:
-                loan_balance *= (1 + daily_rate)
-
+        # Loan balance tracking (Actual/360 interest, draws, repayments).
+        if margin_ledger is not None:
+            loan_change = 0.0
+            draw_log = None
+            repayment_log = None
             cur_month = int(date_months[i])
             if (draw_monthly > 0 or draw_monthly_retirement > 0) and _prev_month is not None and is_month_boundary:
                 if draw_start_date is None or date.date() >= draw_start_date:
@@ -627,9 +756,9 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
                     else:
                         _draw_amt = draw_monthly
                     if _draw_amt > 0:
-                        loan_balance += _draw_amt
+                        loan_change += _draw_amt
                         _draw_label = "RetDraw" if (retirement_date is not None and _cur_date >= retirement_date) else "Draw"
-                        logs.append(f"  💸 {_draw_label} {_cur_date}: +${_draw_amt:,.0f} → loan ${loan_balance:,.0f}")
+                        draw_log = (_draw_label, _cur_date, _draw_amt)
 
             if loan_repayment > 0 and loan_balance > 0 and not is_last_trading_day:
                 _repay = False
@@ -640,9 +769,16 @@ def run_shadow_backtest(allocation, start_val, start_date, end_date, api_port_se
                 elif loan_repayment_freq == "Yearly" and is_year_boundary:
                     _repay = True
                 if _repay:
-                    _pre_repay = loan_balance
-                    loan_balance = max(0, loan_balance - loan_repayment)
-                    logs.append(f"  💰 Repay {date.date()}: -${_pre_repay - loan_balance:,.0f} → loan ${loan_balance:,.0f}")
+                    repayment_amount = min(loan_repayment, max(loan_balance + loan_change, 0.0))
+                    loan_change -= repayment_amount
+                    repayment_log = repayment_amount
+
+            loan_balance = margin_ledger.advance(date, loan_change=loan_change).total_liability
+            if draw_log is not None:
+                _draw_label, _cur_date, _draw_amt = draw_log
+                logs.append(f"  💸 {_draw_label} {_cur_date}: +${_draw_amt:,.0f} → loan ${loan_balance:,.0f}")
+            if repayment_log is not None:
+                logs.append(f"  💰 Repay {date.date()}: -${repayment_log:,.0f} → loan ${loan_balance:,.0f}")
 
             _prev_month = cur_month
 

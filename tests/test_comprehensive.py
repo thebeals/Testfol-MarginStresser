@@ -781,8 +781,8 @@ class TestSimulateMarginFixedRate:
         port = _flat_port("2023-01-02", "2023-12-29", 200_000)
         rate_cfg = {"type": "Fixed", "rate_pct": 8.0}
         loan, *_ = simulate_margin(port, 100_000, rate_cfg, 0, 0.25)
-        n_days = len(port)
-        expected = 100_000 * (1 + 0.08) ** (n_days / 252)
+        # Actual/360 daily accrual with monthly capitalization.
+        expected = 108_342.46271301954
         assert loan.iloc[-1] == pytest.approx(expected, rel=1e-4)
 
     def test_zero_rate_no_growth(self):

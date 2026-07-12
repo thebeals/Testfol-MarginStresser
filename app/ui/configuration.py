@@ -710,14 +710,14 @@ def render():
             margin_mode = st.selectbox("Margin Rate Model", ["Fixed", "Variable (Fed + Spread)", "Tiered (Blended)"],
                                       index=2,
                                       key="margin_rate_model",
-                                      help="**Fixed**: Constant annual rate.\n**Variable**: Fed Funds Rate (Daily) + User Spread.\n**Tiered**: Blended rate based on loan size (Base + Tiered Spread).",
+                                      help="Real USD margin debt uses Actual/360 calendar-day accrual with monthly posting. **Fixed**: constant nominal rate. **Variable**: daily DFF + spread. **Tiered**: IBKR-style blended spreads.",
                                       disabled=margin_disabled)
             
             margin_config = {}
             if margin_mode == "Fixed":
                 margin_config = {
                     "type": "Fixed",
-                    "rate_pct": utils.num_input("Annual Interest %", "rate_annual", 8.0, 0.5, disabled=margin_disabled)
+                    "rate_pct": utils.num_input("Nominal USD Interest %", "rate_annual", 8.0, 0.5, disabled=margin_disabled)
                 }
             elif margin_mode == "Variable (Fed + Spread)":
                 from app.services import data_service
@@ -725,7 +725,7 @@ def render():
                 
                 # Show Preview
                 curr_rate = fed_series.iloc[-1] if fed_series is not None and not fed_series.empty else 0.0
-                st.caption(f"Current Base: **{curr_rate:.2f}%** (Fed Effective)")
+                st.caption(f"Current Base: **{curr_rate:.2f}%** (FRED DFF daily effective rate)")
                 
                 spread = utils.num_input("Spread over Base %", "spread_pct", 1.5, 0.1, disabled=margin_disabled)
                 

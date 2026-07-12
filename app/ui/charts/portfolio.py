@@ -719,8 +719,9 @@ def render_dashboard_view(port, equity, loan, equity_pct, usage_pct, maint_pct, 
             hovertemplate="Net Liq: $%{y:,.0f}<extra></extra>"
         ))
         
-        # Monthly interest on secondary axis
-        monthly_interest = loan * (rate_annual / 100 / 12)
+        # Actual/360 estimate for the calendar month shown on each row.
+        month_day_fraction = pd.Series(loan.index.days_in_month / 360.0, index=loan.index)
+        monthly_interest = loan * (rate_annual / 100) * month_day_fraction
         fig3.add_trace(go.Scatter(
             x=loan.index, y=monthly_interest,
             name="Monthly Interest",

@@ -24,6 +24,51 @@ logger = logging.getLogger(__name__)
 
 COMPONENT_DATA_CACHE_TTL = 86400
 COMPONENT_DATA_CACHE_PREFIX = "component_prices"
+NDX_MEGA_FRED_SERIES = {
+    Tickers.NDXMEGASIM: "NASDAQNDXMEGAT",
+    Tickers.NDXMEGA2SIM: "NASDAQNDXMEGA2T",
+}
+
+
+def _splice_official_total_return(
+    local_series: pd.Series,
+    official_series: pd.Series,
+    *,
+    name: str,
+) -> pd.Series:
+    """Keep local history through a common anchor, then preserve official returns."""
+    local = pd.Series(local_series, copy=True).dropna().sort_index()
+    official = pd.Series(official_series, copy=True).dropna().sort_index()
+    for series in (local, official):
+        if not isinstance(series.index, pd.DatetimeIndex):
+            series.index = pd.to_datetime(series.index)
+        if series.index.tz is not None:
+            series.index = series.index.tz_localize(None)
+    local = local[~local.index.duplicated(keep="last")]
+    official = official[~official.index.duplicated(keep="last")]
+
+    if local.empty:
+        return official.rename(name)
+    if official.empty:
+        return local.rename(name)
+
+    common_dates = local.index.intersection(official.index)
+    if common_dates.empty:
+        warnings.warn(
+            f"Official {name} history has no common anchor with the local simulation; "
+            "using local history only."
+        )
+        return local.rename(name)
+
+    anchor = pd.Timestamp(common_dates[0])
+    official_anchor = float(official.loc[anchor])
+    if official_anchor == 0:
+        warnings.warn(f"Official {name} anchor is zero; using local history only.")
+        return local.rename(name)
+
+    scaled_official = official * (float(local.loc[anchor]) / official_anchor)
+    combined = pd.concat([local.loc[:anchor], scaled_official.loc[scaled_official.index > anchor]])
+    return combined[~combined.index.duplicated(keep="last")].sort_index().rename(name)
 
 
 def _normalize_date_str(value) -> str:
@@ -117,6 +162,29 @@ def _is_special_component_request(ticker: str) -> bool:
     return is_testfol_preset_ticker(base) or base.endswith("SIM")
 
 
+def _xnys_sessions(start_date: pd.Timestamp, end_date: pd.Timestamp) -> pd.DatetimeIndex:
+    """Return actual NYSE sessions, including exceptional full-day closures."""
+    try:
+        import exchange_calendars as xcals
+
+        # Pad construction bounds because either requested endpoint may itself be
+        # a weekend or holiday, outside a calendar built to those exact dates.
+        calendar = xcals.get_calendar(
+            "XNYS",
+            start=start_date - pd.Timedelta(days=7),
+            end=end_date + pd.Timedelta(days=7),
+        )
+        sessions = calendar.sessions_in_range(start_date, end_date)
+        if sessions.tz is not None:
+            sessions = sessions.tz_localize(None)
+        return pd.DatetimeIndex(sessions)
+    except Exception as exc:
+        # Keep a usable fallback for partially installed environments. Production
+        # installs include exchange-calendars, which is required for exact parity.
+        logger.warning("XNYS calendar unavailable; falling back to weekdays: %s", exc)
+        return pd.bdate_range(start_date, end_date)
+
+
 def _build_total_return_from_annual_rates(
     annual_rates: pd.Series | None,
     start_date: str,
@@ -140,7 +208,7 @@ def _build_total_return_from_annual_rates(
     if end_ts < rates.index[0] or start_ts > end_ts:
         return None
 
-    index = pd.bdate_range(max(start_ts, rates.index[0]), end_ts)
+    index = _xnys_sessions(max(start_ts, rates.index[0]), end_ts)
     if index.empty:
         return None
 
@@ -148,7 +216,9 @@ def _build_total_return_from_annual_rates(
     if aligned.empty:
         return None
 
-    daily_returns = aligned / 100.0 / 365.0
+    # Testfol's EFFRX/CASHX pseudo-tickers apply the quoted annual rate once
+    # per trading observation using simple /252 (weekends are not multiplied).
+    daily_returns = aligned / 100.0 / 252.0
     return (100.0 * (1.0 + daily_returns).cumprod()).rename(name)
 
 
@@ -240,7 +310,7 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
             "start_date": sd_str,
             "end_date": ed_str,
             "sync_end": sync_end,
-            "sync_policy": "requested-window-v4-special-tickers",
+            "sync_policy": "requested-window-v6-testfol-sessions-modifiers",
         },
         sort_keys=True,
     )
@@ -256,9 +326,6 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
     proxy_tickers: list[str] = []
     if Tickers.NDX30SIM in unique_bases:
         proxy_tickers.append("QTOP")
-    if any(base in (Tickers.NDXMEGASIM, Tickers.NDXMEGA2SIM) for base in unique_bases):
-        proxy_tickers.append(Tickers.QBIG)
-
     proxy_prices = pd.DataFrame()
     if proxy_tickers:
         try:
@@ -328,7 +395,7 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
                 except Exception as e:
                     raise RuntimeError(f"Failed to load/splice NDX30SIM: {e}")
 
-            # SPECIAL: Load NDX Mega simulations from local CSV + splice with QBIG
+            # SPECIAL: local pre-launch NDX Mega simulation + official total-return index.
             if base in [Tickers.NDXMEGASIM, Tickers.NDXMEGA2SIM]:
                 try:
                     csv_path = f"data/{base}.csv"
@@ -360,25 +427,24 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
                     else:
                         warnings.warn(f"{base} requested but {csv_path} not found.")
 
-                    qbig_series = pd.Series(dtype=float)
-                    if not proxy_prices.empty and Tickers.QBIG in proxy_prices.columns:
-                        qbig_series = proxy_prices[Tickers.QBIG].dropna().sort_index()
-
-                    if not qbig_series.empty and not df_sim.empty:
-                        splice_date = qbig_series.index[0]
-                        sim_part = df_sim[df_sim.index < splice_date]
-
-                        if not sim_part.empty:
-                            sim_end_val = sim_part.iloc[-1]
-                            qbig_start_val = qbig_series.iloc[0]
-                            scale_factor = qbig_start_val / sim_end_val if sim_end_val != 0 else 1.0
-                            combined_prices[base] = pd.concat([sim_part * scale_factor, qbig_series])
-                        else:
-                            combined_prices[base] = qbig_series
-                    elif not df_sim.empty:
+                    fred_id = NDX_MEGA_FRED_SERIES[base]
+                    official_series = _get_fred_series(
+                        fred_id,
+                        f"{fred_id}.csv",
+                        max_age_days=1,
+                    )
+                    if official_series is None or official_series.empty:
+                        warnings.warn(
+                            f"Official FRED series {fred_id} is unavailable; "
+                            f"using local {base} history only."
+                        )
                         combined_prices[base] = df_sim
-                    elif not qbig_series.empty:
-                        combined_prices[base] = qbig_series
+                    else:
+                        combined_prices[base] = _splice_official_total_return(
+                            df_sim,
+                            official_series,
+                            name=base,
+                        )
 
                     continue
                 except Exception as e:
@@ -453,50 +519,16 @@ import time
 
 @lru_cache(maxsize=1)
 def get_fed_funds_rate() -> pd.Series | None:
-    """
-    Fetches historical Fed Funds Rate (daily) from FRED or local cache.
-    Returns: pd.Series with DatetimeIndex and rate as float (e.g. 5.25 for 5.25%)
-    """
-    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../data")
-    file_path = os.path.join(data_dir, "FEDFUNDS.csv")
-
-    # Download if missing or old (>30 days)
-    should_download = True
-    if os.path.exists(file_path):
-        mtime = os.path.getmtime(file_path)
-        if (time.time() - mtime) < (30 * 86400):
-            should_download = False
-
-    if should_download:
-        try:
-            url = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS"
-            # Fake User-Agent to avoid 403
-            headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}
-            import requests
-            r = requests.get(url, headers=headers, timeout=20)
-            r.raise_for_status()
-            with open(file_path, "wb") as f:
-                f.write(r.content)
-            logger.info("Downloaded fresh FEDFUNDS.csv")
-        except Exception as e:
-            logger.warning(f"Failed to download FEDFUNDS: {e}. Using cached if available.")
-
-    if os.path.exists(file_path):
-        try:
-            df = pd.read_csv(file_path, parse_dates=["observation_date"], index_col="observation_date")
-            values = pd.to_numeric(df["FEDFUNDS"].replace(".", pd.NA), errors="coerce").dropna().sort_index()
-            # FRED's FEDFUNDS is monthly. Forward-fill to calendar days so
-            # trading-day backtests can align directly to historical rates.
-            full_idx = pd.date_range(
-                start=values.index.min(),
-                end=max(pd.Timestamp.today().normalize(), values.index.max()),
-                freq="D",
-            )
-            daily_series = values.reindex(full_idx).ffill()
-            return daily_series
-        except Exception as e:
-            raise RuntimeError(f"Error reading FEDFUNDS.csv: {e}")
-    return None
+    """Return FRED's daily Effective Federal Funds Rate (``DFF``), in percent."""
+    values = _get_fred_series("DFF", "DFF.csv", max_age_days=1)
+    if values is None or values.empty:
+        return None
+    full_idx = pd.date_range(
+        start=values.index.min(),
+        end=max(pd.Timestamp.today().normalize(), values.index.max()),
+        freq="D",
+    )
+    return values.reindex(full_idx).ffill().rename("DFF")
 
 
 def _get_fred_series(series_id: str, filename: str, *, max_age_days: int = 30) -> pd.Series | None:
@@ -515,7 +547,7 @@ def _get_fred_series(series_id: str, filename: str, *, max_age_days: int = 30) -
             url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
             headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}
             import requests
-            r = requests.get(url, headers=headers)
+            r = requests.get(url, headers=headers, timeout=20)
             r.raise_for_status()
             with open(file_path, "wb") as f:
                 f.write(r.content)
@@ -537,6 +569,14 @@ def _get_fred_series(series_id: str, filename: str, *, max_age_days: int = 30) -
 def get_tbill_rate() -> pd.Series | None:
     """Return the 3-month Treasury Bill annualized rate from FRED."""
     return _get_fred_series("DTB3", "DTB3.csv")
+
+
+def get_fred_yield_rate(series_id: str) -> pd.Series | None:
+    """Return a FRED DGS yield series accepted by Testfol's ``FR`` modifier."""
+    normalized = str(series_id).strip().upper()
+    if not normalized.startswith("DGS") or not normalized[3:].isalnum():
+        raise ValueError(f"Unsupported FRED financing series: {series_id}")
+    return _get_fred_series(normalized, f"{normalized}.csv", max_age_days=1)
 
 
 def get_inflation_index() -> pd.Series | None:

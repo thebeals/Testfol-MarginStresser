@@ -40,10 +40,15 @@
 The local engine currently uses:
 
 ```text
-FEDFUNDS + 0.50% implementation spread
+DFF / 252 + sign(L) × 0.40% / 252 implementation spread
 ```
 
-for every synthetic `?L` ticker, with a flat 4% fallback only if Fed Funds data cannot be loaded. Use `SP=0` if you intentionally want to remove the implementation spread for a research test.
+for every synthetic `?L` ticker, scaled by `SW × (L - 1)`, with a flat 4% fallback only if DFF cannot be loaded. The explicit `E / 252` expense is deducted separately and only once. This synthetic convention is intentionally different from the Actual/360 calendar-day accrual used for real USD margin debt.
+
+The local engine also supports Testfol-style `UE`, `CU`/`CL`, `SW`, `SP`, and
+`FR` modifiers. EFFRX, CASHX/TBILL, and FRED `DGS*` funding references use one
+simple `/252` charge per XNYS trading session. Advanced modifiers that the
+local engine cannot reproduce are explicitly listed in its warning log.
 
 Real leveraged ETF tickers such as `TQQQ`, `QLD`, `SSO`, and `QQUP` use their actual price history, so those embedded financing/tracking costs are already reflected in the return series.
 

@@ -155,9 +155,9 @@ Anachronistic baseline. Applies today's tax rules (0%/15%/20% brackets) to all h
 The Margin Stresser simulates a loan account distinct from the portfolio value.
 
 **The Equation:**
-$$ Loan_{t} = Loan_{t-1} \times (1 + \frac{Rate_{annual}}{365}) + Draws + Taxes - Dividends $$
+$$ Interest_d = SettledLoan_d \times \frac{Rate_{annual}}{100 \times 360} $$
 
--   **Interest**: Compounded daily.
+-   **Interest**: Accrued for every calendar day on an Actual/360 basis, reflected immediately in total liability, and posted to settled principal monthly.
 -   **Taxes**: Can be paid via **Margin Loan** (increasing debt) or **Asset Sales** (reducing compounding).
 -   **Maintenance**: Checks daily if `Equity % < Maintenance Requirement`.
 

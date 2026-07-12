@@ -28,14 +28,15 @@ The margin simulation is applied *on top* of the unleveraged portfolio performan
 The application supports three distinct margin rate models to accurately simulate borrowing costs:
 
 #### A. Fixed Annual %
-Uses a constant annual rate throughout the entire simulation.
-$$ \text{Daily Rate} = \frac{\text{Annual Rate}}{100} \div 252 $$
+Uses a constant nominal USD annual rate throughout the simulation. Real margin
+debt accrues for every elapsed calendar day using the USD money-market basis:
+$$ \text{Daily Interest} = \text{Settled Loan} \times \frac{\text{Annual Rate}}{100} \div 360 $$
 
 #### B. Variable (Fed Funds + Spread)
 Simulates a floating rate loan tied to the Federal Reserve's benchmark.
--   **Source**: St. Louis Fed (FRED) `FEDFUNDS` Effective Rate (historical monthly data back to 1954).
--   **Logic**: The system aligns daily portfolio dates with the historical effective rate for that month.
-$$ \text{Daily Rate}_t = \frac{\text{FedFunds}_t + \text{Spread}}{100} \div 252 $$
+-   **Source**: St. Louis Fed (FRED) `DFF` daily Effective Federal Funds Rate.
+-   **Logic**: The system accrues on calendar days at the applicable daily base rate plus spread.
+$$ \text{Daily Interest}_t = \text{Settled Loan}_t \times \frac{\text{DFF}_t + \text{Spread}}{100} \div 360 $$
 
 #### C. Tiered (Blended)
 Simulates "Pro" style broker pricing (e.g., IBKR) where the interest rate decreases as the loan balance increases.
@@ -47,6 +48,12 @@ Simulates "Pro" style broker pricing (e.g., IBKR) where the interest rate decrea
     4.  \> $50M: Base + 0.5%
 
 $$ \text{Loan}_{t} = \text{Loan}_{t-1} + \text{Interest}_t + \text{Cashflows} $$
+
+Interest is accrued daily, included immediately in total account liability,
+and posted to settled principal on the third observed trading day of the
+following month. This margin-loan convention is separate from synthetic LETF
+financing below. A prior-session price used to calculate the first portfolio
+return is never treated as an earlier margin-loan start date.
 
 ### 2. Monthly Adjustments
 If a "Monthly Margin Draw" is configured, it is added to the loan balance on the 1st of each month.
@@ -61,13 +68,31 @@ $$ \text{Usage \%} = \frac{\text{Loan}}{\text{Portfolio Value} \times (1 - \text
 ## Synthetic LETF Financing
 For local-engine tickers with leverage modifiers, such as `QQQSIM?L=3&E=0.82` or `NDXMEGASIM?L=2&E=0.95`, the simulator models leverage financing separately from the explicit expense ratio.
 
-- **Funding source**: FRED `FEDFUNDS`, forward-filled to daily dates, plus a default `0.50%` implementation spread.
+- **Funding source**: FRED `DFF`, matching Testfol's `EFFRX` daily return, plus a default `0.40%` implementation spread.
 - **Fallback**: A flat 4% annual funding rate is used only when Fed Funds data cannot be loaded.
 - **Formula**:
 
-$$ \text{Levered Return}_t = L \times R_t - (L - 1) \times (\text{FedFunds}_t + \text{Spread}) - \text{ExpenseRatio} $$
+$$ R_{LETF,t} = L R_t - SW(L-1)\left(\frac{DFF_t}{100\times252}+\frac{SP}{100\times252}\right)-\frac{E}{100\times252} $$
 
-`?E` represents the fund operating expense ratio. It does not include the cost of obtaining leveraged exposure through borrowing, swaps, futures, or similar instruments. The default spread applies to every local synthetic `?L` ticker, not only QQQ/TQQQ-style proxies. Explicit `SP=` values override the default.
+This is a trading-day transformation: weekends and market holidays do not add
+extra financing observations. `SW` defaults to 1.10, `SP` defaults to
+`sign(L) × 0.40%`,
+and `FR` defaults to the DFF-backed EFFRX equivalent. `?E` is deducted once,
+separately from financing, and explicit parameters override the defaults.
+When `E` is omitted, inverse leverage uses exactly one-third of a percentage
+point per negative leverage point (the UI may display this rounded as 0.333%).
+
+The local engine also follows Testfol's documented modifier order for the
+supported return transformations: `UE`, then daily `CU`/`CL` caps, then
+`L`/`SW`/`SP`/`FR`, then `E`. `FR=EFFRX`, `FR=CASHX`/`TBILL`, and FRED
+constant-maturity references such as `FR=DGS3MO` are converted using simple
+`/252`. Standalone EFFRX/CASHX fallback histories use actual XNYS sessions,
+including exceptional market closures. More complex modifiers such as
+bootstrap, correlation/volatility overrides, and de-beta are reported as
+unsupported in local logs instead of being silently ignored.
+
+Like Testfol, a requested backtest window retains one prior trading observation
+as its value anchor, so the first in-window return is not lost.
 
 ---
 

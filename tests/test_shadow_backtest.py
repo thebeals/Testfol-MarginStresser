@@ -213,7 +213,7 @@ def test_leveraged_returns_use_fed_funds_for_financing(monkeypatch):
         )
         monkeypatch.setattr(data_service, "get_fed_funds_rate", lambda: fed_funds)
         result = run_shadow_backtest(
-            allocation={"TEST?L=2&SP=0": 100.0},
+            allocation={"TEST?L=2&SW=1&SP=0&E=0": 100.0},
             start_val=10000.0,
             start_date=str(dates.min().date()),
             end_date=str(dates.max().date()),
@@ -228,8 +228,8 @@ def test_leveraged_returns_use_fed_funds_for_financing(monkeypatch):
 
     assert zero_rate_port.iloc[-1] == pytest.approx(10000.0)
     assert high_rate_port.iloc[-1] < zero_rate_port.iloc[-1]
-    assert any("Leverage Financing Source: FEDFUNDS" in entry for entry in zero_logs)
-    assert any("Leverage Financing Source: FEDFUNDS" in entry for entry in high_logs)
+    assert any("Leverage Financing Source: DFF / 252" in entry for entry in zero_logs)
+    assert any("Leverage Financing Source: DFF / 252" in entry for entry in high_logs)
 
 
 def test_leveraged_returns_apply_default_implementation_spread(monkeypatch):
@@ -241,7 +241,7 @@ def test_leveraged_returns_apply_default_implementation_spread(monkeypatch):
     monkeypatch.setattr(data_service, "get_fed_funds_rate", lambda: fed_funds)
 
     no_spread = run_shadow_backtest(
-        allocation={"TEST?L=2&SP=0": 100.0},
+        allocation={"TEST?L=2&SW=1&SP=0&E=0": 100.0},
         start_val=10000.0,
         start_date=str(dates.min().date()),
         end_date=str(dates.max().date()),
@@ -249,7 +249,7 @@ def test_leveraged_returns_apply_default_implementation_spread(monkeypatch):
         rebalance_freq="Yearly",
     )[5]
     default_spread = run_shadow_backtest(
-        allocation={"TEST?L=2": 100.0},
+        allocation={"TEST?L=2&SW=1&E=0": 100.0},
         start_val=10000.0,
         start_date=str(dates.min().date()),
         end_date=str(dates.max().date()),

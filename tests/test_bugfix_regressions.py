@@ -30,30 +30,28 @@ def _make_growing_port(start="2020-01-02", end="2024-12-31",
 # 1. Margin: Compound vs Simple Interest
 # ═══════════════════════════════════════════════════════════════════════
 
-class TestCompoundInterest:
-    """simulate_margin must use compound daily rates, not simple division."""
+class TestMarginInterestConvention:
+    """simulate_margin uses USD Actual/360 accrual and monthly posting."""
 
     def test_fixed_rate_compound(self):
-        """Fixed mode: loan after 1 year at 8% should match compound formula."""
+        """Fixed mode matches the pinned Actual/360 monthly-posting result."""
         from app.services.testfol_api import simulate_margin
         port = _make_port("2023-01-02", "2023-12-29", 200_000)
         rate_cfg = {"type": "Fixed", "rate_pct": 8.0}
         loan, *_ = simulate_margin(port, 100_000, rate_cfg, 0, 0.25)
-        n_days = len(port)
-        expected = 100_000 * (1 + 0.08) ** (n_days / 252)
+        expected = 108_342.46271301954
         assert loan.iloc[-1] == pytest.approx(expected, rel=1e-4)
 
     def test_legacy_float_rate_compound(self):
-        """Legacy float rate path uses compound daily rate."""
+        """Legacy float configuration uses the same Actual/360 ledger."""
         from app.services.testfol_api import simulate_margin
         port = _make_port("2023-01-02", "2023-12-29", 200_000)
         loan, *_ = simulate_margin(port, 100_000, 8.0, 0, 0.25)
-        n_days = len(port)
-        expected = 100_000 * (1 + 0.08) ** (n_days / 252)
+        expected = 108_342.46271301954
         assert loan.iloc[-1] == pytest.approx(expected, rel=1e-4)
 
-    def test_variable_rate_compound(self):
-        """Variable mode: daily rates use compound formula."""
+    def test_variable_rate_actual_360(self):
+        """Variable mode uses the same Actual/360 monthly-posting ledger."""
         from app.services.testfol_api import simulate_margin
         port = _make_port("2023-01-02", "2023-12-29", 200_000)
         base = pd.Series(5.0, index=port.index)
@@ -61,10 +59,7 @@ class TestCompoundInterest:
         loan, _, _, _, eff_rate = simulate_margin(port, 100_000, rate_cfg, 0, 0.25)
         # Effective rate should be ~6%
         assert eff_rate.iloc[10] == pytest.approx(6.0, abs=0.1)
-        # Loan should grow at compound 6%
-        n_days = len(port)
-        expected = 100_000 * (1 + 0.06) ** (n_days / 252)
-        assert loan.iloc[-1] == pytest.approx(expected, rel=1e-3)
+        assert loan.iloc[-1] == pytest.approx(106_200.06052677489, rel=1e-6)
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -249,12 +244,12 @@ class TestMFSDeduction:
 
 
 # ═══════════════════════════════════════════════════════════════════════
-# 9. Stats: daily rate consistency (252 trading days)
+# 9. Stats: USD Actual/360 rate consistency
 # ═══════════════════════════════════════════════════════════════════════
 
 class TestDailyRateConsistency:
-    def test_tax_adjusted_equity_uses_252(self):
-        """calculate_tax_adjusted_equity must use 252 trading days."""
+    def test_tax_adjusted_equity_uses_actual_360(self):
+        """Tax-adjusted calculations use elapsed calendar days on a /360 basis."""
         from app.core.calculations.stats import calculate_tax_adjusted_equity
         port = _make_port("2023-01-02", "2023-12-29", 100_000)
         loan = pd.Series(50_000.0, index=port.index)
@@ -264,10 +259,6 @@ class TestDailyRateConsistency:
             port, loan, equity, tax_series,
             rate_annual=8.0, draw_monthly=0, draw_monthly_retirement=0,
         )
-        # The daily rate component should produce values consistent with 252-day compounding
-        # At 8% annual, daily rate = (1.08)^(1/252) - 1 ≈ 0.0306%
-        # With 365.25 it would be (1.08)^(1/365.25) - 1 ≈ 0.0211%
-        # The loan component grows faster with 252 days
         assert not adj_eq.empty
 
 

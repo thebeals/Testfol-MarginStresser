@@ -195,191 +195,107 @@ def simulate_margin(
     retirement_date=None,
     dca_series: pd.Series | None = None,
     fund_dca_margin: bool = False,
+    accrual_start_date=None,
 ) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series, pd.Series]:
+    """Simulate real USD margin debt using Actual/360 calendar-day accrual.
+
+    Accrued interest is included in account liability immediately, while
+    capitalization into settled principal occurs on the third observed trading
+    day of the following month. Synthetic LETF financing intentionally uses a
+    separate Testfol-compatible /252 calculation in ``shadow_backtest.py``.
     """
-    Simulates margin loan and calculates equity/usage metrics.
-    """
+    from app.core.margin_interest import UsdMarginInterestLedger
+
     _log = logging.getLogger("margin_sim")
-    _log.info("simulate_margin: loan=$%.0f draw=$%.0f/mo ret_draw=$%.0f/mo draw_start=%s ret_date=%s maint=%.1f%%",
-              starting_loan, draw_monthly, draw_monthly_retirement, draw_start_date, retirement_date, maint_pct * 100)
-    # 1. Create Cashflow Series (Draws + Taxes)
-    # Initialize with zeros
+    _log.info(
+        "simulate_margin Actual/360: loan=$%.0f draw=$%.0f/mo ret_draw=$%.0f/mo maint=%.1f%%",
+        starting_loan,
+        draw_monthly,
+        draw_monthly_retirement,
+        maint_pct * 100,
+    )
+
+    if port.empty:
+        empty = pd.Series(dtype=float, index=port.index)
+        return (
+            empty.rename("Loan"),
+            empty,
+            empty.rename("Equity %"),
+            empty.rename("Margin usage %"),
+            empty.rename("Margin Rate %"),
+        )
+
+    port = port.sort_index()
     cashflows = pd.Series(0.0, index=port.index)
-    
-    # Add Monthly Draws (pre-retirement and retirement)
+
     if draw_monthly > 0 or draw_monthly_retirement > 0:
         months = port.index.month.values
         month_changes = months != np.roll(months, -1)
-        month_changes[-1] = False  # Last day has no next day to compare
+        month_changes[-1] = False
         if draw_start_date is not None:
-            after_start = np.array(port.index >= pd.Timestamp(draw_start_date))
-            month_changes = month_changes & after_start
+            month_changes &= np.array(port.index >= pd.Timestamp(draw_start_date))
         if draw_monthly_retirement > 0 and retirement_date is not None:
             after_ret = np.array(port.index >= pd.Timestamp(retirement_date))
-            pre_ret = month_changes & ~after_ret
-            post_ret = month_changes & after_ret
-            cashflows.values[pre_ret] += draw_monthly
-            cashflows.values[post_ret] += draw_monthly_retirement
+            cashflows.values[month_changes & ~after_ret] += draw_monthly
+            cashflows.values[month_changes & after_ret] += draw_monthly_retirement
         elif draw_monthly_retirement > 0 and retirement_date is None:
-            # retirement_date not set — use retirement draw for all periods
             cashflows.values[month_changes] += draw_monthly_retirement
         else:
             cashflows.values[month_changes] += draw_monthly
 
-    # Add Tax Payments
     if tax_series is not None:
-        aligned_taxes = tax_series.reindex(port.index, fill_value=0.0)
-        cashflows += aligned_taxes
-        
-    # Add Repayments (Reduce Loan)
+        cashflows += tax_series.reindex(port.index, fill_value=0.0)
     if repayment_series is not None:
-        aligned_repayments = repayment_series.reindex(port.index, fill_value=0.0)
-        cashflows -= aligned_repayments
+        cashflows -= repayment_series.reindex(port.index, fill_value=0.0)
 
-    # DCA cash depletion is handled in the iterative loop (only while loan < 0)
-    _dca_vals = None
+    dca_values = None
     if dca_series is not None:
-        _dca_vals = dca_series.reindex(port.index, fill_value=0.0).values
+        dca_values = dca_series.reindex(port.index, fill_value=0.0).values
 
-    # 2. Determine Rate Logic
-    # Legacy: rate_annual is a float -> Fixed Rate
-    # New: rate_annual can be a dict -> Margin Model
-    
-    use_vectorized = True
-    rate_factor = 0.0 # Will be array or scalar
-    effective_rate_series = pd.Series(0.0, index=port.index) # To store annualized % for display
-    
-    if isinstance(rate_annual, dict):
-        model = rate_annual
-        mode = model.get("type", "Fixed")
-        
-        if mode == "Fixed":
-            r = model.get("rate_pct", 5.0)
-            rate_daily = (1 + r / 100) ** (1 / 252) - 1
-            rate_factor = 1 + rate_daily
-            effective_rate_series[:] = r
-            
-        elif mode == "Variable":
-            # Variable: Base + Spread
-            base_series = model.get("base_series", None)
-            spread = model.get("spread_pct", 1.0)
-            
-            if base_series is not None:
-                aligned_base = base_series.reindex(port.index).ffill().fillna(0.0)
-                daily_rates_pct = aligned_base + spread
-                daily_rates_pct = daily_rates_pct.clip(lower=0.0) 
-                
-                rate_daily_series = (1 + daily_rates_pct / 100) ** (1 / 252) - 1
-                rate_factor = 1 + rate_daily_series
-                effective_rate_series = daily_rates_pct
-            else:
-                # Fallback
-                rate_factor = 1 + (0.05 / 252)
-                effective_rate_series[:] = 5.0
-
-        elif mode == "Tiered":
-            use_vectorized = False
-            tiers = model.get("tiers", []) 
-            base_series = model.get("base_series", None)
-            
-            if base_series is not None:
-                aligned_base = base_series.reindex(port.index).ffill().fillna(0.0)
-            else:
-                aligned_base = pd.Series(5.0, index=port.index)
-            
-            # --- ITERATIVE CALCULATION FOR TIERED RATES ---
-            loan_vals = np.zeros(len(port))
-            eff_rate_vals = np.zeros(len(port)) # Store effective rate
-            current_loan = starting_loan
-            
-            base_vals = aligned_base.values
-            cf_vals = cashflows.values
-            
-            for t in range(len(port)):
-                interest_accrued = 0.0
-                calc_balance = max(current_loan, 0)  # No interest on cash (negative loan)
-
-                # Calculate Blended Interest
-                for i, (limit, spread) in enumerate(tiers):
-                    next_limit = tiers[i+1][0] if i+1 < len(tiers) else float('inf')
-                    chunk = min(max(0, calc_balance - limit), next_limit - limit)
-
-                    if chunk > 0:
-                        tier_rate_daily = (1 + (base_vals[t] + spread) / 100) ** (1 / 252) - 1
-                        interest_accrued += chunk * tier_rate_daily
-                    
-                    if calc_balance < next_limit:
-                        break
-                
-                # Back-calculate effective annualized rate for this day
-                # Rate = (Interest / Balance) * 252 * 100
-                if current_loan > 1e-9:
-                     day_rate = (interest_accrued / current_loan)
-                     eff_rate_vals[t] = day_rate * 252 * 100
-                else:
-                     # If no loan, what is the rate? Technically undefined or Base + lowest spread.
-                     # Let's show Base + Tier 1 spread as 'potential' rate
-                     base_s = tiers[0][1] if tiers else 0
-                     eff_rate_vals[t] = base_vals[t] + base_s
-                
-                # Update Loan
-                dca_amt = 0.0
-                if _dca_vals is not None:
-                    if fund_dca_margin:
-                        dca_amt = _dca_vals[t]  # Always add to loan (margin-funded)
-                    elif current_loan < 0:
-                        dca_amt = min(_dca_vals[t], abs(current_loan))  # Only deplete remaining cash
-                current_loan = current_loan + interest_accrued + cf_vals[t] + dca_amt
-                loan_vals[t] = current_loan
-                
-            loan_series = pd.Series(loan_vals, index=port.index)
-            effective_rate_series = pd.Series(eff_rate_vals, index=port.index)
-            
+    if accrual_start_date is None:
+        ledger_start = pd.Timestamp(port.index[0]).normalize()
     else:
-        # Legacy Float
-        r = rate_annual
-        rate_daily = (1 + r / 100) ** (1 / 252) - 1
-        rate_factor = 1 + rate_daily
-        effective_rate_series[:] = r
-    
-    if use_vectorized:
-        # Vectorized formula assumes constant interest rate — doesn't handle
-        # zero-interest on negative balances. Use iterative fallback if starting with cash.
-        if starting_loan < 0 or _dca_vals is not None or repayment_series is not None:
-            # Iterative: handles zero-interest on negative balances + DCA cash depletion
-            loan_vals = np.zeros(len(port))
-            current_loan = starting_loan
-            # rate_factor can be a scalar (Fixed/Legacy) or Series (Variable)
-            if isinstance(rate_factor, float):
-                _rate_daily_arr = np.full(len(port), rate_factor - 1)
-            else:
-                _rate_daily_arr = (rate_factor.values if hasattr(rate_factor, 'values') else np.array(rate_factor)) - 1
-            cf_vals = cashflows.values
-            for t in range(len(port)):
-                if current_loan > 0:
-                    current_loan *= (1 + _rate_daily_arr[t])
-                dca_amt = 0.0
-                if _dca_vals is not None:
-                    if fund_dca_margin:
-                        dca_amt = _dca_vals[t]  # Always add to loan (margin-funded)
-                    elif current_loan < 0:
-                        dca_amt = min(_dca_vals[t], abs(current_loan))  # Only deplete cash
-                current_loan += cf_vals[t] + dca_amt
-                loan_vals[t] = current_loan
-            loan_series = pd.Series(loan_vals, index=port.index)
-        else:
-            cum_rate = pd.Series(rate_factor, index=port.index).cumprod()
-            discounted_cashflows = cashflows / cum_rate
-            cum_discounted_cashflows = discounted_cashflows.cumsum()
-            loan_series = cum_rate * (starting_loan + cum_discounted_cashflows)
+        ledger_start = max(
+            pd.Timestamp(port.index[0]).normalize(),
+            pd.Timestamp(accrual_start_date).normalize(),
+        )
+    ledger_dates = port.index[port.index >= ledger_start]
+    ledger = UsdMarginInterestLedger(ledger_dates, starting_loan, rate_annual)
+    loan_values = np.zeros(len(port), dtype=float)
+    rate_values = np.zeros(len(port), dtype=float)
+    ledger_started = False
 
-    loan_series.name = "Loan"
-    effective_rate_series.name = "Margin Rate %"
+    for idx, date in enumerate(port.index):
+        if date < ledger_start:
+            loan_values[idx] = starting_loan
+            rate_values[idx] = 0.0
+            continue
 
-    
+        if not ledger_started and date > ledger_start:
+            # The requested start can be a weekend/holiday absent from the
+            # portfolio index. Accrue that calendar day before the next session.
+            ledger.advance(ledger_start)
+            ledger_started = True
+
+        dca_loan_change = 0.0
+        if dca_values is not None:
+            if fund_dca_margin:
+                dca_loan_change = float(dca_values[idx])
+            elif ledger.total_liability < 0:
+                dca_loan_change = min(float(dca_values[idx]), abs(ledger.total_liability))
+
+        snapshot = ledger.advance(
+            date,
+            loan_change=float(cashflows.iloc[idx]) + dca_loan_change,
+        )
+        ledger_started = True
+        loan_values[idx] = snapshot.total_liability
+        rate_values[idx] = snapshot.effective_rate_pct
+
+    loan_series = pd.Series(loan_values, index=port.index, name="Loan")
+    effective_rate_series = pd.Series(rate_values, index=port.index, name="Margin Rate %")
     equity = port - loan_series
     safe_port = port.replace(0, np.nan)
     equity_pct = (equity / safe_port).fillna(0).rename("Equity %")
-    denom = safe_port * (1 - maint_pct)
-    usage_pct = (loan_series / denom).fillna(0).rename("Margin usage %")
+    usage_pct = (loan_series / (safe_port * (1 - maint_pct))).fillna(0).rename("Margin usage %")
     return loan_series, equity, equity_pct, usage_pct, effective_rate_series

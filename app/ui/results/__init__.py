@@ -145,6 +145,7 @@ def _cached_simulate_margin(
     tax_series: pd.Series | None, repayment_series: pd.Series | None,
     draw_start_date, draw_monthly_retirement: float, retirement_date,
     dca_series: pd.Series | None, fund_dca_margin: bool,
+    accrual_start_date=None,
 ):
     """Cached margin simulation."""
     import time
@@ -158,6 +159,7 @@ def _cached_simulate_margin(
         draw_monthly_retirement=draw_monthly_retirement,
         retirement_date=retirement_date,
         dca_series=dca_series, fund_dca_margin=fund_dca_margin,
+        accrual_start_date=accrual_start_date,
     )
     _log.info("Margin simulation: done in %.1fs", time.perf_counter() - t0)
     return result
@@ -428,6 +430,7 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
         retirement_date=retirement_date,
         dca_series=dca_series,
         fund_dca_margin=fund_dca_margin,
+        accrual_start_date=original_start_date,
     )
 
     # Compute PM usage series post-hoc (loan is invariant to margin type)
@@ -856,6 +859,7 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
             twr_series=results.get("twr_series"),
             stats=stats,
             draw_start_date=draw_start_date,
+            accrual_start_date=original_start_date,
         )
         with tax_container:
             charts.render_tax_analysis(

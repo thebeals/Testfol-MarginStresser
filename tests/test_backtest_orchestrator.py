@@ -374,7 +374,7 @@ class TestRunMultiBacktest:
         assert set(fetch_calls[0][0]) == {"AAA", "BBB", "LATE"}
         assert set(fetch_calls[1][0]) == {"AAA", "BBB"}
         common_start_str = results[2]["series"].index[0].strftime("%Y-%m-%d")
-        assert fetch_calls[1][1] == common_start_str
+        assert fetch_calls[1][1] == orchestrator._return_anchor_start(common_start_str)
         assert results[0]["shadow_range"].startswith(common_start_str)
         assert results[1]["shadow_range"].startswith(common_start_str)
 

@@ -171,7 +171,8 @@ The app operates in three modes:
 
 2. **Local Mode** (auto-enabled for NDXMEGASIM/threshold rebalancing): Shadow engine with provider chain for prices
    - Loads local CSV for simulated indices
-   - Splices with QBIG ETF for recent data
+   - Splices post-launch history to the official FRED Nasdaq total-return index
+   - Uses QBIG/QQUP only as live quote fallbacks, never as historical index data
    - Uses local Shadow Engine for tax calculations
 
 3. **Failover Mode** (auto-enabled when Testfol is down): Same as Local Mode, triggered automatically with user notification
