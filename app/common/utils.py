@@ -3,10 +3,14 @@ import streamlit as st
 import json
 import os
 
-APP_VERSION = "3.9.2"
+APP_VERSION = "3.9.3"
 
 CHANGELOG_MARKDOWN = """
 ## Changelog
+
+### v3.9.3 - Organized Presets
+- Grouped all presets into Core NDXMEGA, Single Asset & Proxies, Classic & Diversified, Leveraged Strategies, and Research & Experimental.
+- Added category labels and stable category-aware ordering to the preset selector without changing stored preset names or strategy settings.
 
 ### v3.9.2 - QQUP Realized-Tracker Simulation
 - Added `QQUPSIM`: a pre-inception 2x backfill built from reconstructed NDXMEGA price returns, Testfol-compatible DFF financing, and one 0.95% expense deduction.

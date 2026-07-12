@@ -2,6 +2,17 @@
 
 Welcome to the Testfol Margin Stresser User Guide. This application allows you to simulate leveraged portfolio performance over historical periods, tracking margin debt, equity levels, and potential margin calls.
 
+### Preset Categories
+
+The preset selector groups strategies into five stable categories while preserving
+each preset's original name and settings:
+
+- **Core NDXMEGA**: primary NDXMEGA, QQUP, and NDXMEGASPLIT strategies.
+- **Single Asset & Proxies**: one-asset portfolios and simulated ETF proxies.
+- **Classic & Diversified**: conventional balanced and multi-asset allocations.
+- **Leveraged Strategies**: HFEA and leveraged split portfolios.
+- **Research & Experimental**: dynamic, cherry-picked, and exploratory strategies.
+
 ## Getting Started
 
 ### 1. Configure Global Settings

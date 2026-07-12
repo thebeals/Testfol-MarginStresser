@@ -61,20 +61,50 @@ def _presets_path() -> str:
     return os.path.join(base_dir, "../../data/presets.json")
 
 
+PRESET_CATEGORY_ORDER = (
+    "Core NDXMEGA",
+    "Single Asset & Proxies",
+    "Classic & Diversified",
+    "Leveraged Strategies",
+    "Research & Experimental",
+)
+
+
+def _preset_category(preset: dict) -> str:
+    """Return explicit preset category, with stable fallbacks for older files."""
+    category = str(preset.get("category", "")).strip()
+    if category in PRESET_CATEGORY_ORDER:
+        return category
+
+    name = str(preset.get("name", ""))
+    upper_name = name.upper()
+    if "RESEARCH" in upper_name or "ENHANCED" in upper_name:
+        return "Research & Experimental"
+    if upper_name.startswith("NDX") or "QQUP" in upper_name:
+        return "Core NDXMEGA"
+    return "Classic & Diversified"
+
+
 def _sort_preset_names(presets: list[dict]) -> list[str]:
-    """Sort regular presets first, with research variants grouped last."""
-    names = [p["name"] for p in presets]
+    """Sort presets by user-facing category, optional priority, then name."""
+    category_rank = {category: idx for idx, category in enumerate(PRESET_CATEGORY_ORDER)}
+    ordered = sorted(
+        presets,
+        key=lambda preset: (
+            category_rank[_preset_category(preset)],
+            int(preset.get("display_order", 100)),
+            str(preset["name"]).casefold(),
+        ),
+    )
+    return [preset["name"] for preset in ordered]
 
-    def is_ndx(name: str) -> bool:
-        return name.upper().startswith("NDX")
 
-    def is_research(name: str) -> bool:
-        return "RESEARCH" in name.upper()
-
-    regular_ndx = sorted(name for name in names if is_ndx(name) and not is_research(name))
-    regular_other = sorted(name for name in names if not is_ndx(name) and not is_research(name))
-    research = sorted(name for name in names if is_research(name))
-    return regular_ndx + regular_other + research
+def _preset_display_label(name: str, presets: list[dict]) -> str:
+    """Prefix a preset name with its category without changing its stored name."""
+    preset = next((item for item in presets if item.get("name") == name), None)
+    if preset is None:
+        return name
+    return f"[{_preset_category(preset)}] {name}"
 
 
 @st.cache_data(show_spinner=False)
@@ -255,6 +285,7 @@ def render():
                     "Select Preset",
                     preset_names if preset_names else ["No Presets"],
                     key="preset_selector",
+                    format_func=lambda name: _preset_display_label(name, presets),
                     label_visibility="collapsed"
                 )
 

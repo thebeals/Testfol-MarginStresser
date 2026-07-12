@@ -1,6 +1,8 @@
 [
     {
         "name": "NDXMEGASPLIT",
+        "category": "Core NDXMEGA",
+        "display_order": 20,
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM?L=2",
@@ -36,6 +38,7 @@
     },
     {
         "name": "60/40 Portfolio",
+        "category": "Classic & Diversified",
         "allocation": [
             {
                 "Ticker": "SPY",
@@ -57,6 +60,7 @@
     },
     {
         "name": "HFEA (Hedgefundie)",
+        "category": "Leveraged Strategies",
         "allocation": [
             {
                 "Ticker": "UPRO",
@@ -78,6 +82,7 @@
     },
     {
         "name": "All Weather",
+        "category": "Classic & Diversified",
         "allocation": [
             {
                 "Ticker": "SPY",
@@ -117,6 +122,7 @@
     },
     {
         "name": "Golden Butterfly",
+        "category": "Classic & Diversified",
         "allocation": [
             {
                 "Ticker": "VTI",
@@ -158,6 +164,8 @@
     },
     {
         "name": "NDX Mega 1.0 (Sim)",
+        "category": "Core NDXMEGA",
+        "display_order": 40,
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM",
@@ -175,6 +183,7 @@
     },
     {
         "name": "SPY Only",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "SPY",
@@ -192,6 +201,7 @@
     },
     {
         "name": "MAGS",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "MAGS",
@@ -207,6 +217,7 @@
     },
     {
         "name": "MAGS Sim",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "AAPL",
@@ -260,6 +271,7 @@
     },
     {
         "name": "Research - TQQQ Proxy 60/40 GLD (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "QQQSIM?L=3&E=0.82",
@@ -283,6 +295,7 @@
     },
     {
         "name": "QLD - 2x QQQ Proxy (No Rebalance)",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "QQQSIM?L=2",
@@ -300,6 +313,8 @@
     },
     {
         "name": "QQUP - 2x NDXMEGA Proxy (No Rebalance)",
+        "category": "Core NDXMEGA",
+        "display_order": 30,
         "allocation": [
             {
                 "Ticker": "QQUPSIM",
@@ -317,6 +332,7 @@
     },
     {
         "name": "NDXMEGASPLIT Research - Annual NDXMEGA Top 8 30% Sleeve (No ER)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM?L=2",
@@ -358,6 +374,7 @@
     },
     {
         "name": "Research - Hedge Sleeve Only (GLD/VXUS/QQQ3)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "VXUSSIM",
@@ -387,6 +404,7 @@
     },
     {
         "name": "QQQ Only",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "QQQ",
@@ -404,6 +422,8 @@
     },
     {
         "name": "NDXMEGASPLIT (w/ ERs)",
+        "category": "Core NDXMEGA",
+        "display_order": 10,
         "allocation": [
             {
                 "Ticker": "QQUPSIM",
@@ -439,6 +459,7 @@
     },
     {
         "name": "NDXMEGASPLIT Enhanced Cherry Picked (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM?L=2&E=0.95",
@@ -522,6 +543,7 @@
     },
     {
         "name": "NDXMEGASPLIT Research - Annual NDXMEGA Top 8 30% Sleeve (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM?L=2&E=0.95",
@@ -563,6 +585,7 @@
     },
     {
         "name": "NDXMEGASPLIT Research - Annual NDX Top 8 30% Sleeve (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDXMEGASIM?L=2&E=0.95",
@@ -604,6 +627,7 @@
     },
     {
         "name": "NDX Top 2 Research - Medium 40/40/20 (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDX_TOP2_ANN?L=2&E=AUTO&W=INV_RANK",
@@ -633,6 +657,7 @@
     },
     {
         "name": "NDX Top 2 Research - Aggressive 40/40/15/5 (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDX_TOP2_ANN?L=2&E=AUTO&W=CAP",
@@ -668,6 +693,7 @@
     },
     {
         "name": "NDX Top 2 Research - Safe 35/35/30 (w/ ERs)",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "NDX_TOP2_ANN?L=2&E=AUTO&W=INV_RANK",
@@ -697,6 +723,7 @@
     },
     {
         "name": "SSO Split - 60/20/20 VXUS/GLD",
+        "category": "Leveraged Strategies",
         "allocation": [
             {
                 "Ticker": "SPYSIM?L=2",
@@ -726,6 +753,7 @@
     },
     {
         "name": "SSO Split - 60/20/20 ZROZ/GLD",
+        "category": "Leveraged Strategies",
         "allocation": [
             {
                 "Ticker": "SPYSIM?L=2",
@@ -755,6 +783,7 @@
     },
     {
         "name": "Research - Risk Parity Split",
+        "category": "Research & Experimental",
         "allocation": [
             {
                 "Ticker": "DBMFSIM",
@@ -802,6 +831,7 @@
     },
     {
         "name": "VGT",
+        "category": "Single Asset & Proxies",
         "allocation": [
             {
                 "Ticker": "VGT",
@@ -819,6 +849,7 @@
     },
     {
         "name": "33% VGT / 33% VOO / 33% QBIG",
+        "category": "Classic & Diversified",
         "allocation": [
             {
                 "Ticker": "VGT",
