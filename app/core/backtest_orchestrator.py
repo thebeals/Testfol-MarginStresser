@@ -36,6 +36,25 @@ def _return_anchor_start(start_date) -> str:
     return (pd.Timestamp(start_date) - pd.Timedelta(days=14)).strftime("%Y-%m-%d")
 
 
+def effective_series_start(series, requested_start) -> pd.Timestamp:
+    """Return the user-visible start without exposing a retained return anchor."""
+    requested = pd.Timestamp(requested_start)
+    if series is None or series.empty:
+        return requested
+    observed = pd.Timestamp(series.index.min())
+    return max(requested, observed)
+
+
+def _clip_with_return_anchor(series, start_date):
+    """Clip a series while retaining the last observation before the visible start."""
+    if series is None or series.empty:
+        return series
+    start = pd.Timestamp(start_date)
+    ordered = series.sort_index()
+    prior = ordered[ordered.index < start].tail(1)
+    return pd.concat([prior, ordered[ordered.index >= start]])
+
+
 def calc_rebal_offset(reb: dict, r_freq: str) -> int:
     """Calculate rebalance offset from custom rebalance config."""
     r_mode = reb.get("mode", RebalMode.STANDARD)
@@ -900,10 +919,10 @@ def run_multi_backtest(
     for res in results_list:
         s = res.get("series")
         if s is not None and not s.empty:
-            start_dates.append(s.index.min())
+            start_dates.append(effective_series_start(s, start_date))
     for b in bench_series_list:
         if b is not None and not b.empty:
-            start_dates.append(b.index.min())
+            start_dates.append(effective_series_start(b, start_date))
 
     # Include data availability from failed portfolios so that common_start
     # reflects the newest ticker across ALL portfolios (not just successful ones).
@@ -926,7 +945,7 @@ def run_multi_backtest(
                         if _fvi is not None and (_latest is None or _fvi > _latest):
                             _latest = _fvi
                 if _latest is not None:
-                    start_dates.append(_latest)
+                    start_dates.append(max(pd.Timestamp(start_date), pd.Timestamp(_latest)))
                     _failed_indices.append(_fi)
 
     common_start = max(start_dates) if start_dates else None
@@ -1068,6 +1087,10 @@ def run_multi_backtest(
     if common_start:
         for j, b in enumerate(bench_series_list):
             if b is not None and not b.empty and b.index[0] < common_start:
-                bench_series_list[j] = b[b.index >= common_start]
+                bench_series_list[j] = _clip_with_return_anchor(b, common_start)
+
+        for res in results_list:
+            if res is not None:
+                res["effective_start_date"] = pd.Timestamp(common_start)
 
     return results_list, bench_series_list

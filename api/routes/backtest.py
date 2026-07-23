@@ -10,14 +10,18 @@ from api.schemas import (
     BacktestRequest, MultiBacktestRequest, MultiBacktestResponse,
     BacktestResult,
 )
-from app.core.backtest_orchestrator import run_single_backtest, run_multi_backtest
+from app.core.backtest_orchestrator import (
+    effective_series_start,
+    run_multi_backtest,
+    run_single_backtest,
+)
 from app.common.cache import cache_key, cache_get, cache_set
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/backtest", tags=["backtest"])
 
-BACKTEST_CACHE_VERSION = "backtest-result-series-includes-dca-routing-v3"
+BACKTEST_CACHE_VERSION = "backtest-result-effective-start-v4"
 
 
 def _pydantic_cache_key(req: BacktestRequest | MultiBacktestRequest) -> str:
@@ -74,6 +78,11 @@ def _serialize_result(r: dict) -> BacktestResult:
         start_val=r.get("start_val", 10000.0),
         sim_range=r.get("sim_range", ""),
         shadow_range=r.get("shadow_range", ""),
+        effective_start_date=(
+            pd.Timestamp(r["effective_start_date"]).isoformat()
+            if r.get("effective_start_date") is not None
+            else None
+        ),
         wmaint=r.get("wmaint", 0.25),
         wmaint_pm=r.get("wmaint_pm", 0.0),
         pm_blocked_dates=r.get("pm_blocked_dates", []),
@@ -169,9 +178,12 @@ def run_multi_backtest_endpoint(req: MultiBacktestRequest):
         # Determine common_start from results
         start_dates = []
         for res in results_raw:
+            if res.get("effective_start_date") is not None:
+                start_dates.append(pd.Timestamp(res["effective_start_date"]))
+                continue
             s = res.get("series")
             if s is not None and not s.empty:
-                start_dates.append(s.index.min())
+                start_dates.append(effective_series_start(s, req.start_date))
         common_start = max(start_dates) if start_dates else None
 
         response = MultiBacktestResponse(

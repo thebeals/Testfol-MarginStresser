@@ -97,6 +97,11 @@ def _deserialize_result(item):
         "start_val": item.get("start_val", 10000.0),
         "sim_range": item.get("sim_range", ""),
         "shadow_range": item.get("shadow_range", ""),
+        "effective_start_date": (
+            pd.Timestamp(item["effective_start_date"])
+            if item.get("effective_start_date")
+            else None
+        ),
         "wmaint": item.get("wmaint", 0.25),
         "wmaint_pm": item.get("wmaint_pm", 0.0),
         "pm_blocked_dates": item.get("pm_blocked_dates", []),
@@ -502,9 +507,13 @@ if "results_list" in st.session_state and st.session_state.results_list:
 
     start_dates = []
     for r in results_list:
+        effective_start = r.get("effective_start_date")
+        if effective_start is not None:
+            start_dates.append(pd.Timestamp(effective_start))
+            continue
         s = r.get('series')
         if s is not None and not s.empty:
-            start_dates.append(s.index[0])
+            start_dates.append(max(pd.Timestamp(start_date), pd.Timestamp(s.index[0])))
     common_start = max(start_dates) if start_dates else None
 
     res = results_list[active_idx]

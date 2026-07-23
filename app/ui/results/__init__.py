@@ -43,27 +43,46 @@ def _extract_backtest_params(results: dict, config: dict | None) -> tuple[dict |
     return allocation, maint_pcts, rebalance
 
 
+def _clip_with_return_anchor(series: pd.Series | None, start_date) -> pd.Series | None:
+    """Clip to a visible start while retaining one prior observation for returns."""
+    if series is None or series.empty:
+        return series
+    start = pd.Timestamp(start_date)
+    ordered = series.sort_index()
+    prior = ordered[ordered.index < start].tail(1)
+    return pd.concat([prior, ordered[ordered.index >= start]])
+
+
 @st.cache_data(show_spinner=False)
 def _compute_fresh_yearly_returns(
     allocation: dict, maint_pcts: dict, rebalance: dict,
     series_start: str, series_end: str, series_start_val: float,
     year_list: tuple[int, ...],
-    cache_policy: str = "synced-component-windows-v3",
+    cache_policy: str = "effective-start-years-v4",
 ) -> tuple[dict, pd.Series | None]:
     """Run a fresh 1-year backtest per calendar year to get drift-free yearly returns (cached)."""
     import time
     from app.core.backtest_orchestrator import run_single_backtest
 
+    series_start_ts = pd.Timestamp(series_start)
+    series_end_ts = pd.Timestamp(series_end)
+    year_list = tuple(
+        y for y in year_list
+        if series_start_ts.year <= y <= series_end_ts.year
+    )
+    if not year_list:
+        return {}, None
+
     _log = logging.getLogger("fresh_returns")
     _log.info("Fresh yearly returns: computing %d years (%d–%d, %s)...", len(year_list), year_list[0], year_list[-1], cache_policy)
     t0 = time.perf_counter()
 
-    last_date = pd.Timestamp(series_end) + pd.Timedelta(days=7)
+    last_date = series_end_ts + pd.Timedelta(days=7)
     fresh = {}
     year_series = []
 
     for i, y in enumerate(year_list, 1):
-        start = f"{y}-01-01"
+        start = max(pd.Timestamp(f"{y}-01-01"), series_start_ts).strftime("%Y-%m-%d")
         end = last_date.strftime("%Y-%m-%d") if y == year_list[-1] else f"{y}-12-31"
 
         try:
@@ -202,18 +221,32 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
     # --- Clip Data Logic (Sync with Chart) ---
     original_start_date = results.get("start_date")
     twr_series = results.get("twr_series")
+    start_candidates = [
+        pd.Timestamp(value)
+        for value in (
+            original_start_date,
+            results.get("effective_start_date"),
+            clip_start_date,
+        )
+        if value is not None
+    ]
+    analysis_start_date = (
+        max(start_candidates)
+        if start_candidates
+        else (port_series.index[0] if not port_series.empty else None)
+    )
 
-    if clip_start_date and not port_series.empty:
+    if analysis_start_date is not None and not port_series.empty:
         # Avoid clipping if clip_start is before port start
-        if clip_start_date > port_series.index[0]:
-            port_series = port_series[port_series.index >= clip_start_date]
+        if analysis_start_date > port_series.index[0]:
+            port_series = _clip_with_return_anchor(port_series, analysis_start_date)
 
             # Recalculate Stats for clipped period
             if not port_series.empty:
                 # Use TWR Series for stats if available (Correct for Cashflows)
                 target_series = port_series
                 if twr_series is not None and not twr_series.empty:
-                    twr_clipped = twr_series[twr_series.index >= clip_start_date]
+                    twr_clipped = _clip_with_return_anchor(twr_series, analysis_start_date)
                     if not twr_clipped.empty:
                         target_series = twr_clipped
 
@@ -309,8 +342,8 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
     bench_stats = results.get("bench_stats")
 
     # Clip Benchmark if exists
-    if bench_series is not None and clip_start_date:
-         bench_series = bench_series[bench_series.index >= clip_start_date]
+    if bench_series is not None and analysis_start_date is not None:
+         bench_series = _clip_with_return_anchor(bench_series, analysis_start_date)
          if not bench_series.empty:
              bench_stats = calculations.generate_stats(bench_series)
 
@@ -527,7 +560,7 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
 
     # Update Range Caption to reflect actual displayed data
     if not port_series.empty:
-        start_str = port_series.index[0].strftime('%Y-%m-%d')
+        start_str = pd.Timestamp(analysis_start_date).strftime('%Y-%m-%d')
         end_str = port_series.index[-1].strftime('%Y-%m-%d')
         display_range = f"{start_str} to {end_str} (Synced)"
     else:
@@ -779,10 +812,13 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
             if _reb_mode != "None":
                 fresh_yearly, fresh_series = _compute_fresh_yearly_returns(
                     allocation=_alloc, maint_pcts=_maint, rebalance=_rebal,
-                    series_start=tax_adj_port_series.index[0].strftime("%Y-%m-%d"),
+                    series_start=pd.Timestamp(analysis_start_date).strftime("%Y-%m-%d"),
                     series_end=tax_adj_port_series.index[-1].strftime("%Y-%m-%d"),
                     series_start_val=float(tax_adj_port_series.iloc[0]),
-                    year_list=tuple(sorted(tax_adj_port_series.index.year.unique())),
+                    year_list=tuple(range(
+                        pd.Timestamp(analysis_start_date).year,
+                        tax_adj_port_series.index[-1].year + 1,
+                    )),
                 )
 
         charts.render_returns_analysis(
@@ -799,6 +835,7 @@ def render(results: dict, config: dict, portfolio_name: str = "", clip_start_dat
             fresh_series=fresh_series,
             allocation=_alloc,
             composition_df=composition_df,
+            analysis_start_date=analysis_start_date,
         )
 
     elif selected_results_view == "⚖️ Rebalancing":

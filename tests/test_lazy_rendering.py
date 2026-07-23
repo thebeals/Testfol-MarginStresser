@@ -56,6 +56,26 @@ def test_monthly_timeline_state_clips_to_selected_month():
     assert monthly_ret.iloc[1] == pytest.approx(0.10)
 
 
+def test_monthly_timeline_state_hides_prior_year_anchor_without_losing_return():
+    dates = pd.to_datetime(["2003-12-31", "2004-01-30", "2004-02-27"])
+    series = pd.Series([100.0, 110.0, 121.0], index=dates)
+
+    visible_series, monthly_ret, options, selected_end = returns_chart._monthly_timeline_state(
+        series,
+        period_start=pd.Timestamp("2004-01-01"),
+    )
+
+    assert visible_series.index.min() == pd.Timestamp("2003-12-31")
+    assert selected_end == pd.Timestamp("2004-02-29")
+    assert options == [
+        pd.Timestamp("2004-01-31"),
+        pd.Timestamp("2004-02-29"),
+    ]
+    assert list(monthly_ret.index) == options
+    assert monthly_ret.iloc[0] == pytest.approx(0.10)
+    assert monthly_ret.iloc[1] == pytest.approx(0.10)
+
+
 def test_quarterly_timeline_state_clips_to_selected_quarter():
     dates = pd.to_datetime(["2023-01-03", "2023-03-31", "2023-06-30", "2023-09-29"])
     series = pd.Series([100.0, 110.0, 121.0, 133.1], index=dates)

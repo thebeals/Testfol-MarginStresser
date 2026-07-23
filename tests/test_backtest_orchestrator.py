@@ -325,6 +325,62 @@ class TestRunMultiBacktest:
         assert len(fetch_calls) == 1
         assert set(fetch_calls[0][0]) == {"AAA", "BBB", "CCC"}
 
+    def test_effective_start_excludes_retained_prior_day_anchor(self, monkeypatch):
+        """A return anchor may precede the requested start but is not the common start."""
+
+        def _component_fetch(tickers, start_date, end_date, **kwargs):
+            return _mock_component_prices(tickers, start_date, end_date)
+
+        def _shadow_with_anchor(
+            allocation,
+            start_val,
+            start_date,
+            end_date,
+            prices_df=None,
+            **kwargs,
+        ):
+            requested_start = pd.Timestamp(start_date)
+            prior = prices_df[prices_df.index < requested_start].tail(1).index
+            in_window = pd.bdate_range(requested_start, end_date)
+            dates = prior.append(in_window)
+            values = [start_val * (1 + 0.001 * i) for i in range(len(dates))]
+            series = pd.Series(values, index=dates, name="Portfolio")
+            twr = series / series.iloc[0]
+            return (
+                pd.DataFrame(),
+                pd.DataFrame(),
+                pd.DataFrame(),
+                pd.DataFrame(),
+                [],
+                series,
+                twr,
+            )
+
+        monkeypatch.setattr(orchestrator, "fetch_component_data", _component_fetch)
+
+        results, _ = run_multi_backtest(
+            portfolios=[{
+                "name": "Anchored",
+                "allocation": {"AAA": 100.0},
+                "maint_pcts": {"AAA": 25.0},
+                "rebalance": {"mode": RebalMode.NONE, "freq": Freq.YEARLY},
+            }],
+            start_date="2004-01-01",
+            end_date="2004-03-31",
+            start_val=10000.0,
+            cashflow_amount=0.0,
+            cashflow_freq="Monthly",
+            invest_div=True,
+            pay_down_margin=False,
+            tax_config={},
+            bearer_token=None,
+            fetch_backtest_fn=_mock_fetch,
+            run_shadow_fn=_shadow_with_anchor,
+        )
+
+        assert results[0]["series"].index.min() == pd.Timestamp("2003-12-31")
+        assert results[0]["effective_start_date"] == pd.Timestamp("2004-01-01")
+
     def test_reuses_shared_component_prices_for_local_pass2_reruns(self, monkeypatch):
         """Aligned local reruns share one common-start fetch instead of refetching per portfolio."""
         fetch_calls = []

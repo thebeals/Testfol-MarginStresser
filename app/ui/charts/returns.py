@@ -10,8 +10,8 @@ from app.services.live_prices import build_live_returns_snapshot, fetch_yahoo_li
 from app.ui.charts.stats_helpers import excess_kurtosis, skewness
 
 
-def _resample_returns(series, rule):
-    """Resample series and compute period returns, including the first period."""
+def _resample_returns(series, rule, period_start=None):
+    """Resample returns while using—but not displaying—a pre-start anchor."""
     resampled = series.resample(rule).last()
     ret = resampled.pct_change(fill_method=None)
     # First period has no prior — compute return from actual series start
@@ -19,10 +19,13 @@ def _resample_returns(series, rule):
         first_val = series.iloc[0]
         if first_val != 0:
             ret.iloc[0] = (resampled.iloc[0] / first_val) - 1
-    return ret.dropna()
+    ret = ret.dropna()
+    if period_start is not None:
+        ret = ret[ret.index >= pd.Timestamp(period_start)]
+    return ret
 
 
-def _period_timeline_state(series, rule, selected_period_end=None):
+def _period_timeline_state(series, rule, selected_period_end=None, period_start=None):
     """Return a series/return slice through the selected timeline point."""
     working_series = pd.Series(series).dropna()
     if working_series.empty:
@@ -32,7 +35,7 @@ def _period_timeline_state(series, rule, selected_period_end=None):
         working_series.index = pd.to_datetime(working_series.index)
     working_series = working_series.sort_index()
 
-    full_period_ret = _resample_returns(working_series, rule)
+    full_period_ret = _resample_returns(working_series, rule, period_start)
     timeline_options = list(full_period_ret.index)
     if not timeline_options:
         return working_series.iloc[0:0], full_period_ret, [], None
@@ -42,16 +45,16 @@ def _period_timeline_state(series, rule, selected_period_end=None):
     selected_end = visible_options[-1] if visible_options else timeline_options[0]
 
     visible_series = working_series.loc[:selected_end]
-    visible_period_ret = _resample_returns(visible_series, rule)
+    visible_period_ret = _resample_returns(visible_series, rule, period_start)
     return visible_series, visible_period_ret, timeline_options, selected_end
 
 
-def _monthly_timeline_state(series, selected_month_end=None):
-    return _period_timeline_state(series, "ME", selected_month_end)
+def _monthly_timeline_state(series, selected_month_end=None, period_start=None):
+    return _period_timeline_state(series, "ME", selected_month_end, period_start)
 
 
-def _quarterly_timeline_state(series, selected_quarter_end=None):
-    return _period_timeline_state(series, "QE", selected_quarter_end)
+def _quarterly_timeline_state(series, selected_quarter_end=None, period_start=None):
+    return _period_timeline_state(series, "QE", selected_quarter_end, period_start)
 
 
 def _format_month_timeline_label(month_end):
@@ -263,7 +266,13 @@ def render_cheat_sheet(port_series, portfolio_name, unique_id, component_data=No
             </div>
             """, unsafe_allow_html=True)
 
-def render_returns_analysis(port_series, bench_series=None, comparison_series=None, unique_id="", portfolio_name="Strategy", component_data=None, raw_port_series=None, stats=None, raw_response=None, fresh_yearly=None, fresh_series=None, allocation=None, composition_df=None):
+def render_returns_analysis(port_series, bench_series=None, comparison_series=None, unique_id="", portfolio_name="Strategy", component_data=None, raw_port_series=None, stats=None, raw_response=None, fresh_yearly=None, fresh_series=None, allocation=None, composition_df=None, analysis_start_date=None):
+    analysis_start_date = (
+        pd.Timestamp(analysis_start_date)
+        if analysis_start_date is not None
+        else None
+    )
+
     # Toggle: use fresh-start series for period breakdowns
     has_fresh_data = fresh_yearly and len(fresh_yearly) > 0 and fresh_series is not None
     use_fresh = False
@@ -338,7 +347,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         if series.empty: return
         
         # 1. Prepare Data (Same as Monthly View)
-        m_ret = _resample_returns(series, "ME")
+        m_ret = _resample_returns(series, "ME", analysis_start_date)
         df_monthly = m_ret.to_frame(name="Return")
         df_monthly["Year"] = df_monthly.index.year
         df_monthly["Month"] = df_monthly.index.month
@@ -427,7 +436,10 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         if series.empty:
             return None
 
-        visible_series, quarterly_ret, timeline_options, selected_timeline_end = _quarterly_timeline_state(series)
+        visible_series, quarterly_ret, timeline_options, selected_timeline_end = _quarterly_timeline_state(
+            series,
+            period_start=analysis_start_date,
+        )
         if quarterly_ret.empty:
             st.info("Not enough quarterly data for the returns heatmap.")
             return None
@@ -443,6 +455,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             visible_series, quarterly_ret, _, selected_timeline_end = _quarterly_timeline_state(
                 series,
                 selected_timeline_end,
+                analysis_start_date,
             )
 
         if selected_timeline_end is not None:
@@ -581,7 +594,10 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         if series.empty:
             return None
 
-        visible_series, m_ret, timeline_options, selected_timeline_end = _monthly_timeline_state(series)
+        visible_series, m_ret, timeline_options, selected_timeline_end = _monthly_timeline_state(
+            series,
+            period_start=analysis_start_date,
+        )
         if m_ret.empty:
             st.info("Not enough monthly data for the returns heatmap.")
             return None
@@ -597,6 +613,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             visible_series, m_ret, _, selected_timeline_end = _monthly_timeline_state(
                 series,
                 selected_timeline_end,
+                analysis_start_date,
             )
 
         if selected_timeline_end is not None:
@@ -719,7 +736,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
             working_series.index = pd.to_datetime(working_series.index)
         working_series = working_series.sort_index()
 
-        monthly_ret = _resample_returns(working_series, "ME")
+        monthly_ret = _resample_returns(working_series, "ME", analysis_start_date)
         if monthly_ret.empty:
             st.info("Not enough monthly data for a year drilldown.")
             return
@@ -993,7 +1010,7 @@ def render_returns_analysis(port_series, bench_series=None, comparison_series=No
         )
 
     elif selected_view == returns_views[1]:
-        annual_ret = _resample_returns(active_series, "YE")
+        annual_ret = _resample_returns(active_series, "YE", analysis_start_date)
         st.subheader(f"{portfolio_name} Annual Returns")
 
         has_fresh_annual = fresh_yearly and len(fresh_yearly) > 0 and not use_fresh

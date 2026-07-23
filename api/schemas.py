@@ -82,6 +82,7 @@ class BacktestResult(BaseModel):
     start_val: float = 10000.0
     sim_range: str = ""
     shadow_range: str = ""
+    effective_start_date: Optional[str] = None
     wmaint: float = 0.25
     wmaint_pm: float = 0.0
     pm_blocked_dates: list = Field(default_factory=list)
