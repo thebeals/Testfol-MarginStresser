@@ -245,6 +245,16 @@ def load_ndx_quarterly_weights() -> pd.DataFrame:
     df = df.copy()
     df["Date"] = pd.to_datetime(df["Date"])
     df["Ticker"] = df["Ticker"].astype(str).str.strip().str.upper()
+    if "PriceTicker" not in df:
+        df["PriceTicker"] = df["Ticker"]
+    else:
+        df["PriceTicker"] = (
+            df["PriceTicker"]
+            .where(df["PriceTicker"].notna(), df["Ticker"])
+            .astype(str)
+            .str.strip()
+            .str.upper()
+        )
     df = df.sort_values(["Date", "Weight"], ascending=[True, False]).reset_index(drop=True)
     return df
 
@@ -342,6 +352,18 @@ def _ndx_top_rows_for_range(start_date, end_date) -> pd.DataFrame:
             company_weights = _ndx_company_weights(q_weights)
             for ticker in selected_tickers:
                 weights.append(company_weights.get(_canonical_company(ticker), 0.0))
+            price_map = (
+                q_weights.drop_duplicates("Ticker", keep="first")
+                .set_index("Ticker")["PriceTicker"]
+            )
+            selected_tickers = [
+                (
+                    price_map.get(ticker, ticker)
+                    if price_map.get(ticker, ticker) != "QQQ"
+                    else ticker
+                )
+                for ticker in selected_tickers
+            ]
         rows.append(
             {
                 "Date": pd.Timestamp(f"{dt.year + 1}-01-01"),

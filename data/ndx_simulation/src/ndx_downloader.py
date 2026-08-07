@@ -1,5 +1,4 @@
 import requests
-import json
 import os
 import time
 import datetime
@@ -7,10 +6,12 @@ import config
 
 # Configuration
 CIK = "1067839"
-FORM_TYPE = "485BPOS"
+FORM_TYPES = {"485BPOS", "NPORT-P"}
 START_DATE = datetime.date(1999, 1, 1)
-USER_AGENT = "Antigravity/1.0 (antigravity_agent@google.com)" # SEC requires a User-Agent with contact info
-DOWNLOAD_DIR = config.NDX_CACHE_DIR
+USER_AGENT = os.environ.get(
+    "SEC_USER_AGENT",
+    "Testfol NDX research testfol@example.com",
+)
 
 # SEC EDGAR URLs
 SUBMISSIONS_URL = f"https://data.sec.gov/submissions/CIK{CIK.zfill(10)}.json"
@@ -21,11 +22,18 @@ def setup_session():
     session.headers.update({
         "User-Agent": USER_AGENT,
         "Accept-Encoding": "gzip, deflate",
-        "Host": "data.sec.gov"
     })
     return session
 
-def download_filing(session, accession_number, primary_document, filing_date):
+def download_filing(
+    session,
+    accession_number,
+    primary_document,
+    filing_date,
+    *,
+    form,
+    report_date="",
+):
     """
     Downloads a single filing.
     URL format: https://www.sec.gov/Archives/edgar/data/{cik}/{accession_number}/{primary_document}
@@ -38,21 +46,35 @@ def download_filing(session, accession_number, primary_document, filing_date):
     # The URL provided by the user: https://www.sec.gov/Archives/edgar/data/1067839/000091205700030669/a485bpos.txt
     # This implies we can just construct it.
     
-    url = f"{BASE_ARCHIVE_URL}/{CIK}/{accession_no_dashes}/{primary_document}"
+    # NPORT submissions expose an XSL display path, while the raw XML lives at
+    # the accession root.  Using basename works for both filing families.
+    document_name = os.path.basename(primary_document)
+    url = f"{BASE_ARCHIVE_URL}/{CIK}/{accession_no_dashes}/{document_name}"
+    download_dir = (
+        config.NPORT_CACHE_DIR if form == "NPORT-P" else config.NDX_CACHE_DIR
+    )
+    os.makedirs(download_dir, exist_ok=True)
+    if form == "NPORT-P":
+        filename = f"{report_date}_{filing_date}_{accession_number}_{document_name}"
+    else:
+        filename = f"{filing_date}_{accession_number}_{document_name}"
+    filepath = os.path.join(download_dir, filename)
+    refresh = os.environ.get("NDX_REFRESH_SEC_FILINGS", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if os.path.exists(filepath) and not refresh:
+        print(f"Already cached: {filepath}")
+        return True
     
     # We might need to switch Host header for document download if it's different from data.sec.gov
     # The archives are usually on www.sec.gov
-    download_headers = session.headers.copy()
-    download_headers["Host"] = "www.sec.gov"
-    
     print(f"Downloading {filing_date} - {url}...")
     
     try:
-        response = session.get(url, headers=download_headers)
+        response = session.get(url)
         response.raise_for_status()
-        
-        filename = f"{filing_date}_{accession_number}_{primary_document}"
-        filepath = os.path.join(DOWNLOAD_DIR, filename)
         
         with open(filepath, "wb") as f:
             f.write(response.content)
@@ -65,8 +87,8 @@ def download_filing(session, accession_number, primary_document, filing_date):
         time.sleep(0.12) # Rate limit: SEC allows 10 req/s, so > 0.1s sleep is safe
 
 def main():
-    if not os.path.exists(DOWNLOAD_DIR):
-        os.makedirs(DOWNLOAD_DIR)
+    os.makedirs(config.NDX_CACHE_DIR, exist_ok=True)
+    os.makedirs(config.NPORT_CACHE_DIR, exist_ok=True)
 
     session = setup_session()
     
@@ -98,20 +120,28 @@ def main():
         filing_date_str = filings["filingDate"][i]
         filing_date = datetime.datetime.strptime(filing_date_str, "%Y-%m-%d").date()
         
-        if form == FORM_TYPE and filing_date >= START_DATE:
+        if form in FORM_TYPES and filing_date >= START_DATE:
             accession_number = filings["accessionNumber"][i]
             primary_document = filings["primaryDocument"][i]
+            report_date = filings.get("reportDate", [""] * total_filings)[i]
             
             # primaryDocument is sometimes just a filename like "doc.xml". 
             # If we want the text version, it is often just the accession number + .txt?
             # User example: .../000091205700030669/a485bpos.txt
             # Let's trust primaryDocument for now. If it fails, we might need logic to find the .txt
             
-            success = download_filing(session, accession_number, primary_document, filing_date_str)
+            success = download_filing(
+                session,
+                accession_number,
+                primary_document,
+                filing_date_str,
+                form=form,
+                report_date=report_date,
+            )
             if success:
                 count += 1
                 
-    print(f"Done. Downloaded {count} filings.")
+    print(f"Done. Cached {count} SEC holdings filings ({', '.join(sorted(FORM_TYPES))}).")
 
 if __name__ == "__main__":
     main()

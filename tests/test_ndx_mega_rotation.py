@@ -107,7 +107,7 @@ def test_ndx_top8_annual_plan_uses_ndx_weights_and_auto_expenses():
     assert dynamic_names == {
         "AAPL?L=2&E=0.96",
         "MSFT?L=2&E=0.98",
-        "GOOG?L=2&E=0.96",
+        "GOOGL?L=2&E=0.96",
         "AMZN?L=2&E=0.99",
         "TSLA?L=2&E=0.83",
         "NVDA?L=2&E=0.92",
@@ -126,29 +126,31 @@ def test_ndx_top8_annual_filters_to_official_membership_when_available():
     assert rows.iloc[0]["SelectionDate"] == pd.Timestamp("2013-12-23")
     assert selected == [
         "AAPL",
+        "GOOG",
         "MSFT",
-        "GOOGL",
         "AMZN",
         "INTC",
         "QCOM",
         "CSCO",
-        "CMCSA",
+        "GILD",
     ]
     assert "ORCL" not in selected
 
 
-def test_ndx_top8_annual_preserves_historical_symbol_aliases():
+def test_ndx_top8_annual_uses_audited_price_aliases():
     rows = _ndx_top_rows_for_range("2007-01-01", "2010-12-31")
     selections = {
         pd.Timestamp(row["Date"]).year: _top_unique_company_tickers(row, 8)
         for _, row in rows.iterrows()
     }
 
-    assert selections[2007][-1] == "GEN"
+    assert selections[2007][-1] == "ORCL"
     assert "DELL" not in selections[2007]
-    assert selections[2008][-2] == "BBRY"
+    assert "BB" in selections[2008]
+    assert "RIMM" not in selections[2008]
     assert "GILD" not in selections[2008]
-    assert selections[2010][-1] == "BBRY"
+    assert selections[2010][-1] == "BB"
+    assert "RIMM" not in selections[2010]
     assert "AMZN" not in selections[2010]
 
 
@@ -184,8 +186,8 @@ def test_ndx_top2_annual_supports_rank_and_cap_weighting():
     )
 
     cap_schedule_2026 = cap_plan.dynamic_schedule[pd.Timestamp("2026-01-01")]
-    assert cap_schedule_2026["NVDA?L=2&E=0.92"] == pytest.approx(20.968703921162856)
-    assert cap_schedule_2026["AAPL?L=2&E=0.96"] == pytest.approx(19.031296078837144)
+    assert cap_schedule_2026["NVDA?L=2&E=0.92"] == pytest.approx(21.08582081425034)
+    assert cap_schedule_2026["AAPL?L=2&E=0.96"] == pytest.approx(18.914179185749664)
 
 
 def test_shadow_backtest_dynamic_schedule_ignores_inactive_missing_prices():

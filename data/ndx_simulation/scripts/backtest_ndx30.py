@@ -11,6 +11,11 @@ import price_manager
 import changes_parser
 from official_index_data import get_official_constituents
 from methodology_utils import apply_ndx30_company_cap
+from simulation_pricing import (
+    collapse_to_pricing_weights,
+    ensure_price_tickers,
+    price_ticker_map,
+)
 
 
 def apply_ndx30_caps(w_series):
@@ -70,11 +75,11 @@ def backtest():
         print(f"Error: {config.WEIGHTS_FILE} not found.")
         return
 
-    weights_df = pd.read_csv(config.WEIGHTS_FILE)
+    weights_df = ensure_price_tickers(pd.read_csv(config.WEIGHTS_FILE))
     weights_df['Date'] = pd.to_datetime(weights_df['Date'])
 
     # Get all tickers needed
-    tickers = weights_df[weights_df['IsMapped'] == True]['Ticker'].unique().tolist()
+    tickers = weights_df[weights_df['IsMapped'] == True]['PriceTicker'].unique().tolist()
 
     # Add tickers from changes file (for mid-quarter drops)
     changes_df = changes_parser.load_changes()
@@ -111,6 +116,7 @@ def backtest():
     constituents_history = []
     prev_top5 = None
     prev_final_weights = None
+    prev_price_tickers = None
 
     print("Simulating NDX30 (Nasdaq-100 Top 30) strategy...")
 
@@ -131,24 +137,26 @@ def backtest():
                 if prev_final_weights is not None:
                     print(f"  Q {start_dt.date()}: DISTORTED weights (overlap={overlap}/5 with prev) — carrying forward")
                     curr_w = prev_final_weights.copy()
-                    valid_tickers = [t for t in curr_w.index if t in data.columns]
-                    curr_w = curr_w[valid_tickers]
-                    if curr_w.sum() > 0:
-                        curr_w = curr_w / curr_w.sum()
+                    pricing_w = collapse_to_pricing_weights(
+                        curr_w,
+                        prev_price_tickers,
+                        data.columns,
+                    )
                     constituents_history.append({
                         "Date": start_dt, "Count": len(curr_w),
                         "Top": curr_w.idxmax() if not curr_w.empty else "N/A",
                         "Type": "CarryFwd",
                         "Tickers": "|".join(curr_w.index),
-                        "Weights": "|".join([f"{w:.6f}" for w in curr_w])
+                        "Weights": "|".join([f"{w:.6f}" for w in curr_w]),
+                        "PriceTickers": "|".join(pricing_w.index),
                     })
                     try:
-                        price_slice = data.loc[start_dt:end_dt, curr_w.index].ffill()
+                        price_slice = data.loc[start_dt:end_dt, pricing_w.index].ffill()
                         if not price_slice.empty:
                             p_start = price_slice.iloc[0]
                             valid_mask = (p_start > 0) & (p_start.notna())
                             valid_tkrs = valid_mask.index[valid_mask].tolist()
-                            fw = curr_w[valid_tkrs]
+                            fw = pricing_w[valid_tkrs]
                             if fw.sum() > 0:
                                 fw = fw / fw.sum()
                             shares = (fw * current_value) / p_start[valid_tkrs]
@@ -191,7 +199,12 @@ def backtest():
             continue
 
         # Filter for valid tickers in price data
-        valid_tickers = [t for t in selected_tickers if t in data.columns]
+        event_price_tickers = price_ticker_map(q_weights)
+        valid_tickers = [
+            ticker
+            for ticker in selected_tickers
+            if event_price_tickers.get(ticker, ticker) in data.columns
+        ]
         ndx30_subset = q_weights[q_weights['Ticker'].isin(valid_tickers)].copy()
 
         if ndx30_subset.empty:
@@ -199,9 +212,11 @@ def backtest():
 
         # Apply methodology-aligned company-level capping, then project back to issues
         final_weights = apply_ndx30_company_cap(ndx30_subset)
+        current_price_tickers = price_ticker_map(ndx30_subset)
 
         # Save as previous good portfolio for carry-forward
         prev_final_weights = final_weights.copy()
+        prev_price_tickers = current_price_tickers.copy()
         prev_top5 = current_top5
 
         constituents_history.append({
@@ -210,7 +225,14 @@ def backtest():
             "Top": final_weights.idxmax() if not final_weights.empty else "N/A",
             "Type": "Recon",
             "Tickers": "|".join(final_weights.index),
-            "Weights": "|".join([f"{w:.6f}" for w in final_weights])
+            "Weights": "|".join([f"{w:.6f}" for w in final_weights]),
+            "PriceTickers": "|".join(
+                collapse_to_pricing_weights(
+                    final_weights,
+                    current_price_tickers,
+                    data.columns,
+                ).index
+            ),
         })
 
         # 2. Performance Simulation (Event-Driven)
@@ -238,7 +260,14 @@ def backtest():
                 continue
 
             try:
-                price_slice = data.loc[sub_start:sub_end, curr_w.index]
+                pricing_w = collapse_to_pricing_weights(
+                    curr_w,
+                    current_price_tickers,
+                    data.columns,
+                )
+                if pricing_w.empty:
+                    continue
+                price_slice = data.loc[sub_start:sub_end, pricing_w.index]
                 if price_slice.empty:
                     continue
 
@@ -249,16 +278,16 @@ def backtest():
 
                 if not valid_mask.all():
                     valid_tkrs = valid_mask.index[valid_mask].tolist()
-                    curr_w = curr_w[valid_tkrs]
-                    if curr_w.sum() > 0:
-                        curr_w = curr_w / curr_w.sum()
+                    pricing_w = pricing_w[valid_tkrs]
+                    if pricing_w.sum() > 0:
+                        pricing_w = pricing_w / pricing_w.sum()
                     p_start = p_start[valid_tkrs]
                     price_slice = price_slice[valid_tkrs]
 
-                if curr_w.empty:
+                if pricing_w.empty:
                     continue
 
-                shares = (curr_w * current_value) / p_start
+                shares = (pricing_w * current_value) / p_start
                 daily_vals = price_slice.dot(shares)
 
                 ndx30_values.loc[daily_vals.index] = daily_vals
@@ -355,7 +384,7 @@ def backtest():
     # Save Daily Data for Testfol
     output_path = os.path.join(config.BASE_DIR, "..", "NDX30SIM.csv")
     ndx30_values.name = "Close"
-    ndx30_values.to_csv(output_path, header=True)
+    ndx30_values.to_csv(output_path, header=True, index_label="Date")
     print(f"Saved NDX30SIM data to {output_path}")
 
 

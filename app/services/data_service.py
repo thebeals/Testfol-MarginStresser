@@ -35,6 +35,31 @@ QQUP_SPREAD_PCT = 0.40
 QQUP_EXPENSE_PCT = 0.95
 
 
+def _local_reconstruction_cache_fingerprint(tickers: list[str]) -> dict[str, str]:
+    """Fingerprint local simulation inputs that can change between rebuilds."""
+    bases = {str(ticker).split("?")[0].strip().upper() for ticker in tickers}
+    filenames: set[str] = set()
+    if Tickers.NDXMEGASIM in bases:
+        filenames.add("NDXMEGASIM.csv")
+    if Tickers.NDXMEGA2SIM in bases:
+        filenames.add("NDXMEGA2SIM.csv")
+    if Tickers.NDX30SIM in bases:
+        filenames.add("NDX30SIM.csv")
+    if Tickers.QQUPSIM in bases:
+        filenames.add("NDXMEGAPRICESIM.csv")
+
+    data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data"))
+    fingerprint: dict[str, str] = {}
+    for filename in sorted(filenames):
+        path = os.path.join(data_dir, filename)
+        if not os.path.exists(path):
+            fingerprint[filename] = "missing"
+            continue
+        stat = os.stat(path)
+        fingerprint[filename] = f"{stat.st_size}:{stat.st_mtime_ns}"
+    return fingerprint
+
+
 def _splice_official_total_return(
     local_series: pd.Series,
     official_series: pd.Series,
@@ -362,7 +387,8 @@ def fetch_component_data(tickers: list[str], start_date, end_date, *, sync_end: 
             "start_date": sd_str,
             "end_date": ed_str,
             "sync_end": sync_end,
-            "sync_policy": "requested-window-v7-qqupsim-price-index",
+            "sync_policy": "requested-window-v8-local-reconstruction-fingerprint",
+            "local_reconstruction": _local_reconstruction_cache_fingerprint(unique_bases),
         },
         sort_keys=True,
     )

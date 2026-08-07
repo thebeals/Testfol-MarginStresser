@@ -2,7 +2,8 @@ import yfinance as yf
 import pandas as pd
 import os
 import config
-from datetime import datetime, timedelta
+from datetime import datetime
+from free_price_history import merge_free_history_prices
 
 # Global data source setting (can be overridden by environment variable)
 DATA_SOURCE = os.environ.get('NDX_DATA_SOURCE', 'yfinance')
@@ -15,6 +16,7 @@ def get_price_data(
     data_source=None,
     polygon_api_key=None,
     adjust_prices=True,
+    max_cache_age_days=None,
 ):
     """
     Fetches price data for the specified tickers.
@@ -27,6 +29,9 @@ def get_price_data(
         data_source: 'yfinance' (default), 'polygon', or 'stooq'
         polygon_api_key: API key for Polygon.io (required if data_source='polygon')
         adjust_prices: Use dividend-adjusted closes when True; raw closes when False
+        max_cache_age_days: Refresh when the newest cached date is older than
+            this many calendar days. Defaults to NDX_PRICE_CACHE_MAX_AGE_DAYS
+            (3 days). Use a negative value to disable age-based refresh.
     """
     # Determine data source
     source = data_source or DATA_SOURCE
@@ -52,8 +57,50 @@ def get_price_data(
         print(f"Loading price data from cache: {cache_file} ...")
         try:
             df = pd.read_pickle(cache_file)
+
+            if max_cache_age_days is None:
+                try:
+                    max_cache_age_days = int(
+                        os.environ.get('NDX_PRICE_CACHE_MAX_AGE_DAYS', '3')
+                    )
+                except ValueError:
+                    max_cache_age_days = 3
+
+            if df.empty:
+                print("Price cache is empty. Refreshing...")
+                return download_and_cache(
+                    tickers, start_date, cache_file, source, api_key, adjust_prices
+                )
+
+            # A cache created before archived-delisted support was added may be
+            # fresh by date but incomplete by security. Merge the local
+            # Wayback corpus before evaluating requested coverage.
+            non_null_before_archives = int(df.notna().sum().sum())
+            df = merge_free_history_prices(df, adjust_prices=adjust_prices)
+            df = merge_wayback_prices(df, adjust_prices=adjust_prices)
+            if int(df.notna().sum().sum()) != non_null_before_archives:
+                df.to_pickle(cache_file)
+
+            latest_cached_date = pd.Timestamp(df.index.max())
+            if latest_cached_date.tzinfo is not None:
+                latest_cached_date = latest_cached_date.tz_localize(None)
+            cache_age_days = (
+                pd.Timestamp(datetime.now().date()) - latest_cached_date.normalize()
+            ).days
+            if max_cache_age_days >= 0 and cache_age_days > max_cache_age_days:
+                print(
+                    f"Cache ends {latest_cached_date.date()} "
+                    f"({cache_age_days} days old). Refreshing..."
+                )
+                return download_and_cache(
+                    tickers, start_date, cache_file, source, api_key, adjust_prices
+                )
             
-            missing = [t for t in tickers if t not in df.columns]
+            missing = [
+                t
+                for t in tickers
+                if t not in df.columns or not df[t].notna().any()
+            ]
             present = [t for t in tickers if t in df.columns and df[t].notna().any()]
             pct_missing = len(missing) / len(tickers) if tickers else 0
 
@@ -160,11 +207,13 @@ def download_and_cache(
     else:
         df = new_df
         
-    # Apply successor ticker fallback for acquired companies
-    df = apply_successor_fallback(df, adjust_prices=adjust_prices)
-
-    # Merge Wayback Machine recovered prices for delisted tickers
+    # Direct historical observations take precedence over successor proxies.
+    # This ordering also repairs old caches that predate delisted-price support.
+    df = merge_free_history_prices(df, adjust_prices=adjust_prices)
     df = merge_wayback_prices(df, adjust_prices=adjust_prices)
+
+    # Apply successor ticker fallback only after every direct source is merged.
+    df = apply_successor_fallback(df, adjust_prices=adjust_prices)
 
     df.to_pickle(cache_file)
     print(f"Saved {len(df.columns)} tickers to cache: {cache_file}")
@@ -341,7 +390,16 @@ def apply_successor_fallback(df, adjust_prices=True):
         )
 
         if fill_mask.any():
-            df.loc[fill_mask, orig] = df.loc[fill_mask, succ]
+            successor_values = df.loc[fill_mask, succ].copy()
+            # Price levels from independent series are arbitrary.  Stitch the
+            # successor to the final observed original level so the handoff
+            # cannot manufacture a one-day return.
+            observed = existing.dropna()
+            if not observed.empty and not successor_values.empty:
+                first_successor = float(successor_values.iloc[0])
+                if first_successor > 0:
+                    successor_values *= float(observed.iloc[-1]) / first_successor
+            df.loc[fill_mask, orig] = successor_values
             filled += 1
 
     if filled:

@@ -1,6 +1,8 @@
 import os
 import re
 import csv
+import datetime
+import html as html_lib
 import logging
 import sys
 from html.parser import HTMLParser
@@ -197,8 +199,8 @@ def parse_html_as_text(filepath):
     # 2. Shares ... Name ... Value (HTML 2017 style, if on same line)
     
     patterns = [
-        (re.compile(r'^\s*([A-Za-z].*?)\s+([0-9,]+)\s+\$?([0-9,]+)\s*$'), "NSV"),
-        (re.compile(r'^\s*([0-9,]+)\s+([A-Za-z].*?)\s+\$?([0-9,]+)\s*$'), "SNV")
+        (re.compile(r'^\s*([A-Za-z].*?)\s+([0-9,]+)\s+(?:\$\s*)?([0-9,]+)\s*$'), "NSV"),
+        (re.compile(r'^\s*([0-9,]+)\s+([A-Za-z].*?)\s+(?:\$\s*)?([0-9,]+)\s*$'), "SNV")
     ]
     
     # Try Single Line Matching First
@@ -298,6 +300,109 @@ def parse_html_as_text(filepath):
             
     return holdings
 
+
+_MONTH_PATTERN = (
+    r"(?:January|February|March|April|May|June|July|August|September|"
+    r"October|November|December)"
+)
+_DATE_PATTERN = _MONTH_PATTERN + r"\s+\d{1,2},\s+\d{4}"
+
+
+def extract_report_date(filepath):
+    """Return the holdings as-of date embedded in a 485BPOS filing.
+
+    The filename date is the SEC filing date, commonly four months after the
+    actual schedule.  Using it as the valuation date materially distorts every
+    projected weight.
+    """
+    with open(filepath, "r", encoding="utf-8", errors="ignore") as handle:
+        content = handle.read()
+
+    text = html_lib.unescape(re.sub(r"<[^>]+>", " ", content))
+    text = re.sub(r"\s+", " ", text).replace("\xa0", " ")
+    patterns = [
+        rf"Schedule of Investments.{{0,500}}?({_DATE_PATTERN})",
+        rf"Statement of Investments.{{0,500}}?({_DATE_PATTERN})",
+        rf"ESSENTIAL INFORMATION AS OF\s+({_DATE_PATTERN})",
+        rf"as of\s+({_DATE_PATTERN})",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if not match:
+            continue
+        try:
+            return datetime.datetime.strptime(
+                match.group(1).title(), "%B %d, %Y"
+            ).date()
+        except ValueError:
+            continue
+    return None
+
+
+def parse_repeated_schedule_pages(filepath):
+    """Parse every repeated page of old text-format holdings schedules.
+
+    Early filings repeat the ``Schedule of Investments`` heading on each page.
+    The old parser stopped at the first page-level total and retained only
+    30-36 securities.  Actual schedule pages can be identified by their Shares
+    and Value headers and safely concatenated through ``Total Investments``.
+    """
+    with open(filepath, "r", encoding="utf-8", errors="ignore") as handle:
+        content = handle.read()
+
+    text = html_lib.unescape(re.sub(r"<[^>]+>", "   ", content))
+    text = text.replace("\xa0", " ")
+    end_matches = list(re.finditer(r"Total\s+Investments", text, re.IGNORECASE))
+    if not end_matches:
+        return []
+    schedule_end = end_matches[-1].end()
+    starts = [
+        match.start()
+        for match in re.finditer(r"Schedule of Investments", text, re.IGNORECASE)
+        if match.start() < schedule_end
+    ]
+    if not starts:
+        return []
+
+    patterns = [
+        (re.compile(r"^\s*([A-Za-z].*?)\s+([0-9,]+)\s+(?:\$\s*)?([0-9,]+)\s*$"), "NSV"),
+        (re.compile(r"^\s*([0-9,]+)\s+([A-Za-z].*?)\s+(?:\$\s*)?([0-9,]+)\s*$"), "SNV"),
+    ]
+    holdings = []
+    for index, start in enumerate(starts):
+        end = starts[index + 1] if index + 1 < len(starts) else schedule_end
+        segment = text[start:end]
+        header = re.sub(r"\s+", " ", segment[:1200])
+        if not (
+            re.search(r"\bShares\b", header, re.IGNORECASE)
+            and re.search(r"\bValue\b", header, re.IGNORECASE)
+        ):
+            continue
+
+        for line in segment.splitlines():
+            line = line.strip()
+            for regex, order in patterns:
+                match = regex.match(line)
+                if not match:
+                    continue
+                first, second, third = match.groups()
+                name, shares, value = (
+                    (first, second, third)
+                    if order == "NSV"
+                    else (second, first, third)
+                )
+                if len(value.replace(",", "")) < 5:
+                    break
+                name = re.sub(r"\.{2,}.*$", "", name).strip()
+                name = re.sub(r"\*|\([a-z]\)", "", name).strip(" .")
+                holdings.append(
+                    (name, shares.replace(",", ""), value.replace(",", ""))
+                )
+                break
+
+    # Defensive de-duplication in case a filing repeats a page verbatim.
+    return list(dict.fromkeys(holdings))
+
 def parse_text_file(filepath):
     """Parses a text (ASCII) filing."""
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
@@ -305,12 +410,13 @@ def parse_text_file(filepath):
         
     holdings = []
     in_schedule = False
+    pending_name_parts = []
     
     # Regex for a line like: "Microsoft Corporation*.......  3,347,177   $303,128,717"
     # Name can contain spaces. Separator is usually multiple dots or spaces.
     # We look for a line ending with two numbers.
     
-    row_pattern = re.compile(r'^(.*?)\s+([0-9,]+)\s+\$?([0-9,]+)$')
+    row_pattern = re.compile(r'^(.*?)\s+([0-9,]+)\s+(?:\$\s*)?([0-9,]+)$')
 
     for line in lines:
         line = line.strip()
@@ -319,6 +425,7 @@ def parse_text_file(filepath):
             
         if "Schedule of Investments" in line:
             in_schedule = True
+            pending_name_parts = []
             continue
             
         if not in_schedule:
@@ -327,11 +434,18 @@ def parse_text_file(filepath):
         # Stop condition: total or end of table
         if "TOTAL" in line.upper() or "</TABLE>" in line.upper():
             in_schedule = False # Or just break if we assume one table
+            pending_name_parts = []
             
         # Attempt to match row
         match = row_pattern.match(line)
         if match:
             name, shares, value = match.groups()
+
+            # Older SEC schedules wrap issuer names over multiple lines. Keep
+            # the prefix so "Adelphia Communications" / "Corporation" does
+            # not become an unidentifiable position named only Corporation.
+            if pending_name_parts:
+                name = " ".join(pending_name_parts[-3:] + [name])
             
             # Cleanup
             name = name.strip('.').strip()
@@ -340,6 +454,20 @@ def parse_text_file(filepath):
             value = value.replace(',', '')
             
             holdings.append((name, shares, value))
+            pending_name_parts = []
+        elif (
+            re.search(r"[A-Za-z]", line)
+            and not re.search(r"\d", line)
+            and len(line) < 100
+            and not re.search(
+                r"SHARES|MARKET|VALUE|COMMON STOCK|SCHEDULE|INVESTMENTS",
+                line,
+                re.IGNORECASE,
+            )
+        ):
+            pending_name_parts.append(line.strip(". "))
+        else:
+            pending_name_parts = []
             
     return holdings
 
@@ -359,15 +487,24 @@ def process_files():
         logging.info(f"Processing {filename}...")
         
         holdings = []
+        parser_method = "html-table"
         if filename.endswith('.txt'):
-            holdings = parse_text_file(filepath)
+            text_holdings = parse_text_file(filepath)
+            repeated_pages = parse_repeated_schedule_pages(filepath)
+            if len(repeated_pages) > len(text_holdings):
+                holdings = repeated_pages
+                parser_method = "repeated-schedule-pages"
+            else:
+                holdings = text_holdings
+                parser_method = "text-schedule"
         else:
             holdings = parse_html_file(filepath)
             
             # FALLBACK
             if len(holdings) < 10:
-                 logging.info("  HTML parsing yielded few results. Using fallback text parsing.")
-                 holdings = parse_html_as_text(filepath)
+                  logging.info("  HTML parsing yielded few results. Using fallback text parsing.")
+                  holdings = parse_html_as_text(filepath)
+                  parser_method = "html-text-fallback"
             
         # Global artifact filter (catches artifacts from all parser paths)
         ARTIFACT_NAMES = {
@@ -395,13 +532,42 @@ def process_files():
 
         logging.info(f"  Found {len(holdings)} holdings.")
 
+        report_date = extract_report_date(filepath)
+        if report_date is None:
+            report_date = datetime.datetime.strptime(file_date, "%Y-%m-%d").date()
+            date_quality = "filing-date-fallback"
+        else:
+            date_quality = "reported-as-of"
+
         for h in holdings:
-            all_data.append([file_date, filename, h[0], h[1], h[2]])
+            all_data.append([
+                report_date.isoformat(),
+                file_date,
+                filename,
+                h[0],
+                h[1],
+                h[2],
+                "485BPOS",
+                "SEC",
+                parser_method,
+                date_quality,
+            ])
 
     # Write to CSV
     with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(["Date", "FilingID", "Company", "Shares", "Value"])
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow([
+            "Date",
+            "FilingDate",
+            "FilingID",
+            "Company",
+            "Shares",
+            "Value",
+            "Form",
+            "Source",
+            "ParserMethod",
+            "DateQuality",
+        ])
         writer.writerows(all_data)
         
     logging.info(f"Successfully wrote {len(all_data)} rows to {OUTPUT_FILE}")

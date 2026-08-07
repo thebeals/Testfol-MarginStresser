@@ -9,11 +9,11 @@ import streamlit as st
 import pandas as pd
 import yfinance as yf
 import os
-import json
 import time
-from datetime import datetime, timedelta, date
+from datetime import date
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from app.core import calculations
+from app.services.ndx_components import load_current_ndx_components
 from app.services import testfol_api as api
 
 # Rate limiting for Testfol API
@@ -27,60 +27,29 @@ NDX_COMPONENTS_FILE = os.path.join(DATA_DIR, "assets/nasdaq_components.csv")
 NAME_MAPPING_FILE = os.path.join(DATA_DIR, "assets/name_mapping.json")
 
 
+@st.cache_data(ttl=86400, show_spinner=False)  # Daily membership refresh
 def get_current_ndx_components():
     """
-    Get current NDX-100 components from nasdaq_components.csv.
-    Uses name_mapping.json to translate company names to tickers.
-    Returns DataFrame with Ticker and Name columns.
+    Get current Nasdaq-100 membership from Nasdaq, verified against Wikipedia.
+
+    Falls back to Wikipedia, then the local SEC-derived snapshot when live
+    sources are unavailable.
     """
     try:
-        # Load components
-        df = pd.read_csv(NDX_COMPONENTS_FILE)
-        df['Date'] = pd.to_datetime(df['Date'])
-        
-        # Filter out corrupt rows (Company column should not look like dates)
-        # Valid company names don't start with digits
-        df = df[~df['Company'].str.match(r'^\d{4}-\d{2}-\d{2}', na=False)]
-        
-        # Also ensure Value is numeric and reasonable
-        df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
-        df = df[df['Value'] > 0]
-        
-        # Filter out future dates
-        today = pd.Timestamp.now().normalize()
-        df = df[df['Date'] <= today]
-        
-        # Get latest date
-        latest_date = df['Date'].max()
-        
-        # Filter to latest date
-        current = df[df['Date'] == latest_date].copy()
-        
-        # Load name mapping
-        with open(NAME_MAPPING_FILE, 'r') as f:
-            name_mapping = json.load(f)
-        
-        # Map company names to tickers
-        current['Ticker'] = current['Company'].map(name_mapping)
-        
-        # Filter out unmapped companies
-        current = current[current['Ticker'].notna()].copy()
-        
-        # Calculate weight from Value
-        total_value = current['Value'].sum()
-        current['Weight'] = current['Value'] / total_value
-        
-        # Rename for consistency
-        current = current.rename(columns={'Company': 'Name'})
-        
-        # Sort by weight descending
-        current = current.sort_values('Weight', ascending=False)
-        
-        return current[['Ticker', 'Name', 'Weight']], latest_date
-        
+        snapshot = load_current_ndx_components(
+            NDX_COMPONENTS_FILE,
+            NAME_MAPPING_FILE,
+        )
+        return (
+            snapshot.components,
+            snapshot.as_of,
+            snapshot.source,
+            snapshot.weight_basis,
+            snapshot.warning,
+        )
     except Exception as e:
         st.error(f"Failed to load NDX components: {e}")
-        return pd.DataFrame(), None
+        return pd.DataFrame(), None, "Unavailable", "Unavailable", None
 
 
 @st.cache_data(ttl=900, show_spinner=False)  # 15-minute cache
@@ -397,7 +366,6 @@ def fetch_ma_data_testfol(tickers: list, tolerance_days: int = 0, min_days_filte
 
     # Rate-limited parallel fetching
     completed = 0
-    total = len(tickers)
     last_request_time = 0
 
     with ThreadPoolExecutor(max_workers=TESTFOL_MAX_WORKERS) as executor:
@@ -518,7 +486,6 @@ def fetch_wma_data_testfol(tickers: list, tolerance_weeks: int = 0, min_weeks_fi
 
     # Rate-limited parallel fetching
     completed = 0
-    total = len(tickers)
     last_request_time = 0
 
     with ThreadPoolExecutor(max_workers=TESTFOL_MAX_WORKERS) as executor:
@@ -638,7 +605,6 @@ def render_ndx_scanner():
 
     is_weekly = ma_type == "200 WMA (Weekly - Munger)"
     ma_label = "200 WMA" if is_weekly else "200 SMA"
-    duration_label = "weeks" if is_weekly else "days"
 
     if is_weekly:
         st.caption("Identify Nasdaq 100 components trading below their 200-Week Moving Average (Munger Indicator)")
@@ -646,7 +612,13 @@ def render_ndx_scanner():
         st.caption("Identify Nasdaq 100 components trading below their 200-Day Moving Average")
 
     # Load components
-    components_df, latest_date = get_current_ndx_components()
+    (
+        components_df,
+        latest_date,
+        component_source,
+        weight_basis,
+        component_warning,
+    ) = get_current_ndx_components()
 
     # Assign Rank by Weight (it's already sorted by Weight)
     if not components_df.empty:
@@ -656,7 +628,13 @@ def render_ndx_scanner():
         st.warning("No NDX component data available. Run the NDX rebuild script first.")
         return
 
-    st.info(f"📅 **Data as of:** {latest_date.strftime('%Y-%m-%d')} | **Components:** {len(components_df)}")
+    st.info(
+        f"📅 **Membership as of:** {latest_date.strftime('%Y-%m-%d')} | "
+        f"**Securities:** {len(components_df)} | **Source:** {component_source}"
+    )
+    st.caption(f"Weight/rank basis: {weight_basis}")
+    if component_warning:
+        st.warning(component_warning)
 
     # Check if bearer token is available (session state or env var)
     has_bearer_token = bool(
@@ -888,7 +866,7 @@ def render_ndx_scanner():
     column_config = {
         "Rank": st.column_config.NumberColumn(
             "Rank",
-            help="NDX-100 weight ranking (1 = highest weight)",
+            help=f"Nasdaq-100 component ranking based on {weight_basis}",
             format="%d"
         ),
         "Ticker": st.column_config.TextColumn(
@@ -900,8 +878,8 @@ def render_ndx_scanner():
             help="Company name"
         ),
         "Weight": st.column_config.NumberColumn(
-            "Weight",
-            help="Weight in the NDX-100 index",
+            "Market-cap proxy %" if component_source.startswith("Nasdaq") else "Weight %",
+            help=f"Component weight basis: {weight_basis}",
             format="%.2f%%"
         ),
         "Price": st.column_config.NumberColumn(

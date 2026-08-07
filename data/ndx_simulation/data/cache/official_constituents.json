@@ -1,4 +1,6 @@
 {
+  "NDX30|2000-03-20|SOD": [],
+  "NDX30|2000-06-19|SOD": [],
   "NDX30|2000-06-30|SOD": [],
   "NDX30|2000-09-18|SOD": [],
   "NDX30|2000-12-18|SOD": [],
@@ -96,6 +98,8 @@
   "NDX30|2023-12-18|SOD": [],
   "NDX30|2024-03-18|SOD": [],
   "NDX30|2024-06-24|SOD": [],
+  "NDXMEGA2|2000-03-20|SOD": [],
+  "NDXMEGA2|2000-06-19|SOD": [],
   "NDXMEGA2|2000-06-30|SOD": [],
   "NDXMEGA2|2000-09-18|SOD": [],
   "NDXMEGA2|2000-12-18|SOD": [],
@@ -260,6 +264,19 @@
     "NVDA",
     "TSLA"
   ],
+  "NDXMEGA2|2026-06-22|SOD": [
+    "AAPL",
+    "AMZN",
+    "AVGO",
+    "GOOG",
+    "GOOGL",
+    "MSFT",
+    "MU",
+    "NVDA",
+    "TSLA"
+  ],
+  "NDXMEGA|2000-03-20|SOD": [],
+  "NDXMEGA|2000-06-19|SOD": [],
   "NDXMEGA|2000-06-30|SOD": [],
   "NDXMEGA|2000-09-18|SOD": [],
   "NDXMEGA|2000-12-18|SOD": [],

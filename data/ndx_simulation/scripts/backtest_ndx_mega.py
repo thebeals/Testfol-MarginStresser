@@ -19,6 +19,11 @@ from methodology_utils import (
     quarterly_company_selection,
     select_companies_up_to_threshold,
 )
+from simulation_pricing import (
+    collapse_to_pricing_weights,
+    ensure_price_tickers,
+    price_ticker_map,
+)
 
 # Configuration (Loaded from config.py)
 
@@ -53,11 +58,11 @@ def apply_caps(w_series, cap):
 
 def backtest(*, price_return=False):
     print("Loading data...")
-    weights_df = pd.read_csv(config.WEIGHTS_FILE)
+    weights_df = ensure_price_tickers(pd.read_csv(config.WEIGHTS_FILE))
     weights_df['Date'] = pd.to_datetime(weights_df['Date'])
     
     # Get all tickers needed
-    tickers = weights_df[weights_df['IsMapped'] == True]['Ticker'].unique().tolist()
+    tickers = weights_df[weights_df['IsMapped'] == True]['PriceTicker'].unique().tolist()
     
     # Add Tickers from Changes File (to ensure we have data for mid-quarter adds)
     changes_df = changes_parser.load_changes()
@@ -101,6 +106,7 @@ def backtest(*, price_return=False):
     current_companies = []
     prev_top5 = None  # Track last known good top-5 for composition quality gate
     prev_final_weights = None  # Track last good portfolio for carry-forward
+    prev_price_tickers = None
 
     print("Simulating NDX Mega strategy...")
     
@@ -126,24 +132,26 @@ def backtest(*, price_return=False):
                 if prev_final_weights is not None:
                     print(f"  Q {start_dt.date()}: DISTORTED weights (overlap={overlap}/5 with prev) — carrying forward")
                     curr_w = prev_final_weights.copy()
-                    valid_tickers = [t for t in curr_w.index if t in data.columns]
-                    curr_w = curr_w[valid_tickers]
-                    if curr_w.sum() > 0:
-                        curr_w = curr_w / curr_w.sum()
+                    pricing_w = collapse_to_pricing_weights(
+                        curr_w,
+                        prev_price_tickers,
+                        data.columns,
+                    )
                     constituents_history.append({
                         "Date": start_dt, "Count": len(curr_w),
                         "Top": curr_w.idxmax() if not curr_w.empty else "N/A",
                         "Type": "CarryFwd",
                         "Tickers": "|".join(curr_w.index),
-                        "Weights": "|".join([f"{w:.6f}" for w in curr_w])
+                        "Weights": "|".join([f"{w:.6f}" for w in curr_w]),
+                        "PriceTickers": "|".join(pricing_w.index),
                     })
                     try:
-                        price_slice = data.loc[start_dt:end_dt, curr_w.index].ffill()
+                        price_slice = data.loc[start_dt:end_dt, pricing_w.index].ffill()
                         if not price_slice.empty:
                             p_start = price_slice.iloc[0]
                             valid_mask = (p_start > 0) & (p_start.notna())
                             valid_tkrs = valid_mask.index[valid_mask].tolist()
-                            fw = curr_w[valid_tkrs]
+                            fw = pricing_w[valid_tkrs]
                             if fw.sum() > 0:
                                 fw = fw / fw.sum()
                             shares = (fw * current_value) / p_start[valid_tkrs]
@@ -203,7 +211,12 @@ def backtest(*, price_return=False):
              continue
 
         # Filter for valid tickers in our price data
-        valid_tickers = [t for t in selected_tickers if t in data.columns]
+        event_price_tickers = price_ticker_map(q_weights)
+        valid_tickers = [
+            ticker
+            for ticker in selected_tickers
+            if event_price_tickers.get(ticker, ticker) in data.columns
+        ]
         
         # Prepare subset for weighting
         mega_subset = q_weights[q_weights['Ticker'].isin(valid_tickers)].copy()
@@ -213,9 +226,11 @@ def backtest(*, price_return=False):
             
         # Final weights use company-level capping, then split proportionally across share classes.
         final_weights = apply_company_cap(mega_subset, config.MEGA1_SINGLE_STOCK_CAP, total_target=1.0)
+        current_price_tickers = price_ticker_map(mega_subset)
 
         # Save as previous good portfolio for carry-forward
         prev_final_weights = final_weights.copy()
+        prev_price_tickers = current_price_tickers.copy()
         prev_top5 = current_top5
 
         # Stats
@@ -225,7 +240,14 @@ def backtest(*, price_return=False):
             "Top": final_weights.idxmax() if not final_weights.empty else "N/A",
             "Type": "Recon" if is_annual_recon else "Rebal",
             "Tickers": "|".join(final_weights.index),
-            "Weights": "|".join([f"{w:.6f}" for w in final_weights])
+            "Weights": "|".join([f"{w:.6f}" for w in final_weights]),
+            "PriceTickers": "|".join(
+                collapse_to_pricing_weights(
+                    final_weights,
+                    current_price_tickers,
+                    data.columns,
+                ).index
+            ),
         })
         
         # 3. Perf Simulation (Event-Driven)
@@ -254,9 +276,16 @@ def backtest(*, price_return=False):
             if sub_start >= sub_end: continue
             
             try:
+                pricing_w = collapse_to_pricing_weights(
+                    curr_w,
+                    current_price_tickers,
+                    data.columns,
+                )
+                if pricing_w.empty:
+                    continue
                 # Slice logic: [sub_start, sub_end]
                 # We include sub_end because the change happens effectively after that day's close.
-                price_slice = data.loc[sub_start:sub_end, curr_w.index]
+                price_slice = data.loc[sub_start:sub_end, pricing_w.index]
                 
                 # If sub_end == sub_start, slice might be 1 row
                 if price_slice.empty: continue
@@ -286,15 +315,16 @@ def backtest(*, price_return=False):
                 
                 if not valid_mask.all():
                     valid_tkrs = valid_mask.index[valid_mask].tolist()
-                    curr_w = curr_w[valid_tkrs]
-                    if curr_w.sum() > 0: curr_w = curr_w / curr_w.sum()
+                    pricing_w = pricing_w[valid_tkrs]
+                    if pricing_w.sum() > 0:
+                        pricing_w = pricing_w / pricing_w.sum()
                     p_start = p_start[valid_tkrs]
                     price_slice = price_slice[valid_tkrs]
                 
-                if curr_w.empty: continue
+                if pricing_w.empty: continue
                 
                 # Re-calculate shares based on Current Portfolio Value
-                shares = (curr_w * current_value) / p_start
+                shares = (pricing_w * current_value) / p_start
                 
                 daily_vals = price_slice.dot(shares)
                 
@@ -387,7 +417,7 @@ def backtest(*, price_return=False):
     output_symbol = "NDXMEGAPRICESIM" if price_return else "NDXMEGASIM"
     output_path = os.path.join(config.BASE_DIR, "..", f"{output_symbol}.csv")
     mega_values.name = "Close"
-    mega_values.to_csv(output_path, header=True)
+    mega_values.to_csv(output_path, header=True, index_label="Date")
     print(f"Saved {output_symbol} data to {output_path}")
 
 if __name__ == "__main__":

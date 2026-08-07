@@ -65,6 +65,33 @@ def test_fetch_component_data_reuses_cached_combined_result(monkeypatch, tmp_pat
     pd.testing.assert_frame_equal(first, second)
 
 
+def test_component_cache_invalidates_when_local_reconstruction_changes(monkeypatch, tmp_path):
+    monkeypatch.setattr(cache_mod, "CACHE_DIR", str(tmp_path))
+
+    version = {"value": "before"}
+    monkeypatch.setattr(
+        data_service,
+        "_local_reconstruction_cache_fingerprint",
+        lambda tickers: {"NDXMEGASIM.csv": version["value"]},
+    )
+    provider = MagicMock()
+    provider.fetch_prices.return_value = _make_prices(["SPY"])
+    monkeypatch.setattr(data_service, "get_price_provider", lambda: provider)
+    monkeypatch.setattr(
+        data_service.api,
+        "fetch_backtest",
+        MagicMock(side_effect=AssertionError("API fallback should not run")),
+    )
+
+    data_service.fetch_component_data(["SPY"], "2024-01-02", "2024-01-10")
+    data_service.fetch_component_data(["SPY"], "2024-01-02", "2024-01-10")
+    assert provider.fetch_prices.call_count == 1
+
+    version["value"] = "after"
+    data_service.fetch_component_data(["SPY"], "2024-01-02", "2024-01-10")
+    assert provider.fetch_prices.call_count == 2
+
+
 def test_fetch_component_data_clips_trailing_unsynced_components(monkeypatch, tmp_path):
     monkeypatch.setattr(cache_mod, "CACHE_DIR", str(tmp_path))
 

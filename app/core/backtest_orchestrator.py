@@ -93,8 +93,17 @@ def _slice_prefetched_component_prices(
     tickers,
     start_date,
     end_date,
+    *,
+    sync_tickers=None,
 ) -> pd.DataFrame | None:
-    """Return the requested component subset or None if the shared fetch is incomplete."""
+    """Return the requested component subset or None if the shared fetch is incomplete.
+
+    Dynamic portfolios keep historical constituents in ``tickers`` so their
+    old holding periods can be simulated.  Only the constituents active at the
+    requested end date should participate in the stale-close synchronization
+    check; otherwise a legitimately delisted historical member truncates the
+    entire portfolio years early.
+    """
     if prefetched_component_prices is None or prefetched_component_prices.empty:
         return None
 
@@ -108,7 +117,8 @@ def _slice_prefetched_component_prices(
     sliced = prefetched_component_prices.loc[:, expected_cols].sort_index()
     prior = sliced.loc[sliced.index < start_ts].tail(1)
     sliced = pd.concat([prior, sliced.loc[start_ts:end_ts]])
-    return clip_component_data_to_synced_end(sliced, expected_cols)
+    sync_columns = _base_tickers(sync_tickers if sync_tickers is not None else tickers)
+    return clip_component_data_to_synced_end(sliced, sync_columns)
 
 
 def _prefetch_component_universe(
@@ -526,11 +536,20 @@ def run_single_backtest(
     alloc_map = dynamic_plan.engine_allocation
     engine_maint_pcts = dynamic_plan.maint_pcts
     engine_pm_maint_pcts = dynamic_plan.pm_maint_pcts
+    sync_tickers = alloc_map.keys()
+    if dynamic_plan.dynamic_schedule:
+        end_ts = pd.Timestamp(end_date)
+        for effective_date, target_allocation in sorted(dynamic_plan.dynamic_schedule.items()):
+            if effective_date <= end_ts:
+                sync_tickers = target_allocation.keys()
+            else:
+                break
     shared_prices_df = _slice_prefetched_component_prices(
         prefetched_component_prices,
         alloc_map.keys(),
         start_date,
         end_date,
+        sync_tickers=sync_tickers,
     )
 
     # Weighted maintenance

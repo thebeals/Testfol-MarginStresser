@@ -1,18 +1,48 @@
-import pandas as pd
-import yfinance as yf
-import matplotlib.pyplot as plt
-import numpy as np
+import io
 import os
 import sys
-import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import requests
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "../src"))
 import config
 import chart_style
 import price_manager
+from ndx_methodology import build_validation_periods
 
 # Configuration
-WEIGHTS_FILE = config.WEIGHTS_FILE
-BENCHMARK_TICKER = "QQQ" # Use QQQ (Total Return) instead of ^NDX (Price Return)
+INDEX_EVENT_WEIGHTS_FILE = os.path.join(
+    config.RESULTS_DIR,
+    "nasdaq_index_event_weights.csv",
+)
+WEIGHTS_FILE = (
+    INDEX_EVENT_WEIGHTS_FILE
+    if os.path.exists(INDEX_EVENT_WEIGHTS_FILE)
+    else config.WEIGHTS_FILE
+)
+PROXY_TICKER = "QQQ"
+OFFICIAL_NDX_FRED_SERIES = "NASDAQXNDX"
+
+
+def get_fred_series(series_id):
+    """Fetch an official daily index series from FRED."""
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+    try:
+        response = requests.get(url, timeout=15)
+        response.raise_for_status()
+        frame = pd.read_csv(
+            io.StringIO(response.text),
+            parse_dates=["observation_date"],
+            index_col="observation_date",
+        )
+    except (requests.RequestException, ValueError, KeyError) as exc:
+        print(f"  Failed to fetch {series_id} from FRED: {exc}")
+        return pd.Series(dtype=float)
+    return pd.to_numeric(frame[series_id], errors="coerce").dropna()
+
 
 def validate():
     print("Loading weights...")
@@ -20,11 +50,11 @@ def validate():
     weights['Date'] = pd.to_datetime(weights['Date'])
     
     # Get unique tickers
-    tickers = weights[weights['IsMapped'] == True]['Ticker'].unique().tolist()
-    print(f"Fetching prices for {len(tickers)} mapped tickers + {BENCHMARK_TICKER}...")
+    tickers = weights[weights['IsMapped'].astype(bool)]['Ticker'].unique().tolist()
+    print(f"Fetching prices for {len(tickers)} mapped tickers + {PROXY_TICKER}...")
     
     # Fetch all prices including benchmark
-    tickers_to_fetch = tickers + [BENCHMARK_TICKER]
+    tickers_to_fetch = tickers + [PROXY_TICKER]
     
     # Optimize: Chunking not needed for 200 items usually, but good practice
     start_date = weights['Date'].min().strftime('%Y-%m-%d')
@@ -42,7 +72,6 @@ def validate():
     # Align dates
     dates = sorted(weights['Date'].unique())
     
-    portfolio_values = [] # (Date, Value)
     current_value = 100.0
     
     # Ensure data index is datetime
@@ -67,9 +96,8 @@ def validate():
     
     prev_top5 = None  # Track last known good top-5 for composition quality gate
 
-    for i in range(len(dates) - 1):
-        start_dt = dates[i]
-        end_dt = dates[i+1]
+    periods = build_validation_periods(dates, full_dates[-1])
+    for i, (start_dt, end_dt) in enumerate(periods):
 
         # Get Weights at Start Date
         w_df = weights[weights['Date'] == start_dt]
@@ -85,12 +113,35 @@ def validate():
         if prev_top5 is not None:
             overlap = len(current_top5 & prev_top5)
             if overlap < 2:
-                print(f"  Q {start_dt.date()}: SKIPPED — distorted weights (overlap={overlap}/5 with prev quarter)")
-                continue
+                print(f"  Q {start_dt.date()}: WARNING — top-5 overlap={overlap}/5 with prev event")
         prev_top5 = current_top5
 
-        # Filter for tickers we have prices for
-        valid_w = w_df[w_df['Ticker'].isin(data.columns)]
+        # PriceTicker keeps the constituent identity intact while explicitly
+        # assigning QQQ only to holdings whose own historical series is absent.
+        # This prevents survivor renormalization from silently deleting losers.
+        pricing_w = w_df.copy()
+        pricing_w["PricingTicker"] = pricing_w.get(
+            "PriceTicker", pricing_w["Ticker"]
+        ).fillna(pricing_w["Ticker"])
+        def has_period_prices(ticker):
+            if ticker not in data.columns:
+                return False
+            series = data.loc[start_dt:end_dt, ticker].ffill()
+            return bool(
+                not series.empty
+                and pd.notna(series.iloc[0])
+                and series.iloc[0] > 0
+                and pd.notna(series.iloc[-1])
+            )
+
+        has_prices = pricing_w["PricingTicker"].map(has_period_prices)
+        proxy_weight = float(pricing_w.loc[~has_prices, "Weight"].sum())
+        pricing_w.loc[~has_prices, "PricingTicker"] = PROXY_TICKER
+        proxy_weight = float(
+            pricing_w.loc[pricing_w["PricingTicker"] == PROXY_TICKER, "Weight"].sum()
+        )
+        pricing_w = pricing_w.groupby("PricingTicker", as_index=False)["Weight"].sum()
+        valid_w = pricing_w[pricing_w['PricingTicker'].isin(data.columns)]
 
         if i == 0:
             print(f"Date: {start_dt}")
@@ -107,7 +158,7 @@ def validate():
         if raw_sum <= 0:
             continue
 
-        port_tickers = valid_w['Ticker'].values
+        port_tickers = valid_w['PricingTicker'].values
         abs_weights = valid_w['Weight'].values / raw_sum  # Normalized to 1.0
 
         # Get prices and calculate return
@@ -136,8 +187,8 @@ def validate():
 
             # Benchmark return for the period
             bm_ret = 1.0
-            if BENCHMARK_TICKER in data.columns:
-                bm_slice = data.loc[start_dt:end_dt, BENCHMARK_TICKER].ffill()
+            if PROXY_TICKER in data.columns:
+                bm_slice = data.loc[start_dt:end_dt, PROXY_TICKER].ffill()
                 if not bm_slice.empty and pd.notna(bm_slice.iloc[0]) and bm_slice.iloc[0] > 0:
                     bm_ret = bm_slice.iloc[-1] / bm_slice.iloc[0]
 
@@ -146,40 +197,28 @@ def validate():
             shares = w_s / p_s
             daily_survivor = price_valid.dot(shares)  # Relative to 1.0
 
-            # Asymmetric survivorship-bias correction:
-            # Missing tickers are systematically losers (delisted/acquired),
-            # so survivor-only returns are biased UPWARD. We only dampen the
-            # upward excess; downward gaps are real signal, not bias.
-            # alpha = (2.7c - 1.7)^3: zeros at ~63% coverage, calibrated to
-            # minimize return gap under asymmetric daily blending.
-            alpha = max(0.0, 2.7 * effective_coverage - 1.7) ** 3
+            minimum_coverage = float(
+                os.environ.get("NDX_MIN_VALIDATION_COVERAGE", "0.99")
+            )
+            if effective_coverage < minimum_coverage:
+                raise RuntimeError(
+                    f"{start_dt.date()} priced weight coverage "
+                    f"{effective_coverage:.2%} is below {minimum_coverage:.2%}"
+                )
 
-            # Daily benchmark ratio for blending
-            bm_daily = data.loc[start_dt:end_dt, BENCHMARK_TICKER].ffill()
-            if bm_daily.iloc[0] > 0:
-                bm_ratio = bm_daily / bm_daily.iloc[0]
-            else:
-                bm_ratio = pd.Series(1.0, index=bm_daily.index)
-
-            # Asymmetric blend: only dampen when survivors outperform QQQ
-            # for the quarter (survivorship bias direction). When survivors
-            # underperform or coverage >= 95%, trust them fully.
-            if effective_coverage >= 0.95 or survivor_ret <= bm_ret:
-                daily_blend = daily_survivor
-            else:
-                daily_blend = alpha * daily_survivor + (1.0 - alpha) * bm_ratio
-
-            period_factor = daily_blend.iloc[-1]
+            period_factor = daily_survivor.iloc[-1]
 
             # Coverage report
             print(f"  Q {start_dt.date()}: coverage={effective_coverage:.1%}, "
-                  f"alpha={alpha:.3f}, survivor={survivor_ret:.4f}, "
-                  f"blended={period_factor:.4f}, QQQ={bm_ret:.4f}")
+                  f"proxy-weight={proxy_weight:.1%}, portfolio={period_factor:.4f}, "
+                  f"QQQ={bm_ret:.4f}")
 
-            daily_vals_scaled = daily_blend * current_value
+            daily_vals_scaled = daily_survivor * current_value
             sim_values.loc[daily_vals_scaled.index] = daily_vals_scaled
             current_value = daily_vals_scaled.iloc[-1]
 
+        except RuntimeError:
+            raise
         except Exception as e:
             print(f"Error in period {start_dt}: {e}")
             pass
@@ -190,24 +229,14 @@ def validate():
         print("Simulation yielded no values.")
         return
 
-    # Compare with Benchmark
-    if BENCHMARK_TICKER not in data.columns:
-        print(f"Benchmark {BENCHMARK_TICKER} data not found.")
+    # QQQ remains only a survivorship-bias proxy above. Validate the finished
+    # reconstruction against Nasdaq's independent total-return index instead.
+    ndx = get_fred_series(OFFICIAL_NDX_FRED_SERIES)
+    if ndx.empty:
+        print(f"Official benchmark {OFFICIAL_NDX_FRED_SERIES} is unavailable.")
         return
 
-    ndx = data[BENCHMARK_TICKER].reindex(sim_values.index)
-    
-    if ndx.dropna().empty:
-         print(f"Benchmark {BENCHMARK_TICKER} contains only NaNs for the simulation period.")
-         try:
-             print("Refetching benchmark...")
-             ndx_data = price_manager.get_price_data([BENCHMARK_TICKER], start_date)
-             if isinstance(ndx_data, pd.DataFrame): ndx_data = ndx_data.iloc[:, 0]
-             ndx = ndx_data.reindex(sim_values.index)
-         except:
-             pass
-
-    ndx = ndx.dropna()
+    ndx = ndx.reindex(sim_values.index).dropna()
     common_idx = sim_values.index.intersection(ndx.index)
     
     if len(common_idx) < 10:
@@ -224,13 +253,18 @@ def validate():
     
     r_sim = sim_values.pct_change().dropna()
     r_bm = ndx.pct_change().dropna()
+    daily_correlation = r_sim.corr(r_bm)
     te = (r_sim - r_bm).std() * np.sqrt(252)
+    sim_total_return = sim_values.iloc[-1] / sim_values.iloc[0] - 1
+    official_total_return = ndx.iloc[-1] / ndx.iloc[0] - 1
     
-    print(f"\n--- Validation Results ---")
-    print(f"Correlation: {correlation:.4f}")
+    print("\n--- Validation Results ---")
+    print(f"Benchmark: {OFFICIAL_NDX_FRED_SERIES} (Nasdaq-100 Total Return)")
+    print(f"Level Correlation: {correlation:.4f}")
+    print(f"Daily Return Correlation: {daily_correlation:.4f}")
     print(f"Tracking Error (Annualized): {te:.2%}")
-    print(f"Total Return Sim: {sim_values.iloc[-1]/sim_values.iloc[0] - 1:.2%}")
-    print(f"Total Return NDX: {ndx.iloc[-1]/ndx.iloc[0] - 1:.2%}")
+    print(f"Total Return Sim: {sim_total_return:.2%}")
+    print(f"Total Return NDX: {official_total_return:.2%}")
     
     # Plot
     chart_style.apply_style()
@@ -238,17 +272,38 @@ def validate():
     ax = plt.gca()
     
     plt.plot(sim_values, label='Reconstructed (From Filings)', linewidth=2.0)
-    plt.plot(ndx, label='Nasdaq-100 (^NDX)', linestyle='--', alpha=0.8, color='#555555')
+    plt.plot(
+        ndx,
+        label=f'Nasdaq-100 Total Return ({OFFICIAL_NDX_FRED_SERIES})',
+        linestyle='--',
+        alpha=0.8,
+        color='#555555',
+    )
     
     plt.yscale('log')
     chart_style.format_date_axis(ax)
     chart_style.format_y_axis(ax, log=True)
-    plt.title(f"Reconstructed Nasdaq-100 vs Official Index\nCorr: {correlation:.4f}, TE: {te:.2%}")
+    plt.title(
+        "Reconstructed Nasdaq-100 vs Official Total Return Index\n"
+        f"Daily Corr: {daily_correlation:.4f}, TE: {te:.2%}"
+    )
     plt.legend()
     
     out_img = os.path.join(config.RESULTS_DIR, "charts", "ndx_validation.png")
     plt.savefig(out_img, dpi=300, bbox_inches='tight')
     print(f"\nChart saved to {out_img}")
+
+    return {
+        "benchmark": OFFICIAL_NDX_FRED_SERIES,
+        "start": common_idx[0],
+        "end": common_idx[-1],
+        "observations": len(common_idx),
+        "level_correlation": float(correlation),
+        "daily_return_correlation": float(daily_correlation),
+        "tracking_error": float(te),
+        "sim_total_return": float(sim_total_return),
+        "official_total_return": float(official_total_return),
+    }
 
 def validate_qbig():
     print("\n\n=== Validating NDXMEGA2SIM vs QBIG ===")
@@ -261,9 +316,8 @@ def validate_qbig():
         return
 
     print(f"Loading simulation from {sim_path}...")
-    sim_df = pd.read_csv(sim_path)
-    sim_df['Date'] = pd.to_datetime(sim_df['Date'])
-    sim_df = sim_df.set_index('Date').sort_index()
+    sim_df = pd.read_csv(sim_path, parse_dates=[0], index_col=0).sort_index()
+    sim_df.index.name = "Date"
     
     # Rename for clarity
     if 'Close' in sim_df.columns:
@@ -361,21 +415,15 @@ def compare_strategies():
         return
 
     # Load
-    s1 = pd.read_csv(path1)
-    s1['Date'] = pd.to_datetime(s1['Date'])
-    s1 = s1.set_index('Date').sort_index().iloc[:, 0]
+    s1 = pd.read_csv(path1, parse_dates=[0], index_col=0).sort_index().iloc[:, 0]
     s1.name = "Mega 1.0"
 
-    s2 = pd.read_csv(path2)
-    s2['Date'] = pd.to_datetime(s2['Date'])
-    s2 = s2.set_index('Date').sort_index().iloc[:, 0]
+    s2 = pd.read_csv(path2, parse_dates=[0], index_col=0).sort_index().iloc[:, 0]
     s2.name = "Mega 2.0"
 
     s3 = None
     if os.path.exists(path3):
-        s3 = pd.read_csv(path3)
-        s3['Date'] = pd.to_datetime(s3['Date'])
-        s3 = s3.set_index('Date').sort_index().iloc[:, 0]
+        s3 = pd.read_csv(path3, parse_dates=[0], index_col=0).sort_index().iloc[:, 0]
         s3.name = "NDX30"
 
     # Align
@@ -414,7 +462,7 @@ def compare_strategies():
     chart_style.format_y_axis(ax, log=True)
     chart_style.add_watermark(ax, "Strategy Comparison")
 
-    plt.title(f"Strategy Comparison: NDX Mega 1.0 vs 2.0 vs NDX30")
+    plt.title("Strategy Comparison: NDX Mega 1.0 vs 2.0 vs NDX30")
     plt.legend()
 
     out_img = os.path.join(config.RESULTS_DIR, "charts", "ndx_mega_comparison.png")
@@ -423,24 +471,11 @@ def compare_strategies():
 
 def validate_against_real_indexes():
     """Compare simulations against real Nasdaq index data from FRED (price + total return)."""
-    import requests
-    import io
-
     print("\n\n=== Validating Simulations vs Real Nasdaq Indexes (FRED) ===")
-
-    def get_fred(series_id):
-        url = f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}'
-        resp = requests.get(url, timeout=15)
-        if resp.status_code != 200:
-            print(f"  Failed to fetch {series_id} from FRED (HTTP {resp.status_code})")
-            return pd.Series(dtype=float)
-        df = pd.read_csv(io.StringIO(resp.text), parse_dates=['observation_date'], index_col='observation_date')
-        df[series_id] = pd.to_numeric(df[series_id], errors='coerce')
-        return df[series_id].dropna()
 
     def compare_pair(label, sim_series, fred_id, tag=""):
         """Compare sim vs a single FRED series. Returns (corr, te, gap) or None."""
-        real = get_fred(fred_id)
+        real = get_fred_series(fred_id)
         if real.empty:
             return None
 
@@ -540,8 +575,6 @@ def validate_against_real_indexes():
 
         s = result["s"]
         r = result["r"]
-        common = result["common"]
-
         # Monthly return gap
         s_monthly = s.resample('ME').last().dropna()
         r_monthly = r.resample('ME').last().dropna()

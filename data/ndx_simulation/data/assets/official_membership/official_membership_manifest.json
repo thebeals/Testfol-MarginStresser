@@ -1,30 +1,30 @@
 {
-  "generated_at_utc": "2026-03-28T09:23:10.796115+00:00",
+  "generated_at_utc": "2026-08-07T05:21:39.160382+00:00",
   "indexes": {
     "NDX": {
       "daily_file": "ndx_official_membership_daily.csv",
-      "daily_rows": 5853,
+      "daily_rows": 5944,
       "first_available_date": "2003-01-02",
       "index_symbol": "NDX",
-      "last_available_date": "2026-03-27",
-      "period_rows": 173,
+      "last_available_date": "2026-08-07",
+      "period_rows": 179,
       "periods_file": "ndx_official_membership_periods.csv"
     },
     "NDX30": {
       "daily_file": "ndx30_official_membership_daily.csv",
-      "daily_rows": 398,
+      "daily_rows": 489,
       "first_available_date": "2024-08-26",
       "index_symbol": "NDX30",
-      "last_available_date": "2026-03-27",
-      "period_rows": 10,
+      "last_available_date": "2026-08-07",
+      "period_rows": 11,
       "periods_file": "ndx30_official_membership_periods.csv"
     },
     "NDXMEGA": {
       "daily_file": "ndxmega_official_membership_daily.csv",
-      "daily_rows": 418,
+      "daily_rows": 509,
       "first_available_date": "2024-07-29",
       "index_symbol": "NDXMEGA",
-      "last_available_date": "2026-03-27",
+      "last_available_date": "2026-08-07",
       "period_rows": 4,
       "periods_file": "ndxmega_official_membership_periods.csv"
     }

@@ -43,6 +43,29 @@ class TestCalcRebalOffset:
         assert isinstance(offset, int)
 
 
+def test_dynamic_price_slice_only_syncs_constituents_active_at_end_date():
+    """A historical delisting must not truncate a dynamic portfolio's end date."""
+    dates = pd.to_datetime(["2005-01-03", "2005-01-04", "2026-08-06"])
+    prices = pd.DataFrame(
+        {
+            "OLD": [100.0, 101.0, float("nan")],
+            "LIVE": [50.0, 51.0, 200.0],
+        },
+        index=dates,
+    )
+
+    sliced = orchestrator._slice_prefetched_component_prices(
+        prices,
+        ["OLD", "LIVE"],
+        "2005-01-03",
+        "2026-08-06",
+        sync_tickers=["LIVE"],
+    )
+
+    assert sliced.index.max() == pd.Timestamp("2026-08-06")
+    assert list(sliced.columns) == ["OLD", "LIVE"]
+
+
 # ---------------------------------------------------------------------------
 # run_single_backtest
 # ---------------------------------------------------------------------------

@@ -11,16 +11,32 @@ ASSETS_DIR = os.path.join(DATA_DIR, "assets")
 RESULTS_DIR = os.path.join(DATA_DIR, "results")
 CACHE_DIR = os.path.join(DATA_DIR, "cache")
 NDX_CACHE_DIR = os.path.join(CACHE_DIR, "ndx_filings")
+NPORT_CACHE_DIR = os.path.join(CACHE_DIR, "ndx_nport")
+INDEX_FUND_CACHE_DIR = os.path.join(CACHE_DIR, "ndx_index_funds")
+FREE_HISTORY_CACHE_DIR = os.path.join(CACHE_DIR, "free_history")
 # Legacy alias
 DOWNLOAD_DIR = NDX_CACHE_DIR
 
 DEBUG_DIR = os.path.join(BASE_DIR, "debug") # Debug can stay at root of module
 
 COMPONENTS_FILE = os.path.join(ASSETS_DIR, "nasdaq_components.csv")
+NPORT_COMPONENTS_FILE = os.path.join(ASSETS_DIR, "nasdaq_nport_components.csv")
+HOLDINGS_SNAPSHOTS_FILE = os.path.join(ASSETS_DIR, "ndx_holdings_snapshots.csv")
+HOLDINGS_MANIFEST_FILE = os.path.join(ASSETS_DIR, "ndx_holdings_manifest.csv")
+INDEX_FUND_POSITIONS_FILE = os.path.join(
+    ASSETS_DIR, "ndx_index_fund_positions.csv"
+)
+INDEX_FUND_MANIFEST_FILE = os.path.join(
+    ASSETS_DIR, "ndx_index_fund_manifest.csv"
+)
 WEIGHTS_FILE = os.path.join(RESULTS_DIR, "nasdaq_quarterly_weights.csv")
 CHANGES_FILE = os.path.join(ASSETS_DIR, "nasdaq_changes.csv")
 PRICE_CACHE_FILE = os.path.join(CACHE_DIR, "prices_cache.pkl")
 BENCHMARK_TICKER = "QQQ"
+# Preserve the published synthetic strategy history.  Earlier reconstructed
+# events remain in the parent-index audit, but the March/June 2000 schedules
+# are lower-confidence pre-bootstrap observations.
+STRATEGY_START_DATE = "2000-06-30"
 
 # --- Common Methodology Constants ---
 # (Can be overridden by specific strategies)

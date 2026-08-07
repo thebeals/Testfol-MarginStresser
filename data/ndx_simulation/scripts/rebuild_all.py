@@ -9,7 +9,14 @@ import glob
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def run_script(script_path, desc, env=None):
+TOP_LEVEL_SIMULATION_OUTPUTS = (
+    "NDXMEGASIM.csv",
+    "NDXMEGAPRICESIM.csv",
+    "NDXMEGA2SIM.csv",
+    "NDX30SIM.csv",
+)
+
+def run_script(script_path, desc, env=None, script_args=None):
     """Run a Python script with optional environment variables."""
     logging.info(f"--- Starting: {desc} ---")
     try:
@@ -24,11 +31,36 @@ def run_script(script_path, desc, env=None):
             run_env.update(env)
 
         # Run with the current interpreter so virtualenv/module resolution stays consistent.
-        subprocess.run([sys.executable, script_path], check=True, text=True, env=run_env)
+        command = [sys.executable, script_path]
+        if script_args:
+            command.extend(script_args)
+        subprocess.run(command, check=True, text=True, env=run_env)
         logging.info(f"--- Completed: {desc} ---\n")
     except subprocess.CalledProcessError as e:
         logging.error(f"!!! Failed: {desc} (Exit Code: {e.returncode}) !!!")
         sys.exit(e.returncode)
+
+
+def run_ndxmega_backtests(script_path, env_vars):
+    """Build both return conventions consumed by NDXMEGA and QQUPSIM.
+
+    The price-return run must happen first because both modes write shared
+    diagnostic charts and constituent reports. Running total return last keeps
+    those shared artifacts aligned with the primary NDXMEGASIM output.
+    """
+    price_return_env = {**env_vars, "NDX_PRICE_RETURN": "1"}
+    run_script(
+        script_path,
+        "Backtest NDX Mega 1.0 Price Return (QQUPSIM)",
+        price_return_env,
+    )
+
+    total_return_env = {**env_vars, "NDX_PRICE_RETURN": "0"}
+    run_script(
+        script_path,
+        "Backtest NDX Mega 1.0 Total Return",
+        total_return_env,
+    )
 
 def main():
     # Parse command line arguments
@@ -71,6 +103,16 @@ Examples:
         '--refresh-official-membership',
         action='store_true',
         help='Refresh the archived Nasdaq official membership snapshots before reconstruction.'
+    )
+    parser.add_argument(
+        '--refresh-index-funds',
+        action='store_true',
+        help='Refresh free SEC filings from historical NDX-tracking funds.'
+    )
+    parser.add_argument(
+        '--refresh-free-history',
+        action='store_true',
+        help='Refresh the public WIKI and CMU delisted-price archives.'
     )
     args = parser.parse_args()
 
@@ -165,7 +207,7 @@ Examples:
         # So it is in Testfol-MarginStresser/data/NDXMEGASIM.csv (if that's where module is)
         # Let's rely on relative path logic matching backtest
         
-        for sim_file in ["NDXMEGASIM.csv", "NDXMEGA2SIM.csv", "NDX30SIM.csv"]:
+        for sim_file in TOP_LEVEL_SIMULATION_OUTPUTS:
             p = os.path.abspath(os.path.join(module_root, "..", sim_file))
             if os.path.exists(p):
                  try:
@@ -214,6 +256,41 @@ Examples:
     else:
         logging.info("--- Skipped: Refresh Official Nasdaq Membership Archive (pass --refresh-official-membership to enable) ---\n")
 
+    # 2.75. Resolve dated annual and quarterly SEC holdings to the official
+    # historical ticker roster. Reconstruction consumes this canonical layer.
+    index_fund_script = os.path.join(src_dir, "sec_index_fund_holdings.py")
+    index_fund_positions = os.path.join(assets_dir, "ndx_index_fund_positions.csv")
+    if args.refresh_index_funds or not os.path.exists(index_fund_positions):
+        refresh_args = ["--refresh"] if args.refresh_index_funds else []
+        run_script(
+            index_fund_script,
+            "Build Historical SEC Index-Fund Holdings",
+            env_vars,
+            refresh_args,
+        )
+    else:
+        logging.info("--- Reused: Cached Historical SEC Index-Fund Holdings ---\n")
+
+    holdings_script = os.path.join(src_dir, "holdings_snapshots.py")
+    run_script(holdings_script, "Build Canonical SEC Holdings Snapshots", env_vars)
+
+    # 2.8. Build direct delisted-security history after holdings so ticker
+    # identity can be checked against SEC-observed value/share prices.
+    free_history_script = os.path.join(src_dir, "free_price_history.py")
+    free_price_file = os.path.join(
+        cache_dir, "free_history", "free_history_price_return.parquet"
+    )
+    if args.refresh_free_history or not os.path.exists(free_price_file):
+        refresh_args = ["--refresh"] if args.refresh_free_history else []
+        run_script(
+            free_history_script,
+            "Build Free Historical Delisted Prices",
+            env_vars,
+            refresh_args,
+        )
+    else:
+        logging.info("--- Reused: Cached Free Historical Delisted Prices ---\n")
+
     # 3. Reconstruct Weights (scripts/reconstruct_weights.py)
     if not args.skip_reconstruct:
         reconstruct_script = os.path.join(scripts_dir, "reconstruct_weights.py")
@@ -226,9 +303,9 @@ Examples:
             sys.exit(1)
         logging.info(f"--- Skipped: Reconstruct Index Weights (using existing weights at {weights_file}) ---\n")
     
-    # 3. Backtest Mega 1.0 (scripts/backtest_ndx_mega.py)
+    # 3. Backtest Mega 1.0 total return and the price-return input used by QQUPSIM.
     mega1_script = os.path.join(scripts_dir, "backtest_ndx_mega.py")
-    run_script(mega1_script, "Backtest NDX Mega 1.0", env_vars)
+    run_ndxmega_backtests(mega1_script, env_vars)
     
     # 4. Backtest Mega 2.0 (scripts/backtest_ndx_mega2.py)
     mega2_script = os.path.join(scripts_dir, "backtest_ndx_mega2.py")
@@ -243,7 +320,10 @@ Examples:
     run_script(validate_script, "Validate & Compare Results", env_vars)
     
     logging.info("All steps completed successfully.")
-    logging.info("Dashboard data (NDXMEGASIM.csv / NDXMEGA2SIM.csv / NDX30SIM.csv) has been updated.")
+    logging.info(
+        "Dashboard data (NDXMEGASIM.csv / NDXMEGAPRICESIM.csv / "
+        "NDXMEGA2SIM.csv / NDX30SIM.csv) has been updated."
+    )
     logging.info(f"Data source used: {data_source_label}")
 
 if __name__ == "__main__":
