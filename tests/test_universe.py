@@ -98,6 +98,11 @@ def test_no_ticker_maps_to_two_entries():
     assert not (set(FACTOR_MAP.keys()) & set(WRAPPER_FACTORS.keys()))
 
 
+def test_cta_is_excluded_until_validated():
+    assert "CTA" not in FACTOR_MAP
+    assert "CTA" not in all_tickers()
+
+
 def test_wrappers_stack_at_least_one_known_factor():
     known = set(Factor)
     for wrapper, factors in WRAPPER_FACTORS.items():

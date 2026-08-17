@@ -13,15 +13,24 @@ from app.services.testfol_api import fetch_backtest
 from screener.live_verify import verify_sequential
 
 
-def _load_shortlist(path: str | Path, limit: int) -> list[dict[str, object]]:
+def _key(allocation: dict[str, object]) -> tuple[tuple[str, float], ...]:
+    return tuple(sorted((str(ticker), round(float(weight), 8)) for ticker, weight in allocation.items()))
+
+
+def _load_shortlist(
+    path: str | Path,
+    limit: int,
+    excluded: set[tuple[tuple[str, float], ...]] | None = None,
+) -> list[dict[str, object]]:
     rows = [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
     rows.sort(key=lambda row: float(row.get("fitness", float("-inf"))), reverse=True)
     shortlist: list[dict[str, object]] = []
     seen: set[tuple[tuple[str, float], ...]] = set()
+    excluded = excluded or set()
     for row in rows:
         allocation = row.get("allocation", {})
-        key = tuple(sorted((str(ticker), round(float(weight), 8)) for ticker, weight in allocation.items()))
-        if key in seen:
+        key = _key(allocation)
+        if key in seen or key in excluded:
             continue
         seen.add(key)
         shortlist.append(row)
@@ -70,8 +79,13 @@ def main() -> None:
     parser.add_argument("--end", default="2026-08-17")
     parser.add_argument("--delay", type=float, default=1.5)
     parser.add_argument("--output", default="data/testfol-shortlist-verification.json")
+    parser.add_argument("--exclude", action="append", default=[])
     args = parser.parse_args()
-    shortlist = _load_shortlist(args.input, args.limit)
+    excluded: set[tuple[tuple[str, float], ...]] = set()
+    for path in args.exclude:
+        for row in json.loads(Path(path).read_text(encoding="utf-8")):
+            excluded.add(_key(row["allocation"]))
+    shortlist = _load_shortlist(args.input, args.limit, excluded)
     report = verify(shortlist, args.start, args.end, args.delay)
     Path(args.output).write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({"requested": len(shortlist), "verified": len(report), "output": args.output}, indent=2))

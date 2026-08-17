@@ -20,6 +20,33 @@ class SearchResult:
     evaluations: int
 
 
+def discover_feasible_allocations(
+    returns: pd.DataFrame,
+    *,
+    target: int = 250,
+    samples_per_size: int = 5000,
+    seed: int = 42,
+) -> list[dict[str, float]]:
+    """Discover unique feasible allocations without calling external services."""
+    if target <= 0 or len(returns.columns) < 3:
+        return []
+    rng = np.random.default_rng(seed)
+    tickers = tuple(str(column) for column in returns.columns)
+    discovered: dict[tuple[tuple[str, float], ...], dict[str, float]] = {}
+    for size in range(3, min(8, len(tickers)) + 1):
+        for _ in range(samples_per_size):
+            selected = tuple(rng.choice(tickers, size=size, replace=False).tolist())
+            values = rng.dirichlet(np.ones(size))
+            allocation = {ticker: float(value) for ticker, value in zip(selected, values)}
+            if not check_diversification(returns, allocation).passed:
+                continue
+            key = tuple(sorted((ticker, round(weight, 8)) for ticker, weight in allocation.items()))
+            discovered.setdefault(key, allocation)
+            if len(discovered) >= target:
+                return list(discovered.values())
+    return list(discovered.values())
+
+
 def _normalise(values: list[float]) -> tuple[float, ...]:
     array = np.asarray(values, dtype=float)
     array = np.maximum(array, 0.0)
