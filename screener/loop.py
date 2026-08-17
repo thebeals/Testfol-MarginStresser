@@ -11,6 +11,8 @@ from typing import Iterable
 import pandas as pd
 
 from .fitness import score_candidate
+from .db import CandidateStore
+from .diversify import check_diversification
 from .rebalance import SCREENER_REBALANCE_FREQUENCIES, rebalance_returns
 from .validation import run_validation_suite
 
@@ -32,6 +34,8 @@ class CandidateResult:
     plateau_stability: float
     dsr: float
     confidence_badge: str
+    diversification_passed: bool
+    diversification: dict[str, object]
 
 
 def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateResult:
@@ -41,6 +45,7 @@ def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateR
     fitness = score_candidate(returns, task.allocation, seed=task.generation, rebalance_freq=task.rebalance_freq)
     portfolio = rebalance_returns(returns, task.allocation, task.rebalance_freq)
     validation = run_validation_suite(portfolio, n_trials=1, n_bootstrap=200, n_perms=200)
+    diversification = check_diversification(returns, task.allocation)
     return CandidateResult(
         allocation=task.allocation,
         rebalance_freq=task.rebalance_freq,
@@ -50,13 +55,20 @@ def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateR
         plateau_stability=fitness.plateau_stability,
         dsr=validation.dsr,
         confidence_badge=validation.badge.value,
+        diversification_passed=diversification.passed,
+        diversification={
+            "factor_variance_share": diversification.factor_variance_share,
+            "stress_correlations": diversification.stress_correlations,
+            "violations": list(diversification.violations),
+        },
     )
 
 
-def _writer_loop(queue: mp.Queue, output_path: str) -> None:
+def _writer_loop(queue: mp.Queue, output_path: str, db_path: str | None) -> None:
     """Single writer process; workers never open the results file."""
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
+    store = CandidateStore(db_path) if db_path else None
     with path.open("a", encoding="utf-8") as handle:
         while True:
             item = queue.get()
@@ -64,6 +76,10 @@ def _writer_loop(queue: mp.Queue, output_path: str) -> None:
                 return
             handle.write(json.dumps(item, sort_keys=True) + "\n")
             handle.flush()
+            if store:
+                store.save(item)
+    if store:
+        store.close()
 
 
 def evaluate_candidates_parallel(
@@ -71,12 +87,13 @@ def evaluate_candidates_parallel(
     tasks: Iterable[CandidateTask],
     *,
     output_path: str | Path,
+    db_path: str | Path | None = None,
     workers: int | None = None,
 ) -> list[CandidateResult]:
     """Evaluate candidates in workers and serialize through one writer process."""
     context = mp.get_context("spawn")
     queue = context.Queue()
-    writer = context.Process(target=_writer_loop, args=(queue, str(output_path)))
+    writer = context.Process(target=_writer_loop, args=(queue, str(output_path), str(db_path) if db_path else None))
     writer.start()
     results: list[CandidateResult] = []
     try:
