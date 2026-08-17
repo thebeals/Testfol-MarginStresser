@@ -16,5 +16,5 @@ def test_letf_backfill_uses_simulation_before_observed_history() -> None:
     result, simulated = extend_validated_letfs(prices, pd.Series(4.0, index=index))
 
     assert "UPRO" in simulated
-    assert result["UPRO"].loc[index[1]].notna()
+    assert pd.notna(result["UPRO"].loc[index[1]])
     assert result["UPRO"].pct_change().loc[index[3]] == 0.01
