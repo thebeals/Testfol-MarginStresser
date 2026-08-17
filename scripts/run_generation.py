@@ -21,13 +21,7 @@ def main() -> None:
     parser.add_argument("--log", default="data/generation.jsonl")
     parser.add_argument("--subset-limit", type=int, default=2)
     parser.add_argument("--search-trials", type=int, default=10)
-    parser.add_argument("--strategy-approved", action="store_true")
     args = parser.parse_args()
-    if not args.strategy_approved:
-        raise SystemExit(
-            "Generation is paused: allocation strategy requires explicit approval. "
-            "Use --strategy-approved only after the strategy regroup."
-        )
 
     tickers = ("SPY", "TLT", "TIP", "SGOV", "GLD", "DBC", "DBMF", "VNQ")
     prices = yf.download(

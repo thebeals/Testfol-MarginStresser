@@ -14,11 +14,15 @@ STRESS_WINDOWS = {
     "2020_covid": ("2020-02-19", "2020-03-23"),
     "2022_rates": ("2022-01-03", "2022-10-12"),
 }
+VARIANCE_SHARE_CAP = 0.50
+FACTOR_BREADTH_THRESHOLD = 0.02
+MIN_FACTOR_BREADTH = 4
 
 
 @dataclass(frozen=True)
 class DiversificationReport:
     factor_variance_share: dict[str, float]
+    factor_breadth: int
     stress_correlations: dict[str, float]
     passed: bool
     violations: tuple[str, ...]
@@ -83,13 +87,17 @@ def check_diversification(
     returns: pd.DataFrame,
     allocation: dict[str, float],
     *,
-    variance_cap: float = 0.50,
+    variance_cap: float = VARIANCE_SHARE_CAP,
     stress_correlation_cap: float = 0.95,
+    factor_breadth_threshold: float = FACTOR_BREADTH_THRESHOLD,
+    min_factor_breadth: int = MIN_FACTOR_BREADTH,
 ) -> DiversificationReport:
     shares = variance_share(returns, allocation)
     correlations = stress_correlation(returns, allocation)
+    factor_breadth = sum(share > factor_breadth_threshold for share in shares.values())
     violations = tuple(
         [f"factor:{factor}" for factor, share in shares.items() if share > variance_cap]
+        + ([f"factor_breadth:{factor_breadth}/{min_factor_breadth}"] if factor_breadth < min_factor_breadth else [])
         + [f"stress:{window}" for window, value in correlations.items() if value > stress_correlation_cap]
     )
-    return DiversificationReport(shares, correlations, not violations, violations)
+    return DiversificationReport(shares, factor_breadth, correlations, not violations, violations)

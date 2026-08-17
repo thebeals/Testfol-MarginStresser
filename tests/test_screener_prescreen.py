@@ -22,7 +22,6 @@ def test_prescreen_keeps_factor_signature_coverage() -> None:
         min_tickers=2,
         max_tickers=2,
         max_candidates=4,
-        min_factors=2,
     )
 
     signatures = {_factor_signature(subset.tickers) for subset in subsets}

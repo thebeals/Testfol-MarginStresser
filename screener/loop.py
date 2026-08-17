@@ -63,9 +63,10 @@ def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateR
         dsr=validation.dsr,
         confidence_badge=validation.badge.value,
         diversification_passed=diversification.passed,
-        diversification={
-            "factor_variance_share": diversification.factor_variance_share,
-            "stress_correlations": diversification.stress_correlations,
+            diversification={
+                "factor_variance_share": diversification.factor_variance_share,
+                "factor_breadth": diversification.factor_breadth,
+                "stress_correlations": diversification.stress_correlations,
             "violations": list(diversification.violations),
         },
     )
