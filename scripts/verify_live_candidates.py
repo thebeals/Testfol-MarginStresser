@@ -47,14 +47,18 @@ def main() -> None:
     with sqlite3.connect(args.db) as connection:
         try:
             rows = connection.execute(
-                "SELECT candidate_hash, allocation_json FROM candidates ORDER BY fitness DESC LIMIT ?",
-                (args.limit,),
+                "SELECT candidate_hash, allocation_json, diversification_json FROM candidates "
+                "ORDER BY fitness DESC"
             ).fetchall()
         except sqlite3.OperationalError as error:
             if "no such table" in str(error):
                 print("No candidates available for verification.")
                 return
             raise
+    rows = [row[:2] for row in rows if not json.loads(row[2]).get("violations")][: args.limit]
+    if not rows:
+        print("No diversified candidates available for verification.")
+        return
     for index, (candidate_hash, allocation_json) in enumerate(rows):
         payload = _payload(json.loads(allocation_json), args.start, args.end)
         if args.dry_run:
