@@ -33,6 +33,15 @@ def _proxy_score(returns: pd.DataFrame, tickers: tuple[str, ...], risk_aversion:
     return SubsetScore(tickers, expected_return - risk_aversion * variance, expected_return, variance)
 
 
+def _factor_signature(tickers: tuple[str, ...]) -> tuple[str, ...]:
+    factors = set()
+    for ticker in tickers:
+        direct = FACTOR_MAP.get(ticker)
+        mapped = (direct,) if direct else WRAPPER_FACTORS.get(ticker, ())
+        factors.update(factor.value for factor in mapped)
+    return tuple(sorted(factors))
+
+
 def prescreen_subsets(
     returns: pd.DataFrame,
     *,
@@ -73,4 +82,19 @@ def prescreen_subsets(
             if len(scores) > max_candidates:
                 scores.pop()
             floor = scores[-1].score if len(scores) >= max_candidates else float("-inf")
-    return scores
+    # Keep proxy selection from collapsing onto one attractive defensive mix.
+    # This is coverage only; the final allocation strategy remains downstream.
+    by_signature: dict[tuple[str, ...], SubsetScore] = {}
+    for score in scores:
+        signature = _factor_signature(score.tickers)
+        if signature not in by_signature:
+            by_signature[signature] = score
+    covered = list(by_signature.values())[:max_candidates]
+    selected = {score.tickers for score in covered}
+    for score in scores:
+        if len(covered) >= max_candidates:
+            break
+        if score.tickers not in selected:
+            covered.append(score)
+            selected.add(score.tickers)
+    return sorted(covered, key=lambda item: item.score, reverse=True)

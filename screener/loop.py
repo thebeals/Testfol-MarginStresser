@@ -81,10 +81,11 @@ def _writer_loop(queue: mp.Queue, output_path: str, db_path: str | None) -> None
             item = queue.get()
             if item is None:
                 return
-            handle.write(json.dumps(item, sort_keys=True) + "\n")
-            handle.flush()
-            if store:
-                store.save(item)
+            if item.get("diversification_passed", False):
+                handle.write(json.dumps(item, sort_keys=True) + "\n")
+                handle.flush()
+                if store:
+                    store.save(item)
     if store:
         store.close()
 
