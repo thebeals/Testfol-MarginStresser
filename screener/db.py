@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS candidates (
     generation INTEGER NOT NULL,
     fitness REAL,
     mwrr REAL,
+    cagr REAL,
     dsr REAL,
     confidence_badge TEXT,
     diversification_json TEXT,
@@ -41,6 +42,9 @@ class CandidateStore:
         self.connection = sqlite3.connect(self.path)
         self.connection.execute("PRAGMA journal_mode=WAL")
         self.connection.execute(SCHEMA)
+        columns = {row[1] for row in self.connection.execute("PRAGMA table_info(candidates)")}
+        if "cagr" not in columns:
+            self.connection.execute("ALTER TABLE candidates ADD COLUMN cagr REAL")
         self.connection.commit()
 
     def contains(self, allocation: dict[str, float], rebalance_freq: str = "None", rotation_variant: str = "static") -> bool:
@@ -53,8 +57,8 @@ class CandidateStore:
         cursor = self.connection.execute(
             """INSERT OR IGNORE INTO candidates
             (candidate_hash, allocation_json, rebalance_freq, rotation_variant,
-             generation, fitness, mwrr, dsr, confidence_badge, diversification_json)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+             generation, fitness, mwrr, cagr, dsr, confidence_badge, diversification_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 key,
                 json.dumps(allocation, sort_keys=True),
@@ -63,6 +67,7 @@ class CandidateStore:
                 result.get("generation", 0),
                 result.get("fitness"),
                 result.get("mwrr"),
+                result.get("cagr"),
                 result.get("dsr"),
                 result.get("confidence_badge"),
                 json.dumps(result.get("diversification", {}), sort_keys=True),

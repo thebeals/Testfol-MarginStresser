@@ -14,6 +14,9 @@ ENDPOINT = "https://testfol.io/api/backtest"
 
 
 def _payload(allocation: dict[str, float], start: str, end: str) -> dict[str, object]:
+    percentages = {ticker: round(weight * 100, 8) for ticker, weight in allocation.items()}
+    last_ticker = next(reversed(percentages))
+    percentages[last_ticker] = round(100.0 - sum(value for ticker, value in percentages.items() if ticker != last_ticker), 8)
     return {
         "start_date": start,
         "end_date": end,
@@ -30,7 +33,7 @@ def _payload(allocation: dict[str, float], start: str, end: str) -> dict[str, ob
             "invest_dividends": True,
             "rebalance_freq": "Yearly",
             "rebalance_offset": 0,
-            "allocation": {ticker: round(weight * 100, 8) for ticker, weight in allocation.items()},
+            "allocation": percentages,
             "drag": 0,
         }],
     }
@@ -43,7 +46,13 @@ def main() -> None:
     parser.add_argument("--start", default="2006-01-01")
     parser.add_argument("--end", default=date.today().isoformat())
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--strategy-approved", action="store_true")
     args = parser.parse_args()
+    if not args.dry_run and not args.strategy_approved:
+        raise SystemExit(
+            "Live verification is paused: allocation strategy requires explicit approval. "
+            "Use --strategy-approved only after the strategy regroup."
+        )
     with sqlite3.connect(args.db) as connection:
         try:
             rows = connection.execute(
@@ -64,9 +73,17 @@ def main() -> None:
         if args.dry_run:
             print(json.dumps({"candidate_hash": candidate_hash, "payload": payload}))
         else:
-            response = requests.post(ENDPOINT, json=payload, timeout=120)
-            response.raise_for_status()
-            print(json.dumps({"candidate_hash": candidate_hash, "response": response.json()}))
+            try:
+                response = requests.post(ENDPOINT, json=payload, timeout=120)
+                response.raise_for_status()
+                print(json.dumps({"candidate_hash": candidate_hash, "ok": True, "response": response.json()}))
+            except requests.RequestException as error:
+                print(json.dumps({
+                    "candidate_hash": candidate_hash,
+                    "ok": False,
+                    "error": type(error).__name__,
+                    "message": str(error),
+                }))
         if index + 1 < len(rows):
             time.sleep(1.5)
 

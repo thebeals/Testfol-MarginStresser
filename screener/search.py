@@ -9,6 +9,7 @@ import optuna
 import pandas as pd
 
 from .fitness import bootstrap_mwrr_score
+from .diversify import check_diversification
 
 
 @dataclass(frozen=True)
@@ -47,9 +48,12 @@ def search_weights(
     def objective(trial: optuna.Trial) -> float:
         values = [trial.suggest_float(f"weight_{index}", 0.001, 1.0) for index in range(len(tickers))]
         weights = _normalise(values)
+        allocation = dict(zip(tickers, weights))
+        if not check_diversification(returns, allocation).passed:
+            return -1.0
         return bootstrap_mwrr_score(
             returns,
-            dict(zip(tickers, weights)),
+            allocation,
             seed + trial.number,
             rebalance_freq=rebalance_freq,
         )

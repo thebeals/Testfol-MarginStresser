@@ -34,6 +34,7 @@ class CandidateResult:
     generation: int
     fitness: float
     mwrr: float
+    cagr: float
     plateau_stability: float
     dsr: float
     confidence_badge: str
@@ -47,6 +48,8 @@ def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateR
         raise ValueError(f"unsupported rebalance frequency: {task.rebalance_freq}")
     fitness = score_candidate(returns, task.allocation, seed=task.generation, rebalance_freq=task.rebalance_freq)
     portfolio = rebalance_returns(returns, task.allocation, task.rebalance_freq)
+    years = max((portfolio.index[-1] - portfolio.index[0]).days / 365.25, 1 / 365.25)
+    cagr = float((1.0 + portfolio).prod() ** (1.0 / years) - 1.0)
     validation = run_validation_suite(portfolio, n_trials=1, n_bootstrap=200, n_perms=200)
     diversification = check_diversification(returns, task.allocation)
     return CandidateResult(
@@ -55,6 +58,7 @@ def evaluate_candidate(returns: pd.DataFrame, task: CandidateTask) -> CandidateR
         generation=task.generation,
         fitness=fitness.score,
         mwrr=fitness.mean_mwrr,
+        cagr=cagr,
         plateau_stability=fitness.plateau_stability,
         dsr=validation.dsr,
         confidence_badge=validation.badge.value,
@@ -139,6 +143,8 @@ def run_generation(
             seed=generation,
         )
         allocation = dict(zip(search.tickers, search.weights))
+        if not check_diversification(returns, allocation).passed:
+            continue
         tasks.extend(
             CandidateTask(allocation, frequency, generation)
             for frequency in SCREENER_REBALANCE_FREQUENCIES

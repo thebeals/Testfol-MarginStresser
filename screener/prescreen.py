@@ -12,6 +12,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
+from .universe import FACTOR_MAP, WRAPPER_FACTORS
+
 
 @dataclass(frozen=True)
 class SubsetScore:
@@ -38,6 +40,7 @@ def prescreen_subsets(
     max_tickers: int = 6,
     max_candidates: int = 100,
     risk_aversion: float = 10.0,
+    min_factors: int = 3,
 ) -> list[SubsetScore]:
     """Return the best proxy subsets using a bounded branch-and-bound scan.
 
@@ -55,6 +58,13 @@ def prescreen_subsets(
     floor = float("-inf")
     for size in range(min_tickers, min(max_tickers, len(columns)) + 1):
         for tickers in itertools.combinations(columns, size):
+            factors = set()
+            for ticker in tickers:
+                direct = FACTOR_MAP.get(ticker)
+                mapped = (direct,) if direct else WRAPPER_FACTORS.get(ticker, ())
+                factors.update(factor.value for factor in mapped)
+            if len(factors) < min_factors:
+                continue
             optimistic = max(singletons[ticker] for ticker in tickers)
             if len(scores) >= max_candidates and optimistic < floor:
                 continue
