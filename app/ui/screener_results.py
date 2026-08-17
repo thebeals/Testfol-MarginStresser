@@ -35,8 +35,8 @@ def _table_rows(results: list[dict[str, object]], benchmark: dict[str, object]) 
                 "Factors": local["diversification"]["factor_breadth"],
                 "Local Test CAGR": f"{walk_forward['test']['cagr']:.1%}",
                 "Local Test DD": f"{walk_forward['test']['max_drawdown']:.1%}",
-                "Testfol CAGR": f"{float(testfol_stats.get('cagr', 0.0)):.2f}%",
-                "vs SPY CAGR": f"{float(testfol_stats.get('cagr', 0.0)) - spy_test_cagr * 100.0:+.2f} pp",
+                "Testfol CAGR (history)": f"{float(testfol_stats.get('cagr', 0.0)):.2f}%",
+                "Local Test vs SPY": f"{(walk_forward['test']['cagr'] - spy_test_cagr):+.2%}",
                 "Testfol Max DD": f"{float(testfol_stats.get('max_drawdown', 0.0)):.2f}%",
                 "Observations": testfol.get("testfol_observations", 0),
             }
@@ -93,12 +93,12 @@ def render_screened_results(
     metric_columns[1].metric("Factors", local["diversification"]["factor_breadth"])
     metric_columns[2].metric("Local Test CAGR", f"{local['walk_forward']['test']['cagr']:.1%}")
     metric_columns[3].metric("Local Test DD", f"{local['walk_forward']['test']['max_drawdown']:.1%}")
-    metric_columns[4].metric("Testfol CAGR", f"{float(stats.get('cagr', 0.0)):.2f}%")
+    metric_columns[4].metric("Testfol CAGR (history)", f"{float(stats.get('cagr', 0.0)):.2f}%")
     metric_columns[5].metric("Testfol Max DD", f"{float(stats.get('max_drawdown', 0.0)):.2f}%")
     metric_columns[6].metric("SPY Test CAGR", f"{float(spy_test['cagr']):.2%}")
     metric_columns[7].metric(
-        "Excess vs SPY",
-        f"{float(stats.get('cagr', 0.0)) / 100.0 - float(spy_test['cagr']):+.2%}",
+        "Local Excess vs SPY",
+        f"{local['walk_forward']['test']['cagr'] - float(spy_test['cagr']):+.2%}",
     )
 
     with st.expander("Allocation weights"):
