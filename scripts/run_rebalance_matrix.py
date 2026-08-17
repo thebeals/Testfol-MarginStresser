@@ -46,23 +46,19 @@ def _band_returns(prices: pd.DataFrame, allocation: dict[str, float], check: str
     values = {ticker: 100.0 * weight for ticker, weight in allocation.items()}
     returns = prices.loc[:, list(allocation)].pct_change().fillna(0.0)
     output = []
-    prior_period = None
     for date, daily in returns.iterrows():
         before = sum(values.values())
         for ticker in values:
             values[ticker] *= 1.0 + float(daily[ticker])
-        period = _period_key(date, check)
-        if prior_period is not None and period != prior_period:
-            total = sum(values.values())
-            weights = {ticker: value / total for ticker, value in values.items()}
-            breached = any(
-                abs(weights[ticker] - target) > (band * target if mode == "relative" else band)
-                for ticker, target in allocation.items()
-            )
-            if breached:
-                values = {ticker: total * target for ticker, target in allocation.items()}
+        total = sum(values.values())
+        weights = {ticker: value / total for ticker, value in values.items()}
+        breached = any(
+            abs(weights[ticker] - target) > (band * target if mode == "relative" else band)
+            for ticker, target in allocation.items()
+        )
+        if breached:
+            values = {ticker: total * target for ticker, target in allocation.items()}
         output.append(sum(values.values()) / before - 1.0)
-        prior_period = period
     return pd.Series(output, index=returns.index)
 
 
