@@ -61,10 +61,6 @@ def render_screened_results(
         st.error(f"Could not load screened results: {error}")
         return
 
-    if not results:
-        st.info("No allocations currently pass all screener gates.")
-        return
-
     st.metric("Accepted allocations", len(results))
     st.subheader("Locked SPY Baseline")
     st.caption(
@@ -76,6 +72,10 @@ def render_screened_results(
         metrics = benchmark["periods"][period]
         column.metric(f"SPY {period.title()} CAGR", f"{float(metrics['cagr']):.1%}")
         column.caption(f"Max DD {float(metrics['max_drawdown']):.1%} | Sharpe {float(metrics['sharpe']):.2f}")
+    if not results:
+        st.warning("No allocations currently pass all gates, including the requirement to beat SPY in the test window.")
+        return
+
     st.dataframe(pd.DataFrame(_table_rows(results, benchmark)), use_container_width=True, hide_index=True)
 
     labels = [_allocation_label(result["local"]["allocation"]) for result in results]

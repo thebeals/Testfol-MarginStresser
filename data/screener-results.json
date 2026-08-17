@@ -1,7 +1,19 @@
 {
-  "accepted": [
+  "accepted": [],
+  "policy": {
+    "cta_excluded": true,
+    "local_test_max_drawdown_min": -0.5,
+    "spy_outperformance_required": true,
+    "spy_test_cagr_min": 0.15725057569924106,
+    "testfol_cagr_min_pct": 5.0,
+    "testfol_max_drawdown_min_pct": -50.0,
+    "testfol_min_observations": 1000
+  },
+  "rejected": [
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.09573125861831505,
@@ -112,7 +124,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BIL": 0.15234499677266922,
@@ -229,7 +243,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.31874361208857355,
@@ -340,7 +356,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.15739077958566633,
@@ -458,7 +476,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.004801030194790558,
@@ -572,7 +592,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.13319020776115456,
@@ -685,7 +707,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BND": 0.23903294802853514,
@@ -802,7 +826,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.19594483393552406,
@@ -920,7 +946,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BIL": 0.06265393160679064,
@@ -1036,7 +1064,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "GLD": 0.18330556189138641,
@@ -1151,7 +1181,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.12446996276152722,
@@ -1266,7 +1298,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BND": 0.12212806397060463,
@@ -1384,7 +1418,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.15862128037073686,
@@ -1501,7 +1537,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.038271324474241905,
@@ -1617,7 +1655,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBC": 0.23509571656989026,
@@ -1734,7 +1774,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBMF": 0.567917010817719,
@@ -1850,7 +1892,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "DBMF": 0.48369087131098193,
@@ -1966,7 +2010,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BND": 0.22777110836936992,
@@ -2081,7 +2127,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BND": 0.01028441894020128,
@@ -2198,7 +2246,9 @@
       }
     },
     {
-      "gate_reasons": [],
+      "gate_reasons": [
+        "does_not_beat_spy_test_cagr"
+      ],
       "local": {
         "allocation": {
           "BIL": 0.2964562187970773,
@@ -2313,13 +2363,5 @@
         ]
       }
     }
-  ],
-  "policy": {
-    "cta_excluded": true,
-    "local_test_max_drawdown_min": -0.5,
-    "testfol_cagr_min_pct": 5.0,
-    "testfol_max_drawdown_min_pct": -50.0,
-    "testfol_min_observations": 1000
-  },
-  "rejected": []
+  ]
 }
