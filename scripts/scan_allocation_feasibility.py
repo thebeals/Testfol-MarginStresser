@@ -15,7 +15,9 @@ sys.path.insert(0, str(Path(__file__).parents[1]))
 
 from screener.diversify import check_diversification
 from screener.diversify import STRESS_WINDOWS
+from screener.hybrid_data import extend_validated_letfs
 from screener.universe import all_tickers
+from app.services.data_service import get_fed_funds_rate
 
 
 def _download_prices(start: str, end: str):
@@ -98,9 +100,11 @@ def main() -> None:
     args = parser.parse_args()
 
     prices, available = _download_prices(args.start, args.end)
+    prices, simulated_tickers = extend_validated_letfs(prices, get_fed_funds_rate())
     result = scan(prices, samples_per_size=args.samples_per_size, seed=args.seed)
     result["date_range"] = {"start": args.start, "end": args.end}
     result["available_tickers"] = available
+    result["simulated_tickers"] = simulated_tickers
     result["price_start"] = str(prices.index.min().date()) if not prices.empty else None
     result["price_end"] = str(prices.index.max().date()) if not prices.empty else None
     path = Path(args.output)
