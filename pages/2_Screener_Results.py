@@ -1,29 +1,63 @@
 """Streamlit results page for persisted screener candidates."""
 
 from pathlib import Path
+import json
+import sqlite3
 
 import pandas as pd
 import streamlit as st
 
-DB_PATH = Path("data/screener.db")
+ROOT = Path(__file__).parents[1]
+DATABASES = {
+    "Production generation": ROOT / "data/screener-production.db",
+    "Bounded verification": ROOT / "data/screener.db",
+}
 
 st.set_page_config(page_title="Screener Results", layout="wide")
 st.title("LETF Screener Results")
 
-if not DB_PATH.exists():
-    st.info(f"No screener database found at `{DB_PATH}`. Run a generation first.")
+available = {name: path for name, path in DATABASES.items() if path.exists()}
+if not available:
+    st.info("No screener database found. Run a generation first.")
     st.stop()
 
+selection = st.sidebar.selectbox("Result set", list(available))
+db_path = available[selection]
 query = "SELECT * FROM candidates ORDER BY fitness DESC, created_at DESC"
-with __import__("sqlite3").connect(DB_PATH) as connection:
+with sqlite3.connect(db_path) as connection:
     candidates = pd.read_sql_query(query, connection)
 
 if candidates.empty:
     st.info("The database is empty.")
     st.stop()
 
+def _violations(value: str) -> list[str]:
+    try:
+        return json.loads(value).get("violations", [])
+    except (TypeError, json.JSONDecodeError):
+        return ["invalid diversification record"]
+
+
+candidates["diversified"] = candidates["diversification_json"].map(lambda value: not _violations(value))
+candidates["allocation"] = candidates["allocation_json"].map(
+    lambda value: ", ".join(f"{ticker} {weight:.1%}" for ticker, weight in json.loads(value).items())
+)
+
+metric_columns = st.columns(4)
+metric_columns[0].metric("Candidates", len(candidates))
+metric_columns[1].metric("Diversified", int(candidates["diversified"].sum()))
+metric_columns[2].metric("Robust", int((candidates["confidence_badge"] == "Robust").sum()))
+metric_columns[3].metric("Best Fitness", f"{candidates['fitness'].max():.4f}")
+
 badges = st.multiselect("Confidence badge", sorted(candidates["confidence_badge"].dropna().unique()))
+only_diversified = st.checkbox("Show only diversification-passing candidates")
 if badges:
     candidates = candidates[candidates["confidence_badge"].isin(badges)]
+if only_diversified:
+    candidates = candidates[candidates["diversified"]]
 st.caption(f"{len(candidates)} candidates")
-st.dataframe(candidates, use_container_width=True, hide_index=True)
+display_columns = [
+    "candidate_hash", "allocation", "rebalance_freq", "rotation_variant",
+    "generation", "fitness", "mwrr", "dsr", "confidence_badge", "diversified", "created_at",
+]
+st.dataframe(candidates[display_columns], use_container_width=True, hide_index=True)
