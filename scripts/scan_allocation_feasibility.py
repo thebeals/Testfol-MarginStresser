@@ -9,14 +9,13 @@ from datetime import date
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
 from screener.diversify import check_diversification
 from screener.diversify import STRESS_WINDOWS
-from screener.hybrid_data import extend_validated_letfs
+from screener.hybrid_data import extend_hybrid_prices
 from screener.universe import all_tickers
 from app.services.data_service import get_fed_funds_rate
 
@@ -36,16 +35,6 @@ def _download_prices(start: str, end: str):
         prices = prices.rename(columns={"Close": all_tickers()[0]})
     prices = prices.dropna(axis=1, how="all")
     return prices, [str(column) for column in prices.columns]
-
-
-def _load_testfol_simulations(path: str) -> tuple[dict[str, object], list[str]]:
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    prices: dict[str, object] = {}
-    for ticker, series in payload.get("series", {}).items():
-        dates = [row[0] for row in series["daily_returns_pct"]]
-        returns = [float(row[1]) / 100.0 for row in series["daily_returns_pct"]]
-        prices[ticker] = (dates, returns)
-    return prices, list(prices)
 
 
 def _stress_coverage(prices) -> dict[str, int]:
@@ -112,17 +101,18 @@ def main() -> None:
     args = parser.parse_args()
 
     prices, available = _download_prices(args.start, args.end)
-    prices, simulated_tickers = extend_validated_letfs(prices, get_fed_funds_rate())
-    testfol_prices, testfol_tickers = _load_testfol_simulations(args.testfol_cache)
-    for ticker, (dates, values) in testfol_prices.items():
-        series = pd.Series(values, index=pd.to_datetime(dates))
-        prices[ticker] = 100.0 * (1.0 + series).cumprod()
-    available = sorted(set(available).union(testfol_tickers))
+    prices, provenance = extend_hybrid_prices(
+        prices,
+        get_fed_funds_rate(),
+        testfol_cache_path=args.testfol_cache,
+    )
+    available = sorted(set(available).union(provenance["testfol_simulated_tickers"]))
     result = scan(prices, samples_per_size=args.samples_per_size, seed=args.seed)
     result["date_range"] = {"start": args.start, "end": args.end}
     result["available_tickers"] = available
-    result["simulated_tickers"] = simulated_tickers
-    result["testfol_simulated_tickers"] = testfol_tickers
+    result["simulated_tickers"] = provenance["letf_simulated_tickers"]
+    result["testfol_simulated_tickers"] = provenance["testfol_simulated_tickers"]
+    result["source_by_ticker"] = provenance["source_by_ticker"]
     result["price_start"] = str(prices.index.min().date()) if not prices.empty else None
     result["price_end"] = str(prices.index.max().date()) if not prices.empty else None
     path = Path(args.output)

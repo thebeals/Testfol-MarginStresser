@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pandas as pd
 
 from .synthetic import LeverageSpec, leveraged_returns
@@ -15,6 +18,24 @@ LETF_SPECS: dict[str, tuple[str, LeverageSpec]] = {
     "TYD": ("IEF", LeverageSpec(3.0, 0.95, spread_pct=0.50)),
     "UBT": ("TLT", LeverageSpec(2.0, 0.95, spread_pct=0.50)),
 }
+
+TESTFOL_CACHE_PATH = Path(__file__).parents[1] / "data" / "testfol-simulated-returns.json"
+
+
+def load_testfol_simulated_prices(path: str | Path = TESTFOL_CACHE_PATH) -> pd.DataFrame:
+    """Load cached Testfol daily percentage returns as normalized price series."""
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    frames: dict[str, pd.Series] = {}
+    for ticker, metadata in payload.get("series", {}).items():
+        rows = metadata.get("daily_returns_pct", [])
+        if not rows:
+            continue
+        frame = pd.DataFrame(rows, columns=["date", "return_pct", "value"])
+        frame["date"] = pd.to_datetime(frame["date"], errors="raise")
+        frame["return_pct"] = pd.to_numeric(frame["return_pct"], errors="raise") / 100.0
+        returns = frame.drop_duplicates("date", keep="last").set_index("date")["return_pct"].sort_index()
+        frames[ticker] = 100.0 * (1.0 + returns).cumprod()
+    return pd.concat(frames, axis=1) if frames else pd.DataFrame()
 
 
 def extend_validated_letfs(prices: pd.DataFrame, funding_rate_pct: pd.Series | None) -> tuple[pd.DataFrame, list[str]]:
@@ -42,3 +63,27 @@ def extend_validated_letfs(prices: pd.DataFrame, funding_rate_pct: pd.Series | N
         result[ticker] = 100.0 * (1.0 + combined_returns).cumprod()
         simulated.append(ticker)
     return result, simulated
+
+
+def extend_hybrid_prices(
+    prices: pd.DataFrame,
+    funding_rate_pct: pd.Series | None,
+    *,
+    testfol_cache_path: str | Path = TESTFOL_CACHE_PATH,
+) -> tuple[pd.DataFrame, dict[str, object]]:
+    """Add validated LETF and cached Testfol histories with source provenance."""
+    result, letf_simulated = extend_validated_letfs(prices, funding_rate_pct)
+    source_by_ticker = {str(ticker): "observed" for ticker in prices.columns}
+    for ticker in letf_simulated:
+        source_by_ticker[ticker] = "letf_simulated"
+
+    testfol_prices = load_testfol_simulated_prices(testfol_cache_path)
+    for ticker in testfol_prices.columns:
+        result[ticker] = testfol_prices[ticker]
+        source_by_ticker[str(ticker)] = "testfol_simulated"
+
+    return result, {
+        "source_by_ticker": source_by_ticker,
+        "letf_simulated_tickers": letf_simulated,
+        "testfol_simulated_tickers": [str(ticker) for ticker in testfol_prices.columns],
+    }

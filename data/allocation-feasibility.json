@@ -444,15 +444,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.35382021311368145,
-        "gold": 0.07646192237729249,
-        "managed_futures": 0.23190454101560026,
-        "real_duration": 0.3378133234934258
+        "equity": 0.35382002660558753,
+        "gold": 0.07646168417183137,
+        "managed_futures": 0.23190383562134884,
+        "real_duration": 0.33781445360123225
       },
       "stress_correlations": {
-        "2008_gfc": 0.47473523760033043,
-        "2020_covid": 0.6525114332822666,
-        "2022_rates": 0.5490559002931068
+        "2008_gfc": 0.4747347674397621,
+        "2020_covid": 0.6525110683936419,
+        "2022_rates": 0.5490561688747999
       },
       "tickers": [
         "GLD",
@@ -470,15 +470,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.4229709304984119,
-        "nominal_duration": 0.4909632342430313,
-        "real_duration": 0.05156824414143355,
-        "real_estate": 0.0344975911171233
+        "equity": 0.42297029743014447,
+        "nominal_duration": 0.49096367453777956,
+        "real_duration": 0.05156850298545948,
+        "real_estate": 0.03449752504661654
       },
       "stress_correlations": {
-        "2008_gfc": 0.7737133727676982,
-        "2020_covid": 0.9118850481800752,
-        "2022_rates": 0.7154695050204534
+        "2008_gfc": 0.7737135913137985,
+        "2020_covid": 0.9118847252605499,
+        "2022_rates": 0.7154694560247026
       },
       "tickers": [
         "TIP",
@@ -496,15 +496,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.43078879361856254,
-        "managed_futures": 0.07680250620914207,
-        "nominal_duration": 0.2790425865118183,
-        "real_duration": 0.21336611366047714
+        "equity": 0.4307877647218499,
+        "managed_futures": 0.07680238352499273,
+        "nominal_duration": 0.279043401748851,
+        "real_duration": 0.21336645000430635
       },
       "stress_correlations": {
-        "2008_gfc": 0.6859098052215301,
-        "2020_covid": 0.6841327031156985,
-        "2022_rates": 0.7579023498372981
+        "2008_gfc": 0.6859120716958234,
+        "2020_covid": 0.6841282766848095,
+        "2022_rates": 0.7579060865457925
       },
       "tickers": [
         "TIP",
@@ -522,15 +522,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.17643196376487894,
-        "managed_futures": 0.12099570380517037,
-        "nominal_duration": 0.4373650620647284,
-        "real_estate": 0.2652072703652223
+        "equity": 0.17643145801416812,
+        "managed_futures": 0.12099596830778556,
+        "nominal_duration": 0.4373659151097137,
+        "real_estate": 0.26520665856833275
       },
       "stress_correlations": {
-        "2008_gfc": 0.7737393081927348,
-        "2020_covid": 0.9131207907377882,
-        "2022_rates": 0.7164154130732477
+        "2008_gfc": 0.7737395264401531,
+        "2020_covid": 0.913119945926367,
+        "2022_rates": 0.7164152015560273
       },
       "tickers": [
         "TLT",
@@ -548,15 +548,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.3687943008795083,
-        "gold": 0.2695995725210406,
-        "real_duration": 0.16628686950741164,
-        "real_estate": 0.19531925709203937
+        "equity": 0.3687939002894351,
+        "gold": 0.26959902918598405,
+        "real_duration": 0.1662878289614299,
+        "real_estate": 0.195319241563151
       },
       "stress_correlations": {
-        "2008_gfc": 0.6063256880305806,
-        "2020_covid": 0.8707623965974491,
-        "2022_rates": 0.7319345896985281
+        "2008_gfc": 0.6063249070852866,
+        "2020_covid": 0.8707621495131064,
+        "2022_rates": 0.7319346430605493
       },
       "tickers": [
         "VPU",
@@ -574,15 +574,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "commodities": 0.35273946280031093,
-        "equity": 0.3588330913989685,
-        "managed_futures": 0.06760181234988362,
-        "nominal_duration": 0.22082563345083692
+        "commodities": 0.35273948121833315,
+        "equity": 0.35883297731099817,
+        "managed_futures": 0.06760192449011844,
+        "nominal_duration": 0.2208256169805502
       },
       "stress_correlations": {
-        "2008_gfc": 0.6771369804082986,
-        "2020_covid": 0.8452806955989809,
-        "2022_rates": 0.5210002745415744
+        "2008_gfc": 0.6771368572700912,
+        "2020_covid": 0.8452804984229849,
+        "2022_rates": 0.5210005445244504
       },
       "tickers": [
         "UBT",
@@ -600,15 +600,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.44531831972546937,
-        "nominal_duration": 0.07635080233344513,
-        "real_duration": 0.08854226927739522,
-        "real_estate": 0.38978860866369053
+        "equity": 0.44531746045909154,
+        "nominal_duration": 0.07635090757143191,
+        "real_duration": 0.08854327894998891,
+        "real_estate": 0.3897883530194876
       },
       "stress_correlations": {
-        "2008_gfc": 0.6595973641439777,
-        "2020_covid": 0.8678517768238063,
-        "2022_rates": 0.6762736490135248
+        "2008_gfc": 0.6595957494496485,
+        "2020_covid": 0.8678507202787744,
+        "2022_rates": 0.6762779915241264
       },
       "tickers": [
         "XLP",
@@ -626,15 +626,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.059633128473799375,
-        "gold": 0.13429958509356585,
-        "nominal_duration": 0.3231816855222715,
-        "real_duration": 0.48288560091036337
+        "equity": 0.059633315721290346,
+        "gold": 0.13429878643696896,
+        "nominal_duration": 0.32318211052979834,
+        "real_duration": 0.4828857873119424
       },
       "stress_correlations": {
-        "2008_gfc": 0.6859098052215301,
-        "2020_covid": 0.6841327031156985,
-        "2022_rates": 0.7579023498372981
+        "2008_gfc": 0.6859120716958234,
+        "2020_covid": 0.6841282766848095,
+        "2022_rates": 0.7579060865457925
       },
       "tickers": [
         "TQQQ",
@@ -652,15 +652,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "equity": 0.446025357788807,
-        "gold": 0.1521079219129384,
-        "nominal_duration": 0.3541389374818601,
-        "real_duration": 0.047727782816394525
+        "equity": 0.44602456020813314,
+        "gold": 0.15210813862984468,
+        "nominal_duration": 0.3541392519543779,
+        "real_duration": 0.0477280492076443
       },
       "stress_correlations": {
-        "2008_gfc": 0.4293541232505237,
-        "2020_covid": 0.628438057945596,
-        "2022_rates": 0.6652294542204064
+        "2008_gfc": 0.4293525050739193,
+        "2020_covid": 0.6284376830631571,
+        "2022_rates": 0.6652329808442138
       },
       "tickers": [
         "GLD",
@@ -678,15 +678,15 @@
     {
       "factor_breadth": 4,
       "factor_variance_share": {
-        "commodities": 0.07127526116661564,
-        "equity": 0.4804842283252807,
-        "gold": 0.3754989577811359,
-        "nominal_duration": 0.0727415527269677
+        "commodities": 0.07127528021353043,
+        "equity": 0.4804840555085122,
+        "gold": 0.3754990290190043,
+        "nominal_duration": 0.0727416352589532
       },
       "stress_correlations": {
-        "2008_gfc": 0.46154224856548365,
-        "2020_covid": 0.7277875430070972,
-        "2022_rates": 0.5207608069286647
+        "2008_gfc": 0.46154345567214083,
+        "2020_covid": 0.7277890433793701,
+        "2022_rates": 0.5207607648118164
       },
       "tickers": [
         "QQQ",
@@ -714,6 +714,70 @@
     "TYD",
     "UBT"
   ],
+  "source_by_ticker": {
+    "ALLW": "observed",
+    "AVUV": "observed",
+    "BIL": "observed",
+    "BND": "observed",
+    "BNDX": "observed",
+    "CAOS": "observed",
+    "CTA": "observed",
+    "DBC": "observed",
+    "DBMF": "testfol_simulated",
+    "EDV": "observed",
+    "EZU": "observed",
+    "GLD": "observed",
+    "GLDM": "observed",
+    "GOVT": "observed",
+    "IEF": "observed",
+    "KMLM": "testfol_simulated",
+    "MTUM": "observed",
+    "NTSX": "observed",
+    "PDBC": "observed",
+    "PTLC": "observed",
+    "QQQ": "observed",
+    "RPAR": "observed",
+    "RSBT": "observed",
+    "RSBY": "observed",
+    "RSMV": "observed",
+    "RSSB": "observed",
+    "RSST": "observed",
+    "RSSX": "observed",
+    "RSSY": "observed",
+    "SCHP": "observed",
+    "SGOV": "observed",
+    "SHV": "observed",
+    "SPY": "observed",
+    "SSO": "letf_simulated",
+    "TIP": "observed",
+    "TLT": "observed",
+    "TMF": "letf_simulated",
+    "TQQQ": "letf_simulated",
+    "TYD": "letf_simulated",
+    "UBT": "letf_simulated",
+    "UPAR": "observed",
+    "UPRO": "letf_simulated",
+    "USMV": "observed",
+    "VBR": "observed",
+    "VEA": "observed",
+    "VGIT": "observed",
+    "VGLT": "observed",
+    "VNQ": "observed",
+    "VOO": "observed",
+    "VPU": "observed",
+    "VT": "observed",
+    "VTI": "observed",
+    "VTIP": "observed",
+    "VTV": "observed",
+    "VWO": "observed",
+    "VXUS": "observed",
+    "XLE": "observed",
+    "XLI": "observed",
+    "XLP": "observed",
+    "XLU": "observed",
+    "XLV": "observed",
+    "ZROZ": "observed"
+  },
   "testfol_simulated_tickers": [
     "DBMF",
     "KMLM"

@@ -11,6 +11,8 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
 from screener.loop import run_generation
+from screener.hybrid_data import extend_hybrid_prices
+from app.services.data_service import get_fed_funds_rate
 
 
 def main() -> None:
@@ -32,7 +34,9 @@ def main() -> None:
         progress=False,
         threads=False,
     )
-    prices = prices["Close"].reindex(columns=tickers).dropna(how="any")
+    prices = prices["Close"].reindex(columns=tickers)
+    prices, provenance = extend_hybrid_prices(prices, get_fed_funds_rate())
+    prices = prices.reindex(columns=tickers).dropna(how="any")
     returns = prices.pct_change().dropna()
     results = run_generation(
         returns,
@@ -42,7 +46,10 @@ def main() -> None:
         search_trials=args.search_trials,
         workers=2,
     )
-    print(f"generated {len(results)} candidates from {len(returns)} daily observations")
+    print(
+        f"generated {len(results)} candidates from {len(returns)} daily observations "
+        f"(Testfol synthetic: {provenance['testfol_simulated_tickers']})"
+    )
 
 
 if __name__ == "__main__":
