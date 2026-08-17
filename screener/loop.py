@@ -13,6 +13,9 @@ import pandas as pd
 from .fitness import score_candidate
 from .db import CandidateStore
 from .diversify import check_diversification
+from .observability import log_generation_summary
+from .prescreen import prescreen_subsets
+from .search import search_weights
 from .rebalance import SCREENER_REBALANCE_FREQUENCIES, rebalance_returns
 from .validation import run_validation_suite
 
@@ -113,3 +116,56 @@ def generation_stale(previous_top: tuple[str, ...] | None, current_top: tuple[st
     changed = previous_top != current_top
     next_stale = 0 if changed else stale_generations + 1
     return next_stale >= 25, next_stale
+
+
+def run_generation(
+    returns: pd.DataFrame,
+    *,
+    db_path: str | Path,
+    log_path: str | Path,
+    generation: int = 0,
+    subset_limit: int = 10,
+    search_trials: int = 120,
+    workers: int | None = None,
+) -> list[CandidateResult]:
+    """Run prescreen, CMA-ES search, all default rebalances, and persistence."""
+    subsets = prescreen_subsets(returns, max_candidates=subset_limit)
+    tasks: list[CandidateTask] = []
+    for subset in subsets:
+        search = search_weights(
+            returns,
+            subset.tickers,
+            n_trials=search_trials,
+            seed=generation,
+        )
+        allocation = dict(zip(search.tickers, search.weights))
+        tasks.extend(
+            CandidateTask(allocation, frequency, generation)
+            for frequency in SCREENER_REBALANCE_FREQUENCIES
+        )
+    results_path = Path(db_path).with_name(f"generation-{generation}.jsonl")
+    results = evaluate_candidates_parallel(
+        returns,
+        tasks,
+        output_path=results_path,
+        db_path=db_path,
+        workers=workers,
+    )
+    survivors = [result for result in results if result.diversification_passed]
+    log_generation_summary(
+        log_path,
+        generation=generation,
+        candidates_tested=len(results),
+        survivor_pool_size=len(survivors),
+        top_n_changed=True,
+        stale_generations=0,
+    )
+    return results
+
+
+def stop_condition(results: Iterable[CandidateResult], *, target: int = 10) -> bool:
+    """Stop after the required number of diverse, robust candidates exists."""
+    return sum(
+        result.diversification_passed and result.confidence_badge == "Robust"
+        for result in results
+    ) >= target
