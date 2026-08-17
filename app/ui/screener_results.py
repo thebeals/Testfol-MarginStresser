@@ -13,6 +13,7 @@ from screener.results import load_screened_results
 
 RESULTS_PATH = Path(__file__).parents[2] / "data" / "screener-results.json"
 BENCHMARK_PATH = Path(__file__).parents[2] / "data" / "screener-benchmark.json"
+REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -47,6 +48,7 @@ def _table_rows(results: list[dict[str, object]], benchmark: dict[str, object]) 
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
+    rebalance_path: str | Path = REBALANCE_PATH,
 ) -> None:
     """Render accepted screener allocations and their validation evidence."""
     st.title("Screened Allocations")
@@ -54,6 +56,7 @@ def render_screened_results(
     try:
         results = load_screened_results(path)
         benchmark = json.loads(Path(benchmark_path).read_text(encoding="utf-8"))
+        rebalance_ranking = json.loads(Path(rebalance_path).read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -77,6 +80,25 @@ def render_screened_results(
         return
 
     st.dataframe(pd.DataFrame(_table_rows(results, benchmark)), use_container_width=True, hide_index=True)
+
+    st.subheader("Rebalance Method Ranking")
+    st.caption("All 10 allocations are retained. Local best and Testfol-compatible best methods are shown separately.")
+    rebalance_rows = []
+    for row in rebalance_ranking.get("allocations", []):
+        local_best = row["best_local"]
+        testfol_best = row["best_testfol"]
+        rebalance_rows.append(
+            {
+                "Rank": row["rank"],
+                "Allocation": _allocation_label(row["allocation"]),
+                "Best Local Method": local_best["method"],
+                "Local CAGR": f"{float(local_best['cagr']):.2%}",
+                "Best Testfol Method": testfol_best["method"],
+                "Testfol CAGR": f"{float(testfol_best['testfol_stats'].get('cagr', 0.0)):.2f}%",
+                "Testfol Max DD": f"{float(testfol_best['testfol_stats'].get('max_drawdown', 0.0)):.2f}%",
+            }
+        )
+    st.dataframe(pd.DataFrame(rebalance_rows), use_container_width=True, hide_index=True)
 
     labels = [_allocation_label(result["local"]["allocation"]) for result in results]
     selected_label = st.selectbox("Allocation details", labels)
