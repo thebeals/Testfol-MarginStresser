@@ -1,8 +1,4 @@
-"""Screener package.
-
-LETF portfolio screener: universe, search, fitness, validation, diversification.
-See SCREENER-SPEC.md for the authoritative design.
-"""
+"""LETF portfolio screener package."""
 
 from . import universe
 
