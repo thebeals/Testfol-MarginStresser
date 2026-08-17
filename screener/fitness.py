@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from .bakeoff import BLOCK_SIZE, block_bootstrap, mwrr
+from .rebalance import rebalance_returns
 
 
 @dataclass(frozen=True)
@@ -18,12 +19,12 @@ class FitnessResult:
     plateau_stability: float
 
 
-def _portfolio_returns(returns: pd.DataFrame, allocation: dict[str, float]) -> np.ndarray:
-    tickers = list(allocation)
-    weights = np.asarray([allocation[ticker] for ticker in tickers], dtype=float)
-    if np.any(weights < 0) or not np.isclose(weights.sum(), 1.0):
-        raise ValueError("allocation weights must be non-negative and sum to one")
-    return returns.loc[:, tickers].to_numpy() @ weights
+def _portfolio_returns(
+    returns: pd.DataFrame,
+    allocation: dict[str, float],
+    rebalance_freq: str,
+) -> np.ndarray:
+    return rebalance_returns(returns, allocation, rebalance_freq).to_numpy()
 
 
 def bootstrap_mwrr_score(
@@ -33,9 +34,10 @@ def bootstrap_mwrr_score(
     *,
     bootstraps: int = 24,
     block_size: int = BLOCK_SIZE,
+    rebalance_freq: str = "None",
 ) -> float:
     """Return the bootstrap mean MWRR with a dispersion penalty."""
-    history = _portfolio_returns(returns, allocation)
+    history = _portfolio_returns(returns, allocation, rebalance_freq)
     rng = np.random.default_rng(seed)
     scores = []
     for _ in range(bootstraps):
@@ -50,9 +52,10 @@ def plateau_stability(
     seed: int,
     *,
     perturbation: float = 0.02,
+    rebalance_freq: str = "None",
 ) -> float:
     """Measure how much score survives small weight perturbations."""
-    base = bootstrap_mwrr_score(returns, allocation, seed)
+    base = bootstrap_mwrr_score(returns, allocation, seed, rebalance_freq=rebalance_freq)
     values = []
     tickers = list(allocation)
     for index, ticker in enumerate(tickers):
@@ -62,7 +65,14 @@ def plateau_stability(
         changed = dict(allocation)
         changed[ticker] -= perturbation
         changed[other] += perturbation
-        values.append(bootstrap_mwrr_score(returns, changed, seed + index + 1))
+        values.append(
+            bootstrap_mwrr_score(
+                returns,
+                changed,
+                seed + index + 1,
+                rebalance_freq=rebalance_freq,
+            )
+        )
     if not values:
         return 1.0
     return float(np.mean(np.asarray(values) >= base - 0.01))
@@ -72,12 +82,18 @@ def score_candidate(
     returns: pd.DataFrame,
     allocation: dict[str, float],
     seed: int,
+    rebalance_freq: str = "None",
 ) -> FitnessResult:
     """Combine bootstrap MWRR with a plateau-stability multiplier."""
-    history = _portfolio_returns(returns, allocation)
+    history = _portfolio_returns(returns, allocation, rebalance_freq)
     rng = np.random.default_rng(seed)
     values = np.asarray([mwrr(block_bootstrap(history, rng), returns.index) for _ in range(24)])
     mean = float(values.mean())
     std = float(values.std())
-    stability = plateau_stability(returns, allocation, seed + 10_000)
+    stability = plateau_stability(
+        returns,
+        allocation,
+        seed + 10_000,
+        rebalance_freq=rebalance_freq,
+    )
     return FitnessResult(mean - 0.25 * std + 0.05 * stability, mean, std, stability)

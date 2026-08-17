@@ -36,6 +36,7 @@ def search_weights(
     *,
     n_trials: int = 120,
     seed: int = 42,
+    rebalance_freq: str = "None",
 ) -> SearchResult:
     """Search non-negative weights for one prescreened subset."""
     if not tickers:
@@ -46,7 +47,12 @@ def search_weights(
     def objective(trial: optuna.Trial) -> float:
         values = [trial.suggest_float(f"weight_{index}", 0.001, 1.0) for index in range(len(tickers))]
         weights = _normalise(values)
-        return bootstrap_mwrr_score(returns, dict(zip(tickers, weights)), seed + trial.number)
+        return bootstrap_mwrr_score(
+            returns,
+            dict(zip(tickers, weights)),
+            seed + trial.number,
+            rebalance_freq=rebalance_freq,
+        )
 
     study.optimize(objective, n_trials=n_trials, show_progress_bar=False)
     values = [study.best_trial.params[f"weight_{index}"] for index in range(len(tickers))]
