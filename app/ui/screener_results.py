@@ -117,7 +117,7 @@ def render_screened_results(
                 "Best Local Method": local_best["method"],
                 "Local CAGR": f"{float(local_best['cagr']):.2%}",
                 "Best Testfol Method": testfol_best["method"],
-                "Testfol CAGR": f"{float(testfol_best['testfol_stats'].get('cagr', 0.0)):.2f}%",
+                "Testfol Test CAGR": f"{float(testfol_best['testfol_test'].get('cagr', 0.0)):.2%}",
                 "Testfol Max DD": f"{float(testfol_best['testfol_stats'].get('max_drawdown', 0.0)):.2f}%",
             }
         )

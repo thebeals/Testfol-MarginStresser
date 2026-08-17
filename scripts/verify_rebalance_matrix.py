@@ -5,7 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
+
+import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
@@ -27,6 +30,28 @@ def _parse_method(method: str) -> dict[str, object]:
 
 def _key(allocation: dict[str, float]) -> tuple[tuple[str, float], ...]:
     return tuple(sorted((ticker, round(float(weight), 8)) for ticker, weight in allocation.items()))
+
+
+def _test_window_metrics(history: list[list[float]]) -> dict[str, float | int]:
+    dates, values = history
+    rows = [
+        (datetime.fromtimestamp(timestamp, tz=timezone.utc).date().isoformat(), float(value))
+        for timestamp, value in zip(dates, values)
+    ]
+    rows = [(date, value) for date, value in rows if date >= "2021-01-01"]
+    series = pd.Series(
+        [value for _, value in rows],
+        index=pd.to_datetime([date for date, _ in rows]),
+    )
+    returns = series.pct_change().dropna()
+    wealth = (1.0 + returns).cumprod()
+    years = max((returns.index[-1] - returns.index[0]).days / 365.25, 1 / 365.25)
+    drawdown = wealth / wealth.cummax() - 1.0
+    return {
+        "cagr": float(wealth.iloc[-1] ** (1.0 / years) - 1.0),
+        "max_drawdown": float(drawdown.min()),
+        "observations": int(len(returns)),
+    }
 
 
 def verify(matrix_path: str | Path, start: str, end: str, delay: float) -> list[dict[str, object]]:
@@ -58,6 +83,7 @@ def verify(matrix_path: str | Path, start: str, end: str, delay: float) -> list[
             relative_dev=config["relative_dev"],
         )
         stats = (raw.get("stats") or [{}])[0] if isinstance(raw.get("stats"), list) else raw.get("stats", {})
+        history = raw.get("charts", {}).get("history", [[], []])
         return {
             "allocation_id": candidate["allocation_id"],
             "allocation": candidate["allocation"],
@@ -65,6 +91,7 @@ def verify(matrix_path: str | Path, start: str, end: str, delay: float) -> list[
             "local": {key: candidate[key] for key in ("cagr", "max_drawdown", "sharpe")},
             "testfol_errors": raw.get("errors", []),
             "testfol_stats": stats,
+            "testfol_test": _test_window_metrics(history) if history[0] else {},
         }
 
     candidates = list(best.values())

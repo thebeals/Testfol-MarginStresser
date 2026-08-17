@@ -61,6 +61,11 @@
       "upside_capture_annual": 123.2951412702173,
       "upside_capture_monthly": 101.58723053305548,
       "upside_correlation": 0.8438640233070179
+    },
+    "testfol_test": {
+      "cagr": 0.17742040287979366,
+      "max_drawdown": -0.2617268843688144,
+      "observations": 1410
     }
   },
   {
@@ -126,6 +131,11 @@
       "upside_capture_annual": 78.13256939808373,
       "upside_capture_monthly": 66.0590608558524,
       "upside_correlation": 0.5393495510596311
+    },
+    "testfol_test": {
+      "cagr": 0.19041847150228364,
+      "max_drawdown": -0.20710257430473333,
+      "observations": 1410
     }
   },
   {
@@ -190,6 +200,11 @@
       "upside_capture_annual": 108.57128397997747,
       "upside_capture_monthly": 76.90098793039016,
       "upside_correlation": 0.5256257926145459
+    },
+    "testfol_test": {
+      "cagr": 0.13148069209457214,
+      "max_drawdown": -0.3376778317394318,
+      "observations": 1410
     }
   },
   {
@@ -254,6 +269,11 @@
       "upside_capture_annual": 90.86158404493689,
       "upside_capture_monthly": 60.746910227013316,
       "upside_correlation": 0.7134907146894887
+    },
+    "testfol_test": {
+      "cagr": 0.1459563015442047,
+      "max_drawdown": -0.13312140760438174,
+      "observations": 1410
     }
   },
   {
@@ -318,6 +338,11 @@
       "upside_capture_annual": 85.95568758991152,
       "upside_capture_monthly": 74.58377250458153,
       "upside_correlation": 0.7056855890703309
+    },
+    "testfol_test": {
+      "cagr": 0.1710311162693685,
+      "max_drawdown": -0.16831426052899745,
+      "observations": 1410
     }
   },
   {
@@ -383,6 +408,11 @@
       "upside_capture_annual": 104.36040630911685,
       "upside_capture_monthly": 78.09118018793235,
       "upside_correlation": 0.6405546333568765
+    },
+    "testfol_test": {
+      "cagr": 0.1629765456208796,
+      "max_drawdown": -0.20928853503805822,
+      "observations": 1410
     }
   },
   {
@@ -448,6 +478,11 @@
       "upside_capture_annual": 83.51398070438589,
       "upside_capture_monthly": 69.83384897302425,
       "upside_correlation": 0.7383340991733598
+    },
+    "testfol_test": {
+      "cagr": 0.15078073950944249,
+      "max_drawdown": -0.1673244501547131,
+      "observations": 1410
     }
   },
   {
@@ -513,6 +548,11 @@
       "upside_capture_annual": 83.65658522567868,
       "upside_capture_monthly": 65.00066502610981,
       "upside_correlation": 0.5689292202349497
+    },
+    "testfol_test": {
+      "cagr": 0.1711717858857913,
+      "max_drawdown": -0.1541040612720853,
+      "observations": 1410
     }
   },
   {
@@ -579,6 +619,11 @@
       "upside_capture_annual": 74.69497176690516,
       "upside_capture_monthly": 86.36726620315248,
       "upside_correlation": 0.7508300461489331
+    },
+    "testfol_test": {
+      "cagr": 0.1832741903162587,
+      "max_drawdown": -0.2183069961107973,
+      "observations": 1410
     }
   },
   {
@@ -642,6 +687,11 @@
       "upside_capture_annual": 70.4076478858129,
       "upside_capture_monthly": 53.63570734930128,
       "upside_correlation": 0.49793019943054134
+    },
+    "testfol_test": {
+      "cagr": 0.1385565224127001,
+      "max_drawdown": -0.21549162057682236,
+      "observations": 1410
     }
   }
 ]

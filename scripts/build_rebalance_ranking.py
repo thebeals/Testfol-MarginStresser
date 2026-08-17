@@ -25,7 +25,7 @@ def build(matrix_path: str | Path, verification_path: str | Path) -> dict[str, o
                 "best_testfol": testfol,
             }
         )
-    ranked.sort(key=lambda row: row["best_testfol"]["testfol_stats"].get("cagr", float("-inf")), reverse=True)
+    ranked.sort(key=lambda row: row["best_testfol"]["testfol_test"].get("cagr", float("-inf")), reverse=True)
     for rank, row in enumerate(ranked, start=1):
         row["rank"] = rank
     return {"allocations": ranked, "methods_tested_per_allocation": len(by_allocation[1]) if by_allocation else 0}
