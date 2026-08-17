@@ -133,6 +133,7 @@ def run_generation(
     subset_limit: int = 10,
     search_trials: int = 120,
     workers: int | None = None,
+    seed_allocations: Iterable[dict[str, float]] | None = None,
 ) -> list[CandidateResult]:
     """Run prescreen, CMA-ES search, all default rebalances, and persistence."""
     subsets = prescreen_subsets(returns, max_candidates=subset_limit)
@@ -151,7 +152,18 @@ def run_generation(
             CandidateTask(allocation, frequency, generation)
             for frequency in SCREENER_REBALANCE_FREQUENCIES
         )
-    results_path = Path(db_path).with_name(f"generation-{generation}.jsonl")
+    if not tasks and seed_allocations:
+        for allocation in seed_allocations:
+            if not set(allocation).issubset(returns.columns):
+                continue
+            if not check_diversification(returns, allocation).passed:
+                continue
+            tasks.extend(
+                CandidateTask(dict(allocation), frequency, generation)
+                for frequency in SCREENER_REBALANCE_FREQUENCIES
+            )
+    db_file = Path(db_path)
+    results_path = db_file.with_name(f"{db_file.stem}-generation-{generation}.jsonl")
     results = evaluate_candidates_parallel(
         returns,
         tasks,

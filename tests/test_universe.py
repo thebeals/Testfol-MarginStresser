@@ -11,12 +11,12 @@ from screener.universe import (
 )
 
 
-def test_total_universe_size_is_62():
-    assert len(all_tickers()) == 62
+def test_total_active_universe_size_is_61():
+    assert len(all_tickers()) == 61
 
 
-def test_factor_and_wrapper_counts():
-    assert len(factor_tickers()) == 50
+def test_active_factor_and_wrapper_counts():
+    assert len(factor_tickers()) == 49
     assert len(wrapper_tickers()) == 12
     assert set(factor_tickers()) & set(wrapper_tickers()) == set()
 
@@ -66,6 +66,7 @@ def test_spot_checks_across_factors():
     assert FACTOR_MAP["GLD"] == Factor.GOLD
     assert FACTOR_MAP["DBC"] == Factor.COMMODITIES
     assert FACTOR_MAP["KMLM"] == Factor.MANAGED_FUTURES
+    assert "CTA" not in all_tickers()
     assert FACTOR_MAP["VNQ"] == Factor.REAL_ESTATE
 
 
