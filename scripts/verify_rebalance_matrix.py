@@ -21,10 +21,11 @@ def _parse_method(method: str) -> dict[str, object]:
     if parts[0] == "Calendar":
         return {"rebalance": parts[1], "absolute_dev": 0.0, "relative_dev": 0.0}
     mode = parts[0].lower().replace("band", "")
+    band_pct = float(parts[2]) * 100.0
     return {
         "rebalance": parts[1],
-        "absolute_dev": float(parts[2]) if mode == "absolute" else 0.0,
-        "relative_dev": float(parts[2]) if mode == "relative" else 0.0,
+        "absolute_dev": band_pct if mode == "absolute" else 0.0,
+        "relative_dev": band_pct if mode == "relative" else 0.0,
     }
 
 
@@ -91,6 +92,7 @@ def verify(matrix_path: str | Path, start: str, end: str, delay: float) -> list[
             "local": {key: candidate[key] for key in ("cagr", "max_drawdown", "sharpe")},
             "testfol_errors": raw.get("errors", []),
             "testfol_stats": stats,
+            "testfol_rebalancing_stats": raw.get("rebalancing_stats", []),
             "testfol_test": _test_window_metrics(history) if history[0] else {},
         }
 
