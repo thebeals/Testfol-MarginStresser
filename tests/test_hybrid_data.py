@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from screener.hybrid_data import extend_validated_letfs
 
@@ -17,4 +18,4 @@ def test_letf_backfill_uses_simulation_before_observed_history() -> None:
 
     assert "UPRO" in simulated
     assert pd.notna(result["UPRO"].loc[index[1]])
-    assert result["UPRO"].pct_change().loc[index[3]] == 0.01
+    assert result["UPRO"].pct_change().loc[index[3]] == pytest.approx(0.01)
