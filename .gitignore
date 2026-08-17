@@ -216,6 +216,9 @@ data/ndx_simulation/data/cache/prices_cache_price_return.pkl
 
 # API Cache
 data/api_cache/
+data/screener*.db
+data/generation*.jsonl
+data/phase4-*.jsonl
 .planning/
 
 # Git Worktrees
