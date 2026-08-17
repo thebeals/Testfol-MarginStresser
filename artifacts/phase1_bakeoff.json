@@ -1,0 +1,55 @@
+{
+  "tickers": [
+    "SPY",
+    "TLT",
+    "TIP",
+    "SGOV",
+    "GLD",
+    "DBC",
+    "DBMF",
+    "VNQ"
+  ],
+  "factors": {
+    "SPY": "equity",
+    "TLT": "nominal_duration",
+    "TIP": "real_duration",
+    "SGOV": "cash",
+    "GLD": "gold",
+    "DBC": "commodities",
+    "DBMF": "managed_futures",
+    "VNQ": "real_estate"
+  },
+  "date_range": {
+    "start": "2020-06-02",
+    "end": "2025-12-31"
+  },
+  "aligned_observations": 1404,
+  "subset_size": 3,
+  "weight_grid_percent": 10,
+  "ground_truth_candidates": 2016,
+  "ground_truth": {
+    "candidate": "SPY:40,GLD:50,DBC:10",
+    "score": 0.29031612109272603
+  },
+  "evaluation_budget": 120,
+  "bootstrap_histories_per_fitness": 24,
+  "block_size": 21,
+  "results": [
+    {
+      "algorithm": "mutation_ga",
+      "candidate": "DBC:30,GLD:30,SPY:40",
+      "evaluations": 120,
+      "ground_truth_score": 0.29031612109272603,
+      "candidate_score": 0.28750092703119046,
+      "ticker_overlap": 3
+    },
+    {
+      "algorithm": "cmaes_margin",
+      "candidate": "DBC:30,GLD:40,SPY:30",
+      "evaluations": 120,
+      "ground_truth_score": 0.29031612109272603,
+      "candidate_score": 0.2877507790031649,
+      "ticker_overlap": 3
+    }
+  ]
+}
