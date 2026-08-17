@@ -14,6 +14,7 @@ from screener.results import load_screened_results
 RESULTS_PATH = Path(__file__).parents[2] / "data" / "screener-results.json"
 BENCHMARK_PATH = Path(__file__).parents[2] / "data" / "screener-benchmark.json"
 REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
+MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jsonl"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -45,6 +46,27 @@ def _table_rows(results: list[dict[str, object]], benchmark: dict[str, object]) 
     return rows
 
 
+def _load_matrix(path: str | Path) -> list[dict[str, object]]:
+    return [
+        json.loads(line)
+        for line in Path(path).read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def _matrix_rows(matrix: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [
+        {
+            "Allocation": row["allocation_id"],
+            "Method": row["method"],
+            "CAGR": f"{float(row['cagr']):.2%}",
+            "Max DD": f"{float(row['max_drawdown']):.2%}",
+            "Sharpe": f"{float(row['sharpe']):.2f}",
+        }
+        for row in matrix
+    ]
+
+
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
@@ -57,6 +79,7 @@ def render_screened_results(
         results = load_screened_results(path)
         benchmark = json.loads(Path(benchmark_path).read_text(encoding="utf-8"))
         rebalance_ranking = json.loads(Path(rebalance_path).read_text(encoding="utf-8"))
+        matrix = _load_matrix(MATRIX_PATH)
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -99,6 +122,40 @@ def render_screened_results(
             }
         )
     st.dataframe(pd.DataFrame(rebalance_rows), use_container_width=True, hide_index=True)
+
+    st.subheader("Full Rebalance Matrix")
+    st.caption(
+        f"All {len(matrix)} local tests across the 10 allocations. "
+        "EMA results are local dynamic-signal tests; band/calendar results are the Testfol-compatible classes."
+    )
+    matrix_allocation = st.selectbox(
+        "Allocation matrix filter",
+        ["All allocations"] + [str(index) for index in range(1, len(results) + 1)],
+        key="rebalance_matrix_allocation",
+    )
+    visible_matrix = matrix if matrix_allocation == "All allocations" else [
+        row for row in matrix if str(row["allocation_id"]) == matrix_allocation
+    ]
+    st.dataframe(pd.DataFrame(_matrix_rows(visible_matrix)), use_container_width=True, hide_index=True)
+
+    with st.expander("Signal and funding rules tested"):
+        st.markdown(
+            """
+            **Relative bands**: at the scheduled monthly, quarterly, or yearly check, rebalance when a holding deviates by 5%, 10%, or 20% of its target weight.
+
+            **Absolute bands**: at the scheduled check, rebalance when a holding deviates by 5, 10, or 20 percentage points from target.
+
+            **EMA100 / EMA200**: use each asset's own adjusted daily price. A prior-day close at or above the EMA is a buy/active signal; below the EMA is a sell/inactive signal. Signals are evaluated only at the configured monthly, quarterly, or yearly check.
+
+            **cash_only**: starts with a 10% SHV reserve. Sell signals move proceeds to cash. Buy signals use available cash only; if cash is depleted, the buy waits.
+
+            **pro_rata**: sell signals create cash. When a buy signal changes the active set, current holdings are proportionally resized to fund the active target mix without borrowing.
+
+            **replacement**: sell signals create cash. When a buy signal needs funding, the smallest current active holding is reduced first, then available cash funds the new active mix.
+
+            **Band behavior**: a breach is checked only on the configured schedule and rebalances to target; it does not force an immediate daily sale.
+            """
+        )
 
     labels = [_allocation_label(result["local"]["allocation"]) for result in results]
     selected_label = st.selectbox("Allocation details", labels)
