@@ -96,11 +96,14 @@ def main() -> None:
     parser.add_argument("--samples-per-size", type=int, default=5000)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--universe", default="data/allocation-feasibility.json")
+    parser.add_argument("--benchmark", default="data/screener-benchmark.json")
     parser.add_argument("--output", default="data/allocation-pool.jsonl")
     parser.add_argument("--shortlist", default="data/research-shortlist.jsonl")
     args = parser.parse_args()
 
     universe = json.loads(Path(args.universe).read_text(encoding="utf-8"))
+    benchmark = json.loads(Path(args.benchmark).read_text(encoding="utf-8"))
+    spy_test_cagr = float(benchmark["periods"]["test"]["cagr"])
     tickers = tuple(universe["eligible_tickers"])
     prices = yf.download(
         list(tickers),
@@ -113,6 +116,12 @@ def main() -> None:
     prices, _ = extend_hybrid_prices(prices, get_fed_funds_rate())
     prices = prices.reindex(columns=[ticker for ticker in tickers if ticker in prices]).dropna(how="any")
     pool = build_pool(prices, target=args.target, samples_per_size=args.samples_per_size, seed=args.seed)
+    for row in pool:
+        row["local_gate_passed"] = bool(
+            row["local_gate_passed"]
+            and row["walk_forward"]["test"]["cagr"] > spy_test_cagr
+        )
+        row["spy_test_cagr"] = spy_test_cagr
     Path(args.output).write_text("\n".join(json.dumps(row, sort_keys=True) for row in pool) + "\n", encoding="utf-8")
 
     seen: set[tuple[tuple[str, float], ...]] = set()
