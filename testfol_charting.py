@@ -408,9 +408,17 @@ def _run_via_api(config, start_date, end_date, bearer_token):
 st.set_page_config(page_title="Testfol Charting", layout="wide", page_icon="📈")
 
 # --- Navigation ---
+_navigation_options = ["Simulator", "Screener Results", "Docs", "Changelog"]
+_requested_mode = st.query_params.get("page", "Simulator")
+_navigation_index = (
+    _navigation_options.index(_requested_mode)
+    if _requested_mode in _navigation_options
+    else 0
+)
 mode = st.sidebar.radio(
     "Navigation",
-    ["Simulator", "Screener Results", "Docs", "Changelog"],
+    _navigation_options,
+    index=_navigation_index,
     horizontal=True,
 )
 
