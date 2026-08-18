@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import logging
-import os
 
 import numpy as np
 import pandas as pd
@@ -50,6 +49,8 @@ def fetch_backtest(
         "allocation": allocation, "return_raw": return_raw,
         "include_raw": include_raw, "rebalance_offset": rebalance_offset,
         "cashflow_offset": cashflow_offset,
+        "absolute_dev": kwargs.get("absolute_dev", 0),
+        "relative_dev": kwargs.get("relative_dev", 0),
     }
     req_hash = cache_key(json.dumps(cache_payload, sort_keys=True, default=str))
 
@@ -78,8 +79,8 @@ def fetch_backtest(
             "rebalance_offset": rebalance_offset,
             "allocation":       allocation,
             "drag": 0,
-            "absolute_dev": 0,
-            "relative_dev": 0
+            "absolute_dev": kwargs.get("absolute_dev", 0),
+            "relative_dev": kwargs.get("relative_dev", 0)
         }]
     }
     

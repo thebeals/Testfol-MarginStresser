@@ -1,0 +1,30 @@
+{
+  "date_range": {
+    "end": "2026-08-17",
+    "start": "2019-01-01"
+  },
+  "tickers": {
+    "DBMF": {
+      "annualized_tracking_error": 0.00046018605361176055,
+      "daily_correlation": 0.9999930707759486,
+      "observations": 1826,
+      "observed_cagr": 0.09376883598184427,
+      "observed_max_drawdown": -0.2039313580094788,
+      "overlap_end": "2026-08-14",
+      "overlap_start": "2019-05-09",
+      "testfol_cagr": 0.09346118679723081,
+      "testfol_max_drawdown": -0.2044061455261903
+    },
+    "KMLM": {
+      "annualized_tracking_error": 0.020015241326436693,
+      "daily_correlation": 0.9907769195613486,
+      "observations": 1429,
+      "observed_cagr": 0.06329557016762477,
+      "observed_max_drawdown": -0.31005875644369263,
+      "overlap_end": "2026-08-14",
+      "overlap_start": "2020-12-03",
+      "testfol_cagr": 0.0721224475365736,
+      "testfol_max_drawdown": -0.2759887119502171
+    }
+  }
+}

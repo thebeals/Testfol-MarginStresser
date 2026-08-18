@@ -1,0 +1,5167 @@
+{
+  "all": [
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.07613341572350385,
+      "dca": {
+        "ending_value": 99232.28267596253,
+        "max_account_drawdown": -0.15760944905041074,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1084,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.12670115278930383
+      },
+      "dd_delta": -0.050166467715411556,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1235634544247306,
+        "max_drawdown": -0.24279238716930496,
+        "observations": 1410,
+        "sharpe": 0.7049901673074747,
+        "total_return": 0.9217936799954323
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.24279238716930496,
+        "peak_date": "2022-08-15",
+        "recovery_date": "2023-06-01",
+        "recovery_days": 84,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.18891358631264854
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.1761404735907648,
+      "dca": {
+        "ending_value": 74659.84482301692,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 494,
+        "underwater_months": 38,
+        "worst_value_vs_contributions": -0.02994570780547412
+      },
+      "dd_delta": 0.10812840190748785,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.02355639655746966,
+        "max_drawdown": -0.08449751754640555,
+        "observations": 1410,
+        "sharpe": 0.4067991174357021,
+        "total_return": 0.13945696987805012
+      },
+      "recovery": {
+        "bottom_date": "2021-03-08",
+        "max_drawdown": -0.08449751754640555,
+        "peak_date": "2021-02-12",
+        "recovery_date": "2025-07-02",
+        "recovery_days": 1577,
+        "worst_daily_return": -0.04516184325014272,
+        "worst_rolling_3m": -0.049126341354191805
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.0798924722035963,
+      "dca": {
+        "ending_value": 97607.94738103177,
+        "max_account_drawdown": -0.15720466379944575,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1084,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13680912706628467
+      },
+      "dd_delta": -0.05205510205092079,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.11980439794463815,
+        "max_drawdown": -0.2446810215048142,
+        "observations": 1410,
+        "sharpe": 0.6902780829176349,
+        "total_return": 0.8860185485170351
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.2446810215048142,
+        "peak_date": "2022-08-15",
+        "recovery_date": "2023-06-01",
+        "recovery_days": 84,
+        "worst_daily_return": -0.10810530027220167,
+        "worst_rolling_3m": -0.17323060581570204
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.12378061053527545,
+      "dca": {
+        "ending_value": 88917.37699420309,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 757,
+        "underwater_months": 55,
+        "worst_value_vs_contributions": -0.04213832031221898
+      },
+      "dd_delta": 0.07635038785384263,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.075916259612959,
+        "max_drawdown": -0.11627553160005077,
+        "observations": 1410,
+        "sharpe": 0.8199589066825432,
+        "total_return": 0.5072512356009486
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.11627553160005077,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2024-07-16",
+        "recovery_days": 162,
+        "worst_daily_return": -0.04810503943920896,
+        "worst_rolling_3m": -0.053232990564401894
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.019946940030176608,
+      "dca": {
+        "ending_value": 120036.32518710777,
+        "max_account_drawdown": -0.12781545581111042,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1042,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09409871558259864
+      },
+      "dd_delta": -0.01684939380875694,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.17974993011805784,
+        "max_drawdown": -0.20947531326265034,
+        "observations": 1410,
+        "sharpe": 1.0762057314572413,
+        "total_return": 1.52659020495261
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.20947531326265034,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-06-14",
+        "recovery_days": 97,
+        "worst_daily_return": -0.05263153336193849,
+        "worst_rolling_3m": -0.12633908244646874
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.13385158397070418,
+      "dca": {
+        "ending_value": 85038.38327826154,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 478,
+        "underwater_months": 39,
+        "worst_value_vs_contributions": -0.02833399430167516
+      },
+      "dd_delta": 0.09789397616078421,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06584528617753027,
+        "max_drawdown": -0.09473194329310919,
+        "observations": 1410,
+        "sharpe": 0.9270052244167779,
+        "total_return": 0.429830259851226
+      },
+      "recovery": {
+        "bottom_date": "2024-03-15",
+        "max_drawdown": -0.09473194329310919,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-02-13",
+        "recovery_days": 335,
+        "worst_daily_return": -0.04704403297465898,
+        "worst_rolling_3m": -0.04873912163456717
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.029906694553321067,
+      "dca": {
+        "ending_value": 121438.11175944857,
+        "max_account_drawdown": -0.12616034255402075,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1047,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.1352376398673557
+      },
+      "dd_delta": -0.063383738979646,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16979017559491338,
+        "max_drawdown": -0.2560096584335394,
+        "observations": 1410,
+        "sharpe": 1.024201541686507,
+        "total_return": 1.4092920669257238
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.2560096584335394,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-12-13",
+        "recovery_days": 279,
+        "worst_daily_return": -0.05263153336193871,
+        "worst_rolling_3m": -0.12633908244646896
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.12567483465277163,
+      "dca": {
+        "ending_value": 93131.68639807586,
+        "max_account_drawdown": -0.10482611628562455,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 717,
+        "underwater_months": 50,
+        "worst_value_vs_contributions": -0.08707399802400306
+      },
+      "dd_delta": -0.006556014896875961,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07402203549546282,
+        "max_drawdown": -0.19918193435076936,
+        "observations": 1410,
+        "sharpe": 0.7152939759358604,
+        "total_return": 0.4924322965371706
+      },
+      "recovery": {
+        "bottom_date": "2024-02-20",
+        "max_drawdown": -0.19918193435076936,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-09-11",
+        "recovery_days": 569,
+        "worst_daily_return": -0.051115791987303316,
+        "worst_rolling_3m": -0.10499954491582608
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.02337849997991226,
+      "dca": {
+        "ending_value": 117675.56429939004,
+        "max_account_drawdown": -0.12130035902766245,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1046,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.062412563893587625
+      },
+      "dd_delta": 0.012440287491482738,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1763183701683222,
+        "max_drawdown": -0.18018563196241066,
+        "observations": 1410,
+        "sharpe": 1.092530034041643,
+        "total_return": 1.4856578575920136
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.18018563196241066,
+        "peak_date": "2021-12-28",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 192,
+        "worst_daily_return": -0.04674024914387498,
+        "worst_rolling_3m": -0.12673258802352683
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.12460865665376542,
+      "dca": {
+        "ending_value": 86320.75857791556,
+        "max_account_drawdown": -0.0740930733377978,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 514,
+        "underwater_months": 38,
+        "worst_value_vs_contributions": -0.02819099452057805
+      },
+      "dd_delta": 0.06973042493373882,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07508821349446904,
+        "max_drawdown": -0.12289549452015458,
+        "observations": 1410,
+        "sharpe": 0.8443455168489727,
+        "total_return": 0.5007584432125554
+      },
+      "recovery": {
+        "bottom_date": "2024-03-15",
+        "max_drawdown": -0.12289549452015458,
+        "peak_date": "2021-09-03",
+        "recovery_date": "2025-09-04",
+        "recovery_days": 538,
+        "worst_daily_return": -0.048860987262277944,
+        "worst_rolling_3m": -0.06760819845888322
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.042802964594233384,
+      "dca": {
+        "ending_value": 117742.06113375067,
+        "max_account_drawdown": -0.11243786596285854,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1048,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13350134497800525
+      },
+      "dd_delta": -0.08800059193208198,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15689390555400107,
+        "max_drawdown": -0.2806265113859754,
+        "observations": 1410,
+        "sharpe": 0.9825704198800735,
+        "total_return": 1.264093383825604
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.2806265113859754,
+        "peak_date": "2021-12-30",
+        "recovery_date": "2024-03-20",
+        "recovery_days": 471,
+        "worst_daily_return": -0.0467402491438752,
+        "worst_rolling_3m": -0.15886330974385776
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19969687014823445,
+        "max_drawdown": -0.1926259194538934,
+        "observations": 1410,
+        "sharpe": 1.1758475782622901,
+        "total_return": 1.775641731174089
+      },
+      "cagr_delta": -0.12579378263512475,
+      "dca": {
+        "ending_value": 89770.78786342675,
+        "max_account_drawdown": -0.09733233912380956,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 763,
+        "underwater_months": 51,
+        "worst_value_vs_contributions": -0.12259196063043498
+      },
+      "dd_delta": -0.07276701140404962,
+      "expert_rank": 1,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0739030875131097,
+        "max_drawdown": -0.265392930857943,
+        "observations": 1410,
+        "sharpe": 0.6374507939801877,
+        "total_return": 0.49150574952895565
+      },
+      "recovery": {
+        "bottom_date": "2023-10-25",
+        "max_drawdown": -0.265392930857943,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-10-20",
+        "recovery_days": 726,
+        "worst_daily_return": -0.052255328326484385,
+        "worst_rolling_3m": -0.14230632264198184
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.11966089923919121,
+      "dca": {
+        "ending_value": 90350.2750045571,
+        "max_account_drawdown": -0.23054547771796174,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1091,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.2118878440166947
+      },
+      "dd_delta": -0.15658792713634206,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.08766991805078894,
+        "max_drawdown": -0.3522354510502069,
+        "observations": 1410,
+        "sharpe": 0.5055230530214838,
+        "total_return": 0.6019304566230999
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3522354510502069,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-07-05",
+        "recovery_days": 484,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.22230719206848526
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.20087566870015605,
+      "dca": {
+        "ending_value": 68529.85947445512,
+        "max_account_drawdown": -0.07403446791476709,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 493,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.018993165328411
+      },
+      "dd_delta": 0.09257128692997618,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0064551485898241,
+        "max_drawdown": -0.10307623698388868,
+        "observations": 1410,
+        "sharpe": 0.1409841644065003,
+        "total_return": 0.036737187225849066
+      },
+      "recovery": {
+        "bottom_date": "2026-04-21",
+        "max_drawdown": -0.10307623698388868,
+        "peak_date": "2025-10-07",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.061623198176842475,
+        "worst_rolling_3m": -0.09194054378464556
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.14020361022552796,
+      "dca": {
+        "ending_value": 82198.25085923942,
+        "max_account_drawdown": -0.2289636608199297,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1091,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.19655770636597947
+      },
+      "dd_delta": -0.14777613529084632,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.06712720706445219,
+        "max_drawdown": -0.3434236592047112,
+        "observations": 1410,
+        "sharpe": 0.4172024418389569,
+        "total_return": 0.43949954961631454
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3434236592047112,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-10-18",
+        "recovery_days": 589,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.22206974949412217
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.1500488128777706,
+      "dca": {
+        "ending_value": 86319.00635198785,
+        "max_account_drawdown": -0.076918492903294,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 733,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.05484327833750169
+      },
+      "dd_delta": 0.06867236329976123,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.05728200441220954,
+        "max_drawdown": -0.12697516061410363,
+        "observations": 1410,
+        "sharpe": 0.6517373390937333,
+        "total_return": 0.3665983943175739
+      },
+      "recovery": {
+        "bottom_date": "2023-12-12",
+        "max_drawdown": -0.12697516061410363,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-05-20",
+        "recovery_days": 160,
+        "worst_daily_return": -0.06253002329755086,
+        "worst_rolling_3m": -0.05822960630354246
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.04493059049444814,
+      "dca": {
+        "ending_value": 113684.39250472981,
+        "max_account_drawdown": -0.1277057675848785,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1059,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.10936807037317076
+      },
+      "dd_delta": -0.11024148877919993,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.162400226795532,
+        "max_drawdown": -0.3058890126930648,
+        "observations": 1410,
+        "sharpe": 0.9243676123292017,
+        "total_return": 1.3251826326321279
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3058890126930648,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-09-24",
+        "recovery_days": 565,
+        "worst_daily_return": -0.0628986681297129,
+        "worst_rolling_3m": -0.18142639460684307
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.15300246172545862,
+      "dca": {
+        "ending_value": 80760.59207442221,
+        "max_account_drawdown": -0.08195502864634963,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 494,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.09900079470999346,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.054328355564521535,
+        "max_drawdown": -0.0966467292038714,
+        "observations": 1410,
+        "sharpe": 0.7897454103541268,
+        "total_return": 0.3453290428050648
+      },
+      "recovery": {
+        "bottom_date": "2026-04-10",
+        "max_drawdown": -0.0966467292038714,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.06235636686377144,
+        "worst_rolling_3m": -0.06696554310128566
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.058201609173760493,
+      "dca": {
+        "ending_value": 108260.77603805033,
+        "max_account_drawdown": -0.12770576758487906,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1054,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09875787221963639
+      },
+      "dd_delta": -0.11031132707123836,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.14912920811621966,
+        "max_drawdown": -0.3059588509851032,
+        "observations": 1410,
+        "sharpe": 0.8744460598678832,
+        "total_return": 1.1801951346654143
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3059588509851032,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2025-02-05",
+        "recovery_days": 699,
+        "worst_daily_return": -0.0628986681297129,
+        "worst_rolling_3m": -0.1814263946068435
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.11814499939646983,
+      "dca": {
+        "ending_value": 95795.24604830271,
+        "max_account_drawdown": -0.07847336133992056,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 714,
+        "underwater_months": 49,
+        "worst_value_vs_contributions": -0.024977604649127683
+      },
+      "dd_delta": 0.10566649178131193,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08918581789351032,
+        "max_drawdown": -0.08998103213255293,
+        "observations": 1410,
+        "sharpe": 0.9004978947494009,
+        "total_return": 0.6144893443279524
+      },
+      "recovery": {
+        "bottom_date": "2023-12-12",
+        "max_drawdown": -0.08998103213255293,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 112,
+        "worst_daily_return": -0.0628864503324763,
+        "worst_rolling_3m": -0.07163026616571033
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.030721882689233482,
+      "dca": {
+        "ending_value": 121820.53687893633,
+        "max_account_drawdown": -0.17916725876110307,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1043,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09697174748576454
+      },
+      "dd_delta": -0.0885070721803547,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.17660893460074667,
+        "max_drawdown": -0.28415459609421956,
+        "observations": 1410,
+        "sharpe": 1.0670229598819168,
+        "total_return": 1.489102512887238
+      },
+      "recovery": {
+        "bottom_date": "2022-11-29",
+        "max_drawdown": -0.28415459609421956,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 490,
+        "worst_daily_return": -0.06443337624254664,
+        "worst_rolling_3m": -0.22185806953896703
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.12098646083162756,
+      "dca": {
+        "ending_value": 89871.01888465062,
+        "max_account_drawdown": -0.08868723166670678,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 547,
+        "underwater_months": 39,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.09528298881222519,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08634435645835259,
+        "max_drawdown": -0.10036453510163967,
+        "observations": 1410,
+        "sharpe": 0.9597749235896822,
+        "total_return": 0.5910143687217377
+      },
+      "recovery": {
+        "bottom_date": "2026-02-17",
+        "max_drawdown": -0.10036453510163967,
+        "peak_date": "2026-01-29",
+        "recovery_date": "2026-04-16",
+        "recovery_days": 58,
+        "worst_daily_return": -0.06386057482807872,
+        "worst_rolling_3m": -0.05949993469539394
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.04576052859991386,
+      "dca": {
+        "ending_value": 115767.92898351519,
+        "max_account_drawdown": -0.17851100474216786,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1035,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.10905720809290376
+      },
+      "dd_delta": -0.08850707218035492,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1615702886900663,
+        "max_drawdown": -0.2841545960942198,
+        "observations": 1410,
+        "sharpe": 1.0107340293177303,
+        "total_return": 1.3158892770487394
+      },
+      "recovery": {
+        "bottom_date": "2022-11-29",
+        "max_drawdown": -0.2841545960942198,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 490,
+        "worst_daily_return": -0.06443337624254675,
+        "worst_rolling_3m": -0.22185806953896814
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20733081728998015,
+        "max_drawdown": -0.19564752391386486,
+        "observations": 1410,
+        "sharpe": 1.2883219662174945,
+        "total_return": 1.8761377076421444
+      },
+      "cagr_delta": -0.08415820877703539,
+      "dca": {
+        "ending_value": 100305.87477861973,
+        "max_account_drawdown": -0.10169755987200346,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 710,
+        "underwater_months": 49,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.08555924554737793,
+      "expert_rank": 2,
+      "method": "AbsoluteBand:Yearly:0.2",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.12317260851294476,
+        "max_drawdown": -0.11008827836648694,
+        "observations": 1410,
+        "sharpe": 1.034771918032382,
+        "total_return": 0.9180482088673734
+      },
+      "recovery": {
+        "bottom_date": "2026-06-24",
+        "max_drawdown": -0.11008827836648694,
+        "peak_date": "2026-05-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.06660623941088717,
+        "worst_rolling_3m": -0.060957467065728466
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.019789497575235293,
+      "dca": {
+        "ending_value": 108642.27243962095,
+        "max_account_drawdown": -0.10932048606467581,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1037,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.010066945972633912,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15692122732709035,
+        "max_drawdown": -0.16391741289605444,
+        "observations": 1410,
+        "sharpe": 1.0951114808271747,
+        "total_return": 1.2643932124116737
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.16391741289605444,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-13",
+        "recovery_days": 294,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11917390107141745
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.10739128147846877,
+      "dca": {
+        "ending_value": 85442.676981636,
+        "max_account_drawdown": -0.06211234004931687,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 325,
+        "underwater_months": 30,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.07942239966492848,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06931944342385687,
+        "max_drawdown": -0.07442806725849205,
+        "observations": 1410,
+        "sharpe": 1.1623691908805491,
+        "total_return": 0.45615965945276704
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.07442806725849205,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05318577368382249,
+        "worst_rolling_3m": -0.04413595746091914
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.022947537211581936,
+      "dca": {
+        "ending_value": 107947.13998755925,
+        "max_account_drawdown": -0.10594381815421372,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1035,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.013280378084286282,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1537631876907437,
+        "max_drawdown": -0.1671308450077068,
+        "observations": 1410,
+        "sharpe": 1.085773118888644,
+        "total_return": 1.2299522806055943
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.1671308450077068,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-19",
+        "recovery_days": 300,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11431959080500498
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.09283792290471649,
+      "dca": {
+        "ending_value": 94935.62606564557,
+        "max_account_drawdown": -0.06470813904684325,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 702,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.03250993105853961
+      },
+      "dd_delta": 0.07047437743827478,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08387280199760916,
+        "max_drawdown": -0.08337608948514574,
+        "observations": 1410,
+        "sharpe": 1.0470991461960197,
+        "total_return": 0.5708241654106483
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.08337608948514574,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-04-01",
+        "recovery_days": 56,
+        "worst_daily_return": -0.054476166687652317,
+        "worst_rolling_3m": -0.05050549097051771
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.012071377627690616,
+      "dca": {
+        "ending_value": 115954.44800927855,
+        "max_account_drawdown": -0.09264462277630814,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1029,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.028272096824577764
+      },
+      "dd_delta": -0.03761366249219267,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16463934727463503,
+        "max_drawdown": -0.1914641294156132,
+        "observations": 1410,
+        "sharpe": 1.1784880324897842,
+        "total_return": 1.3504084859340204
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.1914641294156132,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.1472529656672349
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.09766925310211172,
+      "dca": {
+        "ending_value": 87880.9835257715,
+        "max_account_drawdown": -0.07819510255950146,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 360,
+        "underwater_months": 29,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.06391011049431428,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07904147180021392,
+        "max_drawdown": -0.08994035642910625,
+        "observations": 1410,
+        "sharpe": 1.1637995117465703,
+        "total_return": 0.5319646506877571
+      },
+      "recovery": {
+        "bottom_date": "2026-02-17",
+        "max_drawdown": -0.08994035642910625,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05508062269045744,
+        "worst_rolling_3m": -0.04403680869617832
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.007674177252448677,
+      "dca": {
+        "ending_value": 117858.74873456321,
+        "max_account_drawdown": -0.09264462277630792,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1032,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.024135943456039866
+      },
+      "dd_delta": -0.03407605409992964,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16903654764987697,
+        "max_drawdown": -0.18792652102335017,
+        "observations": 1410,
+        "sharpe": 1.2072006715253818,
+        "total_return": 1.4006017881338346
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.18792652102335017,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.14522964573104546
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.09497515310630966,
+      "dca": {
+        "ending_value": 93877.16797667716,
+        "max_account_drawdown": -0.06721273652936588,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 706,
+        "underwater_months": 55,
+        "worst_value_vs_contributions": -0.0468467118239112
+      },
+      "dd_delta": 0.03999831875399584,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08173557179601598,
+        "max_drawdown": -0.11385214816942468,
+        "observations": 1410,
+        "sharpe": 0.9688867519718884,
+        "total_return": 0.5535352478302953
+      },
+      "recovery": {
+        "bottom_date": "2023-08-17",
+        "max_drawdown": -0.11385214816942468,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-05-17",
+        "recovery_days": 274,
+        "worst_daily_return": -0.05675146326458602,
+        "worst_rolling_3m": -0.07042135617697931
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.028154981668800927,
+      "dca": {
+        "ending_value": 113538.3724924491,
+        "max_account_drawdown": -0.13131995587480116,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1036,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.05003164150267159
+      },
+      "dd_delta": -0.047901553346834214,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.14855574323352472,
+        "max_drawdown": -0.20175202027025474,
+        "observations": 1410,
+        "sharpe": 1.1086717771339327,
+        "total_return": 1.1741015364280023
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20175202027025474,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-07-16",
+        "recovery_days": 496,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013905
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.08106788329845327,
+      "dca": {
+        "ending_value": 92910.82208282656,
+        "max_account_drawdown": -0.06931548677211008,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 456,
+        "underwater_months": 33,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.07313000898828137,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.09564284160387237,
+        "max_drawdown": -0.08072045793513916,
+        "observations": 1410,
+        "sharpe": 1.1843542131841693,
+        "total_return": 0.6688942245930294
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.08072045793513916,
+        "peak_date": "2026-01-29",
+        "recovery_date": "2026-03-02",
+        "recovery_days": 28,
+        "worst_daily_return": -0.05811313544231933,
+        "worst_rolling_3m": -0.036030063719384664
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.025281876553552518,
+      "dca": {
+        "ending_value": 114493.30833379317,
+        "max_account_drawdown": -0.13134632606469243,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1030,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.050982219352467495
+      },
+      "dd_delta": -0.049186145512981616,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15142884834877313,
+        "max_drawdown": -0.20303661243640214,
+        "observations": 1410,
+        "sharpe": 1.1252483753273754,
+        "total_return": 1.2047721068787967
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20303661243640214,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-05-20",
+        "recovery_days": 439,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013972
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17671072490232564,
+        "max_drawdown": -0.15385046692342053,
+        "observations": 1410,
+        "sharpe": 1.3752103805470552,
+        "total_return": 1.4903101690965963
+      },
+      "cagr_delta": -0.07602352511510047,
+      "dca": {
+        "ending_value": 96281.52671175405,
+        "max_account_drawdown": -0.09418995599754743,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 728,
+        "underwater_months": 52,
+        "worst_value_vs_contributions": -0.025727536759206582
+      },
+      "dd_delta": 0.04996855875638473,
+      "expert_rank": 3,
+      "method": "AbsoluteBand:Yearly:0.05",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.10068719978722518,
+        "max_drawdown": -0.1038819081670358,
+        "observations": 1410,
+        "sharpe": 1.0853224653762508,
+        "total_return": 0.7124366350114921
+      },
+      "recovery": {
+        "bottom_date": "2026-06-24",
+        "max_drawdown": -0.1038819081670358,
+        "peak_date": "2026-05-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05753488505732651,
+        "worst_rolling_3m": -0.06131004805468254
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": 0.004493421206670067,
+      "dca": {
+        "ending_value": 104726.48324711449,
+        "max_account_drawdown": -0.2467453740200326,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1110,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.06824415603326273
+      },
+      "dd_delta": -0.17847711748528083,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1899930980846818,
+        "max_drawdown": -0.337167501966,
+        "observations": 1410,
+        "sharpe": 0.9600470884290087,
+        "total_return": 1.6520800860466642
+      },
+      "recovery": {
+        "bottom_date": "2025-04-16",
+        "max_drawdown": -0.337167501966,
+        "peak_date": "2024-07-16",
+        "recovery_date": "2026-04-24",
+        "recovery_days": 373,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.20044990807018215
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.13929517945117031,
+      "dca": {
+        "ending_value": 77981.26478605042,
+        "max_account_drawdown": -0.04659618994862991,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 446,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.0201830435339726
+      },
+      "dd_delta": 0.07013703486148581,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.04620449742684141,
+        "max_drawdown": -0.08855334961923333,
+        "observations": 1410,
+        "sharpe": 0.7829554052797295,
+        "total_return": 0.2882273096821948
+      },
+      "recovery": {
+        "bottom_date": "2024-03-08",
+        "max_drawdown": -0.08855334961923333,
+        "peak_date": "2021-07-02",
+        "recovery_date": "2025-07-02",
+        "recovery_days": 481,
+        "worst_daily_return": -0.04659618994863002,
+        "worst_rolling_3m": -0.06173134754682574
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": 0.019140893324582464,
+      "dca": {
+        "ending_value": 110600.88533001837,
+        "max_account_drawdown": -0.24325004951234552,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1095,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.07579553237399694
+      },
+      "dd_delta": -0.17487421534899616,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.20464057020259419,
+        "max_drawdown": -0.3335645998297153,
+        "observations": 1410,
+        "sharpe": 1.0244379891793702,
+        "total_return": 1.8403868604102946
+      },
+      "recovery": {
+        "bottom_date": "2025-04-16",
+        "max_drawdown": -0.3335645998297153,
+        "peak_date": "2024-07-05",
+        "recovery_date": "2026-04-22",
+        "recovery_days": 371,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.19628562629840873
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.09455325189778652,
+      "dca": {
+        "ending_value": 92901.51897135645,
+        "max_account_drawdown": -0.05846717391857059,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 658,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.05416118262497005
+      },
+      "dd_delta": 0.025629508484787844,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0909464249802252,
+        "max_drawdown": -0.1330608759959313,
+        "observations": 1410,
+        "sharpe": 1.0767228463340686,
+        "total_return": 0.6291770052180301
+      },
+      "recovery": {
+        "bottom_date": "2023-07-07",
+        "max_drawdown": -0.1330608759959313,
+        "peak_date": "2021-11-24",
+        "recovery_date": "2025-08-22",
+        "recovery_days": 777,
+        "worst_daily_return": -0.04669347035054805,
+        "worst_rolling_3m": -0.0584671739185707
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.0023148854199954716,
+      "dca": {
+        "ending_value": 105799.49267881658,
+        "max_account_drawdown": -0.1873512496953914,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1080,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13379175871802562
+      },
+      "dd_delta": -0.17676593657487683,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.18318479145801625,
+        "max_drawdown": -0.335456321055596,
+        "observations": 1410,
+        "sharpe": 0.9843969903588652,
+        "total_return": 1.5681149483479846
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.335456321055596,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2023-06-13",
+        "recovery_days": 96,
+        "worst_daily_return": -0.07647120157217013,
+        "worst_rolling_3m": -0.2076296771290581
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.12041782793077949,
+      "dca": {
+        "ending_value": 82721.3204098887,
+        "max_account_drawdown": -0.04669347035054794,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 460,
+        "underwater_months": 38,
+        "worst_value_vs_contributions": -0.01319661094004232
+      },
+      "dd_delta": 0.048737704845829954,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06508184894723223,
+        "max_drawdown": -0.1099526796348892,
+        "observations": 1410,
+        "sharpe": 0.9748891962768027,
+        "total_return": 0.42409719536139767
+      },
+      "recovery": {
+        "bottom_date": "2024-03-15",
+        "max_drawdown": -0.1099526796348892,
+        "peak_date": "2021-07-02",
+        "recovery_date": "2026-01-13",
+        "recovery_days": 669,
+        "worst_daily_return": -0.04669347035054783,
+        "worst_rolling_3m": -0.0768273072488106
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.0046090560934810565,
+      "dca": {
+        "ending_value": 107011.47531191012,
+        "max_account_drawdown": -0.18632229857906912,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1075,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.15996243463247295
+      },
+      "dd_delta": -0.182242856962607,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.18089062078453066,
+        "max_drawdown": -0.34093324144332615,
+        "observations": 1410,
+        "sharpe": 0.9812309025145503,
+        "total_return": 1.5403186013822947
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.34093324144332615,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2023-06-14",
+        "recovery_days": 97,
+        "worst_daily_return": -0.07647120157217024,
+        "worst_rolling_3m": -0.2072152171100785
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.08019719078298082,
+      "dca": {
+        "ending_value": 95899.56152142936,
+        "max_account_drawdown": -0.059541412174534125,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 630,
+        "underwater_months": 47,
+        "worst_value_vs_contributions": -0.0021330068523275347
+      },
+      "dd_delta": 0.07218614661654621,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.1053024860950309,
+        "max_drawdown": -0.08650423786417294,
+        "observations": 1410,
+        "sharpe": 1.1338436842039268,
+        "total_return": 0.753088896710387
+      },
+      "recovery": {
+        "bottom_date": "2022-01-19",
+        "max_drawdown": -0.08650423786417294,
+        "peak_date": "2021-11-24",
+        "recovery_date": "2024-04-08",
+        "recovery_days": 810,
+        "worst_daily_return": -0.04669347035054794,
+        "worst_rolling_3m": -0.08650423786417294
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": 0.0020366855691789088,
+      "dca": {
+        "ending_value": 109147.65573478106,
+        "max_account_drawdown": -0.12978423395144556,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1069,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09427628889362949
+      },
+      "dd_delta": -0.14095910879135232,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.18753636244719063,
+        "max_drawdown": -0.29964949327207147,
+        "observations": 1410,
+        "sharpe": 1.0869156325023177,
+        "total_return": 1.6215255851467036
+      },
+      "recovery": {
+        "bottom_date": "2023-05-09",
+        "max_drawdown": -0.29964949327207147,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2023-07-13",
+        "recovery_days": 65,
+        "worst_daily_return": -0.06313114074593185,
+        "worst_rolling_3m": -0.14526244376316966
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.08569684456759519,
+      "dca": {
+        "ending_value": 88684.90745725096,
+        "max_account_drawdown": -0.07898500701932765,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 446,
+        "underwater_months": 36,
+        "worst_value_vs_contributions": 0.0
+      },
+      "dd_delta": 0.07241408205757516,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.09980283231041653,
+        "max_drawdown": -0.08627630242314399,
+        "observations": 1410,
+        "sharpe": 1.1861020434384915,
+        "total_return": 0.7047361282026967
+      },
+      "recovery": {
+        "bottom_date": "2021-12-20",
+        "max_drawdown": -0.08627630242314399,
+        "peak_date": "2021-11-24",
+        "recovery_date": "2025-09-08",
+        "recovery_days": 1358,
+        "worst_daily_return": -0.04807550045225428,
+        "worst_rolling_3m": -0.06874936936049703
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.0014581990883442142,
+      "dca": {
+        "ending_value": 114099.64558154806,
+        "max_account_drawdown": -0.11842263863002922,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1061,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.14761725979090534
+      },
+      "dd_delta": -0.1509872924633211,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1840414777896675,
+        "max_drawdown": -0.30967767694404025,
+        "observations": 1410,
+        "sharpe": 1.0798153303491302,
+        "total_return": 1.578558490635055
+      },
+      "recovery": {
+        "bottom_date": "2023-05-09",
+        "max_drawdown": -0.30967767694404025,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2023-07-18",
+        "recovery_days": 70,
+        "worst_daily_return": -0.06313114074593196,
+        "worst_rolling_3m": -0.1469719594409039
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 5,
+      "baseline": {
+        "cagr": 0.18549967687801172,
+        "max_drawdown": -0.15869038448071915,
+        "observations": 1409,
+        "sharpe": 1.2644695469254987,
+        "total_return": 1.59520574220344
+      },
+      "cagr_delta": -0.062360067611727965,
+      "dca": {
+        "ending_value": 93331.05115947498,
+        "max_account_drawdown": -0.08018644741401393,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 734,
+        "underwater_months": 51,
+        "worst_value_vs_contributions": 0.0
+      },
+      "dd_delta": 0.04188657470938495,
+      "expert_rank": 4,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.12313960926628376,
+        "max_drawdown": -0.1168038097713342,
+        "observations": 1410,
+        "sharpe": 1.156682021973899,
+        "total_return": 0.9177322523082376
+      },
+      "recovery": {
+        "bottom_date": "2025-03-03",
+        "max_drawdown": -0.1168038097713342,
+        "peak_date": "2024-07-10",
+        "recovery_date": "2026-01-13",
+        "recovery_days": 316,
+        "worst_daily_return": -0.04807550045225428,
+        "worst_rolling_3m": -0.0870701346771614
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.07493483750146135,
+      "dca": {
+        "ending_value": 99232.28267596253,
+        "max_account_drawdown": -0.15760944905041074,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1084,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.12670115278930383
+      },
+      "dd_delta": -0.04670151968990277,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1235634544247306,
+        "max_drawdown": -0.24279238716930496,
+        "observations": 1410,
+        "sharpe": 0.7049901673074747,
+        "total_return": 0.9217936799954323
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.24279238716930496,
+        "peak_date": "2022-08-15",
+        "recovery_date": "2023-06-01",
+        "recovery_days": 84,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.18891358631264854
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.1749418953687223,
+      "dca": {
+        "ending_value": 74659.84482301692,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 494,
+        "underwater_months": 38,
+        "worst_value_vs_contributions": -0.02994570780547412
+      },
+      "dd_delta": 0.11159334993299663,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.02355639655746966,
+        "max_drawdown": -0.08449751754640555,
+        "observations": 1410,
+        "sharpe": 0.4067991174357021,
+        "total_return": 0.13945696987805012
+      },
+      "recovery": {
+        "bottom_date": "2021-03-08",
+        "max_drawdown": -0.08449751754640555,
+        "peak_date": "2021-02-12",
+        "recovery_date": "2025-07-02",
+        "recovery_days": 1577,
+        "worst_daily_return": -0.04516184325014272,
+        "worst_rolling_3m": -0.049126341354191805
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.0786938939815538,
+      "dca": {
+        "ending_value": 97607.94738103177,
+        "max_account_drawdown": -0.15720466379944575,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1084,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13680912706628467
+      },
+      "dd_delta": -0.048590154025412,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.11980439794463815,
+        "max_drawdown": -0.2446810215048142,
+        "observations": 1410,
+        "sharpe": 0.6902780829176349,
+        "total_return": 0.8860185485170351
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.2446810215048142,
+        "peak_date": "2022-08-15",
+        "recovery_date": "2023-06-01",
+        "recovery_days": 84,
+        "worst_daily_return": -0.10810530027220167,
+        "worst_rolling_3m": -0.17323060581570204
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.12258203231323295,
+      "dca": {
+        "ending_value": 88917.37699420309,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 757,
+        "underwater_months": 55,
+        "worst_value_vs_contributions": -0.04213832031221898
+      },
+      "dd_delta": 0.07981533587935141,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.075916259612959,
+        "max_drawdown": -0.11627553160005077,
+        "observations": 1410,
+        "sharpe": 0.8199589066825432,
+        "total_return": 0.5072512356009486
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.11627553160005077,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2024-07-16",
+        "recovery_days": 162,
+        "worst_daily_return": -0.04810503943920896,
+        "worst_rolling_3m": -0.053232990564401894
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.018748361808134106,
+      "dca": {
+        "ending_value": 120036.32518710777,
+        "max_account_drawdown": -0.12781545581111042,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1042,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09409871558259864
+      },
+      "dd_delta": -0.013384445783248156,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.17974993011805784,
+        "max_drawdown": -0.20947531326265034,
+        "observations": 1410,
+        "sharpe": 1.0762057314572413,
+        "total_return": 1.52659020495261
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.20947531326265034,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-06-14",
+        "recovery_days": 97,
+        "worst_daily_return": -0.05263153336193849,
+        "worst_rolling_3m": -0.12633908244646874
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.13265300574866168,
+      "dca": {
+        "ending_value": 85038.38327826154,
+        "max_account_drawdown": -0.05843676514121399,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 478,
+        "underwater_months": 39,
+        "worst_value_vs_contributions": -0.02833399430167516
+      },
+      "dd_delta": 0.101358924186293,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06584528617753027,
+        "max_drawdown": -0.09473194329310919,
+        "observations": 1410,
+        "sharpe": 0.9270052244167779,
+        "total_return": 0.429830259851226
+      },
+      "recovery": {
+        "bottom_date": "2024-03-15",
+        "max_drawdown": -0.09473194329310919,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-02-13",
+        "recovery_days": 335,
+        "worst_daily_return": -0.04704403297465898,
+        "worst_rolling_3m": -0.04873912163456717
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.028708116331278566,
+      "dca": {
+        "ending_value": 121438.11175944857,
+        "max_account_drawdown": -0.12616034255402075,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1047,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.1352376398673557
+      },
+      "dd_delta": -0.05991879095413721,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16979017559491338,
+        "max_drawdown": -0.2560096584335394,
+        "observations": 1410,
+        "sharpe": 1.024201541686507,
+        "total_return": 1.4092920669257238
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.2560096584335394,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-12-13",
+        "recovery_days": 279,
+        "worst_daily_return": -0.05263153336193871,
+        "worst_rolling_3m": -0.12633908244646896
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.12447625643072913,
+      "dca": {
+        "ending_value": 93131.68639807586,
+        "max_account_drawdown": -0.10482611628562455,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 717,
+        "underwater_months": 50,
+        "worst_value_vs_contributions": -0.08707399802400306
+      },
+      "dd_delta": -0.0030910668713671763,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07402203549546282,
+        "max_drawdown": -0.19918193435076936,
+        "observations": 1410,
+        "sharpe": 0.7152939759358604,
+        "total_return": 0.4924322965371706
+      },
+      "recovery": {
+        "bottom_date": "2024-02-20",
+        "max_drawdown": -0.19918193435076936,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-09-11",
+        "recovery_days": 569,
+        "worst_daily_return": -0.051115791987303316,
+        "worst_rolling_3m": -0.10499954491582608
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.02217992175786976,
+      "dca": {
+        "ending_value": 117675.56429939004,
+        "max_account_drawdown": -0.12130035902766245,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1046,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.062412563893587625
+      },
+      "dd_delta": 0.015905235516991523,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1763183701683222,
+        "max_drawdown": -0.18018563196241066,
+        "observations": 1410,
+        "sharpe": 1.092530034041643,
+        "total_return": 1.4856578575920136
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.18018563196241066,
+        "peak_date": "2021-12-28",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 192,
+        "worst_daily_return": -0.04674024914387498,
+        "worst_rolling_3m": -0.12673258802352683
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.12341007843172291,
+      "dca": {
+        "ending_value": 86320.75857791556,
+        "max_account_drawdown": -0.0740930733377978,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 514,
+        "underwater_months": 38,
+        "worst_value_vs_contributions": -0.02819099452057805
+      },
+      "dd_delta": 0.0731953729592476,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07508821349446904,
+        "max_drawdown": -0.12289549452015458,
+        "observations": 1410,
+        "sharpe": 0.8443455168489727,
+        "total_return": 0.5007584432125554
+      },
+      "recovery": {
+        "bottom_date": "2024-03-15",
+        "max_drawdown": -0.12289549452015458,
+        "peak_date": "2021-09-03",
+        "recovery_date": "2025-09-04",
+        "recovery_days": 538,
+        "worst_daily_return": -0.048860987262277944,
+        "worst_rolling_3m": -0.06760819845888322
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.04160438637219088,
+      "dca": {
+        "ending_value": 117742.06113375067,
+        "max_account_drawdown": -0.11243786596285854,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1048,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13350134497800525
+      },
+      "dd_delta": -0.0845356439065732,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15689390555400107,
+        "max_drawdown": -0.2806265113859754,
+        "observations": 1410,
+        "sharpe": 0.9825704198800735,
+        "total_return": 1.264093383825604
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.2806265113859754,
+        "peak_date": "2021-12-30",
+        "recovery_date": "2024-03-20",
+        "recovery_days": 471,
+        "worst_daily_return": -0.0467402491438752,
+        "worst_rolling_3m": -0.15886330974385776
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 1,
+      "baseline": {
+        "cagr": 0.19849829192619195,
+        "max_drawdown": -0.1960908674794022,
+        "observations": 1409,
+        "sharpe": 1.1759489961794924,
+        "total_return": 1.7587606631236845
+      },
+      "cagr_delta": -0.12459520441308225,
+      "dca": {
+        "ending_value": 89770.78786342675,
+        "max_account_drawdown": -0.09733233912380956,
+        "minimum_account_value": 995.1289660321721,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 763,
+        "underwater_months": 51,
+        "worst_value_vs_contributions": -0.12259196063043498
+      },
+      "dd_delta": -0.06930206337854083,
+      "expert_rank": 5,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0739030875131097,
+        "max_drawdown": -0.265392930857943,
+        "observations": 1410,
+        "sharpe": 0.6374507939801877,
+        "total_return": 0.49150574952895565
+      },
+      "recovery": {
+        "bottom_date": "2023-10-25",
+        "max_drawdown": -0.265392930857943,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-10-20",
+        "recovery_days": 726,
+        "worst_daily_return": -0.052255328326484385,
+        "worst_rolling_3m": -0.14230632264198184
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.012476675759289568,
+      "dca": {
+        "ending_value": 95272.59397222566,
+        "max_account_drawdown": -0.25511385894900585,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1106,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.10872434553067312
+      },
+      "dd_delta": -0.17640310106813473,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15427838694873897,
+        "max_drawdown": -0.3330545442348878,
+        "observations": 1410,
+        "sharpe": 0.8300849223162168,
+        "total_return": 1.2355413639404205
+      },
+      "recovery": {
+        "bottom_date": "2025-05-08",
+        "max_drawdown": -0.3330545442348878,
+        "peak_date": "2024-07-16",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.19473191515869837
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.1408997594030197,
+      "dca": {
+        "ending_value": 70528.60164518307,
+        "max_account_drawdown": -0.037341238670292265,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 282,
+        "underwater_months": 22,
+        "worst_value_vs_contributions": -0.01407695200118031
+      },
+      "dd_delta": 0.09900526408355814,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.025855303305008848,
+        "max_drawdown": -0.057646179083194915,
+        "observations": 1410,
+        "sharpe": 0.6684952471146056,
+        "total_return": 0.15388125961575616
+      },
+      "recovery": {
+        "bottom_date": "2024-03-11",
+        "max_drawdown": -0.057646179083194915,
+        "peak_date": "2021-07-02",
+        "recovery_date": "2025-10-03",
+        "recovery_days": 571,
+        "worst_daily_return": -0.019947074944082988,
+        "worst_rolling_3m": -0.0330385814648082
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.013304212045404551,
+      "dca": {
+        "ending_value": 96007.1788371717,
+        "max_account_drawdown": -0.2474676950816529,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1107,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.11793152224764247
+      },
+      "dd_delta": -0.16700462997753063,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15345085066262398,
+        "max_drawdown": -0.3236560731442837,
+        "observations": 1410,
+        "sharpe": 0.8291518115320142,
+        "total_return": 1.2265695199522115
+      },
+      "recovery": {
+        "bottom_date": "2025-05-08",
+        "max_drawdown": -0.3236560731442837,
+        "peak_date": "2024-07-10",
+        "recovery_date": "2026-05-11",
+        "recovery_days": 368,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.19384573768262414
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.13150140597300508,
+      "dca": {
+        "ending_value": 72822.67382526923,
+        "max_account_drawdown": -0.04576305435387262,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 486,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.010706737117510357
+      },
+      "dd_delta": 0.1058681973797484,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.03525365673502345,
+        "max_drawdown": -0.05078324578700466,
+        "observations": 1410,
+        "sharpe": 0.604689515921465,
+        "total_return": 0.21442035829265849
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.05078324578700466,
+        "peak_date": "2021-07-12",
+        "recovery_date": "2024-07-05",
+        "recovery_days": 151,
+        "worst_daily_return": -0.041691588200781116,
+        "worst_rolling_3m": -0.033003928166820296
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.05768178690919323,
+      "dca": {
+        "ending_value": 88326.90865070566,
+        "max_account_drawdown": -0.20337636986777796,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1105,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.2346205859460334
+      },
+      "dd_delta": -0.25664704439688457,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1090732757988353,
+        "max_drawdown": -0.41329848756363763,
+        "observations": 1410,
+        "sharpe": 0.6432011132917272,
+        "total_return": 0.7868882508631911
+      },
+      "recovery": {
+        "bottom_date": "2023-03-14",
+        "max_drawdown": -0.41329848756363763,
+        "peak_date": "2022-06-13",
+        "recovery_date": "2024-04-11",
+        "recovery_days": 394,
+        "worst_daily_return": -0.10810530027220167,
+        "worst_rolling_3m": -0.254143720825339
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.13584500132950317,
+      "dca": {
+        "ending_value": 72023.91044860844,
+        "max_account_drawdown": -0.042855593485735644,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 263,
+        "underwater_months": 23,
+        "worst_value_vs_contributions": -0.010488064102410766
+      },
+      "dd_delta": 0.06375306823075766,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.030910061378525366,
+        "max_drawdown": -0.0928983749359954,
+        "observations": 1410,
+        "sharpe": 0.609202917062426,
+        "total_return": 0.18612502567033107
+      },
+      "recovery": {
+        "bottom_date": "2025-08-26",
+        "max_drawdown": -0.0928983749359954,
+        "peak_date": "2021-07-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.03425824125884147,
+        "worst_rolling_3m": -0.07798060459406442
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.05441011359205028,
+      "dca": {
+        "ending_value": 89342.72986332623,
+        "max_account_drawdown": -0.20350703187645747,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1103,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.23539313229415215
+      },
+      "dd_delta": -0.2584426707513897,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.11234494911597825,
+        "max_drawdown": -0.41509411391814277,
+        "observations": 1410,
+        "sharpe": 0.6616286597456158,
+        "total_return": 0.8166458857904728
+      },
+      "recovery": {
+        "bottom_date": "2023-03-14",
+        "max_drawdown": -0.41509411391814277,
+        "peak_date": "2022-06-13",
+        "recovery_date": "2024-04-11",
+        "recovery_days": 394,
+        "worst_daily_return": -0.10810530027220144,
+        "worst_rolling_3m": -0.2564264474983925
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.10874083301839876,
+      "dca": {
+        "ending_value": 76410.15997608546,
+        "max_account_drawdown": -0.048432769714627066,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 391,
+        "underwater_months": 31,
+        "worst_value_vs_contributions": 0.0
+      },
+      "dd_delta": 0.08804518246807147,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.05801422968962977,
+        "max_drawdown": -0.06860626069868159,
+        "observations": 1410,
+        "sharpe": 0.8678531430073005,
+        "total_return": 0.3719136894319566
+      },
+      "recovery": {
+        "bottom_date": "2025-08-05",
+        "max_drawdown": -0.06860626069868159,
+        "peak_date": "2024-07-10",
+        "recovery_date": "2025-10-06",
+        "recovery_days": 62,
+        "worst_daily_return": -0.041691588200781116,
+        "worst_rolling_3m": -0.05687452611513999
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.0010590850443636945,
+      "dca": {
+        "ending_value": 100844.7578449176,
+        "max_account_drawdown": -0.1631516338888921,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1095,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13300512378531315
+      },
+      "dd_delta": -0.15520379161315934,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16569597766366484,
+        "max_drawdown": -0.3118552347799124,
+        "observations": 1410,
+        "sharpe": 0.9528779942299148,
+        "total_return": 1.3623902950783986
+      },
+      "recovery": {
+        "bottom_date": "2023-05-09",
+        "max_drawdown": -0.3118552347799124,
+        "peak_date": "2022-06-13",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 37,
+        "worst_daily_return": -0.06932830092413034,
+        "worst_rolling_3m": -0.1680822917376913
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.09982983667853151,
+      "dca": {
+        "ending_value": 75897.42777248337,
+        "max_account_drawdown": -0.045685569810597126,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 267,
+        "underwater_months": 21,
+        "worst_value_vs_contributions": 0.0
+      },
+      "dd_delta": 0.11096587335615593,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06692522602949702,
+        "max_drawdown": -0.045685569810597126,
+        "observations": 1410,
+        "sharpe": 1.0480490266541533,
+        "total_return": 0.4379724888902603
+      },
+      "recovery": {
+        "bottom_date": "2025-10-14",
+        "max_drawdown": -0.045685569810597126,
+        "peak_date": "2025-10-08",
+        "recovery_date": "2025-11-28",
+        "recovery_days": 45,
+        "worst_daily_return": -0.03464579285718805,
+        "worst_rolling_3m": -0.021870714050060136
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": 0.00013331516046655167,
+      "dca": {
+        "ending_value": 101844.48584254809,
+        "max_account_drawdown": -0.15617646512533456,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1096,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.13527819849463185
+      },
+      "dd_delta": -0.15520379161315878,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16688837786849509,
+        "max_drawdown": -0.31185523477991184,
+        "observations": 1410,
+        "sharpe": 0.9612301803741057,
+        "total_return": 1.375971913210969
+      },
+      "recovery": {
+        "bottom_date": "2023-05-09",
+        "max_drawdown": -0.31185523477991184,
+        "peak_date": "2022-06-13",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 37,
+        "worst_daily_return": -0.06932830092413034,
+        "worst_rolling_3m": -0.16143844736349633
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 7,
+      "baseline": {
+        "cagr": 0.16675506270802853,
+        "max_drawdown": -0.15665144316675306,
+        "observations": 1409,
+        "sharpe": 1.2093638441324015,
+        "total_return": 1.3734478579550187
+      },
+      "cagr_delta": -0.08539727161892596,
+      "dca": {
+        "ending_value": 82604.42002820612,
+        "max_account_drawdown": -0.043103423762524296,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 431,
+        "underwater_months": 32,
+        "worst_value_vs_contributions": -0.015187919926451743
+      },
+      "dd_delta": 0.08046084578833168,
+      "expert_rank": 6,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08135779108910257,
+        "max_drawdown": -0.07619059737842138,
+        "observations": 1410,
+        "sharpe": 1.0466159213670008,
+        "total_return": 0.5504955520165544
+      },
+      "recovery": {
+        "bottom_date": "2025-06-27",
+        "max_drawdown": -0.07619059737842138,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2025-10-06",
+        "recovery_days": 101,
+        "worst_daily_return": -0.041691588200781116,
+        "worst_rolling_3m": -0.046422237818357415
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.11921795449989991,
+      "dca": {
+        "ending_value": 90350.2750045571,
+        "max_account_drawdown": -0.23054547771796174,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1091,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.2118878440166947
+      },
+      "dd_delta": -0.15624727487278167,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.08766991805078894,
+        "max_drawdown": -0.3522354510502069,
+        "observations": 1410,
+        "sharpe": 0.5055230530214838,
+        "total_return": 0.6019304566230999
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3522354510502069,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-07-05",
+        "recovery_days": 484,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.22230719206848526
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.20043272396086476,
+      "dca": {
+        "ending_value": 68529.85947445512,
+        "max_account_drawdown": -0.07403446791476709,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 493,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.018993165328411
+      },
+      "dd_delta": 0.09291193919353657,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0064551485898241,
+        "max_drawdown": -0.10307623698388868,
+        "observations": 1410,
+        "sharpe": 0.1409841644065003,
+        "total_return": 0.036737187225849066
+      },
+      "recovery": {
+        "bottom_date": "2026-04-21",
+        "max_drawdown": -0.10307623698388868,
+        "peak_date": "2025-10-07",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.061623198176842475,
+        "worst_rolling_3m": -0.09194054378464556
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.13976066548623667,
+      "dca": {
+        "ending_value": 82198.25085923942,
+        "max_account_drawdown": -0.2289636608199297,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1091,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.19655770636597947
+      },
+      "dd_delta": -0.14743548302728593,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.06712720706445219,
+        "max_drawdown": -0.3434236592047112,
+        "observations": 1410,
+        "sharpe": 0.4172024418389569,
+        "total_return": 0.43949954961631454
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3434236592047112,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-10-18",
+        "recovery_days": 589,
+        "worst_daily_return": -0.10810530027220155,
+        "worst_rolling_3m": -0.22206974949412217
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.14960586813847931,
+      "dca": {
+        "ending_value": 86319.00635198785,
+        "max_account_drawdown": -0.076918492903294,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 733,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.05484327833750169
+      },
+      "dd_delta": 0.06901301556332162,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.05728200441220954,
+        "max_drawdown": -0.12697516061410363,
+        "observations": 1410,
+        "sharpe": 0.6517373390937333,
+        "total_return": 0.3665983943175739
+      },
+      "recovery": {
+        "bottom_date": "2023-12-12",
+        "max_drawdown": -0.12697516061410363,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-05-20",
+        "recovery_days": 160,
+        "worst_daily_return": -0.06253002329755086,
+        "worst_rolling_3m": -0.05822960630354246
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.044487645755156846,
+      "dca": {
+        "ending_value": 113684.39250472981,
+        "max_account_drawdown": -0.1277057675848785,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1059,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.10936807037317076
+      },
+      "dd_delta": -0.10990083651563953,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.162400226795532,
+        "max_drawdown": -0.3058890126930648,
+        "observations": 1410,
+        "sharpe": 0.9243676123292017,
+        "total_return": 1.3251826326321279
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3058890126930648,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-09-24",
+        "recovery_days": 565,
+        "worst_daily_return": -0.0628986681297129,
+        "worst_rolling_3m": -0.18142639460684307
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.15255951698616732,
+      "dca": {
+        "ending_value": 80760.59207442221,
+        "max_account_drawdown": -0.08195502864634963,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 494,
+        "underwater_months": 37,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.09934144697355385,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.054328355564521535,
+        "max_drawdown": -0.0966467292038714,
+        "observations": 1410,
+        "sharpe": 0.7897454103541268,
+        "total_return": 0.3453290428050648
+      },
+      "recovery": {
+        "bottom_date": "2026-04-10",
+        "max_drawdown": -0.0966467292038714,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.06235636686377144,
+        "worst_rolling_3m": -0.06696554310128566
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.0577586644344692,
+      "dca": {
+        "ending_value": 108260.77603805033,
+        "max_account_drawdown": -0.12770576758487906,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1054,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09875787221963639
+      },
+      "dd_delta": -0.10997067480767797,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.14912920811621966,
+        "max_drawdown": -0.3059588509851032,
+        "observations": 1410,
+        "sharpe": 0.8744460598678832,
+        "total_return": 1.1801951346654143
+      },
+      "recovery": {
+        "bottom_date": "2023-03-09",
+        "max_drawdown": -0.3059588509851032,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2025-02-05",
+        "recovery_days": 699,
+        "worst_daily_return": -0.0628986681297129,
+        "worst_rolling_3m": -0.1814263946068435
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.11770205465717853,
+      "dca": {
+        "ending_value": 95795.24604830271,
+        "max_account_drawdown": -0.07847336133992056,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 714,
+        "underwater_months": 49,
+        "worst_value_vs_contributions": -0.024977604649127683
+      },
+      "dd_delta": 0.10600714404487233,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08918581789351032,
+        "max_drawdown": -0.08998103213255293,
+        "observations": 1410,
+        "sharpe": 0.9004978947494009,
+        "total_return": 0.6144893443279524
+      },
+      "recovery": {
+        "bottom_date": "2023-12-12",
+        "max_drawdown": -0.08998103213255293,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 112,
+        "worst_daily_return": -0.0628864503324763,
+        "worst_rolling_3m": -0.07163026616571033
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.030278937949942186,
+      "dca": {
+        "ending_value": 121820.53687893633,
+        "max_account_drawdown": -0.17916725876110307,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1043,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.09697174748576454
+      },
+      "dd_delta": -0.0881664199167943,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.17660893460074667,
+        "max_drawdown": -0.28415459609421956,
+        "observations": 1410,
+        "sharpe": 1.0670229598819168,
+        "total_return": 1.489102512887238
+      },
+      "recovery": {
+        "bottom_date": "2022-11-29",
+        "max_drawdown": -0.28415459609421956,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 490,
+        "worst_daily_return": -0.06443337624254664,
+        "worst_rolling_3m": -0.22185806953896703
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.12054351609233627,
+      "dca": {
+        "ending_value": 89871.01888465062,
+        "max_account_drawdown": -0.08868723166670678,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 547,
+        "underwater_months": 39,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.09562364107578558,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08634435645835259,
+        "max_drawdown": -0.10036453510163967,
+        "observations": 1410,
+        "sharpe": 0.9597749235896822,
+        "total_return": 0.5910143687217377
+      },
+      "recovery": {
+        "bottom_date": "2026-02-17",
+        "max_drawdown": -0.10036453510163967,
+        "peak_date": "2026-01-29",
+        "recovery_date": "2026-04-16",
+        "recovery_days": 58,
+        "worst_daily_return": -0.06386057482807872,
+        "worst_rolling_3m": -0.05949993469539394
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.04531758386062257,
+      "dca": {
+        "ending_value": 115767.92898351519,
+        "max_account_drawdown": -0.17851100474216786,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1035,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.10905720809290376
+      },
+      "dd_delta": -0.08816641991679453,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1615702886900663,
+        "max_drawdown": -0.2841545960942198,
+        "observations": 1410,
+        "sharpe": 1.0107340293177303,
+        "total_return": 1.3158892770487394
+      },
+      "recovery": {
+        "bottom_date": "2022-11-29",
+        "max_drawdown": -0.2841545960942198,
+        "peak_date": "2022-06-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 490,
+        "worst_daily_return": -0.06443337624254675,
+        "worst_rolling_3m": -0.22185806953896814
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 2,
+      "baseline": {
+        "cagr": 0.20688787255068886,
+        "max_drawdown": -0.19598817617742526,
+        "observations": 1409,
+        "sharpe": 1.2885172490249737,
+        "total_return": 1.8687487747516731
+      },
+      "cagr_delta": -0.0837152640377441,
+      "dca": {
+        "ending_value": 100305.87477861973,
+        "max_account_drawdown": -0.10169755987200346,
+        "minimum_account_value": 992.139901550453,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 710,
+        "underwater_months": 49,
+        "worst_value_vs_contributions": -0.013902890356687903
+      },
+      "dd_delta": 0.08589989781093832,
+      "expert_rank": 7,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.12317260851294476,
+        "max_drawdown": -0.11008827836648694,
+        "observations": 1410,
+        "sharpe": 1.034771918032382,
+        "total_return": 0.9180482088673734
+      },
+      "recovery": {
+        "bottom_date": "2026-06-24",
+        "max_drawdown": -0.11008827836648694,
+        "peak_date": "2026-05-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.06660623941088717,
+        "worst_rolling_3m": -0.060957467065728466
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.032684928843305316,
+      "dca": {
+        "ending_value": 117542.20040595002,
+        "max_account_drawdown": -0.08792839071871195,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1031,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.019370999983828185
+      },
+      "dd_delta": 0.08681632610426981,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1622551201760507,
+        "max_drawdown": -0.10527881489291246,
+        "observations": 1410,
+        "sharpe": 1.2024456568018358,
+        "total_return": 1.3235555730718827
+      },
+      "recovery": {
+        "bottom_date": "2023-03-10",
+        "max_drawdown": -0.10527881489291246,
+        "peak_date": "2023-02-02",
+        "recovery_date": "2023-05-26",
+        "recovery_days": 77,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.09378312857450988
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.16361100359320924,
+      "dca": {
+        "ending_value": 78135.87946559477,
+        "max_account_drawdown": -0.04348103227109423,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 532,
+        "underwater_months": 41,
+        "worst_value_vs_contributions": -0.019370999983828185
+      },
+      "dd_delta": 0.13278749446346194,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.031329045426146784,
+        "max_drawdown": -0.05930764653372034,
+        "observations": 1410,
+        "sharpe": 0.6211736665619101,
+        "total_return": 0.18883056286174837
+      },
+      "recovery": {
+        "bottom_date": "2021-03-08",
+        "max_drawdown": -0.05930764653372034,
+        "peak_date": "2021-02-12",
+        "recovery_date": "2024-03-28",
+        "recovery_days": 1116,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.039517290446766995
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.03840828231127191,
+      "dca": {
+        "ending_value": 113876.01345793536,
+        "max_account_drawdown": -0.08855939907771837,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1020,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.019370999983828185
+      },
+      "dd_delta": 0.09787227952786604,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1565317667080841,
+        "max_drawdown": -0.09422286146931624,
+        "observations": 1410,
+        "sharpe": 1.1902302635285413,
+        "total_return": 1.260122360034683
+      },
+      "recovery": {
+        "bottom_date": "2023-03-10",
+        "max_drawdown": -0.09422286146931624,
+        "peak_date": "2023-02-02",
+        "recovery_date": "2023-05-10",
+        "recovery_days": 61,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.08871573031633673
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.12573251019953813,
+      "dca": {
+        "ending_value": 87887.68672396948,
+        "max_account_drawdown": -0.08080502683381963,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 831,
+        "underwater_months": 59,
+        "worst_value_vs_contributions": -0.033214646717147134
+      },
+      "dd_delta": 0.09968076444533958,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.0692075388198179,
+        "max_drawdown": -0.0924143765518427,
+        "observations": 1410,
+        "sharpe": 0.9365729861945103,
+        "total_return": 0.4553054103716123
+      },
+      "recovery": {
+        "bottom_date": "2026-07-16",
+        "max_drawdown": -0.0924143765518427,
+        "peak_date": "2026-05-11",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.04518412131556648,
+        "worst_rolling_3m": -0.08162683346435229
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.022634635686712423,
+      "dca": {
+        "ending_value": 120736.63049934166,
+        "max_account_drawdown": -0.10762170357807732,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1015,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.031701216041945424
+      },
+      "dd_delta": 0.08447343741910529,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1723054133326436,
+        "max_drawdown": -0.10762170357807699,
+        "observations": 1410,
+        "sharpe": 1.2880435613009764,
+        "total_return": 1.4384832402782806
+      },
+      "recovery": {
+        "bottom_date": "2026-03-23",
+        "max_drawdown": -0.10762170357807699,
+        "peak_date": "2026-03-02",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.08869794858947522
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.13552534411561346,
+      "dca": {
+        "ending_value": 84983.44046438007,
+        "max_account_drawdown": -0.04518412131556637,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 520,
+        "underwater_months": 41,
+        "worst_value_vs_contributions": -0.022985763069106713
+      },
+      "dd_delta": 0.1249084320407321,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.059414704903742566,
+        "max_drawdown": -0.06718670895645018,
+        "observations": 1410,
+        "sharpe": 1.0059862702773548,
+        "total_return": 0.3821271935079189
+      },
+      "recovery": {
+        "bottom_date": "2024-02-20",
+        "max_drawdown": -0.06718670895645018,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-04-01",
+        "recovery_days": 41,
+        "worst_daily_return": -0.04518412131556637,
+        "worst_rolling_3m": -0.052327124287484095
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.03010614925565336,
+      "dca": {
+        "ending_value": 116891.4337613863,
+        "max_account_drawdown": -0.10837735566976614,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1019,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.027795392972549626
+      },
+      "dd_delta": 0.08371778532741636,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16483389976370266,
+        "max_drawdown": -0.10837735566976592,
+        "observations": 1410,
+        "sharpe": 1.2604912928955372,
+        "total_return": 1.3526108825373462
+      },
+      "recovery": {
+        "bottom_date": "2026-03-23",
+        "max_drawdown": -0.10837735566976592,
+        "peak_date": "2026-03-02",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.08035167466850102
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.1124630993218263,
+      "dca": {
+        "ending_value": 94160.18135542933,
+        "max_account_drawdown": -0.05160558450255848,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 792,
+        "underwater_months": 57,
+        "worst_value_vs_contributions": -0.04305588405960381
+      },
+      "dd_delta": 0.08572274962237214,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08247694969752972,
+        "max_drawdown": -0.10637239137481014,
+        "observations": 1410,
+        "sharpe": 0.9824276732744744,
+        "total_return": 0.5595147501368865
+      },
+      "recovery": {
+        "bottom_date": "2023-02-24",
+        "max_drawdown": -0.10637239137481014,
+        "peak_date": "2021-07-14",
+        "recovery_date": "2024-03-04",
+        "recovery_days": 374,
+        "worst_daily_return": -0.04664603768350861,
+        "worst_rolling_3m": -0.06602481579583619
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.021509571965945273,
+      "dca": {
+        "ending_value": 122540.98205554672,
+        "max_account_drawdown": -0.1007304117144584,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 998,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.03850029368122432
+      },
+      "dd_delta": 0.07359608144226593,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.17343047705341075,
+        "max_drawdown": -0.11849905955491635,
+        "observations": 1410,
+        "sharpe": 1.3074366668040294,
+        "total_return": 1.4516341563793542
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.11849905955491635,
+        "peak_date": "2022-04-21",
+        "recovery_date": "2023-04-04",
+        "recovery_days": 120,
+        "worst_daily_return": -0.04348103227109412,
+        "worst_rolling_3m": -0.0829480540619244
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.1390828496429033,
+      "dca": {
+        "ending_value": 82413.9219115039,
+        "max_account_drawdown": -0.05230884789285373,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 553,
+        "underwater_months": 40,
+        "worst_value_vs_contributions": -0.022883428372159953
+      },
+      "dd_delta": 0.11231208914996249,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.055857199376452726,
+        "max_drawdown": -0.07978305184721979,
+        "observations": 1410,
+        "sharpe": 0.7830427289275466,
+        "total_return": 0.35630408659915425
+      },
+      "recovery": {
+        "bottom_date": "2024-02-13",
+        "max_drawdown": -0.07978305184721979,
+        "peak_date": "2021-09-03",
+        "recovery_date": "2024-04-09",
+        "recovery_days": 56,
+        "worst_daily_return": -0.046378900030282666,
+        "worst_rolling_3m": -0.05391885751375258
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.027768293451167825,
+      "dca": {
+        "ending_value": 118883.21690891506,
+        "max_account_drawdown": -0.10037242995826312,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1007,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.026908958521177917
+      },
+      "dd_delta": 0.07359608144226693,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1671717555681882,
+        "max_drawdown": -0.11849905955491535,
+        "observations": 1410,
+        "sharpe": 1.2963177671560135,
+        "total_return": 1.379209044706152
+      },
+      "recovery": {
+        "bottom_date": "2022-12-05",
+        "max_drawdown": -0.11849905955491535,
+        "peak_date": "2022-04-21",
+        "recovery_date": "2023-04-04",
+        "recovery_days": 120,
+        "worst_daily_return": -0.04348103227109401,
+        "worst_rolling_3m": -0.08294805406192463
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 4,
+      "baseline": {
+        "cagr": 0.19494004901935602,
+        "max_drawdown": -0.19209514099718228,
+        "observations": 1410,
+        "sharpe": 1.1604205270706351,
+        "total_return": 1.714493690771015
+      },
+      "cagr_delta": -0.10626438309072239,
+      "dca": {
+        "ending_value": 93031.19128390693,
+        "max_account_drawdown": -0.08835522005097074,
+        "minimum_account_value": 989.4195327513678,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 780,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.023600726415361928
+      },
+      "dd_delta": 0.0935862179642093,
+      "expert_rank": 8,
+      "method": "EMA100:replacement:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08867566592863363,
+        "max_drawdown": -0.09850892303297298,
+        "observations": 1410,
+        "sharpe": 0.9550194724715206,
+        "total_return": 0.6102538516980676
+      },
+      "recovery": {
+        "bottom_date": "2023-10-25",
+        "max_drawdown": -0.09850892303297298,
+        "peak_date": "2021-11-18",
+        "recovery_date": "2024-03-20",
+        "recovery_days": 147,
+        "worst_daily_return": -0.049396454447433125,
+        "worst_rolling_3m": -0.07298809456459676
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.02040241416061539,
+      "dca": {
+        "ending_value": 108642.27243962095,
+        "max_account_drawdown": -0.10932048606467581,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1037,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.04234343532745877,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15692122732709035,
+        "max_drawdown": -0.16391741289605444,
+        "observations": 1410,
+        "sharpe": 1.0951114808271747,
+        "total_return": 1.2643932124116737
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.16391741289605444,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-13",
+        "recovery_days": 294,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11917390107141745
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.10800419806384887,
+      "dca": {
+        "ending_value": 85442.676981636,
+        "max_account_drawdown": -0.06211234004931687,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 325,
+        "underwater_months": 30,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.04714591031010362,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06931944342385687,
+        "max_drawdown": -0.07442806725849205,
+        "observations": 1410,
+        "sharpe": 1.1623691908805491,
+        "total_return": 0.45615965945276704
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.07442806725849205,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05318577368382249,
+        "worst_rolling_3m": -0.04413595746091914
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.023560453796962033,
+      "dca": {
+        "ending_value": 107947.13998755925,
+        "max_account_drawdown": -0.10594381815421372,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1035,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.04555686743911114,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1537631876907437,
+        "max_drawdown": -0.1671308450077068,
+        "observations": 1410,
+        "sharpe": 1.085773118888644,
+        "total_return": 1.2299522806055943
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.1671308450077068,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-19",
+        "recovery_days": 300,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11431959080500498
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.09345083949009658,
+      "dca": {
+        "ending_value": 94935.62606564557,
+        "max_account_drawdown": -0.06470813904684325,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 702,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.03250993105853961
+      },
+      "dd_delta": 0.03819788808344993,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08387280199760916,
+        "max_drawdown": -0.08337608948514574,
+        "observations": 1410,
+        "sharpe": 1.0470991461960197,
+        "total_return": 0.5708241654106483
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.08337608948514574,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-04-01",
+        "recovery_days": 56,
+        "worst_daily_return": -0.054476166687652317,
+        "worst_rolling_3m": -0.05050549097051771
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.012684294213070713,
+      "dca": {
+        "ending_value": 115954.44800927855,
+        "max_account_drawdown": -0.09264462277630814,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1029,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.028272096824577764
+      },
+      "dd_delta": -0.06989015184701752,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16463934727463503,
+        "max_drawdown": -0.1914641294156132,
+        "observations": 1410,
+        "sharpe": 1.1784880324897842,
+        "total_return": 1.3504084859340204
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.1914641294156132,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.1472529656672349
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.09828216968749182,
+      "dca": {
+        "ending_value": 87880.9835257715,
+        "max_account_drawdown": -0.07819510255950146,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 360,
+        "underwater_months": 29,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.03163362113948942,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07904147180021392,
+        "max_drawdown": -0.08994035642910625,
+        "observations": 1410,
+        "sharpe": 1.1637995117465703,
+        "total_return": 0.5319646506877571
+      },
+      "recovery": {
+        "bottom_date": "2026-02-17",
+        "max_drawdown": -0.08994035642910625,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05508062269045744,
+        "worst_rolling_3m": -0.04403680869617832
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.008287093837828774,
+      "dca": {
+        "ending_value": 117858.74873456321,
+        "max_account_drawdown": -0.09264462277630792,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1032,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.024135943456039866
+      },
+      "dd_delta": -0.0663525434547545,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16903654764987697,
+        "max_drawdown": -0.18792652102335017,
+        "observations": 1410,
+        "sharpe": 1.2072006715253818,
+        "total_return": 1.4006017881338346
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.18792652102335017,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.14522964573104546
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.09558806969168976,
+      "dca": {
+        "ending_value": 93877.16797667716,
+        "max_account_drawdown": -0.06721273652936588,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 706,
+        "underwater_months": 55,
+        "worst_value_vs_contributions": -0.0468467118239112
+      },
+      "dd_delta": 0.007721829399170987,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08173557179601598,
+        "max_drawdown": -0.11385214816942468,
+        "observations": 1410,
+        "sharpe": 0.9688867519718884,
+        "total_return": 0.5535352478302953
+      },
+      "recovery": {
+        "bottom_date": "2023-08-17",
+        "max_drawdown": -0.11385214816942468,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-05-17",
+        "recovery_days": 274,
+        "worst_daily_return": -0.05675146326458602,
+        "worst_rolling_3m": -0.07042135617697931
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.028767898254181024,
+      "dca": {
+        "ending_value": 113538.3724924491,
+        "max_account_drawdown": -0.13131995587480116,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1036,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.05003164150267159
+      },
+      "dd_delta": -0.08017804270165907,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.14855574323352472,
+        "max_drawdown": -0.20175202027025474,
+        "observations": 1410,
+        "sharpe": 1.1086717771339327,
+        "total_return": 1.1741015364280023
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20175202027025474,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-07-16",
+        "recovery_days": 496,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013905
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.08168079988383337,
+      "dca": {
+        "ending_value": 92910.82208282656,
+        "max_account_drawdown": -0.06931548677211008,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 456,
+        "underwater_months": 33,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.040853519633456514,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.09564284160387237,
+        "max_drawdown": -0.08072045793513916,
+        "observations": 1410,
+        "sharpe": 1.1843542131841693,
+        "total_return": 0.6688942245930294
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.08072045793513916,
+        "peak_date": "2026-01-29",
+        "recovery_date": "2026-03-02",
+        "recovery_days": 28,
+        "worst_daily_return": -0.05811313544231933,
+        "worst_rolling_3m": -0.036030063719384664
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.025894793138932615,
+      "dca": {
+        "ending_value": 114493.30833379317,
+        "max_account_drawdown": -0.13134632606469243,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1030,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.050982219352467495
+      },
+      "dd_delta": -0.08146263486780647,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15142884834877313,
+        "max_drawdown": -0.20303661243640214,
+        "observations": 1410,
+        "sharpe": 1.1252483753273754,
+        "total_return": 1.2047721068787967
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20303661243640214,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-05-20",
+        "recovery_days": 439,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013972
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17732364148770574,
+        "max_drawdown": -0.12157397756859567,
+        "observations": 1410,
+        "sharpe": 1.2242272784297636,
+        "total_return": 1.4975920896798107
+      },
+      "cagr_delta": -0.07663644170048056,
+      "dca": {
+        "ending_value": 96281.52671175405,
+        "max_account_drawdown": -0.09418995599754743,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 728,
+        "underwater_months": 52,
+        "worst_value_vs_contributions": -0.025727536759206582
+      },
+      "dd_delta": 0.017692069401559873,
+      "expert_rank": 9,
+      "method": "EMA100:pro_rata:Monthly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.10068719978722518,
+        "max_drawdown": -0.1038819081670358,
+        "observations": 1410,
+        "sharpe": 1.0853224653762508,
+        "total_return": 0.7124366350114921
+      },
+      "recovery": {
+        "bottom_date": "2026-06-24",
+        "max_drawdown": -0.1038819081670358,
+        "peak_date": "2026-05-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05753488505732651,
+        "worst_rolling_3m": -0.06131004805468254
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.017182279135227185,
+      "dca": {
+        "ending_value": 108642.27243962095,
+        "max_account_drawdown": -0.10932048606467581,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1037,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.017803219995746855,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15692122732709035,
+        "max_drawdown": -0.16391741289605444,
+        "observations": 1410,
+        "sharpe": 1.0951114808271747,
+        "total_return": 1.2643932124116737
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.16391741289605444,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-13",
+        "recovery_days": 294,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11917390107141745
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.10478406303846066,
+      "dca": {
+        "ending_value": 85442.676981636,
+        "max_account_drawdown": -0.06211234004931687,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 325,
+        "underwater_months": 30,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.07168612564181553,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.06931944342385687,
+        "max_drawdown": -0.07442806725849205,
+        "observations": 1410,
+        "sharpe": 1.1623691908805491,
+        "total_return": 0.45615965945276704
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.07442806725849205,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05318577368382249,
+        "worst_rolling_3m": -0.04413595746091914
+      },
+      "threshold": 1,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.02034031877157383,
+      "dca": {
+        "ending_value": 107947.13998755925,
+        "max_account_drawdown": -0.10594381815421372,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1035,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": -0.021016652107399225,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.1537631876907437,
+        "max_drawdown": -0.1671308450077068,
+        "observations": 1410,
+        "sharpe": 1.085773118888644,
+        "total_return": 1.2299522806055943
+      },
+      "recovery": {
+        "bottom_date": "2023-05-24",
+        "max_drawdown": -0.1671308450077068,
+        "peak_date": "2022-06-09",
+        "recovery_date": "2024-03-19",
+        "recovery_days": 300,
+        "worst_daily_return": -0.05672968387905142,
+        "worst_rolling_3m": -0.11431959080500498
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.09023070446470838,
+      "dca": {
+        "ending_value": 94935.62606564557,
+        "max_account_drawdown": -0.06470813904684325,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 702,
+        "underwater_months": 54,
+        "worst_value_vs_contributions": -0.03250993105853961
+      },
+      "dd_delta": 0.06273810341516184,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08387280199760916,
+        "max_drawdown": -0.08337608948514574,
+        "observations": 1410,
+        "sharpe": 1.0470991461960197,
+        "total_return": 0.5708241654106483
+      },
+      "recovery": {
+        "bottom_date": "2024-02-05",
+        "max_drawdown": -0.08337608948514574,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-04-01",
+        "recovery_days": 56,
+        "worst_daily_return": -0.054476166687652317,
+        "worst_rolling_3m": -0.05050549097051771
+      },
+      "threshold": 2,
+      "window": 50
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.009464159187682508,
+      "dca": {
+        "ending_value": 115954.44800927855,
+        "max_account_drawdown": -0.09264462277630814,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1029,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.028272096824577764
+      },
+      "dd_delta": -0.04534993651530561,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16463934727463503,
+        "max_drawdown": -0.1914641294156132,
+        "observations": 1410,
+        "sharpe": 1.1784880324897842,
+        "total_return": 1.3504084859340204
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.1914641294156132,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.1472529656672349
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.09506203466210361,
+      "dca": {
+        "ending_value": 87880.9835257715,
+        "max_account_drawdown": -0.07819510255950146,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 360,
+        "underwater_months": 29,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.05617383647120133,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.07904147180021392,
+        "max_drawdown": -0.08994035642910625,
+        "observations": 1410,
+        "sharpe": 1.1637995117465703,
+        "total_return": 0.5319646506877571
+      },
+      "recovery": {
+        "bottom_date": "2026-02-17",
+        "max_drawdown": -0.08994035642910625,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05508062269045744,
+        "worst_rolling_3m": -0.04403680869617832
+      },
+      "threshold": 1,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.0050669588124405696,
+      "dca": {
+        "ending_value": 117858.74873456321,
+        "max_account_drawdown": -0.09264462277630792,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1032,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.024135943456039866
+      },
+      "dd_delta": -0.041812328123042586,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.16903654764987697,
+        "max_drawdown": -0.18792652102335017,
+        "observations": 1410,
+        "sharpe": 1.2072006715253818,
+        "total_return": 1.4006017881338346
+      },
+      "recovery": {
+        "bottom_date": "2023-03-07",
+        "max_drawdown": -0.18792652102335017,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2024-04-02",
+        "recovery_days": 392,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.14522964573104546
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.09236793466630155,
+      "dca": {
+        "ending_value": 93877.16797667716,
+        "max_account_drawdown": -0.06721273652936588,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 706,
+        "underwater_months": 55,
+        "worst_value_vs_contributions": -0.0468467118239112
+      },
+      "dd_delta": 0.0322620447308829,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.08173557179601598,
+        "max_drawdown": -0.11385214816942468,
+        "observations": 1410,
+        "sharpe": 0.9688867519718884,
+        "total_return": 0.5535352478302953
+      },
+      "recovery": {
+        "bottom_date": "2023-08-17",
+        "max_drawdown": -0.11385214816942468,
+        "peak_date": "2021-06-10",
+        "recovery_date": "2024-05-17",
+        "recovery_days": 274,
+        "worst_daily_return": -0.05675146326458602,
+        "worst_rolling_3m": -0.07042135617697931
+      },
+      "threshold": 2,
+      "window": 100
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.02554776322879282,
+      "dca": {
+        "ending_value": 113538.3724924491,
+        "max_account_drawdown": -0.13131995587480116,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1036,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.05003164150267159
+      },
+      "dd_delta": -0.05563782736994716,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.14855574323352472,
+        "max_drawdown": -0.20175202027025474,
+        "observations": 1410,
+        "sharpe": 1.1086717771339327,
+        "total_return": 1.1741015364280023
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20175202027025474,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-07-16",
+        "recovery_days": 496,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013905
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.07846066485844516,
+      "dca": {
+        "ending_value": 92910.82208282656,
+        "max_account_drawdown": -0.06931548677211008,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 456,
+        "underwater_months": 33,
+        "worst_value_vs_contributions": -0.009372262880471882
+      },
+      "dd_delta": 0.06539373496516843,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.09564284160387237,
+        "max_drawdown": -0.08072045793513916,
+        "observations": 1410,
+        "sharpe": 1.1843542131841693,
+        "total_return": 0.6688942245930294
+      },
+      "recovery": {
+        "bottom_date": "2026-02-02",
+        "max_drawdown": -0.08072045793513916,
+        "peak_date": "2026-01-29",
+        "recovery_date": "2026-03-02",
+        "recovery_days": 28,
+        "worst_daily_return": -0.05811313544231933,
+        "worst_rolling_3m": -0.036030063719384664
+      },
+      "threshold": 1,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.02267465811354441,
+      "dca": {
+        "ending_value": 114493.30833379317,
+        "max_account_drawdown": -0.13134632606469243,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 1030,
+        "underwater_months": 68,
+        "worst_value_vs_contributions": -0.050982219352467495
+      },
+      "dd_delta": -0.05692241953609456,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "individual",
+      "protected": {
+        "cagr": 0.15142884834877313,
+        "max_drawdown": -0.20303661243640214,
+        "observations": 1410,
+        "sharpe": 1.1252483753273754,
+        "total_return": 1.2047721068787967
+      },
+      "recovery": {
+        "bottom_date": "2023-03-08",
+        "max_drawdown": -0.20303661243640214,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-05-20",
+        "recovery_days": 439,
+        "worst_daily_return": -0.05154612061671748,
+        "worst_rolling_3m": -0.17360409343013972
+      },
+      "threshold": 2,
+      "window": 200
+    },
+    {
+      "allocation_id": 8,
+      "baseline": {
+        "cagr": 0.17410350646231754,
+        "max_drawdown": -0.14611419290030758,
+        "observations": 1409,
+        "sharpe": 1.3531451029770691,
+        "total_return": 1.4584484686622416
+      },
+      "cagr_delta": -0.07341630667509236,
+      "dca": {
+        "ending_value": 96281.52671175405,
+        "max_account_drawdown": -0.09418995599754743,
+        "minimum_account_value": 990.6277371195281,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 68000.0,
+        "underwater_days": 728,
+        "underwater_months": 52,
+        "worst_value_vs_contributions": -0.025727536759206582
+      },
+      "dd_delta": 0.042232284733271785,
+      "expert_rank": 10,
+      "method": "Calendar:Yearly",
+      "mode": "full_cash",
+      "protected": {
+        "cagr": 0.10068719978722518,
+        "max_drawdown": -0.1038819081670358,
+        "observations": 1410,
+        "sharpe": 1.0853224653762508,
+        "total_return": 0.7124366350114921
+      },
+      "recovery": {
+        "bottom_date": "2026-06-24",
+        "max_drawdown": -0.1038819081670358,
+        "peak_date": "2026-05-12",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.05753488505732651,
+        "worst_rolling_3m": -0.06131004805468254
+      },
+      "threshold": 2,
+      "window": 200
+    }
+  ],
+  "robust": [],
+  "rules": "Signals use each asset's prior-day close versus its EMA. Changes apply on the next session. Individual mode removes under-EMA assets and redistributes to remaining active targets; full_cash mode exits everything when the below-EMA count reaches the threshold.",
+  "tested": 120
+}

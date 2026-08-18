@@ -19,7 +19,8 @@ logging.basicConfig(
     format="%(asctime)s %(name)s [%(levelname)s] %(message)s",
     datefmt="%H:%M:%S",
 )
-from app.ui import render_sidebar, render_config, render_results, asset_explorer, charts
+from app.ui import render_sidebar, render_config, render_results, charts  # noqa: E402
+from app.ui.screener_results import render_screened_results  # noqa: E402
 
 BACKEND_URL = "http://localhost:8100"
 
@@ -407,14 +408,25 @@ def _run_via_api(config, start_date, end_date, bearer_token):
 st.set_page_config(page_title="Testfol Charting", layout="wide", page_icon="📈")
 
 # --- Navigation ---
+_navigation_options = ["Simulator", "Screener Results", "Docs", "Changelog"]
+_requested_mode = st.query_params.get("page", "Simulator")
+_navigation_index = (
+    _navigation_options.index(_requested_mode)
+    if _requested_mode in _navigation_options
+    else 0
+)
 mode = st.sidebar.radio(
     "Navigation",
-    ["Simulator", "Docs", "Changelog"],
+    _navigation_options,
+    index=_navigation_index,
     horizontal=True,
 )
 
 if mode == "Docs":
     utils.render_documentation()
+    st.stop()
+if mode == "Screener Results":
+    render_screened_results()
     st.stop()
 if mode == "Changelog":
     utils.render_changelog()

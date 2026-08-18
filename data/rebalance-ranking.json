@@ -1,0 +1,1040 @@
+{
+  "allocations": [
+    {
+      "allocation": {
+        "DBC": 0.34204867013170187,
+        "GLD": 0.44602870333375155,
+        "TIP": 0.04898366600326811,
+        "TQQQ": 0.10929676846141362,
+        "VNQ": 0.021436146983067863,
+        "VPU": 0.03220604508679704
+      },
+      "allocation_id": 2,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.34204867013170187,
+          "GLD": 0.44602870333375155,
+          "TIP": 0.04898366600326811,
+          "TQQQ": 0.10929676846141362,
+          "VNQ": 0.021436146983067863,
+          "VPU": 0.03220604508679704
+        },
+        "allocation_id": 2,
+        "cagr": 0.20733082936838398,
+        "max_drawdown": -0.1956475541944015,
+        "method": "AbsoluteBand:Yearly:0.2",
+        "sharpe": 1.2883220600257683
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.34204867013170187,
+          "GLD": 0.44602870333375155,
+          "TIP": 0.04898366600326811,
+          "TQQQ": 0.10929676846141362,
+          "VNQ": 0.021436146983067863,
+          "VPU": 0.03220604508679704
+        },
+        "allocation_id": 2,
+        "local": {
+          "cagr": 0.20733082936838398,
+          "max_drawdown": -0.1956475541944015,
+          "sharpe": 1.2883220600257683
+        },
+        "method": "AbsoluteBand:Yearly:0.2",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 16,
+            "rebalancings_per_year": 0.9708644353479412,
+            "turnover_per_rebalancing": 7.846904836235757,
+            "turnover_per_year": 7.618280833061057
+          }
+        ],
+        "testfol_stats": {
+          "active_return": -2.092262502833586,
+          "alpha_annualized": 4.28224710720683,
+          "alpha_daily": 0.01699304407621758,
+          "avg_drawdown": -6.260511951084882,
+          "benchmark_corr": 0.6228962354716091,
+          "benchmark_corr_annual": 0.6619011545632748,
+          "benchmark_corr_monthly": 0.6697094643832384,
+          "beta": 0.5259574889671279,
+          "beta_annual": 0.6718543009572269,
+          "beta_monthly": 0.6385955519264577,
+          "cagr": 12.688527668507167,
+          "calmar": 0.47956450279244484,
+          "cum_return": 618.8471362614589,
+          "diversification_ratio": 1.4787430333028186,
+          "downside_beta": 0.5072815352111449,
+          "downside_capture": 77.15803309060335,
+          "downside_capture_annual": 45.902428725620744,
+          "downside_capture_monthly": 66.67865475063053,
+          "downside_correlation": 0.49917815688171735,
+          "drawdown_recovery_factor": 23.389405529087,
+          "end_val": 718847.1362614589,
+          "information_ratio": -0.15063068192704998,
+          "longest_drawdown_bottom_date": "2016-01-19",
+          "longest_drawdown_peak_date": "2014-07-01",
+          "longest_drawdown_recovery_date": "2017-09-01",
+          "m2": 15.158006602516565,
+          "max_drawdown": -26.45843800911752,
+          "max_drawdown_bottom_date": "2016-01-19",
+          "max_drawdown_peak_date": "2014-07-01",
+          "max_drawdown_recovery_date": "2017-09-01",
+          "max_drawdown_years": 3.1704312114989732,
+          "mwrr": 12.688527668507167,
+          "nom_end_val": 718847.1362614589,
+          "sharpe": 0.8001018427291348,
+          "sortino": 1.110244801029385,
+          "std": 14.425125739635467,
+          "total_contributions": 100000.0,
+          "tracking_error": 13.89001547405105,
+          "ulcer_index": 7.776509429415346,
+          "upi": 1.4839721553434042,
+          "upside_beta": 0.4498088794376206,
+          "upside_capture": 39.86113558815846,
+          "upside_capture_annual": 81.33593944700948,
+          "upside_capture_monthly": 70.31715134611548,
+          "upside_correlation": 0.45531798067770846
+        },
+        "testfol_test": {
+          "cagr": 0.20753130013577636,
+          "max_drawdown": -0.1959854342711268,
+          "observations": 1410
+        }
+      },
+      "rank": 1
+    },
+    {
+      "allocation": {
+        "DBC": 0.06707206034608063,
+        "DBMF": 0.1579950596208297,
+        "GLD": 0.31025524972961926,
+        "TQQQ": 0.16599428640167024,
+        "VNQ": 0.29868334390180035
+      },
+      "allocation_id": 1,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.06707206034608063,
+          "DBMF": 0.1579950596208297,
+          "GLD": 0.31025524972961926,
+          "TQQQ": 0.16599428640167024,
+          "VNQ": 0.29868334390180035
+        },
+        "allocation_id": 1,
+        "cagr": 0.19969691811217127,
+        "max_drawdown": -0.19262589587146273,
+        "method": "AbsoluteBand:Yearly:0.2",
+        "sharpe": 1.1758478560498768
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.06707206034608063,
+          "DBMF": 0.1579950596208297,
+          "GLD": 0.31025524972961926,
+          "TQQQ": 0.16599428640167024,
+          "VNQ": 0.29868334390180035
+        },
+        "allocation_id": 1,
+        "local": {
+          "cagr": 0.19969691811217127,
+          "max_drawdown": -0.19262589587146273,
+          "sharpe": 1.1758478560498768
+        },
+        "method": "AbsoluteBand:Yearly:0.2",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 7,
+            "rebalancings_per_year": 0.9644614543466374,
+            "turnover_per_rebalancing": 10.827924089987457,
+            "turnover_per_year": 10.443115415384293
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 4.511829893021213,
+          "alpha_annualized": 6.5633146190927505,
+          "alpha_daily": 0.02604489928211409,
+          "avg_drawdown": -5.449381246335145,
+          "benchmark_corr": 0.8427559733849438,
+          "benchmark_corr_annual": 0.941769520396569,
+          "benchmark_corr_monthly": 0.8611171453786893,
+          "beta": 0.7936165153749686,
+          "beta_annual": 1.0400943072684596,
+          "beta_monthly": 0.8647682723594494,
+          "cagr": 20.860532571364022,
+          "calmar": 0.6849885619221265,
+          "cum_return": 297.00995618488946,
+          "diversification_ratio": 1.4912606271836917,
+          "downside_beta": 0.7843528175691726,
+          "downside_capture": 95.60347193598523,
+          "downside_capture_annual": 91.21637890164115,
+          "downside_capture_monthly": 83.09839925427325,
+          "downside_correlation": 0.7613195130627625,
+          "drawdown_recovery_factor": 9.752791404900274,
+          "end_val": 397009.9561848895,
+          "information_ratio": 0.4200978508220958,
+          "longest_drawdown_bottom_date": "2022-10-14",
+          "longest_drawdown_peak_date": "2021-12-30",
+          "longest_drawdown_recovery_date": "2023-06-12",
+          "m2": 21.885812902928528,
+          "max_drawdown": -30.45384073688455,
+          "max_drawdown_bottom_date": "2020-03-20",
+          "max_drawdown_peak_date": "2020-02-19",
+          "max_drawdown_recovery_date": "2020-07-31",
+          "max_drawdown_years": 1.4483230663928817,
+          "mwrr": 20.860532571364022,
+          "nom_end_val": 397009.9561848895,
+          "sharpe": 0.9733396196915609,
+          "sortino": 1.3323859436712342,
+          "std": 18.478892891515443,
+          "total_contributions": 100000.0,
+          "tracking_error": 10.739949952593058,
+          "ulcer_index": 7.03663255807293,
+          "upi": 2.5559970627157185,
+          "upside_beta": 0.6469058396236995,
+          "upside_capture": 82.97302532451717,
+          "upside_capture_annual": 121.98877114360684,
+          "upside_capture_monthly": 101.55884973425053,
+          "upside_correlation": 0.7056042195923709
+        },
+        "testfol_test": {
+          "cagr": 0.19714431985669112,
+          "max_drawdown": -0.19594140450323072,
+          "observations": 1410
+        }
+      },
+      "rank": 2
+    },
+    {
+      "allocation": {
+        "DBC": 0.4923224184250959,
+        "GLD": 0.08591075821728972,
+        "TQQQ": 0.045601891005301314,
+        "UPRO": 0.06841428543731144,
+        "VEA": 0.027771389183332097,
+        "VNQ": 0.17019851813277123,
+        "VTI": 0.1097807395988985
+      },
+      "allocation_id": 9,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.4923224184250959,
+          "GLD": 0.08591075821728972,
+          "TQQQ": 0.045601891005301314,
+          "UPRO": 0.06841428543731144,
+          "VEA": 0.027771389183332097,
+          "VNQ": 0.17019851813277123,
+          "VTI": 0.1097807395988985
+        },
+        "allocation_id": 9,
+        "cagr": 0.19220446065382712,
+        "max_drawdown": -0.20556729970960308,
+        "method": "AbsoluteBand:Quarterly:0.1",
+        "sharpe": 1.1807986188016908
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.4923224184250959,
+          "GLD": 0.08591075821728972,
+          "TQQQ": 0.045601891005301314,
+          "UPRO": 0.06841428543731144,
+          "VEA": 0.027771389183332097,
+          "VNQ": 0.17019851813277123,
+          "VTI": 0.1097807395988985
+        },
+        "allocation_id": 9,
+        "local": {
+          "cagr": 0.19220446065382712,
+          "max_drawdown": -0.20556729970960308,
+          "sharpe": 1.1807986188016908
+        },
+        "method": "AbsoluteBand:Quarterly:0.1",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 68,
+            "rebalancings_per_year": 4.12617385022875,
+            "turnover_per_rebalancing": 3.2647700331676988,
+            "turnover_per_year": 13.471008737867008
+          }
+        ],
+        "testfol_stats": {
+          "active_return": -3.370290590428815,
+          "alpha_annualized": -0.5059636929554087,
+          "alpha_daily": -0.002007792432362733,
+          "avg_drawdown": -7.432160880465515,
+          "benchmark_corr": 0.8434497228921414,
+          "benchmark_corr_annual": 0.7424695924445791,
+          "benchmark_corr_monthly": 0.8458793514515602,
+          "beta": 0.8135653211636245,
+          "beta_annual": 0.7324702930719729,
+          "beta_monthly": 0.9164235888337012,
+          "cagr": 11.413584669859178,
+          "calmar": 0.3296030110690082,
+          "cum_return": 495.71929340521353,
+          "diversification_ratio": 1.3442351019364758,
+          "downside_beta": 0.8604927998451709,
+          "downside_capture": 92.92995753964243,
+          "downside_capture_annual": 59.06861777366531,
+          "downside_capture_monthly": 101.06919483317829,
+          "downside_correlation": 0.7862481713946189,
+          "drawdown_recovery_factor": 14.315447466985448,
+          "end_val": 595719.2934052135,
+          "information_ratio": -0.3582394336913292,
+          "longest_drawdown_bottom_date": "2016-01-20",
+          "longest_drawdown_peak_date": "2014-06-20",
+          "longest_drawdown_recovery_date": "2017-11-24",
+          "m2": 12.603779307655813,
+          "max_drawdown": -34.62827791785416,
+          "max_drawdown_bottom_date": "2020-03-23",
+          "max_drawdown_peak_date": "2020-01-17",
+          "max_drawdown_recovery_date": "2020-11-24",
+          "max_drawdown_years": 3.430527036276523,
+          "mwrr": 11.413584669859178,
+          "nom_end_val": 595719.2934052135,
+          "sharpe": 0.6505902489095442,
+          "sortino": 0.8908895992734897,
+          "std": 16.478508435598663,
+          "total_contributions": 100000.0,
+          "tracking_error": 9.407927417987064,
+          "ulcer_index": 9.560736515940905,
+          "upi": 1.1213274674777336,
+          "upside_beta": 0.7511001820519021,
+          "upside_capture": 67.0339727118801,
+          "upside_capture_annual": 74.86058912733785,
+          "upside_capture_monthly": 87.9292580603822,
+          "upside_correlation": 0.7286181781375071
+        },
+        "testfol_test": {
+          "cagr": 0.19434382254650728,
+          "max_drawdown": -0.2060030651502247,
+          "observations": 1410
+        }
+      },
+      "rank": 3
+    },
+    {
+      "allocation": {
+        "DBC": 0.37932595750194475,
+        "DBMF": 0.3345806835921942,
+        "TQQQ": 0.11718485087039712,
+        "VNQ": 0.10838628417058849,
+        "XLP": 0.06052222386487538
+      },
+      "allocation_id": 5,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.37932595750194475,
+          "DBMF": 0.3345806835921942,
+          "TQQQ": 0.11718485087039712,
+          "VNQ": 0.10838628417058849,
+          "XLP": 0.06052222386487538
+        },
+        "allocation_id": 5,
+        "cagr": 0.1891326887334026,
+        "max_drawdown": -0.19108444488878307,
+        "method": "EMA100:pro_rata:Monthly",
+        "sharpe": 1.0284464045469148
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.37932595750194475,
+          "DBMF": 0.3345806835921942,
+          "TQQQ": 0.11718485087039712,
+          "VNQ": 0.10838628417058849,
+          "XLP": 0.06052222386487538
+        },
+        "allocation_id": 5,
+        "local": {
+          "cagr": 0.18549969192078608,
+          "max_drawdown": -0.15869035428821632,
+          "sharpe": 1.2644697621072476
+        },
+        "method": "Calendar:Yearly",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 7,
+            "rebalancings_per_year": 0.9644614543466374,
+            "turnover_per_rebalancing": 8.309388459565723,
+            "turnover_per_year": 8.014084878443922
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 0.8567468449298676,
+          "alpha_annualized": 5.671659632291523,
+          "alpha_daily": 0.02250658584242668,
+          "avg_drawdown": -5.109397915695121,
+          "benchmark_corr": 0.7539839443270665,
+          "benchmark_corr_annual": 0.7056061467172896,
+          "benchmark_corr_monthly": 0.7561463877052196,
+          "beta": 0.6113021888520509,
+          "beta_annual": 0.4438760282913876,
+          "beta_monthly": 0.6113188350857311,
+          "cagr": 17.219155020838794,
+          "calmar": 0.6179432941217531,
+          "cum_return": 217.7730213360598,
+          "diversification_ratio": 1.4663839442699995,
+          "downside_beta": 0.6728500921933608,
+          "downside_capture": 84.54348797637635,
+          "downside_capture_annual": -13.145890524612074,
+          "downside_capture_monthly": 62.808969141953575,
+          "downside_correlation": 0.6945634084012403,
+          "drawdown_recovery_factor": 7.8152138134764435,
+          "end_val": 317773.0213360598,
+          "information_ratio": 0.06621777584843343,
+          "longest_drawdown_bottom_date": "2023-01-05",
+          "longest_drawdown_peak_date": "2022-06-08",
+          "longest_drawdown_recovery_date": "2023-07-13",
+          "m2": 20.630186394246657,
+          "max_drawdown": -27.86526722538737,
+          "max_drawdown_bottom_date": "2020-03-20",
+          "max_drawdown_peak_date": "2020-02-19",
+          "max_drawdown_recovery_date": "2020-09-01",
+          "max_drawdown_years": 1.0951403148528405,
+          "mwrr": 17.219155020838794,
+          "nom_end_val": 317773.0213360598,
+          "sharpe": 0.9093523785989427,
+          "sortino": 1.2191441406477954,
+          "std": 15.909661647124654,
+          "total_contributions": 100000.0,
+          "tracking_error": 12.938321076970096,
+          "ulcer_index": 6.6158238611761355,
+          "upi": 2.187174121869136,
+          "upside_beta": 0.4549905976254105,
+          "upside_capture": 47.57067150784082,
+          "upside_capture_annual": 85.87539756577534,
+          "upside_capture_monthly": 75.93995383024878,
+          "upside_correlation": 0.5486689899706313
+        },
+        "testfol_test": {
+          "cagr": 0.1861480600665033,
+          "max_drawdown": -0.15867168089285222,
+          "observations": 1410
+        }
+      },
+      "rank": 4
+    },
+    {
+      "allocation": {
+        "DBC": 0.2538817140428836,
+        "DBMF": 0.11565926906444528,
+        "GLD": 0.37421634785427516,
+        "SHV": 0.0429235750375288,
+        "UPRO": 0.07085538723981065,
+        "VTV": 0.1424637067610565
+      },
+      "allocation_id": 8,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.2538817140428836,
+          "DBMF": 0.11565926906444528,
+          "GLD": 0.37421634785427516,
+          "SHV": 0.0429235750375288,
+          "UPRO": 0.07085538723981065,
+          "VTV": 0.1424637067610565
+        },
+        "allocation_id": 8,
+        "cagr": 0.17732354005692863,
+        "max_drawdown": -0.1215739003151407,
+        "method": "EMA100:pro_rata:Monthly",
+        "sharpe": 1.224226796169296
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.2538817140428836,
+          "DBMF": 0.11565926906444528,
+          "GLD": 0.37421634785427516,
+          "SHV": 0.0429235750375288,
+          "UPRO": 0.07085538723981065,
+          "VTV": 0.1424637067610565
+        },
+        "allocation_id": 8,
+        "local": {
+          "cagr": 0.17671072295726198,
+          "max_drawdown": -0.1538504578248786,
+          "sharpe": 1.375210286055449
+        },
+        "method": "AbsoluteBand:Yearly:0.05",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 13,
+            "rebalancings_per_year": 1.7911427009294696,
+            "turnover_per_rebalancing": 4.630630226823954,
+            "turnover_per_year": 8.2941195314791
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 0.45841666166381856,
+          "alpha_annualized": 7.3898738609529175,
+          "alpha_daily": 0.02932489627362269,
+          "avg_drawdown": -4.008486319634811,
+          "benchmark_corr": 0.6618439139908067,
+          "benchmark_corr_annual": 0.49528834449324105,
+          "benchmark_corr_monthly": 0.6870139905064163,
+          "beta": 0.4387718988155356,
+          "beta_annual": 0.3164390090685564,
+          "beta_monthly": 0.4784746550132736,
+          "cagr": 16.822296759253106,
+          "calmar": 0.7653919079184204,
+          "cum_return": 210.02649952931483,
+          "diversification_ratio": 1.5226565685662432,
+          "downside_beta": 0.47969107218487717,
+          "downside_capture": 66.05438127666945,
+          "downside_capture_annual": -13.00686476842838,
+          "downside_capture_monthly": 46.79532418927523,
+          "downside_correlation": 0.5746056510491411,
+          "drawdown_recovery_factor": 9.555923634491082,
+          "end_val": 310026.49952931487,
+          "information_ratio": 0.031162989121864344,
+          "longest_drawdown_bottom_date": "2022-09-26",
+          "longest_drawdown_peak_date": "2022-04-18",
+          "longest_drawdown_recovery_date": "2024-02-29",
+          "m2": 23.45788742348814,
+          "max_drawdown": -21.978670776652788,
+          "max_drawdown_bottom_date": "2020-03-20",
+          "max_drawdown_peak_date": "2020-02-21",
+          "max_drawdown_recovery_date": "2020-08-04",
+          "max_drawdown_years": 1.8672142368240932,
+          "mwrr": 16.822296759253106,
+          "nom_end_val": 310026.49952931487,
+          "sharpe": 1.0534531810627763,
+          "sortino": 1.4394061905828877,
+          "std": 13.009191788267286,
+          "total_contributions": 100000.0,
+          "tracking_error": 14.710291746120967,
+          "ulcer_index": 5.170100606042878,
+          "upi": 2.650817549116894,
+          "upside_beta": 0.37636143737034294,
+          "upside_capture": 26.489590335442653,
+          "upside_capture_annual": 83.87246579888287,
+          "upside_capture_monthly": 65.3844147596402,
+          "upside_correlation": 0.5140387738163817
+        },
+        "testfol_test": {
+          "cagr": 0.17759279328253785,
+          "max_drawdown": -0.15383593435012222,
+          "observations": 1410
+        }
+      },
+      "rank": 5
+    },
+    {
+      "allocation": {
+        "DBC": 0.27698672924107515,
+        "DBMF": 0.3907007389506295,
+        "TLT": 0.02818253388641743,
+        "TQQQ": 0.11602339609916272,
+        "TYD": 0.027822449260205787,
+        "VNQ": 0.16028415256250955
+      },
+      "allocation_id": 7,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.27698672924107515,
+          "DBMF": 0.3907007389506295,
+          "TLT": 0.02818253388641743,
+          "TQQQ": 0.11602339609916272,
+          "TYD": 0.027822449260205787,
+          "VNQ": 0.16028415256250955
+        },
+        "allocation_id": 7,
+        "cagr": 0.19167101664314568,
+        "max_drawdown": -0.43115270909610315,
+        "method": "EMA200:replacement:Quarterly",
+        "sharpe": 0.6928709492744882
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.27698672924107515,
+          "DBMF": 0.3907007389506295,
+          "TLT": 0.02818253388641743,
+          "TQQQ": 0.11602339609916272,
+          "TYD": 0.027822449260205787,
+          "VNQ": 0.16028415256250955
+        },
+        "allocation_id": 7,
+        "local": {
+          "cagr": 0.16675507692589386,
+          "max_drawdown": -0.15665143945081017,
+          "sharpe": 1.2093640851564562
+        },
+        "method": "Calendar:Yearly",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 7,
+            "rebalancings_per_year": 0.9644614543466374,
+            "turnover_per_rebalancing": 8.785414606088773,
+            "turnover_per_year": 8.47319374802657
+          }
+        ],
+        "testfol_stats": {
+          "active_return": -0.34214673464474377,
+          "alpha_annualized": 4.95094424098856,
+          "alpha_daily": 0.01964660413090698,
+          "avg_drawdown": -4.801374909134833,
+          "benchmark_corr": 0.7628349954455547,
+          "benchmark_corr_annual": 0.8094304013900138,
+          "benchmark_corr_monthly": 0.7785885937101988,
+          "beta": 0.5788991834520788,
+          "beta_annual": 0.5111462777274427,
+          "beta_monthly": 0.5862623866389692,
+          "cagr": 16.024678550450734,
+          "calmar": 0.6106733961511044,
+          "cum_return": 194.94868067475534,
+          "diversification_ratio": 1.5607711373934643,
+          "downside_beta": 0.6137393068888084,
+          "downside_capture": 84.26222620028099,
+          "downside_capture_annual": 9.380133093139,
+          "downside_capture_monthly": 59.750329500485286,
+          "downside_correlation": 0.691820575999966,
+          "drawdown_recovery_factor": 7.429164493254778,
+          "end_val": 294948.68067475536,
+          "information_ratio": -0.026965348935543407,
+          "longest_drawdown_bottom_date": "2025-04-08",
+          "longest_drawdown_peak_date": "2024-07-10",
+          "longest_drawdown_recovery_date": "2025-09-09",
+          "m2": 20.286390901391158,
+          "max_drawdown": -26.240996662781757,
+          "max_drawdown_bottom_date": "2020-03-18",
+          "max_drawdown_peak_date": "2020-02-19",
+          "max_drawdown_recovery_date": "2020-09-01",
+          "max_drawdown_years": 1.1663244353182751,
+          "mwrr": 16.024678550450734,
+          "nom_end_val": 294948.68067475536,
+          "sharpe": 0.8918324194902476,
+          "sortino": 1.1984727710857621,
+          "std": 14.891533378654056,
+          "total_contributions": 100000.0,
+          "tracking_error": 12.688385211057119,
+          "ulcer_index": 6.0632006779003405,
+          "upi": 2.190736673128482,
+          "upside_beta": 0.41371983178868643,
+          "upside_capture": 45.9224196763608,
+          "upside_capture_annual": 83.09763512050739,
+          "upside_capture_monthly": 70.41950030260544,
+          "upside_correlation": 0.5475136997969624
+        },
+        "testfol_test": {
+          "cagr": 0.16704005514927567,
+          "max_drawdown": -0.15666179450962292,
+          "observations": 1410
+        }
+      },
+      "rank": 6
+    },
+    {
+      "allocation": {
+        "DBC": 0.03421156624752574,
+        "DBMF": 0.0149413885646486,
+        "GLD": 0.566543258495023,
+        "IEF": 0.09445531925717358,
+        "SSO": 0.224310769611666,
+        "VNQ": 0.06553769782396304
+      },
+      "allocation_id": 6,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.03421156624752574,
+          "DBMF": 0.0149413885646486,
+          "GLD": 0.566543258495023,
+          "IEF": 0.09445531925717358,
+          "SSO": 0.224310769611666,
+          "VNQ": 0.06553769782396304
+        },
+        "allocation_id": 6,
+        "cagr": 0.17488601391379532,
+        "max_drawdown": -0.21156245333829937,
+        "method": "EMA100:pro_rata:Yearly",
+        "sharpe": 1.090298841340911
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.03421156624752574,
+          "DBMF": 0.0149413885646486,
+          "GLD": 0.566543258495023,
+          "IEF": 0.09445531925717358,
+          "SSO": 0.224310769611666,
+          "VNQ": 0.06553769782396304
+        },
+        "allocation_id": 6,
+        "local": {
+          "cagr": 0.16669968198833263,
+          "max_drawdown": -0.20260945029089428,
+          "sharpe": 1.133523109505807
+        },
+        "method": "AbsoluteBand:Yearly:0.2",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 7,
+            "rebalancings_per_year": 0.9644614543466374,
+            "turnover_per_rebalancing": 5.9496214697215795,
+            "turnover_per_year": 5.738180575499654
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 1.527083996605616,
+          "alpha_annualized": 7.607695358848871,
+          "alpha_daily": 0.03018926729701933,
+          "avg_drawdown": -4.571379896034233,
+          "benchmark_corr": 0.6636424493291047,
+          "benchmark_corr_annual": 0.7002946539871262,
+          "benchmark_corr_monthly": 0.700467744139077,
+          "beta": 0.5058186679593456,
+          "beta_annual": 0.7105999070285252,
+          "beta_monthly": 0.5913276008583973,
+          "cagr": 17.887005413014645,
+          "calmar": 0.8538349389574686,
+          "cum_return": 231.18635575838448,
+          "diversification_ratio": 1.470793494599023,
+          "downside_beta": 0.48431886466855617,
+          "downside_capture": 75.63295086864521,
+          "downside_capture_annual": 62.716084051235356,
+          "downside_capture_monthly": 58.34177448343312,
+          "downside_correlation": 0.5284968167748682,
+          "drawdown_recovery_factor": 11.035664349558177,
+          "end_val": 331186.35575838445,
+          "information_ratio": 0.10314050950362627,
+          "longest_drawdown_bottom_date": "2022-10-20",
+          "longest_drawdown_peak_date": "2022-03-08",
+          "longest_drawdown_recovery_date": "2023-12-01",
+          "m2": 22.321545715171503,
+          "max_drawdown": -20.949020234349575,
+          "max_drawdown_bottom_date": "2020-03-20",
+          "max_drawdown_peak_date": "2020-02-21",
+          "max_drawdown_recovery_date": "2020-07-08",
+          "max_drawdown_years": 1.73305954825462,
+          "mwrr": 17.887005413014645,
+          "nom_end_val": 331186.35575838445,
+          "sharpe": 0.9955447422468542,
+          "sortino": 1.3879980964879166,
+          "std": 14.95642462571111,
+          "total_contributions": 100000.0,
+          "tracking_error": 14.80586050965674,
+          "ulcer_index": 5.911736672681006,
+          "upi": 2.518346279817984,
+          "upside_beta": 0.4540848265790829,
+          "upside_capture": 35.765379670021076,
+          "upside_capture_annual": 101.29534922471161,
+          "upside_capture_monthly": 75.24806365394461,
+          "upside_correlation": 0.5291918503761466
+        },
+        "testfol_test": {
+          "cagr": 0.16488438436431907,
+          "max_drawdown": -0.20259506345362344,
+          "observations": 1410
+        }
+      },
+      "rank": 7
+    },
+    {
+      "allocation": {
+        "DBC": 0.16088980587224216,
+        "GLD": 0.4560211261393144,
+        "TMF": 0.138350177401692,
+        "TQQQ": 0.15050398163748502,
+        "VTI": 0.09423490894926637
+      },
+      "allocation_id": 3,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.16088980587224216,
+          "GLD": 0.4560211261393144,
+          "TMF": 0.138350177401692,
+          "TQQQ": 0.15050398163748502,
+          "VTI": 0.09423490894926637
+        },
+        "allocation_id": 3,
+        "cagr": 0.1724189482096492,
+        "max_drawdown": -0.21700225850033228,
+        "method": "EMA100:pro_rata:Yearly",
+        "sharpe": 1.022034025723817
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.16088980587224216,
+          "GLD": 0.4560211261393144,
+          "TMF": 0.138350177401692,
+          "TQQQ": 0.15050398163748502,
+          "VTI": 0.09423490894926637
+        },
+        "allocation_id": 3,
+        "local": {
+          "cagr": 0.15920149507381343,
+          "max_drawdown": -0.27420944249682344,
+          "sharpe": 0.9233418865638158
+        },
+        "method": "AbsoluteBand:Yearly:0.2",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 16,
+            "rebalancings_per_year": 0.9708644353479412,
+            "turnover_per_rebalancing": 10.390443808092506,
+            "turnover_per_year": 10.087712360758243
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 0.8214590752092743,
+          "alpha_annualized": 7.351471014541256,
+          "alpha_daily": 0.029172504025957367,
+          "avg_drawdown": -5.6636218954780935,
+          "benchmark_corr": 0.5521011225251726,
+          "benchmark_corr_annual": 0.729598597334211,
+          "benchmark_corr_monthly": 0.645899752409817,
+          "beta": 0.49981607445541065,
+          "beta_annual": 0.9110227705056628,
+          "beta_monthly": 0.6658492706095352,
+          "cagr": 15.595099103791954,
+          "calmar": 0.5620054246014307,
+          "cum_return": 994.5972475826453,
+          "diversification_ratio": 1.7693432726322877,
+          "downside_beta": 0.42976182769099597,
+          "downside_capture": 77.74769250113445,
+          "downside_capture_annual": 126.87208395427977,
+          "downside_capture_monthly": 62.74980425066165,
+          "downside_correlation": 0.39674307735187936,
+          "drawdown_recovery_factor": 35.842609573361756,
+          "end_val": 1094597.2475826454,
+          "information_ratio": 0.05310216533356312,
+          "longest_drawdown_bottom_date": "2022-10-20",
+          "longest_drawdown_peak_date": "2021-11-19",
+          "longest_drawdown_recovery_date": "2023-07-18",
+          "m2": 17.229687884108063,
+          "max_drawdown": -27.749018819261153,
+          "max_drawdown_bottom_date": "2022-10-20",
+          "max_drawdown_peak_date": "2021-11-19",
+          "max_drawdown_recovery_date": "2023-07-18",
+          "max_drawdown_years": 1.6591375770020533,
+          "mwrr": 15.595099103791954,
+          "nom_end_val": 1094597.2475826454,
+          "sharpe": 0.9213676247212744,
+          "sortino": 1.2975427934334909,
+          "std": 15.465937808357575,
+          "total_contributions": 100000.0,
+          "tracking_error": 15.469408263283619,
+          "ulcer_index": 7.244041726398778,
+          "upi": 1.9669423691630716,
+          "upside_beta": 0.40372650942829824,
+          "upside_capture": 43.46625834451657,
+          "upside_capture_annual": 108.19052331033228,
+          "upside_capture_monthly": 78.34442787775295,
+          "upside_correlation": 0.37136626627504005
+        },
+        "testfol_test": {
+          "cagr": 0.15795817009160973,
+          "max_drawdown": -0.2774901982086313,
+          "observations": 1410
+        }
+      },
+      "rank": 8
+    },
+    {
+      "allocation": {
+        "DBC": 0.22617150485316698,
+        "EDV": 0.16179177566290157,
+        "GLD": 0.4265115882193115,
+        "SSO": 0.18552513126461995
+      },
+      "allocation_id": 10,
+      "best_local": {
+        "allocation": {
+          "DBC": 0.22617150485316698,
+          "EDV": 0.16179177566290157,
+          "GLD": 0.4265115882193115,
+          "SSO": 0.18552513126461995
+        },
+        "allocation_id": 10,
+        "cagr": 0.14829103271159894,
+        "max_drawdown": -0.21228797474551298,
+        "method": "Calendar:None",
+        "sharpe": 1.0201481984375593
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBC": 0.22617150485316698,
+          "EDV": 0.16179177566290157,
+          "GLD": 0.4265115882193115,
+          "SSO": 0.18552513126461995
+        },
+        "allocation_id": 10,
+        "local": {
+          "cagr": 0.14829103271159894,
+          "max_drawdown": -0.21228797474551298,
+          "sharpe": 1.0201481984375593
+        },
+        "method": "Calendar:None",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 0,
+            "rebalancings_per_year": 0.0,
+            "turnover_per_rebalancing": "NaN",
+            "turnover_per_year": 0.0
+          }
+        ],
+        "testfol_stats": {
+          "active_return": -1.8103362007552803,
+          "alpha_annualized": 4.251965000941544,
+          "alpha_daily": 0.01687287698786327,
+          "avg_drawdown": -8.817104835372994,
+          "benchmark_corr": 0.538565524352422,
+          "benchmark_corr_annual": 0.5961334040330931,
+          "benchmark_corr_monthly": 0.6071377129610264,
+          "beta": 0.4061314294428061,
+          "beta_annual": 0.5570876004600446,
+          "beta_monthly": 0.5667965747372603,
+          "cagr": 9.546307918766095,
+          "calmar": 0.3025756004061946,
+          "cum_return": 449.02428698475126,
+          "diversification_ratio": 1.5401651200052724,
+          "downside_beta": 0.36208005989544984,
+          "downside_capture": 71.9853932916497,
+          "downside_capture_annual": 58.22560757148585,
+          "downside_capture_monthly": 55.68532931547608,
+          "downside_correlation": 0.4003095078290837,
+          "drawdown_recovery_factor": 14.232077404950873,
+          "end_val": 549024.2869847512,
+          "information_ratio": -0.10532423939146371,
+          "longest_drawdown_bottom_date": "2016-01-19",
+          "longest_drawdown_peak_date": "2012-10-04",
+          "longest_drawdown_recovery_date": "2017-08-31",
+          "m2": 13.152347037000258,
+          "max_drawdown": -31.55015773231745,
+          "max_drawdown_bottom_date": "2008-11-12",
+          "max_drawdown_peak_date": "2008-07-14",
+          "max_drawdown_recovery_date": "2010-09-21",
+          "max_drawdown_years": 4.906228610540725,
+          "mwrr": 9.546307918766095,
+          "nom_end_val": 549024.2869847512,
+          "sharpe": 0.5943682068715614,
+          "sortino": 0.831670839874909,
+          "std": 14.903309818956481,
+          "total_contributions": 100000.0,
+          "tracking_error": 17.188220026225075,
+          "ulcer_index": 10.86027775566126,
+          "upi": 0.8155050508423517,
+          "upside_beta": 0.3333901790473161,
+          "upside_capture": 28.690901825240605,
+          "upside_capture_annual": 75.70238197321132,
+          "upside_capture_monthly": 58.75493473231527,
+          "upside_correlation": 0.37915535732597583
+        },
+        "testfol_test": {
+          "cagr": 0.15323878999995388,
+          "max_drawdown": -0.30519661374228646,
+          "observations": 1410
+        }
+      },
+      "rank": 9
+    },
+    {
+      "allocation": {
+        "DBMF": 0.29325397580511375,
+        "GLD": 0.2938733871898669,
+        "QQQ": 0.28156583337267715,
+        "TQQQ": 0.008654631011318564,
+        "VNQ": 0.1226521726210238
+      },
+      "allocation_id": 4,
+      "best_local": {
+        "allocation": {
+          "DBMF": 0.29325397580511375,
+          "GLD": 0.2938733871898669,
+          "QQQ": 0.28156583337267715,
+          "TQQQ": 0.008654631011318564,
+          "VNQ": 0.1226521726210238
+        },
+        "allocation_id": 4,
+        "cagr": 0.19493985710828343,
+        "max_drawdown": -0.19209514099718183,
+        "method": "EMA100:replacement:Monthly",
+        "sharpe": 1.160419467193712
+      },
+      "best_testfol": {
+        "allocation": {
+          "DBMF": 0.29325397580511375,
+          "GLD": 0.2938733871898669,
+          "QQQ": 0.28156583337267715,
+          "TQQQ": 0.008654631011318564,
+          "VNQ": 0.1226521726210238
+        },
+        "allocation_id": 4,
+        "local": {
+          "cagr": 0.1517362561560418,
+          "max_drawdown": -0.11174306826221714,
+          "sharpe": 1.2919222623179891
+        },
+        "method": "AbsoluteBand:Yearly:0.2",
+        "testfol_errors": [],
+        "testfol_rebalancing_stats": [
+          {
+            "rebalancings": 7,
+            "rebalancings_per_year": 0.9644614543466374,
+            "turnover_per_rebalancing": 6.765028086967047,
+            "turnover_per_year": 6.52460882745209
+          }
+        ],
+        "testfol_stats": {
+          "active_return": 0.3185054103944651,
+          "alpha_annualized": 6.445293866361006,
+          "alpha_daily": 0.025576562961750024,
+          "avg_drawdown": -3.16643767825875,
+          "benchmark_corr": 0.7727794122297967,
+          "benchmark_corr_annual": 0.8131686959300433,
+          "benchmark_corr_monthly": 0.7438417251819515,
+          "beta": 0.4912463974925691,
+          "beta_annual": 0.5739081380692374,
+          "beta_monthly": 0.45491127620058125,
+          "cagr": 16.68290148804461,
+          "calmar": 0.9256938616034369,
+          "cum_return": 207.3444933149271,
+          "diversification_ratio": 1.535284862386384,
+          "downside_beta": 0.4757540559818223,
+          "downside_capture": 75.37024838753621,
+          "downside_capture_annual": 38.620678484243776,
+          "downside_capture_monthly": 36.81944223065258,
+          "downside_correlation": 0.657462358850817,
+          "drawdown_recovery_factor": 11.505044541349728,
+          "end_val": 307344.4933149271,
+          "information_ratio": 0.024997482727656395,
+          "longest_drawdown_bottom_date": "2022-12-19",
+          "longest_drawdown_peak_date": "2022-04-19",
+          "longest_drawdown_recovery_date": "2023-06-13",
+          "m2": 24.048025470635338,
+          "max_drawdown": -18.022050464013436,
+          "max_drawdown_bottom_date": "2020-03-20",
+          "max_drawdown_peak_date": "2020-02-20",
+          "max_drawdown_recovery_date": "2020-07-02",
+          "max_drawdown_years": 1.1498973305954825,
+          "mwrr": 16.68290148804461,
+          "nom_end_val": 307344.4933149271,
+          "sharpe": 1.083526857621561,
+          "sortino": 1.5032952662990333,
+          "std": 12.474148955415565,
+          "total_contributions": 100000.0,
+          "tracking_error": 12.741499368737683,
+          "ulcer_index": 3.9636144358461047,
+          "upi": 3.409934095586982,
+          "upside_beta": 0.42141664937156387,
+          "upside_capture": 34.5338137663102,
+          "upside_capture_annual": 91.03768595643602,
+          "upside_capture_monthly": 59.68218816922227,
+          "upside_correlation": 0.6333116416607297
+        },
+        "testfol_test": {
+          "cagr": 0.15133850820294903,
+          "max_drawdown": -0.11176141815896967,
+          "observations": 1410
+        }
+      },
+      "rank": 10
+    }
+  ],
+  "methods_tested_per_allocation": 40
+}
