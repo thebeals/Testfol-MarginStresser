@@ -105,10 +105,11 @@ def _dca_metrics(returns: pd.Series) -> dict[str, float | int]:
 
 def _recovery_metrics(returns: pd.Series) -> dict[str, object]:
     wealth = (1.0 + returns.dropna()).cumprod()
-    peak_date = wealth.idxmax()
     drawdown = wealth / wealth.cummax() - 1.0
     bottom_date = drawdown.idxmin()
-    peak_value = wealth.loc[:bottom_date].max()
+    peak_series = wealth.loc[:bottom_date]
+    peak_value = peak_series.max()
+    peak_date = peak_series.idxmax()
     recovery = wealth.loc[bottom_date:][wealth.loc[bottom_date:] >= peak_value]
     return {
         "max_drawdown": float(drawdown.min()),
@@ -167,7 +168,9 @@ def build_report(prices: pd.DataFrame, benchmark_prices: pd.DataFrame, matrix: l
         allocation = {ticker: float(weight) for ticker, weight in row["allocation"].items()}
         portfolio_returns = _method_returns(prices, allocation, row["method"])
         full_returns = portfolio_returns.loc[START:END].dropna()
-        test_returns = full_returns.loc[TEST_START:]
+        # Reinitialize each strategy at the locked test start so EMA state and
+        # warm-up behavior match the matrix that selected this candidate.
+        test_returns = _method_returns(prices.loc[TEST_START:END], allocation, row["method"]).dropna()
         full = _metrics(full_returns)
         test = _metrics(test_returns)
         recovery = _recovery_metrics(test_returns)
