@@ -20,6 +20,7 @@ RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.
 EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.json"
 OVERLAY_PATH = Path(__file__).parents[2] / "data" / "expert-overlay-paths.json"
 EMA_EXIT_PATH = Path(__file__).parents[2] / "data" / "expert-ema-exit-rotation-results.json"
+DOWNSIDE_IDEAS_PATH = Path(__file__).parents[2] / "data" / "expert-20-downside-ideas-results.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -133,6 +134,23 @@ def _ema_exit_rows(results: list[dict[str, object]]) -> list[dict[str, object]]:
     return rows
 
 
+def _downside_idea_rows(results: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [
+        {
+            "Rank": index,
+            "Idea": row["idea"],
+            "Variant": row["variant"],
+            "Portfolio": row["expert_rank"],
+            "Parameters": ", ".join(str(value) for value in row["parameters"]),
+            "CAGR Change": f"{row['cagr_delta']:+.2%}",
+            "DD Improvement": f"{row['dd_delta']:+.2%}",
+            "Protected CAGR": f"{row['protected']['cagr']:.2%}",
+            "Protected DD": f"{row['protected']['max_drawdown']:.2%}",
+        }
+        for index, row in enumerate(results[:20], start=1)
+    ]
+
+
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
@@ -150,6 +168,7 @@ def render_screened_results(
         expert = json.loads(EXPERT_PATH.read_text(encoding="utf-8"))
         overlay_paths = json.loads(OVERLAY_PATH.read_text(encoding="utf-8"))
         ema_exit = json.loads(EMA_EXIT_PATH.read_text(encoding="utf-8"))
+        downside_ideas = json.loads(DOWNSIDE_IDEAS_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -281,6 +300,15 @@ def render_screened_results(
         "DD Improvement is a percentage-point reduction in drawdown; positive is better."
     )
     st.dataframe(pd.DataFrame(_ema_exit_rows(ema_exit["all"])), use_container_width=True, hide_index=True)
+
+    st.subheader("20 Downside Ideas x 10 Variants")
+    st.caption(
+        f"{downside_ideas['tested']} deterministic tests across the expert top 10. Every variant includes a portfolio catastrophe brake: "
+        "cash after a 20% portfolio drawdown or 15% five-session loss, with a ten-session recovery wait. Showing the top 20 that also improved drawdown without sacrificing more than 1 CAGR point."
+    )
+    with st.expander("All 20 idea definitions"):
+        st.markdown("\n".join(f"{index}. **{idea['name']}:** {idea['description']}" for index, idea in enumerate(downside_ideas["ideas"], 1)))
+    st.dataframe(pd.DataFrame(_downside_idea_rows(downside_ideas["robust"])), use_container_width=True, hide_index=True)
 
     st.subheader("Original vs Protected Performance")
     st.caption(
