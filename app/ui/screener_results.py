@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 from screener.results import load_screened_results
@@ -17,6 +18,8 @@ REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
 MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jsonl"
 RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.json"
 EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.json"
+PROTECTION_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-protection.json"
+OVERLAY_PATH = Path(__file__).parents[2] / "data" / "expert-overlay-paths.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -121,6 +124,8 @@ def render_screened_results(
         matrix = _load_matrix(MATRIX_PATH)
         research = json.loads(RESEARCH_PATH.read_text(encoding="utf-8"))
         expert = json.loads(EXPERT_PATH.read_text(encoding="utf-8"))
+        protection = json.loads(PROTECTION_PATH.read_text(encoding="utf-8"))
+        overlay_paths = json.loads(OVERLAY_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -245,6 +250,57 @@ def render_screened_results(
         for item in selected_expert["rationale"]["what_can_go_wrong"]:
             st.markdown(f"- {item}")
         st.markdown(f"**Black-swan caveat:** {selected_expert['rationale']['black_swan_note']}")
+
+    st.subheader("Original vs Protected Performance")
+    st.caption(
+        "Protection rule: sell fully to SHV after any allocated component falls 12.5% in a day; "
+        "wait 20 trading sessions; re-enter at the next monthly check only when the portfolio is above EMA100."
+    )
+    protection_by_rank = {row["expert_rank"]: row for row in protection["candidates"]}
+    comparison_rows = []
+    for path in overlay_paths["paths"]:
+        baseline = protection_by_rank[path["expert_rank"]]["baseline"]["test"]
+        protected = protection_by_rank[path["expert_rank"]]["crash10_cash"]["test"]
+        comparison_rows.append(
+            {
+                "Rank": path["expert_rank"],
+                "Method": path["method"],
+                "Original CAGR": f"{baseline['cagr']:.2%}",
+                "Protected CAGR": f"{protected['cagr']:.2%}",
+                "CAGR Change": f"{protected['cagr'] - baseline['cagr']:+.2%}",
+                "Original DD": f"{baseline['max_drawdown']:.2%}",
+                "Protected DD": f"{protected['max_drawdown']:.2%}",
+                "DD Improvement": f"{protected['max_drawdown'] - baseline['max_drawdown']:+.2%}",
+                "Protected Sharpe": f"{protected['sharpe']:.2f}",
+            }
+        )
+    st.dataframe(pd.DataFrame(comparison_rows), use_container_width=True, hide_index=True)
+    st.caption(f"Preferred grid configuration: `{json.dumps(overlay_paths['preferred_config'], sort_keys=True)}`")
+    chart_mode = st.radio("Chart series", ["Original", "Protected"], horizontal=True, key="expert_chart_mode")
+    fig = go.Figure()
+    series_key = chart_mode.lower()
+    for path in overlay_paths["paths"]:
+        fig.add_trace(
+            go.Scatter(
+                x=path["dates"],
+                y=path[series_key],
+                mode="lines",
+                name=f"#{path['expert_rank']} {path['method']}",
+                line={"width": 1},
+                opacity=0.65,
+            )
+        )
+    first = overlay_paths["paths"][0]
+    fig.add_trace(go.Scatter(x=first["dates"], y=first["SPY"], mode="lines", name="SPY", line={"width": 3, "color": "black"}))
+    fig.update_layout(title=f"Expert Top 10: {chart_mode} vs SPY", yaxis={"type": "log", "title": "Growth of $100 (log scale)"}, xaxis_title="Date", hovermode="x unified", height=650)
+    st.plotly_chart(fig, use_container_width=True)
+    selected_overlay_rank = st.selectbox("Detailed overlay comparison", [path["expert_rank"] for path in overlay_paths["paths"]], key="overlay_detail_rank")
+    detail = next(path for path in overlay_paths["paths"] if path["expert_rank"] == selected_overlay_rank)
+    detail_fig = go.Figure()
+    for key, label, color in (("original", "Original", "#888888"), ("protected", "Protected", "#1f77b4"), ("SPY", "SPY", "#111111")):
+        detail_fig.add_trace(go.Scatter(x=detail["dates"], y=detail[key], mode="lines", name=label, line={"color": color, "width": 3 if key != "original" else 2}))
+    detail_fig.update_layout(title=f"#{detail['expert_rank']} {detail['method']}: Original vs Protected vs SPY", yaxis={"type": "log", "title": "Growth of $100 (log scale)"}, xaxis_title="Date", hovermode="x unified", height=500)
+    st.plotly_chart(detail_fig, use_container_width=True)
 
     st.subheader("Full Rebalance Matrix")
     st.caption(
