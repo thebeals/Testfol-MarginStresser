@@ -21,15 +21,24 @@ from screener.live_verify import verify_sequential
 TEST_START = pd.Timestamp("2021-01-01")
 
 
+def _period_key(timestamp: pd.Timestamp, frequency: str) -> tuple[int, ...]:
+    if frequency == "Monthly":
+        return timestamp.year, timestamp.month
+    if frequency == "Quarterly":
+        return timestamp.year, timestamp.quarter
+    return (timestamp.year,)
+
+
 def _parse_method(method: str) -> tuple[str, str, float]:
     mode, frequency, band = method.split(":")
     return mode.removesuffix("Band").lower(), frequency, float(band)
 
 
-def _local_event_dates(prices: pd.DataFrame, allocation: dict[str, float], mode: str, band: float) -> list[str]:
+def _local_event_dates(prices: pd.DataFrame, allocation: dict[str, float], mode: str, frequency: str, band: float) -> list[str]:
     values = {ticker: 100.0 * weight for ticker, weight in allocation.items()}
     returns = prices.loc[:, list(allocation)].pct_change().fillna(0.0)
     events: list[str] = []
+    prior_period = None
     for timestamp, daily in returns.iterrows():
         for ticker in values:
             values[ticker] *= 1.0 + float(daily[ticker])
@@ -39,9 +48,13 @@ def _local_event_dates(prices: pd.DataFrame, allocation: dict[str, float], mode:
             abs(weights[ticker] - target) > (band * target if mode == "relative" else band)
             for ticker, target in allocation.items()
         )
-        if breached:
-            events.append(timestamp.date().isoformat())
+        period = _period_key(timestamp, frequency)
+        scheduled = prior_period is not None and period != prior_period
+        if breached or scheduled:
+            event_timestamp = returns.index[returns.index.get_loc(timestamp) - 1] if scheduled else timestamp
+            events.append(event_timestamp.date().isoformat())
             values = {ticker: total * target for ticker, target in allocation.items()}
+        prior_period = period
     return events
 
 
@@ -61,7 +74,7 @@ def compare(prices: pd.DataFrame, candidates: list[dict[str, object]], start: st
         mode, frequency, band = _parse_method(candidate["method"])
         allocation = {ticker: float(weight) * 100.0 for ticker, weight in candidate["allocation"].items()}
         allocation[next(reversed(allocation))] += 100.0 - sum(allocation.values())
-        local_dates = _local_event_dates(local_prices, candidate["allocation"], mode, band)
+        local_dates = _local_event_dates(local_prices, candidate["allocation"], mode, frequency, band)
         try:
             kwargs = {"absolute_dev": band * 100.0 if mode == "absolute" else 0.0, "relative_dev": band * 100.0 if mode == "relative" else 0.0}
             raw = fetch_backtest(start, end, 100000, 0, "Monthly", 60, True, frequency, allocation, return_raw=True, **kwargs)
