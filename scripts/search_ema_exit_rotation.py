@@ -60,7 +60,6 @@ def _simulate(prices: pd.DataFrame, allocation: dict[str, float], strategy: str,
         before = sum(positions.values()) + cash
         for ticker in tickers:
             positions[ticker] *= 1.0 + float(returns.loc[timestamp, ticker])
-        total = sum(positions.values()) + cash
         if index > 0:
             sold = [ticker for ticker in tickers if bool(sells.loc[timestamp, ticker]) and positions[ticker] > 0]
             proceeds = sum(positions[ticker] for ticker in sold)
