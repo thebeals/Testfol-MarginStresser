@@ -15,6 +15,7 @@ RESULTS_PATH = Path(__file__).parents[2] / "data" / "screener-results.json"
 BENCHMARK_PATH = Path(__file__).parents[2] / "data" / "screener-benchmark.json"
 REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
 MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jsonl"
+RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -67,6 +68,25 @@ def _matrix_rows(matrix: list[dict[str, object]]) -> list[dict[str, object]]:
     ]
 
 
+def _research_rows(candidates: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [
+        {
+            "Rank": row["rank"],
+            "Allocation": row["allocation_label"],
+            "Method": row["method"],
+            "Test CAGR": f"{row['local_test']['cagr']:.2%}",
+            "Test Max DD": f"{row['local_test']['max_drawdown']:.2%}",
+            "Sharpe": f"{row['local_test']['sharpe']:.2f}",
+            "Recovery Days": row["recovery"]["recovery_days"] or "Not recovered",
+            "3Y vs SPY": f"{row['rolling_3y_vs_spy']['beat_rate']:.1%}",
+            "3Y vs VT": f"{row['rolling_3y_vs_vt']['beat_rate']:.1%}",
+            "DCA Worst vs Contributions": f"{row['dca']['worst_value_vs_contributions']:.1%}",
+            "Exact Testfol Method": "Yes" if row["testfol_validated"] else "No",
+        }
+        for row in candidates
+    ]
+
+
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
@@ -80,6 +100,7 @@ def render_screened_results(
         benchmark = json.loads(Path(benchmark_path).read_text(encoding="utf-8"))
         rebalance_ranking = json.loads(Path(rebalance_path).read_text(encoding="utf-8"))
         matrix = _load_matrix(MATRIX_PATH)
+        research = json.loads(RESEARCH_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -122,6 +143,61 @@ def render_screened_results(
             }
         )
     st.dataframe(pd.DataFrame(rebalance_rows), use_container_width=True, hide_index=True)
+
+    st.subheader("Distinct Top-25 Research Set")
+    st.caption(research["selection_rule"])
+    summary = research["summary"]
+    research_metrics = st.columns(5)
+    research_metrics[0].metric("Candidates", summary["candidate_count"])
+    research_metrics[1].metric("Median Test CAGR", f"{summary['median_test_cagr']:.1%}")
+    research_metrics[2].metric("Median Max DD", f"{summary['median_test_drawdown']:.1%}")
+    research_metrics[3].metric("3Y Windows > SPY", f"{summary['median_spy_rolling_3y_beat_rate']:.1%}")
+    research_metrics[4].metric("3Y Windows > VT", f"{summary['median_vt_rolling_3y_beat_rate']:.1%}")
+    st.dataframe(pd.DataFrame(_research_rows(research["candidates"])), use_container_width=True, hide_index=True)
+
+    st.warning(
+        "This is historical evidence, not a forecast. The selected set did not beat SPY in every rolling period, "
+        "and no diversification rule prevents a prolonged or permanent loss."
+    )
+    research_labels = [f"#{row['rank']} | {row['method']} | {row['allocation_label']}" for row in research["candidates"]]
+    research_choice = st.selectbox("Research candidate", research_labels, key="research_candidate")
+    selected_research = research["candidates"][research_labels.index(research_choice)]
+    rc = st.columns(5)
+    rc[0].metric("Test CAGR", f"{selected_research['local_test']['cagr']:.1%}")
+    rc[1].metric("Test Max DD", f"{selected_research['local_test']['max_drawdown']:.1%}")
+    rc[2].metric("Worst 3M", f"{selected_research['recovery']['worst_rolling_3m']:.1%}")
+    rc[3].metric("Recovery", f"{selected_research['recovery']['recovery_days']} days" if selected_research["recovery"]["recovery_days"] else "Not recovered")
+    rc[4].metric("DCA Worst", f"{selected_research['dca']['worst_value_vs_contributions']:.1%}")
+    with st.expander("Why it worked: asset contribution and market regimes"):
+        contribution_rows = [
+            {"Ticker": ticker, "Target Weight": values["weight"], "Asset CAGR": values["asset_cagr"], "Weighted CAGR Contribution": values["weighted_cagr"]}
+            for ticker, values in selected_research["asset_contribution"].items()
+        ]
+        st.dataframe(pd.DataFrame(contribution_rows), use_container_width=True, hide_index=True)
+        regime_rows = []
+        for regime, values in selected_research["regimes"].items():
+            regime_rows.append(
+                {
+                    "Regime": regime,
+                    "Portfolio Return": values["portfolio"].get("total_return"),
+                    "Portfolio Max DD": values["portfolio"].get("max_drawdown"),
+                    "SPY Return": values["SPY"].get("total_return"),
+                    "VT Return": values["VT"].get("total_return"),
+                }
+            )
+        st.dataframe(pd.DataFrame(regime_rows), use_container_width=True, hide_index=True)
+    with st.expander("Protection, failure modes, and confidence"):
+        st.markdown(
+            f"""
+            **Protection:** {research['interpretation']['protection']}
+
+            **Failure behavior:** The selected candidate's worst observed test drawdown was **{selected_research['local_test']['max_drawdown']:.1%}**, its worst rolling three-month result was **{selected_research['recovery']['worst_rolling_3m']:.1%}**, and its longest recovery status is **{selected_research['recovery']['recovery_days'] or 'not recovered in the sample'} days**. These are historical observations, not limits.
+
+            **DCA risk:** {research['interpretation']['dca']} In this simulation, the worst value relative to cumulative contributions was **{selected_research['dca']['worst_value_vs_contributions']:.1%}**.
+
+            **Confidence:** {research['interpretation']['confidence']} This candidate beat SPY in **{selected_research['rolling_3y_vs_spy']['beat_rate']:.1%}** of rolling three-year windows and VT in **{selected_research['rolling_3y_vs_vt']['beat_rate']:.1%}**.
+            """
+        )
 
     st.subheader("Full Rebalance Matrix")
     st.caption(
