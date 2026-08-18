@@ -150,6 +150,10 @@ def _regime_metrics(returns: pd.Series, spy: pd.Series, vt: pd.Series) -> dict[s
 def _select_top25(matrix: list[dict[str, object]]) -> list[dict[str, object]]:
     representatives: dict[tuple[int, str], dict[str, object]] = {}
     for row in matrix:
+        # Apply the same 20% test-window drawdown gate to each method, not
+        # only to the allocation's original default rebalance configuration.
+        if float(row["max_drawdown"]) < -0.20:
+            continue
         fields = _method_fields(row["method"])
         key = (int(row["allocation_id"]), str(fields["family"]))
         current = representatives.get(key)
@@ -203,7 +207,7 @@ def build_report(prices: pd.DataFrame, benchmark_prices: pd.DataFrame, matrix: l
         )
     valid = [row for row in candidates if row["testfol_validated"]]
     return {
-        "selection_rule": "Top 25 by local CAGR after selecting one best method per allocation x method family. Absolute band thresholds are collapsed; AbsoluteBand, RelativeBand, EMA100, EMA200, and Calendar remain distinct families.",
+        "selection_rule": "Top 25 by local CAGR after applying a 20% test-window max-drawdown gate and selecting one best method per allocation x method family. Absolute band thresholds are collapsed; AbsoluteBand, RelativeBand, EMA100, EMA200, and Calendar remain distinct families.",
         "period": {"start": START.date().isoformat(), "end": END.date().isoformat(), "test_start": TEST_START.date().isoformat()},
         "benchmarks": {"SPY": "SPDR S&P 500 ETF", "VT": "Vanguard Total World Stock ETF"},
         "dca_assumptions": {"monthly_contribution": MONTHLY_CONTRIBUTION, "margin": False, "taxes": False},
