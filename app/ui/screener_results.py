@@ -18,7 +18,6 @@ REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
 MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jsonl"
 RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.json"
 EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.json"
-PROTECTION_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-protection.json"
 OVERLAY_PATH = Path(__file__).parents[2] / "data" / "expert-overlay-paths.json"
 
 
@@ -124,7 +123,6 @@ def render_screened_results(
         matrix = _load_matrix(MATRIX_PATH)
         research = json.loads(RESEARCH_PATH.read_text(encoding="utf-8"))
         expert = json.loads(EXPERT_PATH.read_text(encoding="utf-8"))
-        protection = json.loads(PROTECTION_PATH.read_text(encoding="utf-8"))
         overlay_paths = json.loads(OVERLAY_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
@@ -256,11 +254,22 @@ def render_screened_results(
         "Protection rule: sell fully to SHV after any allocated component falls 12.5% in a day; "
         "wait 20 trading sessions; re-enter at the next monthly check only when the portfolio is above EMA100."
     )
-    protection_by_rank = {row["expert_rank"]: row for row in protection["candidates"]}
+    st.caption("CAGR Change is a percentage-point change in CAGR. DD Improvement is a percentage-point reduction in drawdown; they are not the same metric.")
+    overlay_options = {
+        f"#{path['expert_rank']} | {path['method']} | {path['allocation_label']}": path["expert_rank"]
+        for path in overlay_paths["paths"]
+    }
+    selected_overlay_labels = st.multiselect(
+        "Portfolios visible in the chart",
+        options=list(overlay_options),
+        default=list(overlay_options),
+        key="overlay_portfolios",
+    )
+    selected_overlay_ranks = {overlay_options[label] for label in selected_overlay_labels}
     comparison_rows = []
     for path in overlay_paths["paths"]:
-        baseline = protection_by_rank[path["expert_rank"]]["baseline"]["test"]
-        protected = protection_by_rank[path["expert_rank"]]["crash10_cash"]["test"]
+        baseline = path["baseline_metrics"]
+        protected = path["protected_metrics"]
         comparison_rows.append(
             {
                 "Rank": path["expert_rank"],
@@ -280,6 +289,8 @@ def render_screened_results(
     fig = go.Figure()
     series_key = chart_mode.lower()
     for path in overlay_paths["paths"]:
+        if path["expert_rank"] not in selected_overlay_ranks:
+            continue
         fig.add_trace(
             go.Scatter(
                 x=path["dates"],

@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).parents[1]))
 
 from app.services.data_service import get_fed_funds_rate
 from screener.hybrid_data import extend_hybrid_prices
-from scripts.build_rebalance_research import _method_returns
+from scripts.build_rebalance_research import _metrics, _method_returns
 from scripts.search_expert_protection_grid import _overlay
 
 
@@ -45,7 +45,7 @@ def main() -> None:
         protected = _overlay(base, assets, cash, preferred)
         joined = pd.concat([base.rename("original"), protected.rename("protected"), spy.rename("SPY")], axis=1).dropna()
         wealth = (1.0 + joined).cumprod() * 100.0
-        paths.append({"expert_rank": row["expert_rank"], "allocation_id": row["allocation_id"], "method": row["method"], "allocation_label": row["allocation_label"], "dates": [date.date().isoformat() for date in wealth.index], "original": wealth["original"].round(8).tolist(), "protected": wealth["protected"].round(8).tolist(), "SPY": wealth["SPY"].round(8).tolist()})
+        paths.append({"expert_rank": row["expert_rank"], "allocation_id": row["allocation_id"], "method": row["method"], "allocation_label": row["allocation_label"], "baseline_metrics": _metrics(base), "protected_metrics": _metrics(protected), "dates": [date.date().isoformat() for date in wealth.index], "original": wealth["original"].round(8).tolist(), "protected": wealth["protected"].round(8).tolist(), "SPY": wealth["SPY"].round(8).tolist()})
     OUTPUT.write_text(json.dumps({"period": {"start": START.date().isoformat(), "end": END.date().isoformat()}, "preferred_config": preferred, "paths": paths}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({"paths": len(paths), "observations": len(paths[0]["dates"]), "preferred_config": preferred}, indent=2))
 
