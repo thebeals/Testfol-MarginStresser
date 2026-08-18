@@ -19,6 +19,7 @@ MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jso
 RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.json"
 EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.json"
 OVERLAY_PATH = Path(__file__).parents[2] / "data" / "expert-overlay-paths.json"
+EMA_EXIT_PATH = Path(__file__).parents[2] / "data" / "expert-ema-exit-rotation-results.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -108,6 +109,30 @@ def _expert_rows(candidates: list[dict[str, object]]) -> list[dict[str, object]]
     ]
 
 
+def _ema_exit_rows(results: list[dict[str, object]]) -> list[dict[str, object]]:
+    rows = []
+    for rank, row in enumerate(results[:10], start=1):
+        if row["strategy"] == "atr_band":
+            parameters = f"EMA {row['length']} / ATR {row['multiple']}"
+        else:
+            exit_rule = "filter breach" if row["filter_exit"] else "9/20 cross"
+            parameters = f"9/20 + EMA {row['filter_length']} / {exit_rule}"
+        rows.append(
+            {
+                "Rank": rank,
+                "Portfolio": row["expert_rank"],
+                "Strategy": parameters,
+                "Rotation": row["rotation"],
+                "CAGR Change": f"{row['cagr_delta']:+.2%}",
+                "DD Improvement": f"{row['dd_delta']:+.2%}",
+                "Protected CAGR": f"{row['protected']['cagr']:.2%}",
+                "Protected DD": f"{row['protected']['max_drawdown']:.2%}",
+                "Balanced Screen": "Yes" if row["cagr_delta"] >= -0.01 and row["dd_delta"] >= 0 else "No",
+            }
+        )
+    return rows
+
+
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
@@ -124,6 +149,7 @@ def render_screened_results(
         research = json.loads(RESEARCH_PATH.read_text(encoding="utf-8"))
         expert = json.loads(EXPERT_PATH.read_text(encoding="utf-8"))
         overlay_paths = json.loads(OVERLAY_PATH.read_text(encoding="utf-8"))
+        ema_exit = json.loads(EMA_EXIT_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -248,6 +274,13 @@ def render_screened_results(
         for item in selected_expert["rationale"]["what_can_go_wrong"]:
             st.markdown(f"- {item}")
         st.markdown(f"**Black-swan caveat:** {selected_expert['rationale']['black_swan_note']}")
+
+    st.subheader("Top 10 EMA Exit and Rotation Strategies")
+    st.caption(
+        "Ranked across the 390 tested configurations using CAGR change plus a drawdown-improvement preference. "
+        "DD Improvement is a percentage-point reduction in drawdown; positive is better."
+    )
+    st.dataframe(pd.DataFrame(_ema_exit_rows(ema_exit["all"])), use_container_width=True, hide_index=True)
 
     st.subheader("Original vs Protected Performance")
     st.caption(
