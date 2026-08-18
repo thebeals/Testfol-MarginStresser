@@ -70,6 +70,7 @@ def export(matrix_path: str | Path, verification_path: str | Path, csv_path: str
     with pd.ExcelWriter(xlsx_path, engine="openpyxl") as writer:
         top.to_excel(writer, sheet_name="Top 100", index=False)
         frame[frame["testfol_verified"]].to_excel(writer, sheet_name="Testfol Verified", index=False)
+        frame[frame["method_family"] == "EMA"].to_excel(writer, sheet_name="EMA Local", index=False)
         frame.to_excel(writer, sheet_name="All 400", index=False)
     return top
 
