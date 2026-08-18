@@ -1,0 +1,2983 @@
+{
+  "candidate_pool": 16,
+  "limitations": [
+    "This is a judgment-assisted historical shortlist, not personalized investment advice or a probability forecast.",
+    "The historical sample contains limited true black-swan observations and may not represent future correlations.",
+    "EMA methods are local research methods unless the exact method is separately Testfol-validated.",
+    "No margin, taxes, slippage, or investor behavior are modeled here."
+  ],
+  "selection_rule": "Expert shortlist: candidates must beat the locked SPY test CAGR and pass the 20% method-level drawdown gate. Score blends CAGR excess, drawdown, Sharpe, rolling SPY/VT win rates, asset-class diversification, explicit leverage, crisis-regime returns, and exact Testfol validation. No allocation appears more than three times.",
+  "shortlist": [
+    {
+      "allocation": {
+        "DBC": 0.06707206034608063,
+        "DBMF": 0.1579950596208297,
+        "GLD": 0.31025524972961926,
+        "TQQQ": 0.16599428640167024,
+        "VNQ": 0.29868334390180035
+      },
+      "allocation_id": 1,
+      "allocation_label": "DBC 6.7% / DBMF 15.8% / GLD 31.0% / TQQQ 16.6% / VNQ 29.9%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.06707206034608063,
+          "weighted_cagr": 0.00036436121262216266
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.1579950596208297,
+          "weighted_cagr": 0.009117865826278899
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.31025524972961926,
+          "weighted_cagr": 0.02583321945809277
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.16599428640167024,
+          "weighted_cagr": 0.053100090060977774
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.29868334390180035,
+          "weighted_cagr": 0.02067980640335879
+        }
+      },
+      "dca": {
+        "ending_value": 1353312.965208057,
+        "max_account_drawdown": -0.2997954351483433,
+        "minimum_account_value": 994.6126110482951,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3877,
+        "underwater_months": 224,
+        "worst_value_vs_contributions": -0.36873007105277356
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "commodities",
+          "gold",
+          "managed futures",
+          "real estate"
+        ],
+        "largest_weight": 0.31025524972961926,
+        "leveraged_weight": 0.16599428640167024,
+        "qqq_tqqq_overlap": 0.16599428640167024
+      },
+      "expert_rank": 1,
+      "expert_score": 0.6013634289802774,
+      "family": "AbsoluteBand",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.14960764340597632,
+        "max_drawdown": -0.4575510228030186,
+        "observations": 4666,
+        "sharpe": 0.8472465182033847,
+        "total_return": 12.262772039233058
+      },
+      "local_test": {
+        "cagr": 0.1996969119490215,
+        "max_drawdown": -0.19262587974626622,
+        "observations": 1410,
+        "sharpe": 1.1758479458815223,
+        "total_return": 1.775642273444745
+      },
+      "method": "AbsoluteBand:Yearly:0.2",
+      "policy": "",
+      "rank": 3,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "Explicit leveraged ETF exposure is 16.6%; losses can compound sharply.",
+          "Worst observed rolling three-month return was -13.6%."
+        ],
+        "why_consider": [
+          "Test CAGR of 20.0%, +4.2% versus SPY.",
+          "Observed max drawdown of -19.3% in the locked test window.",
+          "Spans 5 asset classes: US equity, commodities, gold, managed futures, real estate.",
+          "The exact rebalance method has a zero-error Testfol verification record."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-10-14",
+        "max_drawdown": -0.19262587974626622,
+        "peak_date": "2022-04-04",
+        "recovery_date": "2023-06-02",
+        "recovery_days": 231,
+        "worst_daily_return": -0.04848235621120289,
+        "worst_rolling_3m": -0.13560377386671374
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.3039020466885588,
+            "max_drawdown": -0.4575510228030186,
+            "observations": 296,
+            "sharpe": -0.9468253756717443,
+            "total_return": -0.34525551696145707
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.05742381004256081,
+            "max_drawdown": -0.14328155903918238,
+            "observations": 128,
+            "sharpe": -0.15615024749137968,
+            "total_return": -0.029038117227721427
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.030594174560328202,
+            "max_drawdown": -0.09751818039440596,
+            "observations": 145,
+            "sharpe": -0.1124211042725625,
+            "total_return": -0.01770614498565426
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.41439034445257095,
+            "max_drawdown": -0.16071260483453653,
+            "observations": 63,
+            "sharpe": -2.5404512967304007,
+            "total_return": -0.12481294251796204
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.3301253499139185,
+            "max_drawdown": -0.30185257724679204,
+            "observations": 62,
+            "sharpe": -0.6097020228522597,
+            "total_return": -0.09102303665924805
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": -0.20036764942511343,
+            "max_drawdown": -0.19262587974626544,
+            "observations": 209,
+            "sharpe": -1.4288712295317954,
+            "total_return": -0.16828867770769784
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.28807658298678773,
+            "max_drawdown": -0.15056646914222582,
+            "observations": 405,
+            "sharpe": 1.5354554711549393,
+            "total_return": 0.5041505744978656
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 2314,
+        "beat_rate": 0.6079873883342092,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 3509,
+        "beat_rate": 0.9219653179190751,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.5305792031222556,
+        "crisis_resilience": 0.29847758955719905,
+        "diversification": 1.0,
+        "drawdown_control": 0.03687060126866892,
+        "leverage_control": 0.8340057135983298,
+        "rolling_spy": 0.6079873883342092,
+        "rolling_vt": 0.9219653179190751,
+        "sharpe": 0.7838986305876815,
+        "testfol_validation": 1.0
+      },
+      "testfol_method": "AbsoluteBand:Yearly:0.2",
+      "testfol_test": {
+        "cagr": 0.19714431985669112,
+        "max_drawdown": -0.19594140450323072,
+        "observations": 1410
+      },
+      "testfol_validated": true
+    },
+    {
+      "allocation": {
+        "DBC": 0.34204867013170187,
+        "GLD": 0.44602870333375155,
+        "TIP": 0.04898366600326811,
+        "TQQQ": 0.10929676846141362,
+        "VNQ": 0.021436146983067863,
+        "VPU": 0.03220604508679704
+      },
+      "allocation_id": 2,
+      "allocation_label": "DBC 34.2% / GLD 44.6% / TIP 4.9% / TQQQ 10.9% / VNQ 2.1% / VPU 3.2%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.34204867013170187,
+          "weighted_cagr": 0.0018581398511081785
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.44602870333375155,
+          "weighted_cagr": 0.03713831558973085
+        },
+        "TIP": {
+          "asset_cagr": 0.028712373583785533,
+          "weight": 0.04898366600326811,
+          "weighted_cagr": 0.0014064373177892088
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.10929676846141362,
+          "weighted_cagr": 0.03496306032263832
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.021436146983067863,
+          "weighted_cagr": 0.0014841650152059751
+        },
+        "VPU": {
+          "asset_cagr": 0.08362869368761117,
+          "weight": 0.03220604508679704,
+          "weighted_cagr": 0.002693349479453144
+        }
+      },
+      "dca": {
+        "ending_value": 944446.527765955,
+        "max_account_drawdown": -0.23636764873235006,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3912,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.3233535304606897
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "bonds",
+          "commodities",
+          "gold",
+          "real estate"
+        ],
+        "largest_weight": 0.44602870333375155,
+        "leveraged_weight": 0.10929676846141362,
+        "qqq_tqqq_overlap": 0.10929676846141362
+      },
+      "expert_rank": 2,
+      "expert_score": 0.5887938963098596,
+      "family": "AbsoluteBand",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.11015362694637454,
+        "max_drawdown": -0.4156010042708228,
+        "observations": 4666,
+        "sharpe": 0.7472336799104478,
+        "total_return": 5.941211371878888
+      },
+      "local_test": {
+        "cagr": 0.20733082934273117,
+        "max_drawdown": -0.1956475791707819,
+        "observations": 1410,
+        "sharpe": 1.2883220167268725,
+        "total_return": 1.8761378686360048
+      },
+      "method": "AbsoluteBand:Yearly:0.2",
+      "policy": "",
+      "rank": 1,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "Worst observed rolling three-month return was -13.6%."
+        ],
+        "why_consider": [
+          "Test CAGR of 20.7%, +5.0% versus SPY.",
+          "Observed max drawdown of -19.6% in the locked test window.",
+          "Spans 5 asset classes: US equity, bonds, commodities, gold, real estate.",
+          "The exact rebalance method has a zero-error Testfol verification record.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-09-26",
+        "max_drawdown": -0.1956475791707819,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 262,
+        "worst_daily_return": -0.06422746179961958,
+        "worst_rolling_3m": -0.13610224217581524
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.2294874736489303,
+            "max_drawdown": -0.4156010042708228,
+            "observations": 296,
+            "sharpe": -0.8730276290587662,
+            "total_return": -0.2627098678790881
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.033418585837857395,
+            "max_drawdown": -0.124970691799006,
+            "observations": 128,
+            "sharpe": -0.08350103025396483,
+            "total_return": -0.016794092315932763
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.07134091975608625,
+            "max_drawdown": -0.13612938919956308,
+            "observations": 145,
+            "sharpe": -0.4497835734298754,
+            "total_return": -0.04166129620272774
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.3774151269478625,
+            "max_drawdown": -0.14513623876540782,
+            "observations": 63,
+            "sharpe": -3.196437075282022,
+            "total_return": -0.11136028177445612
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.3187419223146545,
+            "max_drawdown": -0.23260323151571483,
+            "observations": 62,
+            "sharpe": -1.0458049772631128,
+            "total_return": -0.08736734913441646
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": -0.08260018254284962,
+            "max_drawdown": -0.19564757917078068,
+            "observations": 209,
+            "sharpe": -0.41311483856660597,
+            "total_return": -0.06858153844799542
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.3385350771150426,
+            "max_drawdown": -0.12794605976835471,
+            "observations": 405,
+            "sharpe": 1.756797137839081,
+            "total_return": 0.6003036660233578
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1656,
+        "beat_rate": 0.4351024697845507,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 2166,
+        "beat_rate": 0.5691014188124015,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.6260031705436264,
+        "crisis_resilience": 0.36044708151283333,
+        "diversification": 1.0,
+        "drawdown_control": 0.021762104146090477,
+        "leverage_control": 0.8907032315385863,
+        "rolling_spy": 0.4351024697845507,
+        "rolling_vt": 0.5691014188124015,
+        "sharpe": 0.8588813444845816,
+        "testfol_validation": 1.0
+      },
+      "testfol_method": "AbsoluteBand:Yearly:0.2",
+      "testfol_test": {
+        "cagr": 0.20753130013577636,
+        "max_drawdown": -0.1959854342711268,
+        "observations": 1410
+      },
+      "testfol_validated": true
+    },
+    {
+      "allocation": {
+        "DBC": 0.2538817140428836,
+        "DBMF": 0.11565926906444528,
+        "GLD": 0.37421634785427516,
+        "SHV": 0.0429235750375288,
+        "UPRO": 0.07085538723981065,
+        "VTV": 0.1424637067610565
+      },
+      "allocation_id": 8,
+      "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.2538817140428836,
+          "weighted_cagr": 0.0013791830564612105
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.11565926906444528,
+          "weighted_cagr": 0.006674675141273028
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.37421634785427516,
+          "weighted_cagr": 0.03115890237909025
+        },
+        "SHV": {
+          "asset_cagr": 0.01386035858920831,
+          "weight": 0.0429235750375288,
+          "weighted_cagr": 0.0005949361419509397
+        },
+        "UPRO": {
+          "asset_cagr": 0.18450155323946915,
+          "weight": 0.07085538723981065,
+          "weighted_cagr": 0.013072929001129129
+        },
+        "VTV": {
+          "asset_cagr": 0.10006536618351425,
+          "weight": 0.1424637067610565,
+          "weighted_cagr": 0.014255682984905912
+        }
+      },
+      "dca": {
+        "ending_value": 708918.5055221912,
+        "max_account_drawdown": -0.21551849834024583,
+        "minimum_account_value": 999.1693863015512,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3845,
+        "underwater_months": 224,
+        "worst_value_vs_contributions": -0.2835671879339957
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "cash",
+          "commodities",
+          "gold",
+          "managed futures"
+        ],
+        "largest_weight": 0.37421634785427516,
+        "leveraged_weight": 0.07085538723981065,
+        "qqq_tqqq_overlap": 0.0
+      },
+      "expert_rank": 3,
+      "expert_score": 0.5383848490155789,
+      "family": "AbsoluteBand",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.08711836892640679,
+        "max_drawdown": -0.3490482012175531,
+        "observations": 4666,
+        "sharpe": 0.7017872592238131,
+        "total_return": 3.7054246464069927
+      },
+      "local_test": {
+        "cagr": 0.17671072257528753,
+        "max_drawdown": -0.15385046027501592,
+        "observations": 1410,
+        "sharpe": 1.3752102325510707,
+        "total_return": 1.4903101414827482
+      },
+      "method": "AbsoluteBand:Yearly:0.05",
+      "policy": "",
+      "rank": 10,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "It did not beat SPY in most rolling three-year windows.",
+          "Worst observed rolling three-month return was -11.4%."
+        ],
+        "why_consider": [
+          "Test CAGR of 17.7%, +1.9% versus SPY.",
+          "Observed max drawdown of -15.4% in the locked test window.",
+          "Spans 5 asset classes: US equity, cash, commodities, gold, managed futures.",
+          "The exact rebalance method has a zero-error Testfol verification record.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-09-26",
+        "max_drawdown": -0.15385046027501592,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-02-29",
+        "recovery_days": 521,
+        "worst_daily_return": -0.05469700234684949,
+        "worst_rolling_3m": -0.11378884021728564
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.204629286462226,
+            "max_drawdown": -0.3490482012175531,
+            "observations": 296,
+            "sharpe": -0.8496728376886565,
+            "total_return": -0.23482695204666193
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.06449322470838237,
+            "max_drawdown": -0.11012364194841873,
+            "observations": 128,
+            "sharpe": -0.3085218048748093,
+            "total_return": -0.03267366406671157
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.026770566239471494,
+            "max_drawdown": -0.10093593177869764,
+            "observations": 145,
+            "sharpe": -0.19636537984363744,
+            "total_return": -0.015480403367758688
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.27243534905476563,
+            "max_drawdown": -0.11056939365082363,
+            "observations": 63,
+            "sharpe": -3.1607507885910584,
+            "total_return": -0.07618272884091926
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.3464921458285526,
+            "max_drawdown": -0.21954334459359215,
+            "observations": 62,
+            "sharpe": -1.246630223211556,
+            "total_return": -0.0963629416341738
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.0017785810355332998,
+            "max_drawdown": -0.1538504602750156,
+            "observations": 209,
+            "sharpe": 0.08078612749773079,
+            "total_return": 0.0014654872101629302
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.32304823267286675,
+            "max_drawdown": -0.09620482142618181,
+            "observations": 405,
+            "sharpe": 1.9893210882921497,
+            "total_return": 0.5705516415704346
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 968,
+        "beat_rate": 0.2543352601156069,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 1526,
+        "beat_rate": 0.4009458749343142,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.24325183595058086,
+        "crisis_resilience": 0.39009186450977573,
+        "diversification": 1.0,
+        "drawdown_control": 0.2307476986249204,
+        "leverage_control": 0.9291446127601893,
+        "rolling_spy": 0.2543352601156069,
+        "rolling_vt": 0.4009458749343142,
+        "sharpe": 0.9168068217007138,
+        "testfol_validation": 1.0
+      },
+      "testfol_method": "AbsoluteBand:Yearly:0.05",
+      "testfol_test": {
+        "cagr": 0.17759279328253785,
+        "max_drawdown": -0.15383593435012222,
+        "observations": 1410
+      },
+      "testfol_validated": true
+    },
+    {
+      "allocation": {
+        "DBC": 0.37932595750194475,
+        "DBMF": 0.3345806835921942,
+        "TQQQ": 0.11718485087039712,
+        "VNQ": 0.10838628417058849,
+        "XLP": 0.06052222386487538
+      },
+      "allocation_id": 5,
+      "allocation_label": "DBC 37.9% / DBMF 33.5% / TQQQ 11.7% / VNQ 10.8% / XLP 6.1%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.37932595750194475,
+          "weighted_cagr": 0.0020606444045601466
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.3345806835921942,
+          "weighted_cagr": 0.019308589701346007
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.11718485087039712,
+          "weighted_cagr": 0.03748638745277757
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.10838628417058849,
+          "weighted_cagr": 0.0075042931559120354
+        },
+        "XLP": {
+          "asset_cagr": 0.09353306854850318,
+          "weight": 0.06052222386487538,
+          "weighted_cagr": 0.005660829313461244
+        }
+      },
+      "dca": {
+        "ending_value": 844496.473567626,
+        "max_account_drawdown": -0.27545758592266556,
+        "minimum_account_value": 994.2762063330697,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3838,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.29126434503456
+      },
+      "diversification": {
+        "asset_class_count": 4,
+        "asset_classes": [
+          "US equity",
+          "commodities",
+          "managed futures",
+          "real estate"
+        ],
+        "largest_weight": 0.37932595750194475,
+        "leveraged_weight": 0.11718485087039712,
+        "qqq_tqqq_overlap": 0.11718485087039712
+      },
+      "expert_rank": 4,
+      "expert_score": 0.5264559036966598,
+      "family": "Calendar",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.10632923243212322,
+        "max_drawdown": -0.4357943572712063,
+        "observations": 4665,
+        "sharpe": 0.7391110393840292,
+        "total_return": 5.509209379506548
+      },
+      "local_test": {
+        "cagr": 0.18549968382816484,
+        "max_drawdown": -0.1586903655802001,
+        "observations": 1409,
+        "sharpe": 1.2644696022413409,
+        "total_return": 1.5952058274726713
+      },
+      "method": "Calendar:Yearly",
+      "policy": "",
+      "rank": 7,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "It did not beat SPY in most rolling three-year windows.",
+          "Worst observed rolling three-month return was -12.0%."
+        ],
+        "why_consider": [
+          "Test CAGR of 18.5%, +2.8% versus SPY.",
+          "Observed max drawdown of -15.9% in the locked test window.",
+          "Spans 4 asset classes: US equity, commodities, managed futures, real estate.",
+          "The exact rebalance method has a zero-error Testfol verification record.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2025-04-08",
+        "max_drawdown": -0.1586903655802001,
+        "peak_date": "2025-02-19",
+        "recovery_date": "2025-09-10",
+        "recovery_days": 155,
+        "worst_daily_return": -0.04807553917966345,
+        "worst_rolling_3m": -0.1199374396233358
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.2471237226671732,
+            "max_drawdown": -0.4357943572712063,
+            "observations": 295,
+            "sharpe": -1.1343045922590658,
+            "total_return": -0.2818424384726328
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.18492308185647854,
+            "max_drawdown": -0.15951535491736601,
+            "observations": 128,
+            "sharpe": -0.9219871931960006,
+            "total_return": -0.09686795864478603
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.1305892061883247,
+            "max_drawdown": -0.11318946168290323,
+            "observations": 145,
+            "sharpe": -0.972897216762029,
+            "total_return": -0.07730639463323252
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.5131479558592624,
+            "max_drawdown": -0.1986086190776044,
+            "observations": 63,
+            "sharpe": -4.0183551376621525,
+            "total_return": -0.1641724041045144
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.47516270570016983,
+            "max_drawdown": -0.27863108645824963,
+            "observations": 62,
+            "sharpe": -1.403139872610383,
+            "total_return": -0.142346557184441
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.08557087196900404,
+            "max_drawdown": -0.12048042881728205,
+            "observations": 209,
+            "sharpe": 0.6011333005568935,
+            "total_return": 0.07000464038028253
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.23246286501217872,
+            "max_drawdown": -0.1586903655802009,
+            "observations": 405,
+            "sharpe": 1.5839821040473456,
+            "total_return": 0.40081687274765554
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1041,
+        "beat_rate": 0.27351550183920126,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 1714,
+        "beat_rate": 0.4503415659485024,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.3531138516115473,
+        "crisis_resilience": 0.3819385482410696,
+        "diversification": 0.8,
+        "drawdown_control": 0.20654817209899945,
+        "leverage_control": 0.8828151491296029,
+        "rolling_spy": 0.27351550183920126,
+        "rolling_vt": 0.4503415659485024,
+        "sharpe": 0.8429797348275606,
+        "testfol_validation": 1.0
+      },
+      "testfol_method": "Calendar:Yearly",
+      "testfol_test": {
+        "cagr": 0.1861480600665033,
+        "max_drawdown": -0.15867168089285222,
+        "observations": 1410
+      },
+      "testfol_validated": true
+    },
+    {
+      "allocation": {
+        "DBC": 0.06707206034608063,
+        "DBMF": 0.1579950596208297,
+        "GLD": 0.31025524972961926,
+        "TQQQ": 0.16599428640167024,
+        "VNQ": 0.29868334390180035
+      },
+      "allocation_id": 1,
+      "allocation_label": "DBC 6.7% / DBMF 15.8% / GLD 31.0% / TQQQ 16.6% / VNQ 29.9%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.06707206034608063,
+          "weighted_cagr": 0.00036436121262216266
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.1579950596208297,
+          "weighted_cagr": 0.009117865826278899
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.31025524972961926,
+          "weighted_cagr": 0.02583321945809277
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.16599428640167024,
+          "weighted_cagr": 0.053100090060977774
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.29868334390180035,
+          "weighted_cagr": 0.02067980640335879
+        }
+      },
+      "dca": {
+        "ending_value": 1358189.5362275948,
+        "max_account_drawdown": -0.3024504249236233,
+        "minimum_account_value": 994.6126110482951,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3867,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.3687300710527738
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "commodities",
+          "gold",
+          "managed futures",
+          "real estate"
+        ],
+        "largest_weight": 0.31025524972961926,
+        "leveraged_weight": 0.16599428640167024,
+        "qqq_tqqq_overlap": 0.16599428640167024
+      },
+      "expert_rank": 5,
+      "expert_score": 0.5165479749292593,
+      "family": "Calendar",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.15166466879459306,
+        "max_drawdown": -0.4518877689542895,
+        "observations": 4665,
+        "sharpe": 0.853383036724305,
+        "total_return": 12.704444629843291
+      },
+      "local_test": {
+        "cagr": 0.19849831209526125,
+        "max_drawdown": -0.1960907285341722,
+        "observations": 1409,
+        "sharpe": 1.1759492828529368,
+        "total_return": 1.758760923313384
+      },
+      "method": "Calendar:Yearly",
+      "policy": "",
+      "rank": 4,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "Explicit leveraged ETF exposure is 16.6%; losses can compound sharply.",
+          "The exact dynamic/local method is not directly Testfol-validated.",
+          "Worst observed rolling three-month return was -13.7%."
+        ],
+        "why_consider": [
+          "Test CAGR of 19.8%, +4.1% versus SPY.",
+          "Observed max drawdown of -19.6% in the locked test window.",
+          "Spans 5 asset classes: US equity, commodities, gold, managed futures, real estate."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-10-14",
+        "max_drawdown": -0.1960907285341722,
+        "peak_date": "2021-12-27",
+        "recovery_date": "2023-06-12",
+        "recovery_days": 241,
+        "worst_daily_return": -0.04857578611250091,
+        "worst_rolling_3m": -0.13685586185322673
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.29462245230726536,
+            "max_drawdown": -0.4518877689542895,
+            "observations": 295,
+            "sharpe": -0.896680253543181,
+            "total_return": -0.3344043953248267
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.060028670640146276,
+            "max_drawdown": -0.14610096727384136,
+            "observations": 128,
+            "sharpe": -0.16203567267504124,
+            "total_return": -0.030376106879196674
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.020548514730164835,
+            "max_drawdown": -0.09275510913471241,
+            "observations": 145,
+            "sharpe": -0.0514174468284688,
+            "total_return": -0.011866445340819043
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.4239996563018603,
+            "max_drawdown": -0.16494826469192236,
+            "observations": 63,
+            "sharpe": -2.545408498339021,
+            "total_return": -0.12841316300018302
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.33159374174083545,
+            "max_drawdown": -0.3044828621647149,
+            "observations": 62,
+            "sharpe": -0.6039778757814095,
+            "total_return": -0.09149803626876596
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": -0.20586894509330134,
+            "max_drawdown": -0.19375324743812083,
+            "observations": 209,
+            "sharpe": -1.4597207297529988,
+            "total_return": -0.17300699278652676
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.2885357957652652,
+            "max_drawdown": -0.14934294068304865,
+            "observations": 405,
+            "sharpe": 1.5413720979763392,
+            "total_return": 0.5050154151253166
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 2338,
+        "beat_rate": 0.6142932212296374,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 3519,
+        "beat_rate": 0.9245927482921703,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.5155967049502524,
+        "crisis_resilience": 0.3003635252066269,
+        "diversification": 1.0,
+        "drawdown_control": 0.019546357329139008,
+        "leverage_control": 0.8340057135983298,
+        "rolling_spy": 0.6142932212296374,
+        "rolling_vt": 0.9245927482921703,
+        "sharpe": 0.7839661885686245,
+        "testfol_validation": 0.0
+      },
+      "testfol_method": null,
+      "testfol_test": {},
+      "testfol_validated": false
+    },
+    {
+      "allocation": {
+        "DBC": 0.27698672924107515,
+        "DBMF": 0.3907007389506295,
+        "TLT": 0.02818253388641743,
+        "TQQQ": 0.11602339609916272,
+        "TYD": 0.027822449260205787,
+        "VNQ": 0.16028415256250955
+      },
+      "allocation_id": 7,
+      "allocation_label": "DBC 27.7% / DBMF 39.1% / TLT 2.8% / TQQQ 11.6% / TYD 2.8% / VNQ 16.0%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.27698672924107515,
+          "weighted_cagr": 0.0015046983800076788
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.3907007389506295,
+          "weighted_cagr": 0.022547267772353847
+        },
+        "TLT": {
+          "asset_cagr": 0.02291397720331667,
+          "weight": 0.02818253388641743,
+          "weighted_cagr": 0.0006457739390050686
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.11602339609916272,
+          "weighted_cagr": 0.03711484844206088
+        },
+        "TYD": {
+          "asset_cagr": 0.022025758436912124,
+          "weight": 0.027822449260205787,
+          "weighted_cagr": 0.000612810546528537
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.16028415256250955,
+          "weighted_cagr": 0.011097522885671505
+        }
+      },
+      "dca": {
+        "ending_value": 822217.9996567175,
+        "max_account_drawdown": -0.2594001523149633,
+        "minimum_account_value": 994.1715431805827,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3807,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.25497205604642903
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "bonds",
+          "commodities",
+          "managed futures",
+          "real estate"
+        ],
+        "largest_weight": 0.3907007389506295,
+        "leveraged_weight": 0.1438458453593685,
+        "qqq_tqqq_overlap": 0.11602339609916272
+      },
+      "expert_rank": 6,
+      "expert_score": 0.5080871979316743,
+      "family": "Calendar",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.10948988633219536,
+        "max_drawdown": -0.3827757633440162,
+        "observations": 4665,
+        "sharpe": 0.804279324889119,
+        "total_return": 5.862716591868871
+      },
+      "local_test": {
+        "cagr": 0.166755069157436,
+        "max_drawdown": -0.15665145155643379,
+        "observations": 1409,
+        "sharpe": 1.2093639058346584,
+        "total_return": 1.373447931482119
+      },
+      "method": "Calendar:Yearly",
+      "policy": "",
+      "rank": 15,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "It did not beat SPY in most rolling three-year windows.",
+          "Worst observed rolling three-month return was -11.7%."
+        ],
+        "why_consider": [
+          "Test CAGR of 16.7%, +1.0% versus SPY.",
+          "Observed max drawdown of -15.7% in the locked test window.",
+          "Spans 5 asset classes: US equity, bonds, commodities, managed futures, real estate.",
+          "The exact rebalance method has a zero-error Testfol verification record.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2025-04-08",
+        "max_drawdown": -0.15665145155643379,
+        "peak_date": "2024-07-10",
+        "recovery_date": "2025-09-09",
+        "recovery_days": 154,
+        "worst_daily_return": -0.044165712414808045,
+        "worst_rolling_3m": -0.11679635601500271
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.21314660643465266,
+            "max_drawdown": -0.3827757633440162,
+            "observations": 295,
+            "sharpe": -1.0508830540170835,
+            "total_return": -0.24390142255761338
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.141713432288455,
+            "max_drawdown": -0.12804070827046865,
+            "observations": 128,
+            "sharpe": -0.786786649117533,
+            "total_return": -0.073320142057553
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.08617871385324682,
+            "max_drawdown": -0.08469047407045605,
+            "observations": 145,
+            "sharpe": -0.7129643769203249,
+            "total_return": -0.050495036180288055
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.46424354285977243,
+            "max_drawdown": -0.17540681716054796,
+            "observations": 63,
+            "sharpe": -3.7224749175675,
+            "total_return": -0.14400004247910425
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.38651180457684853,
+            "max_drawdown": -0.2623778418502447,
+            "observations": 62,
+            "sharpe": -1.1535197750873556,
+            "total_return": -0.10986286222581254
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.041490548583617226,
+            "max_drawdown": -0.1017912269210971,
+            "observations": 209,
+            "sharpe": 0.36445705206136725,
+            "total_return": 0.034069283863093824
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.215605864993498,
+            "max_drawdown": -0.15103764183048296,
+            "observations": 405,
+            "sharpe": 1.5514167544737432,
+            "total_return": 0.3700497848525015
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1078,
+        "beat_rate": 0.2832369942196532,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 2029,
+        "beat_rate": 0.5331056227009984,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.11880616822743661,
+        "crisis_resilience": 0.39343499969322265,
+        "diversification": 1.0,
+        "drawdown_control": 0.21674274221783107,
+        "leverage_control": 0.8561541546406315,
+        "rolling_spy": 0.2832369942196532,
+        "rolling_vt": 0.5331056227009984,
+        "sharpe": 0.8062426038897722,
+        "testfol_validation": 1.0
+      },
+      "testfol_method": "Calendar:Yearly",
+      "testfol_test": {
+        "cagr": 0.16704005514927567,
+        "max_drawdown": -0.15666179450962292,
+        "observations": 1410
+      },
+      "testfol_validated": true
+    },
+    {
+      "allocation": {
+        "DBC": 0.34204867013170187,
+        "GLD": 0.44602870333375155,
+        "TIP": 0.04898366600326811,
+        "TQQQ": 0.10929676846141362,
+        "VNQ": 0.021436146983067863,
+        "VPU": 0.03220604508679704
+      },
+      "allocation_id": 2,
+      "allocation_label": "DBC 34.2% / GLD 44.6% / TIP 4.9% / TQQQ 10.9% / VNQ 2.1% / VPU 3.2%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.34204867013170187,
+          "weighted_cagr": 0.0018581398511081785
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.44602870333375155,
+          "weighted_cagr": 0.03713831558973085
+        },
+        "TIP": {
+          "asset_cagr": 0.028712373583785533,
+          "weight": 0.04898366600326811,
+          "weighted_cagr": 0.0014064373177892088
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.10929676846141362,
+          "weighted_cagr": 0.03496306032263832
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.021436146983067863,
+          "weighted_cagr": 0.0014841650152059751
+        },
+        "VPU": {
+          "asset_cagr": 0.08362869368761117,
+          "weight": 0.03220604508679704,
+          "weighted_cagr": 0.002693349479453144
+        }
+      },
+      "dca": {
+        "ending_value": 948364.9366136661,
+        "max_account_drawdown": -0.23636764873234972,
+        "minimum_account_value": 1000.4377988151269,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3914,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.3233535304606898
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "bonds",
+          "commodities",
+          "gold",
+          "real estate"
+        ],
+        "largest_weight": 0.44602870333375155,
+        "leveraged_weight": 0.10929676846141362,
+        "qqq_tqqq_overlap": 0.10929676846141362
+      },
+      "expert_rank": 7,
+      "expert_score": 0.5070326897659972,
+      "family": "Calendar",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.11194956460540495,
+        "max_drawdown": -0.4156010042708216,
+        "observations": 4665,
+        "sharpe": 0.7548090866816455,
+        "total_return": 6.1503090693892295
+      },
+      "local_test": {
+        "cagr": 0.20688786953696048,
+        "max_drawdown": -0.19598822679757955,
+        "observations": 1409,
+        "sharpe": 1.2885172313090014,
+        "total_return": 1.868748734604282
+      },
+      "method": "Calendar:Yearly",
+      "policy": "",
+      "rank": 2,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "The exact dynamic/local method is not directly Testfol-validated.",
+          "Worst observed rolling three-month return was -13.7%."
+        ],
+        "why_consider": [
+          "Test CAGR of 20.7%, +5.0% versus SPY.",
+          "Observed max drawdown of -19.6% in the locked test window.",
+          "Spans 5 asset classes: US equity, bonds, commodities, gold, real estate.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-09-26",
+        "max_drawdown": -0.19598822679757955,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-06-15",
+        "recovery_days": 262,
+        "worst_daily_return": -0.06430541302034976,
+        "worst_rolling_3m": -0.1366252000729381
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.22327513092570084,
+            "max_drawdown": -0.4156010042708216,
+            "observations": 295,
+            "sharpe": -0.8327824969939785,
+            "total_return": -0.2552406464037269
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.0357447054487916,
+            "max_drawdown": -0.12497199514634905,
+            "observations": 128,
+            "sharpe": -0.09430097449471622,
+            "total_return": -0.017973819708812844
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.06355942199733378,
+            "max_drawdown": -0.1328395298229248,
+            "observations": 145,
+            "sharpe": -0.3943726555764366,
+            "total_return": -0.037052537539397856
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.3835170557219004,
+            "max_drawdown": -0.1476967635021943,
+            "observations": 63,
+            "sharpe": -3.1878653780994894,
+            "total_return": -0.11353824078979147
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.320001350706844,
+            "max_drawdown": -0.23510778382687203,
+            "observations": 62,
+            "sharpe": -1.035607170271528,
+            "total_return": -0.08776950359156732
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": -0.08848147957999408,
+            "max_drawdown": -0.1959882267975782,
+            "observations": 209,
+            "sharpe": -0.4472303886532957,
+            "total_return": -0.07350511851491381
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.3386906350294676,
+            "max_drawdown": -0.12807052067086422,
+            "observations": 405,
+            "sharpe": 1.7584141883965296,
+            "total_return": 0.6006035859245775
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1639,
+        "beat_rate": 0.430635838150289,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 2162,
+        "beat_rate": 0.5680504466631634,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.6204661729714928,
+        "crisis_resilience": 0.361161577163264,
+        "diversification": 1.0,
+        "drawdown_control": 0.020058866012102272,
+        "leverage_control": 0.8907032315385863,
+        "rolling_spy": 0.430635838150289,
+        "rolling_vt": 0.5680504466631634,
+        "sharpe": 0.8590114875393343,
+        "testfol_validation": 0.0
+      },
+      "testfol_method": null,
+      "testfol_test": {},
+      "testfol_validated": false
+    },
+    {
+      "allocation": {
+        "DBMF": 0.29325397580511375,
+        "GLD": 0.2938733871898669,
+        "QQQ": 0.28156583337267715,
+        "TQQQ": 0.008654631011318564,
+        "VNQ": 0.1226521726210238
+      },
+      "allocation_id": 4,
+      "allocation_label": "DBMF 29.3% / GLD 29.4% / QQQ 28.2% / TQQQ 0.9% / VNQ 12.3%",
+      "asset_contribution": {
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.29325397580511375,
+          "weighted_cagr": 0.016923632997327923
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.2938733871898669,
+          "weighted_cagr": 0.024469193384430717
+        },
+        "QQQ": {
+          "asset_cagr": 0.17267503784683957,
+          "weight": 0.28156583337267715,
+          "weighted_cagr": 0.048619390934003956
+        },
+        "TQQQ": {
+          "asset_cagr": 0.3198910710244993,
+          "weight": 0.008654631011318564,
+          "weighted_cagr": 0.002768539183532541
+        },
+        "VNQ": {
+          "asset_cagr": 0.06923655712840082,
+          "weight": 0.1226521726210238,
+          "weighted_cagr": 0.008492014156597994
+        }
+      },
+      "dca": {
+        "ending_value": 1284401.6079940975,
+        "max_account_drawdown": -0.4405868297845814,
+        "minimum_account_value": 1000.0,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3832,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.44763469784662024
+      },
+      "diversification": {
+        "asset_class_count": 4,
+        "asset_classes": [
+          "US equity",
+          "gold",
+          "managed futures",
+          "real estate"
+        ],
+        "largest_weight": 0.2938733871898669,
+        "leveraged_weight": 0.008654631011318564,
+        "qqq_tqqq_overlap": 0.29022046438399574
+      },
+      "expert_rank": 8,
+      "expert_score": 0.4909286165168728,
+      "family": "EMA100",
+      "frequency": "Monthly",
+      "local_full": {
+        "cagr": 0.12513920371790754,
+        "max_drawdown": -0.4670584051719032,
+        "observations": 4666,
+        "sharpe": 0.7424649139324639,
+        "total_return": 7.900228596164002
+      },
+      "local_test": {
+        "cagr": 0.1949400420258247,
+        "max_drawdown": -0.19209514099718206,
+        "observations": 1410,
+        "sharpe": 1.1604203459477884,
+        "total_return": 1.714493601691271
+      },
+      "method": "EMA100:replacement:Monthly",
+      "policy": "replacement",
+      "rank": 5,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "QQQ/TQQQ overlap is 29.0%, so the equity sleeve is less diversified than the ticker count suggests.",
+          "The exact dynamic/local method is not directly Testfol-validated.",
+          "Worst observed rolling three-month return was -15.6%."
+        ],
+        "why_consider": [
+          "Test CAGR of 19.5%, +3.8% versus SPY.",
+          "Observed max drawdown of -19.2% in the locked test window.",
+          "Spans 4 asset classes: US equity, gold, managed futures, real estate.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2026-03-26",
+        "max_drawdown": -0.19209514099718206,
+        "peak_date": "2026-01-29",
+        "recovery_date": null,
+        "recovery_days": null,
+        "worst_daily_return": -0.10274245274560034,
+        "worst_rolling_3m": -0.1559972385096594
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.2761249234764419,
+            "max_drawdown": -0.4670584051719032,
+            "observations": 296,
+            "sharpe": -0.9018215167298688,
+            "total_return": -0.3146095713774235
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.23959027328272153,
+            "max_drawdown": -0.16080969693310543,
+            "observations": 128,
+            "sharpe": -1.3208636517482746,
+            "total_return": -0.12757645498612147
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.14977795816342854,
+            "max_drawdown": -0.17701089620828492,
+            "observations": 145,
+            "sharpe": -0.9241775136882024,
+            "total_return": -0.08907058895134123
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.48052306154706315,
+            "max_drawdown": -0.18446072835418748,
+            "observations": 63,
+            "sharpe": -2.446864214079405,
+            "total_return": -0.150555666802773
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": 0.14055829434477052,
+            "max_drawdown": -0.15387356072018477,
+            "observations": 62,
+            "sharpe": 0.5691772844911526,
+            "total_return": 0.03182248281719602
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.257771856611817,
+            "max_drawdown": -0.14563883310452064,
+            "observations": 209,
+            "sharpe": 1.4289186578959407,
+            "total_return": 0.2080397225270869
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.37009127736622793,
+            "max_drawdown": -0.19209514099718195,
+            "observations": 405,
+            "sharpe": 1.477139801966793,
+            "total_return": 0.6615807076210034
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1801,
+        "beat_rate": 0.47320021019442987,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 2928,
+        "beat_rate": 0.7693116132422491,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.4711183290822957,
+        "crisis_resilience": 0.47508421132228645,
+        "diversification": 0.8,
+        "drawdown_control": 0.039524295014089716,
+        "leverage_control": 0.9913453689886814,
+        "rolling_spy": 0.47320021019442987,
+        "rolling_vt": 0.7693116132422491,
+        "sharpe": 0.7736135639651923,
+        "testfol_validation": 0.0
+      },
+      "testfol_method": null,
+      "testfol_test": {},
+      "testfol_validated": false
+    },
+    {
+      "allocation": {
+        "DBC": 0.2538817140428836,
+        "DBMF": 0.11565926906444528,
+        "GLD": 0.37421634785427516,
+        "SHV": 0.0429235750375288,
+        "UPRO": 0.07085538723981065,
+        "VTV": 0.1424637067610565
+      },
+      "allocation_id": 8,
+      "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.2538817140428836,
+          "weighted_cagr": 0.0013791830564612105
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.11565926906444528,
+          "weighted_cagr": 0.006674675141273028
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.37421634785427516,
+          "weighted_cagr": 0.03115890237909025
+        },
+        "SHV": {
+          "asset_cagr": 0.01386035858920831,
+          "weight": 0.0429235750375288,
+          "weighted_cagr": 0.0005949361419509397
+        },
+        "UPRO": {
+          "asset_cagr": 0.18450155323946915,
+          "weight": 0.07085538723981065,
+          "weighted_cagr": 0.013072929001129129
+        },
+        "VTV": {
+          "asset_cagr": 0.10006536618351425,
+          "weight": 0.1424637067610565,
+          "weighted_cagr": 0.014255682984905912
+        }
+      },
+      "dca": {
+        "ending_value": 850405.4247416467,
+        "max_account_drawdown": -0.18421210952401978,
+        "minimum_account_value": 999.1693863015512,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3852,
+        "underwater_months": 224,
+        "worst_value_vs_contributions": -0.053320813788446664
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "cash",
+          "commodities",
+          "gold",
+          "managed futures"
+        ],
+        "largest_weight": 0.37421634785427516,
+        "leveraged_weight": 0.07085538723981065,
+        "qqq_tqqq_overlap": 0.0
+      },
+      "expert_rank": 9,
+      "expert_score": 0.48880597798192893,
+      "family": "EMA100",
+      "frequency": "Monthly",
+      "local_full": {
+        "cagr": 0.10277733503514086,
+        "max_drawdown": -0.26770054924579123,
+        "observations": 4666,
+        "sharpe": 0.7844504552991773,
+        "total_return": 5.134161766245578
+      },
+      "local_test": {
+        "cagr": 0.1773236117204564,
+        "max_drawdown": -0.12157382876101397,
+        "observations": 1410,
+        "sharpe": 1.224226897258706,
+        "total_return": 1.4975917355976467
+      },
+      "method": "EMA100:pro_rata:Monthly",
+      "policy": "pro_rata",
+      "rank": 9,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "It did not beat SPY in most rolling three-year windows.",
+          "The exact dynamic/local method is not directly Testfol-validated.",
+          "Worst observed rolling three-month return was -9.6%."
+        ],
+        "why_consider": [
+          "Test CAGR of 17.7%, +2.0% versus SPY.",
+          "Observed max drawdown of -12.2% in the locked test window.",
+          "Spans 5 asset classes: US equity, cash, commodities, gold, managed futures.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-08-04",
+        "max_drawdown": -0.12157382876101397,
+        "peak_date": "2022-03-08",
+        "recovery_date": "2023-04-13",
+        "recovery_days": 252,
+        "worst_daily_return": -0.057788000350473934,
+        "worst_rolling_3m": -0.09594047180116527
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.0074646957237424205,
+            "max_drawdown": -0.07853186837140835,
+            "observations": 296,
+            "sharpe": -0.04298519206480155,
+            "total_return": -0.008721176286053844
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.21253916365169145,
+            "max_drawdown": -0.14935832659879955,
+            "observations": 128,
+            "sharpe": -1.391098007892768,
+            "total_return": -0.11224720075204309
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.18497423775252797,
+            "max_drawdown": -0.19875277224513577,
+            "observations": 145,
+            "sharpe": -1.0465706894521356,
+            "total_return": -0.11094612632751821
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.4339146632720776,
+            "max_drawdown": -0.18569842923741553,
+            "observations": 63,
+            "sharpe": -3.8358630101878854,
+            "total_return": -0.1321755029543622
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": 0.17773524155361553,
+            "max_drawdown": -0.12509122566728903,
+            "observations": 62,
+            "sharpe": 0.7599719212421492,
+            "total_return": 0.03973594690470361
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.07863338709631895,
+            "max_drawdown": -0.12157382876101241,
+            "observations": 209,
+            "sharpe": 0.6328360673307849,
+            "total_return": 0.06436631088720768
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.31171284350456596,
+            "max_drawdown": -0.08135711714488791,
+            "observations": 405,
+            "sharpe": 1.8756093749693976,
+            "total_return": 0.5489097313959204
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 1068,
+        "beat_rate": 0.28060956384655805,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 1436,
+        "beat_rate": 0.37729900157645824,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.2509129502651919,
+        "crisis_resilience": 0.5317936938352859,
+        "diversification": 1.0,
+        "drawdown_control": 0.39213085619493016,
+        "leverage_control": 0.9291446127601893,
+        "rolling_spy": 0.28060956384655805,
+        "rolling_vt": 0.37729900157645824,
+        "sharpe": 0.8161512648391374,
+        "testfol_validation": 0.0
+      },
+      "testfol_method": null,
+      "testfol_test": {},
+      "testfol_validated": false
+    },
+    {
+      "allocation": {
+        "DBC": 0.2538817140428836,
+        "DBMF": 0.11565926906444528,
+        "GLD": 0.37421634785427516,
+        "SHV": 0.0429235750375288,
+        "UPRO": 0.07085538723981065,
+        "VTV": 0.1424637067610565
+      },
+      "allocation_id": 8,
+      "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
+      "asset_contribution": {
+        "DBC": {
+          "asset_cagr": 0.0054323843749859435,
+          "weight": 0.2538817140428836,
+          "weighted_cagr": 0.0013791830564612105
+        },
+        "DBMF": {
+          "asset_cagr": 0.057709816042101236,
+          "weight": 0.11565926906444528,
+          "weighted_cagr": 0.006674675141273028
+        },
+        "GLD": {
+          "asset_cagr": 0.08326440722793849,
+          "weight": 0.37421634785427516,
+          "weighted_cagr": 0.03115890237909025
+        },
+        "SHV": {
+          "asset_cagr": 0.01386035858920831,
+          "weight": 0.0429235750375288,
+          "weighted_cagr": 0.0005949361419509397
+        },
+        "UPRO": {
+          "asset_cagr": 0.18450155323946915,
+          "weight": 0.07085538723981065,
+          "weighted_cagr": 0.013072929001129129
+        },
+        "VTV": {
+          "asset_cagr": 0.10006536618351425,
+          "weight": 0.1424637067610565,
+          "weighted_cagr": 0.014255682984905912
+        }
+      },
+      "dca": {
+        "ending_value": 686583.9476018709,
+        "max_account_drawdown": -0.2037752551602081,
+        "minimum_account_value": 999.1693863015512,
+        "monthly_contribution": 1000.0,
+        "total_contributions": 224000.0,
+        "underwater_days": 3852,
+        "underwater_months": 223,
+        "worst_value_vs_contributions": -0.2627697245216919
+      },
+      "diversification": {
+        "asset_class_count": 5,
+        "asset_classes": [
+          "US equity",
+          "cash",
+          "commodities",
+          "gold",
+          "managed futures"
+        ],
+        "largest_weight": 0.37421634785427516,
+        "leveraged_weight": 0.07085538723981065,
+        "qqq_tqqq_overlap": 0.0
+      },
+      "expert_rank": 10,
+      "expert_score": 0.45461522852267267,
+      "family": "Calendar",
+      "frequency": "Yearly",
+      "local_full": {
+        "cagr": 0.08349123674724601,
+        "max_drawdown": -0.3350102208971065,
+        "observations": 4665,
+        "sharpe": 0.6928731095490341,
+        "total_return": 3.421736858084656
+      },
+      "local_test": {
+        "cagr": 0.1741034963823802,
+        "max_drawdown": -0.14611419600002884,
+        "observations": 1409,
+        "sharpe": 1.3531449305139178,
+        "total_return": 1.4584483503743821
+      },
+      "method": "Calendar:Yearly",
+      "policy": "",
+      "rank": 11,
+      "rationale": {
+        "black_swan_note": "Diversifiers may help in the specific historical shock regimes shown, but they can correlate during a liquidity crisis. No rule here guarantees protection from a simultaneous fall in equities, credit, commodities, gold, and leveraged ETFs.",
+        "what_can_go_wrong": [
+          "It did not beat SPY in most rolling three-year windows.",
+          "The exact dynamic/local method is not directly Testfol-validated.",
+          "Worst observed rolling three-month return was -10.5%."
+        ],
+        "why_consider": [
+          "Test CAGR of 17.4%, +1.7% versus SPY.",
+          "Observed max drawdown of -14.6% in the locked test window.",
+          "Spans 5 asset classes: US equity, cash, commodities, gold, managed futures.",
+          "Keeps explicit leveraged sleeves relatively contained."
+        ]
+      },
+      "recovery": {
+        "bottom_date": "2022-09-26",
+        "max_drawdown": -0.14611419600002884,
+        "peak_date": "2022-04-18",
+        "recovery_date": "2024-01-30",
+        "recovery_days": 491,
+        "worst_daily_return": -0.054697028948394566,
+        "worst_rolling_3m": -0.10526401104964711
+      },
+      "regimes": {
+        "2008_financial_crisis": {
+          "SPY": {
+            "cagr": -0.4524877165376249,
+            "max_drawdown": -0.47165239817793714,
+            "observations": 191,
+            "sharpe": -0.9498129376478585,
+            "total_return": -0.366711036248355
+          },
+          "VT": {
+            "cagr": -0.5038590958543274,
+            "max_drawdown": -0.5022401114059838,
+            "observations": 191,
+            "sharpe": -1.047200206857599,
+            "total_return": -0.4123056377195433
+          },
+          "portfolio": {
+            "cagr": -0.2041539687563978,
+            "max_drawdown": -0.3350102208971065,
+            "observations": 295,
+            "sharpe": -0.9456512784053402,
+            "total_return": -0.23381348615238307
+          }
+        },
+        "2011_risk_off": {
+          "SPY": {
+            "cagr": -0.13696871269685018,
+            "max_drawdown": -0.18480011080527425,
+            "observations": 128,
+            "sharpe": -0.39195007351850464,
+            "total_return": -0.07077103483135727
+          },
+          "VT": {
+            "cagr": -0.24503338664952778,
+            "max_drawdown": -0.23612174853737256,
+            "observations": 128,
+            "sharpe": -0.7245361347648787,
+            "total_return": -0.13069383828260128
+          },
+          "portfolio": {
+            "cagr": -0.08502856310104923,
+            "max_drawdown": -0.10879593862206105,
+            "observations": 128,
+            "sharpe": -0.4568881365738347,
+            "total_return": -0.043313146406033676
+          }
+        },
+        "2015_2016_selloff": {
+          "SPY": {
+            "cagr": -0.11889949722489657,
+            "max_drawdown": -0.12820714826070512,
+            "observations": 145,
+            "sharpe": -0.5416797758585564,
+            "total_return": -0.07019376241505348
+          },
+          "VT": {
+            "cagr": -0.20319618272722095,
+            "max_drawdown": -0.17167589754813517,
+            "observations": 145,
+            "sharpe": -1.058181332777284,
+            "total_return": -0.12242928423248522
+          },
+          "portfolio": {
+            "cagr": -0.03241579209373702,
+            "max_drawdown": -0.0998858316222665,
+            "observations": 145,
+            "sharpe": -0.251219922636775,
+            "total_return": -0.01876782985846903
+          }
+        },
+        "2018_q4_selloff": {
+          "SPY": {
+            "cagr": -0.44210555995815515,
+            "max_drawdown": -0.19203213736432012,
+            "observations": 63,
+            "sharpe": -2.3362001818054887,
+            "total_return": -0.1353211168891041
+          },
+          "VT": {
+            "cagr": -0.4284816943940063,
+            "max_drawdown": -0.17431532560008645,
+            "observations": 63,
+            "sharpe": -2.6100002729041396,
+            "total_return": -0.1301078413090091
+          },
+          "portfolio": {
+            "cagr": -0.27272196025656503,
+            "max_drawdown": -0.11073345079061836,
+            "observations": 63,
+            "sharpe": -3.153177880305829,
+            "total_return": -0.07627341125099263
+          }
+        },
+        "2020_covid_shock": {
+          "SPY": {
+            "cagr": -0.3325938186301576,
+            "max_drawdown": -0.337172561834272,
+            "observations": 62,
+            "sharpe": -0.36118012284450757,
+            "total_return": -0.09182199928883938
+          },
+          "VT": {
+            "cagr": -0.43526743220806596,
+            "max_drawdown": -0.34236204177906404,
+            "observations": 62,
+            "sharpe": -0.6538598754326356,
+            "total_return": -0.1272483158124038
+          },
+          "portfolio": {
+            "cagr": -0.3113949466960283,
+            "max_drawdown": -0.20791595098225069,
+            "observations": 62,
+            "sharpe": -1.1834747052104277,
+            "total_return": -0.08503257138518205
+          }
+        },
+        "2022_inflation_bear": {
+          "SPY": {
+            "cagr": -0.21103518158586065,
+            "max_drawdown": -0.244963887346745,
+            "observations": 209,
+            "sharpe": -0.8422823134277732,
+            "total_return": -0.17744317393408837
+          },
+          "VT": {
+            "cagr": -0.24598664054831632,
+            "max_drawdown": -0.26161222268884066,
+            "observations": 209,
+            "sharpe": -1.1171298417027034,
+            "total_return": -0.20759188383435612
+          },
+          "portfolio": {
+            "cagr": 0.005674391803479173,
+            "max_drawdown": -0.14611419600002928,
+            "observations": 209,
+            "sharpe": 0.10933678468639932,
+            "total_return": 0.004673898410153976
+          }
+        },
+        "2025_2026_recent": {
+          "SPY": {
+            "cagr": 0.19841843888455357,
+            "max_drawdown": -0.18755229425221842,
+            "observations": 406,
+            "sharpe": 1.1281553212243838,
+            "total_return": 0.3409396452301452
+          },
+          "VT": {
+            "cagr": 0.23775277660356609,
+            "max_drawdown": -0.16514503595123975,
+            "observations": 406,
+            "sharpe": 1.3884405717425197,
+            "total_return": 0.41299866076972025
+          },
+          "portfolio": {
+            "cagr": 0.3042265567287801,
+            "max_drawdown": -0.10231170435349501,
+            "observations": 405,
+            "sharpe": 1.8927697296449608,
+            "total_return": 0.5346792876265811
+          }
+        }
+      },
+      "rolling_3y_vs_spy": {
+        "beat_count": 863,
+        "beat_rate": 0.22674724119810824,
+        "windows": 3806
+      },
+      "rolling_3y_vs_vt": {
+        "beat_count": 1490,
+        "beat_rate": 0.3914871255911718,
+        "windows": 3806
+      },
+      "score_components": {
+        "cagr_excess": 0.21066150853923937,
+        "crisis_resilience": 0.3952759469575296,
+        "diversification": 1.0,
+        "drawdown_control": 0.2694290199998558,
+        "leverage_control": 0.9291446127601893,
+        "rolling_spy": 0.22674724119810824,
+        "rolling_vt": 0.3914871255911718,
+        "sharpe": 0.9020966203426118,
+        "testfol_validation": 0.0
+      },
+      "testfol_method": null,
+      "testfol_test": {},
+      "testfol_validated": false
+    }
+  ],
+  "spy_test_cagr": 0.15725057569924106
+}

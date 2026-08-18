@@ -16,6 +16,7 @@ BENCHMARK_PATH = Path(__file__).parents[2] / "data" / "screener-benchmark.json"
 REBALANCE_PATH = Path(__file__).parents[2] / "data" / "rebalance-ranking.json"
 MATRIX_PATH = Path(__file__).parents[2] / "data" / "rebalance-matrix-results.jsonl"
 RESEARCH_PATH = Path(__file__).parents[2] / "data" / "rebalance-research-report.json"
+EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -87,6 +88,24 @@ def _research_rows(candidates: list[dict[str, object]]) -> list[dict[str, object
     ]
 
 
+def _expert_rows(candidates: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [
+        {
+            "Rank": row["expert_rank"],
+            "Allocation": row["allocation_label"],
+            "Method": row["method"],
+            "Score": f"{row['expert_score']:.3f}",
+            "Test CAGR": f"{row['local_test']['cagr']:.2%}",
+            "Max DD": f"{row['local_test']['max_drawdown']:.2%}",
+            "Sharpe": f"{row['local_test']['sharpe']:.2f}",
+            "3Y > SPY": f"{row['rolling_3y_vs_spy']['beat_rate']:.1%}",
+            "3Y > VT": f"{row['rolling_3y_vs_vt']['beat_rate']:.1%}",
+            "Testfol Exact": "Yes" if row["testfol_validated"] else "No",
+        }
+        for row in candidates
+    ]
+
+
 def render_screened_results(
     path: str | Path = RESULTS_PATH,
     benchmark_path: str | Path = BENCHMARK_PATH,
@@ -101,6 +120,7 @@ def render_screened_results(
         rebalance_ranking = json.loads(Path(rebalance_path).read_text(encoding="utf-8"))
         matrix = _load_matrix(MATRIX_PATH)
         research = json.loads(RESEARCH_PATH.read_text(encoding="utf-8"))
+        expert = json.loads(EXPERT_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -198,6 +218,33 @@ def render_screened_results(
             **Confidence:** {research['interpretation']['confidence']} This candidate beat SPY in **{selected_research['rolling_3y_vs_spy']['beat_rate']:.1%}** of rolling three-year windows and VT in **{selected_research['rolling_3y_vs_vt']['beat_rate']:.1%}**.
             """
         )
+
+    st.subheader("Expert Top-10 Shortlist")
+    st.caption(expert["selection_rule"])
+    st.dataframe(pd.DataFrame(_expert_rows(expert["shortlist"])), use_container_width=True, hide_index=True)
+    st.info(
+        "This shortlist is an investor-style judgment layer over the quantitative pool. "
+        "It favors candidates that beat SPY while balancing drawdown, diversification, crisis behavior, "
+        "leveraged exposure, rolling-market consistency, and Testfol validation."
+    )
+    expert_labels = [f"#{row['expert_rank']} | {row['method']} | {row['allocation_label']}" for row in expert["shortlist"]]
+    expert_choice = st.selectbox("Expert candidate", expert_labels, key="expert_candidate")
+    selected_expert = expert["shortlist"][expert_labels.index(expert_choice)]
+    expert_columns = st.columns(6)
+    expert_columns[0].metric("Expert Score", f"{selected_expert['expert_score']:.3f}")
+    expert_columns[1].metric("Test CAGR", f"{selected_expert['local_test']['cagr']:.1%}")
+    expert_columns[2].metric("Max DD", f"{selected_expert['local_test']['max_drawdown']:.1%}")
+    expert_columns[3].metric("Sharpe", f"{selected_expert['local_test']['sharpe']:.2f}")
+    expert_columns[4].metric("Leveraged Weight", f"{selected_expert['diversification']['leveraged_weight']:.1%}")
+    expert_columns[5].metric("Testfol Exact", "Yes" if selected_expert["testfol_validated"] else "No")
+    with st.expander("Why I would consider it"):
+        st.markdown("**Strengths**")
+        for item in selected_expert["rationale"]["why_consider"]:
+            st.markdown(f"- {item}")
+        st.markdown("**Weaknesses**")
+        for item in selected_expert["rationale"]["what_can_go_wrong"]:
+            st.markdown(f"- {item}")
+        st.markdown(f"**Black-swan caveat:** {selected_expert['rationale']['black_swan_note']}")
 
     st.subheader("Full Rebalance Matrix")
     st.caption(
