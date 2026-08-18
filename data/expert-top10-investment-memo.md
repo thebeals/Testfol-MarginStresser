@@ -43,8 +43,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 20.0% | -19.3% | 1.18 | 231 | 0.0% |
-| EMA100 monthly cash | 14.8% | -17.6% | 0.98 | 97 | 18.4% |
-| 10% component crash cash | 17.6% | -14.3% | 1.21 | 48 | 24.0% |
+| EMA100 monthly cash | 13.0% | -17.9% | 0.89 | 97 | 23.1% |
+| 10% component crash cash | 14.5% | -15.1% | 1.05 | 94 | 27.8% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -79,8 +79,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 20.7% | -19.6% | 1.29 | 262 | 0.0% |
-| EMA100 monthly cash | 15.5% | -16.2% | 1.09 | 144 | 15.7% |
-| 10% component crash cash | 18.3% | -9.7% | 1.40 | 54 | 25.5% |
+| EMA100 monthly cash | 17.3% | -12.8% | 1.19 | Not recovered | 14.5% |
+| 10% component crash cash | 17.3% | -11.4% | 1.36 | 43 | 26.0% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -116,8 +116,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 17.7% | -15.4% | 1.38 | 521 | 0.0% |
-| EMA100 monthly cash | 15.0% | -11.2% | 1.27 | 300 | 15.3% |
-| 10% component crash cash | 18.9% | -9.6% | 1.61 | Not recovered | 11.2% |
+| EMA100 monthly cash | 15.2% | -11.1% | 1.29 | 300 | 15.3% |
+| 10% component crash cash | 17.3% | -11.1% | 1.53 | Not recovered | 12.5% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -152,8 +152,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 18.5% | -15.9% | 1.26 | 155 | 0.0% |
-| EMA100 monthly cash | 15.3% | -14.0% | 1.23 | 75 | 22.5% |
-| 10% component crash cash | 16.1% | -9.4% | 1.39 | 190 | 30.7% |
+| EMA100 monthly cash | 17.1% | -12.1% | 1.32 | 427 | 22.3% |
+| 10% component crash cash | 16.2% | -12.6% | 1.36 | 536 | 29.8% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -187,8 +187,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 19.8% | -19.6% | 1.18 | 241 | 0.0% |
-| EMA100 monthly cash | 13.1% | -20.0% | 0.91 | 348 | 23.2% |
-| 10% component crash cash | 15.5% | -17.5% | 1.11 | 97 | 27.2% |
+| EMA100 monthly cash | 13.0% | -18.3% | 0.89 | 124 | 23.1% |
+| 10% component crash cash | 14.5% | -15.6% | 1.06 | 94 | 27.8% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -224,8 +224,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 16.7% | -15.7% | 1.21 | 154 | 0.0% |
-| EMA100 monthly cash | 14.4% | -11.4% | 1.24 | 57 | 27.0% |
-| 10% component crash cash | 13.6% | -11.2% | 1.24 | 210 | 32.2% |
+| EMA100 monthly cash | 15.9% | -11.6% | 1.30 | 427 | 23.8% |
+| 10% component crash cash | 14.1% | -12.3% | 1.24 | 540 | 29.8% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -260,8 +260,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 20.7% | -19.6% | 1.29 | 262 | 0.0% |
-| EMA100 monthly cash | 15.5% | -16.2% | 1.09 | 144 | 15.8% |
-| 10% component crash cash | 18.2% | -9.7% | 1.40 | 54 | 25.5% |
+| EMA100 monthly cash | 17.3% | -12.8% | 1.19 | Not recovered | 14.5% |
+| 10% component crash cash | 17.3% | -11.4% | 1.37 | 43 | 26.0% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -296,8 +296,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 19.5% | -19.2% | 1.16 | Not recovered | 0.0% |
-| EMA100 monthly cash | 13.0% | -19.2% | 0.86 | Not recovered | 16.4% |
-| 10% component crash cash | 16.6% | -18.2% | 1.14 | Not recovered | 22.6% |
+| EMA100 monthly cash | 12.9% | -19.2% | 0.86 | Not recovered | 17.1% |
+| 10% component crash cash | 13.9% | -25.5% | 1.02 | Not recovered | 23.0% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -333,8 +333,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 17.7% | -12.2% | 1.22 | 252 | 0.0% |
-| EMA100 monthly cash | 11.7% | -13.4% | 1.00 | 319 | 18.2% |
-| 10% component crash cash | 19.4% | -9.0% | 1.39 | 3 | 9.7% |
+| EMA100 monthly cash | 10.6% | -14.7% | 0.91 | 356 | 17.4% |
+| 10% component crash cash | 17.7% | -12.2% | 1.30 | Not recovered | 9.5% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 
@@ -370,8 +370,8 @@ The shortlist candidates all beat the locked SPY test CAGR and pass the method-l
 | Version | CAGR | Max DD | Sharpe | Recovery days | Cash time |
 |---|---:|---:|---:|---:|---:|
 | Baseline | 17.4% | -14.6% | 1.35 | 491 | 0.0% |
-| EMA100 monthly cash | 14.7% | -10.2% | 1.25 | Not recovered | 15.3% |
-| 10% component crash cash | 19.0% | -10.2% | 1.59 | Not recovered | 11.2% |
+| EMA100 monthly cash | 14.9% | -10.2% | 1.26 | Not recovered | 15.3% |
+| 10% component crash cash | 17.3% | -11.7% | 1.51 | Not recovered | 12.5% |
 
 **Interpretation:** The overlay is not free insurance. Compare the reduced drawdown against the CAGR lost, cash time, and the possibility of exiting immediately before a rebound.
 

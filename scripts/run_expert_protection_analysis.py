@@ -41,13 +41,12 @@ def _overlay(
     base_wealth = (1.0 + base_returns).cumprod()
     ema = base_wealth.ewm(span=100, adjust=False, min_periods=100).mean()
     invested = True
-    prior_period = None
     output = []
     cash_days = 0
     exits = 0
-    for timestamp in base_returns.index:
-        period = _period_key(timestamp)
-        monthly_check = prior_period is not None and period != prior_period
+    periods = base_returns.index.to_period("M").asi8
+    for index, timestamp in enumerate(base_returns.index):
+        monthly_check = index + 1 < len(base_returns) and periods[index + 1] != periods[index]
         if not invested:
             cash_days += 1
             daily = float(cash_returns.loc[timestamp])
@@ -62,7 +61,6 @@ def _overlay(
                 invested = False
                 exits += 1
         output.append(daily)
-        prior_period = period
     return pd.Series(output, index=base_returns.index), {"cash_days": cash_days, "cash_pct": cash_days / len(base_returns), "exits": exits}
 
 

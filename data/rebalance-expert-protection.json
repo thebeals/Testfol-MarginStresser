@@ -5,14 +5,14 @@
       "allocation_label": "DBC 6.7% / DBMF 15.8% / GLD 31.0% / TQQQ 16.6% / VNQ 29.9%",
       "baseline": {
         "dca": {
-          "ending_value": 128359.53095879612,
-          "max_account_drawdown": -0.12717043609905976,
-          "minimum_account_value": 995.1290602943105,
+          "ending_value": 128359.5359197774,
+          "max_account_drawdown": -0.12717046297747026,
+          "minimum_account_value": 995.1291615584582,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1051,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.07981799450045513
+          "worst_value_vs_contributions": -0.07981803924908226
         },
         "overlay": {
           "cash_days": 0,
@@ -21,85 +21,85 @@
         },
         "recovery": {
           "bottom_date": "2022-10-14",
-          "max_drawdown": -0.19262591269905083,
+          "max_drawdown": -0.19262596832471535,
           "peak_date": "2022-04-04",
           "recovery_date": "2023-06-02",
           "recovery_days": 231,
-          "worst_daily_return": -0.048482356070403076,
-          "worst_rolling_3m": -0.13560378343384338
+          "worst_daily_return": -0.048482357404347476,
+          "worst_rolling_3m": -0.1356038660592187
         },
         "test": {
-          "cagr": 0.19969689435267113,
-          "max_drawdown": -0.19262591269905083,
+          "cagr": 0.19969691531619738,
+          "max_drawdown": -0.19262596832471535,
           "observations": 1410,
-          "sharpe": 1.17584781628856,
-          "total_return": 1.7756420451718933
+          "sharpe": 1.1758477658798003,
+          "total_return": 1.775642317126239
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 122664.95107911428,
-          "max_account_drawdown": -0.10837678235871251,
-          "minimum_account_value": 995.1290602943105,
-          "monthly_contribution": 1000.0,
-          "total_contributions": 68000.0,
-          "underwater_days": 996,
-          "underwater_months": 68,
-          "worst_value_vs_contributions": -0.024849575548476777
-        },
-        "overlay": {
-          "cash_days": 338,
-          "cash_pct": 0.2397163120567376,
-          "exits": 11
-        },
-        "recovery": {
-          "bottom_date": "2023-10-26",
-          "max_drawdown": -0.14317566774876123,
-          "peak_date": "2023-07-19",
-          "recovery_date": "2023-12-13",
-          "recovery_days": 48,
-          "worst_daily_return": -0.048482356070403076,
-          "worst_rolling_3m": -0.1327119448532046
-        },
-        "test": {
-          "cagr": 0.1759469559263347,
-          "max_drawdown": -0.14317566774876123,
-          "observations": 1410,
-          "sharpe": 1.2102668026407937,
-          "total_return": 1.4812604281578308
-        }
-      },
-      "ema100_cash": {
-        "dca": {
-          "ending_value": 110797.97613446032,
-          "max_account_drawdown": -0.12421342905223087,
-          "minimum_account_value": 995.1290602943105,
+          "ending_value": 110453.52208727378,
+          "max_account_drawdown": -0.1261696696660185,
+          "minimum_account_value": 995.1291615584582,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 986,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.08311062932392366
+          "worst_value_vs_contributions": -0.054744427528403694
         },
         "overlay": {
-          "cash_days": 260,
-          "cash_pct": 0.18439716312056736,
+          "cash_days": 392,
+          "cash_pct": 0.27801418439716313,
+          "exits": 10
+        },
+        "recovery": {
+          "bottom_date": "2023-03-10",
+          "max_drawdown": -0.15083482450254682,
+          "peak_date": "2021-12-27",
+          "recovery_date": "2023-06-12",
+          "recovery_days": 94,
+          "worst_daily_return": -0.048482357404347476,
+          "worst_rolling_3m": -0.1327119938641539
+        },
+        "test": {
+          "cagr": 0.14484091190871684,
+          "max_drawdown": -0.15083482450254682,
+          "observations": 1410,
+          "sharpe": 1.0502844072269535,
+          "total_return": 1.1349659910491798
+        }
+      },
+      "ema100_cash": {
+        "dca": {
+          "ending_value": 102405.48527243393,
+          "max_account_drawdown": -0.12466566191204609,
+          "minimum_account_value": 995.1291615584582,
+          "monthly_contribution": 1000.0,
+          "total_contributions": 68000.0,
+          "underwater_days": 992,
+          "underwater_months": 68,
+          "worst_value_vs_contributions": -0.06929998552687444
+        },
+        "overlay": {
+          "cash_days": 326,
+          "cash_pct": 0.23120567375886525,
           "exits": 6
         },
         "recovery": {
           "bottom_date": "2023-03-10",
-          "max_drawdown": -0.17556423542122712,
+          "max_drawdown": -0.17892082404408327,
           "peak_date": "2021-09-03",
           "recovery_date": "2023-06-15",
           "recovery_days": 97,
-          "worst_daily_return": -0.048482356070403076,
-          "worst_rolling_3m": -0.11218649999530905
+          "worst_daily_return": -0.048482357404347476,
+          "worst_rolling_3m": -0.11187001833535848
         },
         "test": {
-          "cagr": 0.14824677897002148,
-          "max_drawdown": -0.17556423542122712,
+          "cagr": 0.13019747981850505,
+          "max_drawdown": -0.17892082404408327,
           "observations": 1410,
-          "sharpe": 0.9815967695873986,
-          "total_return": 1.170824308782458
+          "sharpe": 0.8886607199386548,
+          "total_return": 0.9862899623796735
         }
       },
       "expert_rank": 1,
@@ -405,14 +405,14 @@
       "allocation_label": "DBC 34.2% / GLD 44.6% / TIP 4.9% / TQQQ 10.9% / VNQ 2.1% / VPU 3.2%",
       "baseline": {
         "dca": {
-          "ending_value": 131644.07866523037,
-          "max_account_drawdown": -0.12130207141690608,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 131644.08200704947,
+          "max_account_drawdown": -0.12130207283592798,
+          "minimum_account_value": 992.1398627284993,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1046,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.03803655776707959
+          "worst_value_vs_contributions": -0.03803657331452093
         },
         "overlay": {
           "cash_days": 0,
@@ -421,85 +421,85 @@
         },
         "recovery": {
           "bottom_date": "2022-09-26",
-          "max_drawdown": -0.1956475527992353,
+          "max_drawdown": -0.19564756040871223,
           "peak_date": "2022-03-08",
           "recovery_date": "2023-06-15",
           "recovery_days": 262,
-          "worst_daily_return": -0.06422745930673979,
-          "worst_rolling_3m": -0.13610226789925328
+          "worst_daily_return": -0.06422745961991405,
+          "worst_rolling_3m": -0.13610227039661094
         },
         "test": {
-          "cagr": 0.20733082371802314,
-          "max_drawdown": -0.1956475527992353,
+          "cagr": 0.2073308306506585,
+          "max_drawdown": -0.19564756040871223,
           "observations": 1410,
-          "sharpe": 1.2883219845336795,
-          "total_return": 1.8761377935043217
+          "sharpe": 1.2883219608692555,
+          "total_return": 1.8761378861065618
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 123699.28703336419,
-          "max_account_drawdown": -0.08414568359147157,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 116113.18789680528,
+          "max_account_drawdown": -0.09746165684301022,
+          "minimum_account_value": 992.1398627284993,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 1007,
+          "underwater_days": 1019,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.01871826916827357
+          "worst_value_vs_contributions": -0.013539552697140356
         },
         "overlay": {
-          "cash_days": 359,
-          "cash_pct": 0.25460992907801416,
+          "cash_days": 366,
+          "cash_pct": 0.25957446808510637,
           "exits": 13
         },
         "recovery": {
-          "bottom_date": "2023-10-05",
-          "max_drawdown": -0.09747641637760329,
-          "peak_date": "2023-07-31",
-          "recovery_date": "2023-11-28",
-          "recovery_days": 54,
-          "worst_daily_return": -0.06422745930673979,
-          "worst_rolling_3m": -0.07686030991484794
+          "bottom_date": "2026-03-26",
+          "max_drawdown": -0.11402140808895844,
+          "peak_date": "2026-01-29",
+          "recovery_date": "2026-05-08",
+          "recovery_days": 43,
+          "worst_daily_return": -0.06422745961991405,
+          "worst_rolling_3m": -0.07686031563710449
         },
         "test": {
-          "cagr": 0.18285124616017456,
-          "max_drawdown": -0.09747641637760329,
+          "cagr": 0.17327743814203633,
+          "max_drawdown": -0.11402140808895844,
           "observations": 1410,
-          "sharpe": 1.4001892723609755,
-          "total_return": 1.5640582341643947
+          "sharpe": 1.3644486860661547,
+          "total_return": 1.4498418616791926
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 112407.78965886755,
-          "max_account_drawdown": -0.1206915515431648,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 115939.2303512094,
+          "max_account_drawdown": -0.12086149599769347,
+          "minimum_account_value": 992.1398627284993,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 983,
+          "underwater_days": 988,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.03999165588000586
+          "worst_value_vs_contributions": -0.013902930686401138
         },
         "overlay": {
-          "cash_days": 222,
-          "cash_pct": 0.1574468085106383,
-          "exits": 5
+          "cash_days": 204,
+          "cash_pct": 0.14468085106382977,
+          "exits": 4
         },
         "recovery": {
-          "bottom_date": "2023-02-24",
-          "max_drawdown": -0.16161518631694394,
-          "peak_date": "2022-03-08",
-          "recovery_date": "2023-07-18",
-          "recovery_days": 144,
-          "worst_daily_return": -0.06422745930673979,
-          "worst_rolling_3m": -0.11325462987217694
+          "bottom_date": "2026-06-24",
+          "max_drawdown": -0.12794606000463016,
+          "peak_date": "2026-05-12",
+          "recovery_date": null,
+          "recovery_days": null,
+          "worst_daily_return": -0.06422745961991405,
+          "worst_rolling_3m": -0.1062185485567474
         },
         "test": {
-          "cagr": 0.15497186655874406,
-          "max_drawdown": -0.16161518631694394,
+          "cagr": 0.17311927410661876,
+          "max_drawdown": -0.12794606000463016,
           "observations": 1410,
-          "sharpe": 1.0878116997112524,
-          "total_return": 1.2430826711517566
+          "sharpe": 1.1852673741031856,
+          "total_return": 1.4479906761983585
         }
       },
       "expert_rank": 2,
@@ -811,14 +811,14 @@
       "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
       "baseline": {
         "dca": {
-          "ending_value": 120301.23404656023,
-          "max_account_drawdown": -0.08842022617961931,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 120301.23465486825,
+          "max_account_drawdown": -0.08842022903518687,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 997,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.009372241718519803
+          "worst_value_vs_contributions": -0.009372258130156186
         },
         "overlay": {
           "cash_days": 0,
@@ -827,64 +827,64 @@
         },
         "recovery": {
           "bottom_date": "2022-09-26",
-          "max_drawdown": -0.1538505128979929,
+          "max_drawdown": -0.1538505077307657,
           "peak_date": "2022-04-18",
           "recovery_date": "2024-02-29",
           "recovery_days": 521,
-          "worst_daily_return": -0.054696997172198,
-          "worst_rolling_3m": -0.11378888506447427
+          "worst_daily_return": -0.05469700737496175,
+          "worst_rolling_3m": -0.11378884422903401
         },
         "test": {
-          "cagr": 0.17671072771817053,
-          "max_drawdown": -0.1538505128979929,
+          "cagr": 0.17671072581362313,
+          "max_drawdown": -0.1538505077307657,
           "observations": 1410,
-          "sharpe": 1.375210236322497,
-          "total_return": 1.4903102025108832
+          "sharpe": 1.37521022957695,
+          "total_return": 1.4903101799105296
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 123703.09114610327,
-          "max_account_drawdown": -0.08863987729895417,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 115001.14649585521,
+          "max_account_drawdown": -0.093795507268292,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 940,
+          "underwater_days": 944,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.009372241718519803
+          "worst_value_vs_contributions": -0.009372258130156186
         },
         "overlay": {
-          "cash_days": 158,
-          "cash_pct": 0.11205673758865248,
-          "exits": 5
+          "cash_days": 176,
+          "cash_pct": 0.12482269503546099,
+          "exits": 4
         },
         "recovery": {
-          "bottom_date": "2026-06-24",
-          "max_drawdown": -0.09620482142618259,
-          "peak_date": "2026-05-12",
+          "bottom_date": "2026-03-23",
+          "max_drawdown": -0.11085632193458572,
+          "peak_date": "2026-01-29",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.054696997172198,
-          "worst_rolling_3m": -0.05060785044556326
+          "worst_daily_return": -0.05469700737496175,
+          "worst_rolling_3m": -0.05268638266262515
         },
         "test": {
-          "cagr": 0.18917827487429184,
-          "max_drawdown": -0.09620482142618259,
+          "cagr": 0.17284999503767584,
+          "max_drawdown": -0.11085632193458572,
           "observations": 1410,
-          "sharpe": 1.6051711891088296,
-          "total_return": 1.641913847034083
+          "sharpe": 1.5274207032832532,
+          "total_return": 1.4448416209631603
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 112916.5364764375,
-          "max_account_drawdown": -0.08808981832547624,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 113234.24607549819,
+          "max_account_drawdown": -0.08812207885420054,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 946,
+          "underwater_days": 955,
           "underwater_months": 67,
-          "worst_value_vs_contributions": -0.009372241718519803
+          "worst_value_vs_contributions": -0.009372258130156186
         },
         "overlay": {
           "cash_days": 216,
@@ -893,19 +893,19 @@
         },
         "recovery": {
           "bottom_date": "2023-05-25",
-          "max_drawdown": -0.11244710712870298,
+          "max_drawdown": -0.11061246911589384,
           "peak_date": "2022-04-18",
           "recovery_date": "2024-03-20",
           "recovery_days": 300,
-          "worst_daily_return": -0.054696997172198,
-          "worst_rolling_3m": -0.0849676556080694
+          "worst_daily_return": -0.05469700737496175,
+          "worst_rolling_3m": -0.08768118119672497
         },
         "test": {
-          "cagr": 0.14980825016972998,
-          "max_drawdown": -0.11244710712870298,
+          "cagr": 0.15184871157918645,
+          "max_drawdown": -0.11061246911589384,
           "observations": 1410,
-          "sharpe": 1.2720960692551944,
-          "total_return": 1.1874287279746203
+          "sharpe": 1.2891185638672007,
+          "total_return": 1.209283794023778
         }
       },
       "expert_rank": 3,
@@ -1218,14 +1218,14 @@
       "allocation_label": "DBC 37.9% / DBMF 33.5% / TQQQ 11.7% / VNQ 10.8% / XLP 6.1%",
       "baseline": {
         "dca": {
-          "ending_value": 111112.38064199821,
-          "max_account_drawdown": -0.13204444220330613,
-          "minimum_account_value": 1015.7406627665589,
+          "ending_value": 111112.37825777597,
+          "max_account_drawdown": -0.13204445535705644,
+          "minimum_account_value": 1015.7406590446618,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1010,
           "underwater_months": 68,
-          "worst_value_vs_contributions": 0.015740662766558833
+          "worst_value_vs_contributions": 0.01574065904466182
         },
         "overlay": {
           "cash_days": 0,
@@ -1234,85 +1234,85 @@
         },
         "recovery": {
           "bottom_date": "2025-04-08",
-          "max_drawdown": -0.15869034361383083,
+          "max_drawdown": -0.15869035697762968,
           "peak_date": "2025-02-19",
           "recovery_date": "2025-09-10",
           "recovery_days": 155,
-          "worst_daily_return": -0.04807550286155038,
-          "worst_rolling_3m": -0.11993743301054416
+          "worst_daily_return": -0.04807550774937819,
+          "worst_rolling_3m": -0.11993746162964114
         },
         "test": {
-          "cagr": 0.18549969136396105,
-          "max_drawdown": -0.15869034361383083,
+          "cagr": 0.18549968312419107,
+          "max_drawdown": -0.15869035697762968,
           "observations": 1409,
-          "sharpe": 1.2644697003246035,
-          "total_return": 1.5952059199269768
+          "sharpe": 1.2644695484261121,
+          "total_return": 1.595205818835841
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 107098.58995374001,
-          "max_account_drawdown": -0.06920477069483899,
-          "minimum_account_value": 1015.7406627665589,
+          "ending_value": 104555.19412087135,
+          "max_account_drawdown": -0.11102977050756024,
+          "minimum_account_value": 1015.7406590446618,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 956,
+          "underwater_days": 968,
           "underwater_months": 68,
-          "worst_value_vs_contributions": 0.015740662766558833
+          "worst_value_vs_contributions": 0.01574065904466182
         },
         "overlay": {
-          "cash_days": 432,
-          "cash_pct": 0.3066004258339248,
-          "exits": 12
+          "cash_days": 420,
+          "cash_pct": 0.298083747338538,
+          "exits": 11
         },
         "recovery": {
-          "bottom_date": "2025-03-10",
-          "max_drawdown": -0.0936546152878226,
+          "bottom_date": "2024-08-05",
+          "max_drawdown": -0.12632285550307498,
           "peak_date": "2024-07-10",
-          "recovery_date": "2025-09-16",
-          "recovery_days": 190,
-          "worst_daily_return": -0.04807550286155038,
-          "worst_rolling_3m": -0.08928818978935271
+          "recovery_date": "2026-01-23",
+          "recovery_days": 536,
+          "worst_daily_return": -0.04807550774937819,
+          "worst_rolling_3m": -0.08928818117915549
         },
         "test": {
-          "cagr": 0.1606096503760308,
-          "max_drawdown": -0.0936546152878226,
+          "cagr": 0.1622053379117221,
+          "max_drawdown": -0.12632285550307498,
           "observations": 1409,
-          "sharpe": 1.3862082193090255,
-          "total_return": 1.3042306811548534
+          "sharpe": 1.3585894558343825,
+          "total_return": 1.3220417497973895
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 103863.40594497425,
-          "max_account_drawdown": -0.07960498273070282,
-          "minimum_account_value": 1015.7406627665589,
+          "ending_value": 105300.48537608082,
+          "max_account_drawdown": -0.10441820463452467,
+          "minimum_account_value": 1015.7406590446618,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 969,
-          "underwater_months": 67,
-          "worst_value_vs_contributions": 0.0075954060239653565
+          "underwater_days": 926,
+          "underwater_months": 66,
+          "worst_value_vs_contributions": 0.01574065904466182
         },
         "overlay": {
-          "cash_days": 317,
-          "cash_pct": 0.22498225691980128,
-          "exits": 8
+          "cash_days": 314,
+          "cash_pct": 0.22285308729595457,
+          "exits": 6
         },
         "recovery": {
-          "bottom_date": "2023-05-04",
-          "max_drawdown": -0.1396473736244348,
-          "peak_date": "2022-06-08",
-          "recovery_date": "2023-07-18",
-          "recovery_days": 75,
-          "worst_daily_return": -0.04807550286155038,
-          "worst_rolling_3m": -0.09335233334870985
+          "bottom_date": "2024-08-05",
+          "max_drawdown": -0.12069445799574219,
+          "peak_date": "2024-07-10",
+          "recovery_date": "2025-10-06",
+          "recovery_days": 427,
+          "worst_daily_return": -0.04807550774937819,
+          "worst_rolling_3m": -0.08928818117915549
         },
         "test": {
-          "cagr": 0.15307874063216986,
-          "max_drawdown": -0.1396473736244348,
+          "cagr": 0.17131209742608178,
+          "max_drawdown": -0.12069445799574219,
           "observations": 1409,
-          "sharpe": 1.229570022202019,
-          "total_return": 1.2216783432041574
+          "sharpe": 1.3210835340381422,
+          "total_return": 1.4258701222804584
         }
       },
       "expert_rank": 4,
@@ -1618,14 +1618,14 @@
       "allocation_label": "DBC 6.7% / DBMF 15.8% / GLD 31.0% / TQQQ 16.6% / VNQ 29.9%",
       "baseline": {
         "dca": {
-          "ending_value": 128277.61282062724,
-          "max_account_drawdown": -0.125895772419651,
-          "minimum_account_value": 995.1290602943106,
+          "ending_value": 128277.60996807723,
+          "max_account_drawdown": -0.12589580336014927,
+          "minimum_account_value": 995.1291615584579,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1049,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.08320759690252921
+          "worst_value_vs_contributions": -0.08320763451762936
         },
         "overlay": {
           "cash_days": 0,
@@ -1634,85 +1634,85 @@
         },
         "recovery": {
           "bottom_date": "2022-10-14",
-          "max_drawdown": -0.1960907693922781,
+          "max_drawdown": -0.19609084112587238,
           "peak_date": "2021-12-27",
           "recovery_date": "2023-06-12",
           "recovery_days": 241,
-          "worst_daily_return": -0.04857578611250113,
-          "worst_rolling_3m": -0.1368558719412073
+          "worst_daily_return": -0.04857578611250102,
+          "worst_rolling_3m": -0.13685595746270862
         },
         "test": {
-          "cagr": 0.1984983179399631,
-          "max_drawdown": -0.1960907693922781,
+          "cagr": 0.19849831423035225,
+          "max_drawdown": -0.19609084112587238,
           "observations": 1409,
-          "sharpe": 1.175949252150272,
-          "total_return": 1.7587609987125647
+          "sharpe": 1.175949097899989,
+          "total_return": 1.7587609508569813
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 117570.11365506226,
-          "max_account_drawdown": -0.1083880335186842,
-          "minimum_account_value": 995.1290602943106,
+          "ending_value": 110582.22229517577,
+          "max_account_drawdown": -0.12629113429563388,
+          "minimum_account_value": 995.1291615584579,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 972,
+          "underwater_days": 983,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.07660939428095392
+          "worst_value_vs_contributions": -0.05731426225486114
         },
         "overlay": {
-          "cash_days": 383,
-          "cash_pct": 0.2718239886444287,
+          "cash_days": 392,
+          "cash_pct": 0.2782114975159688,
           "exits": 10
         },
         "recovery": {
           "bottom_date": "2023-03-10",
-          "max_drawdown": -0.1745174928886487,
+          "max_drawdown": -0.1555176193637856,
           "peak_date": "2021-12-27",
-          "recovery_date": "2023-06-15",
-          "recovery_days": 97,
-          "worst_daily_return": -0.04857578611250113,
-          "worst_rolling_3m": -0.13120934726789402
+          "recovery_date": "2023-06-12",
+          "recovery_days": 94,
+          "worst_daily_return": -0.04857578611250102,
+          "worst_rolling_3m": -0.13120937483114992
         },
         "test": {
-          "cagr": 0.15524714165295928,
-          "max_drawdown": -0.1745174928886487,
+          "cagr": 0.14451008982034907,
+          "max_drawdown": -0.1555176193637856,
           "observations": 1409,
-          "sharpe": 1.1135306555869384,
-          "total_return": 1.2451946882277887
+          "sharpe": 1.0563275747667644,
+          "total_return": 1.1307215129396666
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 107711.80872864234,
-          "max_account_drawdown": -0.1220112754031335,
-          "minimum_account_value": 995.1290602943106,
+          "ending_value": 102660.7480246025,
+          "max_account_drawdown": -0.12346265233232956,
+          "minimum_account_value": 995.1291615584579,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 980,
+          "underwater_days": 990,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.08847762723924113
+          "worst_value_vs_contributions": -0.07162666248838356
         },
         "overlay": {
-          "cash_days": 327,
-          "cash_pct": 0.2320794889992903,
+          "cash_days": 326,
+          "cash_pct": 0.2313697657913414,
           "exits": 6
         },
         "recovery": {
-          "bottom_date": "2023-04-26",
-          "max_drawdown": -0.20048686330521692,
+          "bottom_date": "2023-03-10",
+          "max_drawdown": -0.1831665811416504,
           "peak_date": "2021-09-03",
-          "recovery_date": "2024-04-08",
-          "recovery_days": 348,
-          "worst_daily_return": -0.04857578611250113,
-          "worst_rolling_3m": -0.11158639541364279
+          "recovery_date": "2023-07-12",
+          "recovery_days": 124,
+          "worst_daily_return": -0.04857578611250102,
+          "worst_rolling_3m": -0.11110820222585849
         },
         "test": {
-          "cagr": 0.1309135126852361,
-          "max_drawdown": -0.20048686330521692,
+          "cagr": 0.13024489818279306,
+          "max_drawdown": -0.1831665811416504,
           "observations": 1409,
-          "sharpe": 0.9054591646281973,
-          "total_return": 0.9926850059969379
+          "sharpe": 0.8945711830230508,
+          "total_return": 0.9860914215492602
         }
       },
       "expert_rank": 5,
@@ -2014,14 +2014,14 @@
       "allocation_label": "DBC 27.7% / DBMF 39.1% / TLT 2.8% / TQQQ 11.6% / TYD 2.8% / VNQ 16.0%",
       "baseline": {
         "dca": {
-          "ending_value": 106884.66865046124,
-          "max_account_drawdown": -0.12349370705697871,
-          "minimum_account_value": 1012.3672122393099,
+          "ending_value": 106884.66646730472,
+          "max_account_drawdown": -0.12349372953195359,
+          "minimum_account_value": 1012.3672233430403,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1007,
           "underwater_months": 68,
-          "worst_value_vs_contributions": 0.012367212239309922
+          "worst_value_vs_contributions": 0.012367223343040301
         },
         "overlay": {
           "cash_days": 0,
@@ -2030,85 +2030,85 @@
         },
         "recovery": {
           "bottom_date": "2025-04-08",
-          "max_drawdown": -0.15665145131246005,
+          "max_drawdown": -0.15665143887055377,
           "peak_date": "2024-07-10",
           "recovery_date": "2025-09-09",
           "recovery_days": 154,
-          "worst_daily_return": -0.04416568286491962,
-          "worst_rolling_3m": -0.1167963472672845
+          "worst_daily_return": -0.044165677908160506,
+          "worst_rolling_3m": -0.11679638592361663
         },
         "test": {
-          "cagr": 0.16675507627903707,
-          "max_drawdown": -0.15665145131246005,
+          "cagr": 0.1667550715273316,
+          "max_drawdown": -0.15665143887055377,
           "observations": 1409,
-          "sharpe": 1.2093640244461423,
-          "total_return": 1.3734480126726312
+          "sharpe": 1.2093638076705449,
+          "total_return": 1.3734479585003472
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 100584.00321439619,
-          "max_account_drawdown": -0.06542513122147242,
-          "minimum_account_value": 1012.3672122393099,
+          "ending_value": 99217.88007763444,
+          "max_account_drawdown": -0.10740936583818106,
+          "minimum_account_value": 1012.3672233430403,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 960,
+          "underwater_days": 972,
           "underwater_months": 68,
-          "worst_value_vs_contributions": 0.007745868414139601
+          "worst_value_vs_contributions": 0.012367223343040301
         },
         "overlay": {
-          "cash_days": 453,
-          "cash_pct": 0.32150461320085166,
+          "cash_days": 420,
+          "cash_pct": 0.298083747338538,
           "exits": 11
         },
         "recovery": {
-          "bottom_date": "2025-03-10",
-          "max_drawdown": -0.11197079877887572,
+          "bottom_date": "2024-08-05",
+          "max_drawdown": -0.12309566045819442,
           "peak_date": "2024-07-10",
-          "recovery_date": "2025-10-06",
-          "recovery_days": 210,
-          "worst_daily_return": -0.04416568286491962,
-          "worst_rolling_3m": -0.09549830029003359
+          "recovery_date": "2026-01-27",
+          "recovery_days": 540,
+          "worst_daily_return": -0.044165677908160506,
+          "worst_rolling_3m": -0.0954983089271988
         },
         "test": {
-          "cagr": 0.13620022757997252,
-          "max_drawdown": -0.11197079877887572,
+          "cagr": 0.14054989818753683,
+          "max_drawdown": -0.12309566045819442,
           "observations": 1409,
-          "sharpe": 1.2428115471215695,
-          "total_return": 1.0454563037250968
+          "sharpe": 1.2359709314663283,
+          "total_return": 1.0897301907333574
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 101512.39581804018,
-          "max_account_drawdown": -0.06788675258096555,
-          "minimum_account_value": 1012.3672122393099,
+          "ending_value": 103043.7862174079,
+          "max_account_drawdown": -0.09964339088326624,
+          "minimum_account_value": 1012.3672233430403,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 925,
-          "underwater_months": 67,
-          "worst_value_vs_contributions": 0.012367212239309922
+          "underwater_days": 908,
+          "underwater_months": 66,
+          "worst_value_vs_contributions": 0.012367223343040301
         },
         "overlay": {
-          "cash_days": 380,
-          "cash_pct": 0.26969481902058196,
-          "exits": 8
+          "cash_days": 336,
+          "cash_pct": 0.23846699787083037,
+          "exits": 6
         },
         "recovery": {
-          "bottom_date": "2022-01-27",
-          "max_drawdown": -0.11357598549477355,
-          "peak_date": "2021-11-18",
-          "recovery_date": "2022-03-25",
-          "recovery_days": 57,
-          "worst_daily_return": -0.04416568286491962,
-          "worst_rolling_3m": -0.10471628252973564
+          "bottom_date": "2024-08-05",
+          "max_drawdown": -0.11584171716241054,
+          "peak_date": "2024-07-10",
+          "recovery_date": "2025-10-06",
+          "recovery_days": 427,
+          "worst_daily_return": -0.044165677908160506,
+          "worst_rolling_3m": -0.06827212538906902
         },
         "test": {
-          "cagr": 0.14408552126433793,
-          "max_drawdown": -0.11357598549477355,
+          "cagr": 0.15911389118254293,
+          "max_drawdown": -0.11584171716241054,
           "observations": 1409,
-          "sharpe": 1.2375067256751848,
-          "total_return": 1.1262955108009898
+          "sharpe": 1.2992618950527763,
+          "total_return": 1.2876370813659581
         }
       },
       "expert_rank": 6,
@@ -2421,14 +2421,14 @@
       "allocation_label": "DBC 34.2% / GLD 44.6% / TIP 4.9% / TQQQ 10.9% / VNQ 2.1% / VPU 3.2%",
       "baseline": {
         "dca": {
-          "ending_value": 131731.4294800599,
-          "max_account_drawdown": -0.12143154116729349,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 131731.42595912496,
+          "max_account_drawdown": -0.12143154062600958,
+          "minimum_account_value": 992.1398627284998,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1042,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.04171935020826467
+          "worst_value_vs_contributions": -0.0417193707825354
         },
         "overlay": {
           "cash_days": 0,
@@ -2437,85 +2437,85 @@
         },
         "recovery": {
           "bottom_date": "2022-09-26",
-          "max_drawdown": -0.19598820326427258,
+          "max_drawdown": -0.19598820962248498,
           "peak_date": "2022-03-08",
           "recovery_date": "2023-06-15",
           "recovery_days": 262,
-          "worst_daily_return": -0.06430541051697403,
-          "worst_rolling_3m": -0.1366252286508055
+          "worst_daily_return": -0.06430541032294745,
+          "worst_rolling_3m": -0.13662523202489574
         },
         "test": {
-          "cagr": 0.2068878796925735,
-          "max_drawdown": -0.19598820326427258,
+          "cagr": 0.2068878646251029,
+          "max_drawdown": -0.19598820962248498,
           "observations": 1409,
-          "sharpe": 1.2885172723765312,
-          "total_return": 1.8687488698923076
+          "sharpe": 1.2885171470190775,
+          "total_return": 1.86874866917096
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 123730.14193133147,
-          "max_account_drawdown": -0.08419446172345324,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 116177.45983809985,
+          "max_account_drawdown": -0.09766808139811511,
+          "minimum_account_value": 992.1398627284998,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 1005,
+          "underwater_days": 1015,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.018718269168273793
+          "worst_value_vs_contributions": -0.013539552697140467
         },
         "overlay": {
-          "cash_days": 359,
-          "cash_pct": 0.25479063165365506,
+          "cash_days": 366,
+          "cash_pct": 0.25975869410929736,
           "exits": 13
         },
         "recovery": {
-          "bottom_date": "2023-10-05",
-          "max_drawdown": -0.09719723481704423,
-          "peak_date": "2023-07-31",
-          "recovery_date": "2023-11-28",
-          "recovery_days": 54,
-          "worst_daily_return": -0.06430541051697403,
-          "worst_rolling_3m": -0.07581210764659452
+          "bottom_date": "2026-03-26",
+          "max_drawdown": -0.11420279916333609,
+          "peak_date": "2026-01-29",
+          "recovery_date": "2026-05-08",
+          "recovery_days": 43,
+          "worst_daily_return": -0.06430541032294745,
+          "worst_rolling_3m": -0.075812092435952
         },
         "test": {
-          "cagr": 0.18229831882361225,
-          "max_drawdown": -0.09719723481704423,
+          "cagr": 0.17283629960026414,
+          "max_drawdown": -0.11420279916333609,
           "observations": 1409,
-          "sharpe": 1.4015890333849916,
-          "total_return": 1.556172679690432
+          "sharpe": 1.3667479292692644,
+          "total_return": 1.4436147237954589
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 112569.92738431894,
-          "max_account_drawdown": -0.12082791642293411,
-          "minimum_account_value": 992.1398790948894,
+          "ending_value": 115988.73260889189,
+          "max_account_drawdown": -0.12099066657320068,
+          "minimum_account_value": 992.1398627284998,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 979,
+          "underwater_days": 985,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.04170906271401176
+          "worst_value_vs_contributions": -0.013902930686400361
         },
         "overlay": {
-          "cash_days": 222,
-          "cash_pct": 0.15755855216465578,
-          "exits": 5
+          "cash_days": 204,
+          "cash_pct": 0.1447835344215756,
+          "exits": 4
         },
         "recovery": {
-          "bottom_date": "2023-02-24",
-          "max_drawdown": -0.16249590477767273,
-          "peak_date": "2022-03-08",
-          "recovery_date": "2023-07-18",
-          "recovery_days": 144,
-          "worst_daily_return": -0.06430541051697403,
-          "worst_rolling_3m": -0.11343453104800916
+          "bottom_date": "2026-06-24",
+          "max_drawdown": -0.12807051995759644,
+          "peak_date": "2026-05-12",
+          "recovery_date": null,
+          "recovery_days": null,
+          "worst_daily_return": -0.06430541032294745,
+          "worst_rolling_3m": -0.1064567050219456
         },
         "test": {
-          "cagr": 0.15527271463090653,
-          "max_drawdown": -0.16249590477767273,
+          "cagr": 0.172618845698854,
+          "max_drawdown": -0.12807051995759644,
           "observations": 1409,
-          "sharpe": 1.0924912357029104,
-          "total_return": 1.2454732427145774
+          "sharpe": 1.1853314780200763,
+          "total_return": 1.4410766468680447
         }
       },
       "expert_rank": 7,
@@ -2823,14 +2823,14 @@
       "allocation_label": "DBMF 29.3% / GLD 29.4% / QQQ 28.2% / TQQQ 0.9% / VNQ 12.3%",
       "baseline": {
         "dca": {
-          "ending_value": 135873.78899987973,
-          "max_account_drawdown": -0.18236731704400477,
-          "minimum_account_value": 989.4194635587096,
+          "ending_value": 135873.7698208404,
+          "max_account_drawdown": -0.18236731704400444,
+          "minimum_account_value": 989.4195178394225,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1062,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.12621018487276303
+          "worst_value_vs_contributions": -0.1262103381542763
         },
         "overlay": {
           "cash_days": 0,
@@ -2839,85 +2839,85 @@
         },
         "recovery": {
           "bottom_date": "2026-03-26",
-          "max_drawdown": -0.19209514099718206,
+          "max_drawdown": -0.19209514099718195,
           "peak_date": "2026-01-29",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.10274245274560057,
-          "worst_rolling_3m": -0.15599723850965874
+          "worst_daily_return": -0.10274245274560045,
+          "worst_rolling_3m": -0.1559972385096592
         },
         "test": {
-          "cagr": 0.19494000539110568,
-          "max_drawdown": -0.19209514099718206,
+          "cagr": 0.19493993131513232,
+          "max_drawdown": -0.19209514099718195,
           "observations": 1410,
-          "sharpe": 1.1604200331738859,
-          "total_return": 1.7144931350584622
+          "sharpe": 1.1604198359119957,
+          "total_return": 1.7144921915198479
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 127338.28895414164,
-          "max_account_drawdown": -0.18236731704400477,
-          "minimum_account_value": 989.4194635587096,
+          "ending_value": 111599.4113650405,
+          "max_account_drawdown": -0.24203441139762794,
+          "minimum_account_value": 989.4195178394225,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 1027,
+          "underwater_days": 1035,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.12621018487276303
+          "worst_value_vs_contributions": -0.1262103381542764
         },
         "overlay": {
-          "cash_days": 318,
-          "cash_pct": 0.225531914893617,
-          "exits": 17
+          "cash_days": 325,
+          "cash_pct": 0.23049645390070922,
+          "exits": 16
         },
         "recovery": {
           "bottom_date": "2026-03-26",
-          "max_drawdown": -0.18236731704400477,
-          "peak_date": "2026-03-02",
+          "max_drawdown": -0.2549236260770684,
+          "peak_date": "2026-01-29",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.10274245274560057,
-          "worst_rolling_3m": -0.12174170903968051
+          "worst_daily_return": -0.10274245274560045,
+          "worst_rolling_3m": -0.22163295578103437
         },
         "test": {
-          "cagr": 0.16632737260147268,
-          "max_drawdown": -0.18236731704400477,
+          "cagr": 0.13945895713282463,
+          "max_drawdown": -0.2549236260770684,
           "observations": 1410,
-          "sharpe": 1.1429414515599807,
-          "total_return": 1.369574009604202
+          "sharpe": 1.0207549134770957,
+          "total_return": 1.0792956740532906
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 117087.5369517842,
-          "max_account_drawdown": -0.18236731704400477,
-          "minimum_account_value": 989.4194635587096,
+          "ending_value": 115572.04536790008,
+          "max_account_drawdown": -0.182367317044005,
+          "minimum_account_value": 989.4195178394225,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 1054,
+          "underwater_days": 1059,
           "underwater_months": 67,
-          "worst_value_vs_contributions": -0.14941914234268872
+          "worst_value_vs_contributions": -0.14946578748427675
         },
         "overlay": {
-          "cash_days": 231,
-          "cash_pct": 0.16382978723404254,
+          "cash_days": 241,
+          "cash_pct": 0.17092198581560283,
           "exits": 7
         },
         "recovery": {
           "bottom_date": "2026-03-26",
-          "max_drawdown": -0.1920951409971814,
+          "max_drawdown": -0.19209514099718172,
           "peak_date": "2026-01-29",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.10274245274560057,
-          "worst_rolling_3m": -0.15599723850965874
+          "worst_daily_return": -0.10274245274560045,
+          "worst_rolling_3m": -0.1559972385096592
         },
         "test": {
-          "cagr": 0.13045600726418027,
-          "max_drawdown": -0.1920951409971814,
+          "cagr": 0.1294010986150116,
+          "max_drawdown": -0.19209514099718172,
           "observations": 1410,
-          "sharpe": 0.8627213750194532,
-          "total_return": 0.9888389254365604
+          "sharpe": 0.8641132157616549,
+          "total_return": 0.9784548698395235
         }
       },
       "expert_rank": 8,
@@ -3219,14 +3219,14 @@
       "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
       "baseline": {
         "dca": {
-          "ending_value": 122151.28008668135,
-          "max_account_drawdown": -0.09034407492101315,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 122151.2732131244,
+          "max_account_drawdown": -0.09034408459795129,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1039,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.04044321963830899
+          "worst_value_vs_contributions": -0.04044294944362392
         },
         "overlay": {
           "cash_days": 0,
@@ -3235,85 +3235,85 @@
         },
         "recovery": {
           "bottom_date": "2022-08-04",
-          "max_drawdown": -0.12157378697536081,
+          "max_drawdown": -0.12157371337783596,
           "peak_date": "2022-03-08",
           "recovery_date": "2023-04-13",
           "recovery_days": 252,
-          "worst_daily_return": -0.05778799616727226,
-          "worst_rolling_3m": -0.09594027379217185
+          "worst_daily_return": -0.05778800557881414,
+          "worst_rolling_3m": -0.09594042653293411
         },
         "test": {
-          "cagr": 0.17732365519274063,
-          "max_drawdown": -0.12157378697536081,
+          "cagr": 0.1773236786991006,
+          "max_drawdown": -0.12157371337783596,
           "observations": 1410,
-          "sharpe": 1.2242273040399794,
-          "total_return": 1.4975922527015535
+          "sharpe": 1.224227229019574,
+          "total_return": 1.4975925323103314
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 127317.84869013312,
-          "max_account_drawdown": -0.09034407492101315,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 117779.76450646306,
+          "max_account_drawdown": -0.10656275133131166,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 1002,
+          "underwater_days": 1011,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.04044321963830899
+          "worst_value_vs_contributions": -0.04044294944362392
         },
         "overlay": {
-          "cash_days": 137,
-          "cash_pct": 0.09716312056737589,
-          "exits": 5
+          "cash_days": 134,
+          "cash_pct": 0.0950354609929078,
+          "exits": 4
         },
         "recovery": {
-          "bottom_date": "2021-12-20",
-          "max_drawdown": -0.09034407492101293,
-          "peak_date": "2021-12-10",
-          "recovery_date": "2021-12-23",
-          "recovery_days": 3,
-          "worst_daily_return": -0.05778799616727226,
-          "worst_rolling_3m": -0.05831294345421034
+          "bottom_date": "2026-03-23",
+          "max_drawdown": -0.12248047106313653,
+          "peak_date": "2026-01-29",
+          "recovery_date": null,
+          "recovery_days": null,
+          "worst_daily_return": -0.05778800557881414,
+          "worst_rolling_3m": -0.06534586913521523
         },
         "test": {
-          "cagr": 0.1942835951136972,
-          "max_drawdown": -0.09034407492101293,
+          "cagr": 0.17706555744732966,
+          "max_drawdown": -0.12248047106313653,
           "observations": 1410,
-          "sharpe": 1.3895207936221765,
-          "total_return": 1.7061427172740093
+          "sharpe": 1.3002550351864965,
+          "total_return": 1.494523723274059
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 110510.13679928714,
-          "max_account_drawdown": -0.08135712532136918,
-          "minimum_account_value": 990.6277582814802,
+          "ending_value": 106993.21071606124,
+          "max_account_drawdown": -0.08135712332800404,
+          "minimum_account_value": 990.6277418698438,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 967,
+          "underwater_days": 975,
           "underwater_months": 67,
-          "worst_value_vs_contributions": -0.04822194673792257
+          "worst_value_vs_contributions": -0.06155478920006663
         },
         "overlay": {
-          "cash_days": 256,
-          "cash_pct": 0.18156028368794327,
-          "exits": 6
+          "cash_days": 245,
+          "cash_pct": 0.17375886524822695,
+          "exits": 7
         },
         "recovery": {
           "bottom_date": "2023-05-25",
-          "max_drawdown": -0.13443952420947602,
+          "max_drawdown": -0.1466035721464679,
           "peak_date": "2022-03-08",
-          "recovery_date": "2024-04-08",
-          "recovery_days": 319,
-          "worst_daily_return": -0.05778799616727226,
-          "worst_rolling_3m": -0.08667678839765425
+          "recovery_date": "2024-05-15",
+          "recovery_days": 356,
+          "worst_daily_return": -0.05778800557881414,
+          "worst_rolling_3m": -0.08409170228662122
         },
         "test": {
-          "cagr": 0.11739559196378924,
-          "max_drawdown": -0.13443952420947602,
+          "cagr": 0.10612898618405198,
+          "max_drawdown": -0.1466035721464679,
           "observations": 1410,
-          "sharpe": 1.0038529595800032,
-          "total_return": 0.86338286723271
+          "sharpe": 0.9142780021998567,
+          "total_return": 0.7604518751434903
         }
       },
       "expert_rank": 9,
@@ -3622,14 +3622,14 @@
       "allocation_label": "DBC 25.4% / DBMF 11.6% / GLD 37.4% / SHV 4.3% / UPRO 7.1% / VTV 14.2%",
       "baseline": {
         "dca": {
-          "ending_value": 118085.18835130833,
-          "max_account_drawdown": -0.09442777609427688,
-          "minimum_account_value": 990.6277582814797,
+          "ending_value": 118085.18721400101,
+          "max_account_drawdown": -0.09442777864014062,
+          "minimum_account_value": 990.627741869844,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
           "underwater_days": 1008,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.009372241718520247
+          "worst_value_vs_contributions": -0.009372258130155964
         },
         "overlay": {
           "cash_days": 0,
@@ -3638,64 +3638,64 @@
         },
         "recovery": {
           "bottom_date": "2022-09-26",
-          "max_drawdown": -0.146114242432405,
+          "max_drawdown": -0.14611424123463423,
           "peak_date": "2022-04-18",
           "recovery_date": "2024-01-30",
           "recovery_days": 491,
-          "worst_daily_return": -0.054697023794821664,
-          "worst_rolling_3m": -0.10526405315188136
+          "worst_daily_return": -0.05469703424793615,
+          "worst_rolling_3m": -0.10526402141796887
         },
         "test": {
-          "cagr": 0.17410351169580296,
-          "max_drawdown": -0.146114242432405,
+          "cagr": 0.1741035056650404,
+          "max_drawdown": -0.14611424123463423,
           "observations": 1409,
-          "sharpe": 1.353144987046558,
-          "total_return": 1.4584485300770855
+          "sharpe": 1.3531449689598953,
+          "total_return": 1.4584484593062088
         }
       },
       "crash10_cash": {
         "dca": {
-          "ending_value": 122407.89440785271,
-          "max_account_drawdown": -0.09471351682873808,
-          "minimum_account_value": 990.6277582814797,
+          "ending_value": 113620.424784987,
+          "max_account_drawdown": -0.09410917347353243,
+          "minimum_account_value": 990.627741869844,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 951,
+          "underwater_days": 954,
           "underwater_months": 68,
-          "worst_value_vs_contributions": -0.009372241718520247
+          "worst_value_vs_contributions": -0.009372258130155964
         },
         "overlay": {
-          "cash_days": 158,
-          "cash_pct": 0.11213626685592619,
-          "exits": 5
+          "cash_days": 176,
+          "cash_pct": 0.12491128459900638,
+          "exits": 4
         },
         "recovery": {
           "bottom_date": "2026-06-24",
-          "max_drawdown": -0.10231170435349457,
-          "peak_date": "2026-05-12",
+          "max_drawdown": -0.11737187933624216,
+          "peak_date": "2026-01-29",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.054697023794821664,
-          "worst_rolling_3m": -0.05267444957222045
+          "worst_daily_return": -0.05469703424793615,
+          "worst_rolling_3m": -0.05267444973414881
         },
         "test": {
-          "cagr": 0.18983189153260804,
-          "max_drawdown": -0.10231170435349457,
+          "cagr": 0.17310590868544762,
+          "max_drawdown": -0.11737187933624216,
           "observations": 1409,
-          "sharpe": 1.5942703597646006,
-          "total_return": 1.6488054362163633
+          "sharpe": 1.512012952210865,
+          "total_return": 1.4467645552542776
         }
       },
       "ema100_cash": {
         "dca": {
-          "ending_value": 110451.78866369835,
-          "max_account_drawdown": -0.09411015261500622,
-          "minimum_account_value": 990.6277582814797,
+          "ending_value": 110700.56653502963,
+          "max_account_drawdown": -0.09414251534416895,
+          "minimum_account_value": 990.627741869844,
           "monthly_contribution": 1000.0,
           "total_contributions": 68000.0,
-          "underwater_days": 958,
+          "underwater_days": 966,
           "underwater_months": 67,
-          "worst_value_vs_contributions": -0.009372241718520247
+          "worst_value_vs_contributions": -0.009372258130155964
         },
         "overlay": {
           "cash_days": 216,
@@ -3704,19 +3704,19 @@
         },
         "recovery": {
           "bottom_date": "2026-06-24",
-          "max_drawdown": -0.10231170435349457,
+          "max_drawdown": -0.10231170693378566,
           "peak_date": "2026-05-12",
           "recovery_date": null,
           "recovery_days": null,
-          "worst_daily_return": -0.054697023794821664,
-          "worst_rolling_3m": -0.0749126299742312
+          "worst_daily_return": -0.05469703424793615,
+          "worst_rolling_3m": -0.0771578079438956
         },
         "test": {
-          "cagr": 0.1472031026816698,
-          "max_drawdown": -0.10231170435349457,
+          "cagr": 0.14909871576748324,
+          "max_drawdown": -0.10231170693378566,
           "observations": 1409,
-          "sharpe": 1.246807053815584,
-          "total_return": 1.158972001720762
+          "sharpe": 1.262686436069065,
+          "total_return": 1.1790414874768276
         }
       },
       "expert_rank": 10,
