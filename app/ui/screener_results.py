@@ -21,6 +21,7 @@ EXPERT_PATH = Path(__file__).parents[2] / "data" / "rebalance-expert-shortlist.j
 OVERLAY_PATH = Path(__file__).parents[2] / "data" / "expert-overlay-paths.json"
 EMA_EXIT_PATH = Path(__file__).parents[2] / "data" / "expert-ema-exit-rotation-results.json"
 DOWNSIDE_IDEAS_PATH = Path(__file__).parents[2] / "data" / "expert-20-downside-ideas-results.json"
+DOWNSIDE_PATHS_PATH = Path(__file__).parents[2] / "data" / "expert-downside-idea-paths.json"
 
 
 def _allocation_label(allocation: dict[str, float]) -> str:
@@ -169,6 +170,7 @@ def render_screened_results(
         overlay_paths = json.loads(OVERLAY_PATH.read_text(encoding="utf-8"))
         ema_exit = json.loads(EMA_EXIT_PATH.read_text(encoding="utf-8"))
         downside_ideas = json.loads(DOWNSIDE_IDEAS_PATH.read_text(encoding="utf-8"))
+        downside_paths = json.loads(DOWNSIDE_PATHS_PATH.read_text(encoding="utf-8"))
     except FileNotFoundError:
         st.info(f"No screened results found at `{path}`. Run the research pipeline first.")
         return
@@ -309,6 +311,32 @@ def render_screened_results(
     with st.expander("All 20 idea definitions"):
         st.markdown("\n".join(f"{index}. **{idea['name']}:** {idea['description']}" for index, idea in enumerate(downside_ideas["ideas"], 1)))
     st.dataframe(pd.DataFrame(_downside_idea_rows(downside_ideas["robust"])), use_container_width=True, hide_index=True)
+
+    st.subheader("Downside Ideas vs SPY")
+    st.caption("Toggle portfolios on or off with the checkboxes. SPY remains visible as the benchmark.")
+    selected_downside_ranks = set()
+    toggle_columns = st.columns(5)
+    for index, rank in enumerate(sorted({path["expert_rank"] for path in downside_paths["paths"]})):
+        with toggle_columns[index % 5]:
+            if st.checkbox(f"Portfolio {rank}", value=True, key=f"downside_portfolio_{rank}"):
+                selected_downside_ranks.add(rank)
+    downside_fig = go.Figure()
+    for path in downside_paths["paths"]:
+        if path["expert_rank"] not in selected_downside_ranks:
+            continue
+        downside_fig.add_trace(
+            go.Scatter(
+                x=downside_paths["dates"],
+                y=path["protected"],
+                mode="lines",
+                name=f"P{path['expert_rank']} {path['idea']} v{path['variant']}",
+                line={"width": 1},
+                opacity=0.65,
+            )
+        )
+    downside_fig.add_trace(go.Scatter(x=downside_paths["dates"], y=downside_paths["SPY"], mode="lines", name="SPY", line={"width": 3, "color": "black"}))
+    downside_fig.update_layout(title="Top Balanced Downside Ideas vs SPY", yaxis={"type": "log", "title": "Growth of $100 (log scale)"}, xaxis_title="Date", hovermode="x unified", height=700)
+    st.plotly_chart(downside_fig, use_container_width=True)
 
     st.subheader("Original vs Protected Performance")
     st.caption(
