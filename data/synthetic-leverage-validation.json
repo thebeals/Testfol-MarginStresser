@@ -1,0 +1,128 @@
+{
+  "anchors": {
+    "TMF_vs_TLT": {
+      "actual": "TMF",
+      "calibration": {
+        "actual_cumulative_return": 1.0857432824362352,
+        "actual_max_drawdown": -0.569406118232799,
+        "annualized_tracking_error": 0.03899243120669745,
+        "daily_correlation": 0.9961023800395814,
+        "end": "2021-05-28",
+        "observations": 3051,
+        "simulated_cumulative_return": 1.0821399405915737,
+        "simulated_max_drawdown": -0.5734630482522061,
+        "start": "2009-04-17"
+      },
+      "calibration_end": "2021-05-28",
+      "fitted_spread_pct": 0.5,
+      "full_period": {
+        "actual_cumulative_return": -0.6894470831013888,
+        "actual_max_drawdown": -0.9296066614080929,
+        "annualized_tracking_error": 0.03625583983253657,
+        "daily_correlation": 0.9967519040737745,
+        "end": "2026-08-14",
+        "observations": 4359,
+        "simulated_cumulative_return": -0.6859022489527759,
+        "simulated_max_drawdown": -0.9290705730931721,
+        "start": "2009-04-17"
+      },
+      "holdout": {
+        "actual_cumulative_return": -0.8511068358633901,
+        "actual_max_drawdown": -0.8913505941734008,
+        "annualized_tracking_error": 0.02889325958957642,
+        "daily_correlation": 0.9982320139639899,
+        "end": "2026-08-14",
+        "observations": 1308,
+        "simulated_cumulative_return": -0.8491466664061095,
+        "simulated_max_drawdown": -0.8893106376317027,
+        "start": "2021-06-01"
+      },
+      "holdout_start": "2021-06-01",
+      "underlying": "TLT"
+    },
+    "TQQQ_vs_QQQ": {
+      "actual": "TQQQ",
+      "calibration": {
+        "actual_cumulative_return": 162.37128911445507,
+        "actual_max_drawdown": -0.6992207884153998,
+        "annualized_tracking_error": 0.0334096827547562,
+        "daily_correlation": 0.9984808160264541,
+        "end": "2021-08-26",
+        "observations": 2905,
+        "simulated_cumulative_return": 152.07042943167446,
+        "simulated_max_drawdown": -0.6970277231083737,
+        "start": "2010-02-12"
+      },
+      "calibration_end": "2021-08-26",
+      "fitted_spread_pct": 0.65,
+      "full_period": {
+        "actual_cumulative_return": 372.5250452111687,
+        "actual_max_drawdown": -0.8165985087501955,
+        "annualized_tracking_error": 0.029431155177757087,
+        "daily_correlation": 0.9989481304423556,
+        "end": "2026-08-14",
+        "observations": 4151,
+        "simulated_cumulative_return": 359.65710790864404,
+        "simulated_max_drawdown": -0.8138739928563606,
+        "start": "2010-02-12"
+      },
+      "holdout": {
+        "actual_cumulative_return": 1.2863567229948285,
+        "actual_max_drawdown": -0.8165985087501957,
+        "annualized_tracking_error": 0.01683480555551762,
+        "daily_correlation": 0.9997444648012792,
+        "end": "2026-08-14",
+        "observations": 1246,
+        "simulated_cumulative_return": 1.3561514085228925,
+        "simulated_max_drawdown": -0.8138739928563609,
+        "start": "2021-08-27"
+      },
+      "holdout_start": "2021-08-27",
+      "underlying": "QQQ"
+    },
+    "UPRO_vs_SPY": {
+      "actual": "UPRO",
+      "calibration": {
+        "actual_cumulative_return": 44.94297340781267,
+        "actual_max_drawdown": -0.7681681976997503,
+        "annualized_tracking_error": 0.0325071833070959,
+        "daily_correlation": 0.9980107603733828,
+        "end": "2021-06-21",
+        "observations": 3017,
+        "simulated_cumulative_return": 45.844210236374536,
+        "simulated_max_drawdown": -0.7621544192582287,
+        "start": "2009-06-26"
+      },
+      "calibration_end": "2021-06-21",
+      "fitted_spread_pct": 0.4,
+      "full_period": {
+        "actual_cumulative_return": 137.62916846515589,
+        "actual_max_drawdown": -0.7681681976997503,
+        "annualized_tracking_error": 0.030039378686455325,
+        "daily_correlation": 0.9982798652228014,
+        "end": "2026-08-14",
+        "observations": 4310,
+        "simulated_cumulative_return": 145.81016115687623,
+        "simulated_max_drawdown": -0.7621544192582287,
+        "start": "2009-06-26"
+      },
+      "holdout": {
+        "actual_cumulative_return": 2.017418294515128,
+        "actual_max_drawdown": -0.6394310671287198,
+        "annualized_tracking_error": 0.023289970872601446,
+        "daily_correlation": 0.9990713080759223,
+        "end": "2026-08-14",
+        "observations": 1293,
+        "simulated_cumulative_return": 2.1340086729197965,
+        "simulated_max_drawdown": -0.6369998858024786,
+        "start": "2021-06-22"
+      },
+      "holdout_start": "2021-06-22",
+      "underlying": "SPY"
+    }
+  },
+  "date_range": {
+    "end": "2026-08-17",
+    "start": "2006-01-01"
+  }
+}

@@ -2,8 +2,8 @@
 
 Source of truth: SCREENER-SPEC.md "Ticker universe" section.
 
-62 tickers total, grouped by actual risk factor (not strategy-packaging label):
-50 tickers mapped directly to one of the 8 factors, plus 12 return-stacked
+61 active tickers total, grouped by actual risk factor (not strategy-packaging label):
+49 tickers mapped directly to one of the 8 factors, plus 12 return-stacked
 wrapper products whose underlying exposure stacks multiple factors.
 
 The 8 factors:
@@ -93,10 +93,9 @@ FACTOR_MAP: dict[str, Factor] = {
     # Broad commodities
     "DBC": Factor.COMMODITIES,
     "PDBC": Factor.COMMODITIES,
-    # Managed futures / trend
+    # Managed futures / trend. CTA is intentionally excluded until validated.
     "DBMF": Factor.MANAGED_FUTURES,
     "KMLM": Factor.MANAGED_FUTURES,
-    "CTA": Factor.MANAGED_FUTURES,
     # Real estate
     "VNQ": Factor.REAL_ESTATE,
 }

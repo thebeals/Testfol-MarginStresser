@@ -1,0 +1,786 @@
+{
+  "available_tickers": [
+    "ALLW",
+    "AVUV",
+    "BIL",
+    "BND",
+    "BNDX",
+    "CAOS",
+    "CTA",
+    "DBC",
+    "DBMF",
+    "EDV",
+    "EZU",
+    "GLD",
+    "GLDM",
+    "GOVT",
+    "IEF",
+    "KMLM",
+    "MTUM",
+    "NTSX",
+    "PDBC",
+    "PTLC",
+    "QQQ",
+    "RPAR",
+    "RSBT",
+    "RSBY",
+    "RSMV",
+    "RSSB",
+    "RSST",
+    "RSSX",
+    "RSSY",
+    "SCHP",
+    "SGOV",
+    "SHV",
+    "SPY",
+    "SSO",
+    "TIP",
+    "TLT",
+    "TMF",
+    "TQQQ",
+    "TYD",
+    "UBT",
+    "UPAR",
+    "UPRO",
+    "USMV",
+    "VBR",
+    "VEA",
+    "VGIT",
+    "VGLT",
+    "VNQ",
+    "VOO",
+    "VPU",
+    "VT",
+    "VTI",
+    "VTIP",
+    "VTV",
+    "VWO",
+    "VXUS",
+    "XLE",
+    "XLI",
+    "XLP",
+    "XLU",
+    "XLV",
+    "ZROZ"
+  ],
+  "by_size": {
+    "3": {
+      "feasible": 0,
+      "sampled": 5000
+    },
+    "4": {
+      "feasible": 22,
+      "sampled": 5000
+    },
+    "5": {
+      "feasible": 49,
+      "sampled": 5000
+    },
+    "6": {
+      "feasible": 83,
+      "sampled": 5000
+    },
+    "7": {
+      "feasible": 101,
+      "sampled": 5000
+    },
+    "8": {
+      "feasible": 96,
+      "sampled": 5000
+    }
+  },
+  "coverage": {
+    "ALLW": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "AVUV": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "BIL": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "BND": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "BNDX": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "CAOS": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "CTA": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 152
+    },
+    "DBC": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "DBMF": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "EDV": {
+      "2008_gfc": 280,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "EZU": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "GLD": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "GLDM": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "GOVT": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "IEF": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "KMLM": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "MTUM": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "NTSX": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "PDBC": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "PTLC": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "QQQ": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "RPAR": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "RSBT": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSBY": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSMV": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSSB": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSST": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSSX": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "RSSY": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 0
+    },
+    "SCHP": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "SGOV": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 196
+    },
+    "SHV": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "SPY": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "SSO": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "TIP": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "TLT": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "TMF": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "TQQQ": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "TYD": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "UBT": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "UPAR": {
+      "2008_gfc": 0,
+      "2020_covid": 0,
+      "2022_rates": 195
+    },
+    "UPRO": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "USMV": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VBR": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VEA": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VGIT": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VGLT": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VNQ": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VOO": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VPU": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VT": {
+      "2008_gfc": 176,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VTI": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VTIP": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VTV": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VWO": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "VXUS": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "XLE": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "XLI": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "XLP": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "XLU": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "XLV": {
+      "2008_gfc": 356,
+      "2020_covid": 24,
+      "2022_rates": 196
+    },
+    "ZROZ": {
+      "2008_gfc": 0,
+      "2020_covid": 24,
+      "2022_rates": 196
+    }
+  },
+  "date_range": {
+    "end": "2026-08-17",
+    "start": "2006-01-01"
+  },
+  "eligible_tickers": [
+    "BIL",
+    "BND",
+    "DBC",
+    "DBMF",
+    "EDV",
+    "EZU",
+    "GLD",
+    "IEF",
+    "KMLM",
+    "QQQ",
+    "SHV",
+    "SPY",
+    "SSO",
+    "TIP",
+    "TLT",
+    "TMF",
+    "TQQQ",
+    "TYD",
+    "UBT",
+    "UPRO",
+    "VBR",
+    "VEA",
+    "VNQ",
+    "VPU",
+    "VT",
+    "VTI",
+    "VTV",
+    "VWO",
+    "XLE",
+    "XLI",
+    "XLP",
+    "XLU",
+    "XLV"
+  ],
+  "examples": [
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.35382002660558753,
+        "gold": 0.07646168417183137,
+        "managed_futures": 0.23190383562134884,
+        "real_duration": 0.33781445360123225
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.4747347674397621,
+        "2020_covid": 0.6525110683936419,
+        "2022_rates": 0.5490561688747999
+      },
+      "tickers": [
+        "GLD",
+        "KMLM",
+        "SPY",
+        "TIP"
+      ],
+      "weights": {
+        "GLD": 0.055783,
+        "KMLM": 0.217821,
+        "SPY": 0.201909,
+        "TIP": 0.524487
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.42297029743014447,
+        "nominal_duration": 0.49096367453777956,
+        "real_duration": 0.05156850298545948,
+        "real_estate": 0.03449752504661654
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.7737135913137985,
+        "2020_covid": 0.9118847252605499,
+        "2022_rates": 0.7154694560247026
+      },
+      "tickers": [
+        "TIP",
+        "VNQ",
+        "UBT",
+        "TQQQ"
+      ],
+      "weights": {
+        "TIP": 0.27009,
+        "TQQQ": 0.201469,
+        "UBT": 0.476278,
+        "VNQ": 0.052163
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.4307877647218499,
+        "managed_futures": 0.07680238352499273,
+        "nominal_duration": 0.279043401748851,
+        "real_duration": 0.21336645000430635
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.6859120716958234,
+        "2020_covid": 0.6841282766848095,
+        "2022_rates": 0.7579060865457925
+      },
+      "tickers": [
+        "TIP",
+        "EZU",
+        "IEF",
+        "KMLM"
+      ],
+      "weights": {
+        "EZU": 0.173094,
+        "IEF": 0.398921,
+        "KMLM": 0.144349,
+        "TIP": 0.283637
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.17643145801416812,
+        "managed_futures": 0.12099596830778556,
+        "nominal_duration": 0.4373659151097137,
+        "real_estate": 0.26520665856833275
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.7737395264401531,
+        "2020_covid": 0.913119945926367,
+        "2022_rates": 0.7164152015560273
+      },
+      "tickers": [
+        "TLT",
+        "KMLM",
+        "VNQ",
+        "QQQ"
+      ],
+      "weights": {
+        "KMLM": 0.254272,
+        "QQQ": 0.160506,
+        "TLT": 0.435435,
+        "VNQ": 0.149787
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.3687939002894351,
+        "gold": 0.26959902918598405,
+        "real_duration": 0.1662878289614299,
+        "real_estate": 0.195319241563151
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.6063249070852866,
+        "2020_covid": 0.8707621495131064,
+        "2022_rates": 0.7319346430605493
+      },
+      "tickers": [
+        "VPU",
+        "GLD",
+        "TIP",
+        "VNQ"
+      ],
+      "weights": {
+        "GLD": 0.201176,
+        "TIP": 0.485245,
+        "VNQ": 0.090778,
+        "VPU": 0.222801
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "commodities": 0.35273948121833315,
+        "equity": 0.35883297731099817,
+        "managed_futures": 0.06760192449011844,
+        "nominal_duration": 0.2208256169805502
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.6771368572700912,
+        "2020_covid": 0.8452804984229849,
+        "2022_rates": 0.5210005445244504
+      },
+      "tickers": [
+        "UBT",
+        "DBC",
+        "VT",
+        "KMLM"
+      ],
+      "weights": {
+        "DBC": 0.272125,
+        "KMLM": 0.2493,
+        "UBT": 0.195979,
+        "VT": 0.282596
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.44531746045909154,
+        "nominal_duration": 0.07635090757143191,
+        "real_duration": 0.08854327894998891,
+        "real_estate": 0.3897883530194876
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.6595957494496485,
+        "2020_covid": 0.8678507202787744,
+        "2022_rates": 0.6762779915241264
+      },
+      "tickers": [
+        "XLP",
+        "UBT",
+        "VNQ",
+        "TIP"
+      ],
+      "weights": {
+        "TIP": 0.363413,
+        "UBT": 0.096416,
+        "VNQ": 0.164457,
+        "XLP": 0.375714
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.059633315721290346,
+        "gold": 0.13429878643696896,
+        "nominal_duration": 0.32318211052979834,
+        "real_duration": 0.4828857873119424
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.6859120716958234,
+        "2020_covid": 0.6841282766848095,
+        "2022_rates": 0.7579060865457925
+      },
+      "tickers": [
+        "TQQQ",
+        "GLD",
+        "IEF",
+        "TIP"
+      ],
+      "weights": {
+        "GLD": 0.085919,
+        "IEF": 0.357982,
+        "TIP": 0.526799,
+        "TQQQ": 0.029301
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "equity": 0.44602456020813314,
+        "gold": 0.15210813862984468,
+        "nominal_duration": 0.3541392519543779,
+        "real_duration": 0.0477280492076443
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.4293525050739193,
+        "2020_covid": 0.6284376830631571,
+        "2022_rates": 0.6652329808442138
+      },
+      "tickers": [
+        "GLD",
+        "EDV",
+        "SPY",
+        "TIP"
+      ],
+      "weights": {
+        "EDV": 0.295538,
+        "GLD": 0.173328,
+        "SPY": 0.388352,
+        "TIP": 0.142781
+      }
+    },
+    {
+      "factor_breadth": 4,
+      "factor_variance_share": {
+        "commodities": 0.07127528021353043,
+        "equity": 0.4804840555085122,
+        "gold": 0.3754990290190043,
+        "nominal_duration": 0.0727416352589532
+      },
+      "stress_correlations": {
+        "2008_gfc": 0.46154345567214083,
+        "2020_covid": 0.7277890433793701,
+        "2022_rates": 0.5207607648118164
+      },
+      "tickers": [
+        "QQQ",
+        "GLD",
+        "UBT",
+        "DBC"
+      ],
+      "weights": {
+        "DBC": 0.095731,
+        "GLD": 0.365498,
+        "QQQ": 0.394584,
+        "UBT": 0.144186
+      }
+    }
+  ],
+  "price_end": "2026-08-14",
+  "price_start": "2006-01-03",
+  "samples_per_size": 5000,
+  "seed": 42,
+  "simulated_tickers": [
+    "UPRO",
+    "SSO",
+    "TQQQ",
+    "TMF",
+    "TYD",
+    "UBT"
+  ],
+  "source_by_ticker": {
+    "ALLW": "observed",
+    "AVUV": "observed",
+    "BIL": "observed",
+    "BND": "observed",
+    "BNDX": "observed",
+    "CAOS": "observed",
+    "CTA": "observed",
+    "DBC": "observed",
+    "DBMF": "testfol_simulated",
+    "EDV": "observed",
+    "EZU": "observed",
+    "GLD": "observed",
+    "GLDM": "observed",
+    "GOVT": "observed",
+    "IEF": "observed",
+    "KMLM": "testfol_simulated",
+    "MTUM": "observed",
+    "NTSX": "observed",
+    "PDBC": "observed",
+    "PTLC": "observed",
+    "QQQ": "observed",
+    "RPAR": "observed",
+    "RSBT": "observed",
+    "RSBY": "observed",
+    "RSMV": "observed",
+    "RSSB": "observed",
+    "RSST": "observed",
+    "RSSX": "observed",
+    "RSSY": "observed",
+    "SCHP": "observed",
+    "SGOV": "observed",
+    "SHV": "observed",
+    "SPY": "observed",
+    "SSO": "letf_simulated",
+    "TIP": "observed",
+    "TLT": "observed",
+    "TMF": "letf_simulated",
+    "TQQQ": "letf_simulated",
+    "TYD": "letf_simulated",
+    "UBT": "letf_simulated",
+    "UPAR": "observed",
+    "UPRO": "letf_simulated",
+    "USMV": "observed",
+    "VBR": "observed",
+    "VEA": "observed",
+    "VGIT": "observed",
+    "VGLT": "observed",
+    "VNQ": "observed",
+    "VOO": "observed",
+    "VPU": "observed",
+    "VT": "observed",
+    "VTI": "observed",
+    "VTIP": "observed",
+    "VTV": "observed",
+    "VWO": "observed",
+    "VXUS": "observed",
+    "XLE": "observed",
+    "XLI": "observed",
+    "XLP": "observed",
+    "XLU": "observed",
+    "XLV": "observed",
+    "ZROZ": "observed"
+  },
+  "testfol_simulated_tickers": [
+    "DBMF",
+    "KMLM"
+  ],
+  "ticker_count": 33
+}

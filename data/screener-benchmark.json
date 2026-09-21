@@ -1,0 +1,34 @@
+{
+  "benchmark": "SPY",
+  "date_range": {
+    "end": "2026-08-17",
+    "start": "2006-01-01"
+  },
+  "periods": {
+    "test": {
+      "cagr": 0.15725057569924106,
+      "end": "2026-08-14",
+      "max_drawdown": -0.24496405776638686,
+      "observations": 1409,
+      "sharpe": 0.9566818790421141,
+      "start": "2021-01-04"
+    },
+    "train": {
+      "cagr": 0.07495771714975596,
+      "end": "2016-12-30",
+      "max_drawdown": -0.5518947032675816,
+      "observations": 2768,
+      "sharpe": 0.4601882015587316,
+      "start": "2006-01-03"
+    },
+    "validation": {
+      "cagr": 0.1571092337079112,
+      "end": "2020-12-31",
+      "max_drawdown": -0.3371727424890647,
+      "observations": 1006,
+      "sharpe": 0.8278033241017637,
+      "start": "2017-01-03"
+    }
+  },
+  "source": "yfinance auto_adjust=True"
+}
